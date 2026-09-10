@@ -15,17 +15,26 @@ let configured: boolean | null = null
 
 export function isPushConfigured(): boolean {
   if (configured === null) {
-    configured = Boolean(env.VAPID_PUBLIC_KEY && env.VAPID_PRIVATE_KEY)
+    if (!env.VAPID_PUBLIC_KEY || !env.VAPID_PRIVATE_KEY) {
+      logger.info('Web push disabled — VAPID keys are not set')
+      configured = false
+      return configured
+    }
 
-    if (configured) {
+    try {
       webpush.setVapidDetails(
         // Push services require a contact URI; mailto: is the conventional one.
         env.VAPID_SUBJECT,
         env.VAPID_PUBLIC_KEY,
         env.VAPID_PRIVATE_KEY,
       )
-    } else {
-      logger.info('Web push disabled — VAPID keys are not set')
+      configured = true
+    } catch (err) {
+      // A malformed subject or key would otherwise throw on every single
+      // notification. Log it once and carry on with push switched off —
+      // in-app notifications are unaffected.
+      logger.error({ err }, 'Web push disabled — VAPID configuration is invalid')
+      configured = false
     }
   }
   return configured

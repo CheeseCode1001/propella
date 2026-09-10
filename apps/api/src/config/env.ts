@@ -69,7 +69,13 @@ const EnvSchema = z.object({
   // Blank disables push delivery, the same way a blank Resend key disables email.
   VAPID_PUBLIC_KEY: z.string().optional().default(''),
   VAPID_PRIVATE_KEY: z.string().optional().default(''),
-  VAPID_SUBJECT: z.string().default('mailto:support@propella.app'),
+  // Hosting dashboards write an empty string for a variable added with no
+  // value, and a zod default only covers undefined — so map blank to the
+  // default explicitly rather than letting an empty subject reach web-push.
+  VAPID_SUBJECT: z
+    .string()
+    .transform((v) => v.trim() || 'mailto:support@propella.app')
+    .default('mailto:support@propella.app'),
 
   // Google Gemini — powers quiz generation, mock exams and the AI assistant.
   GEMINI_API_KEY: z.string().optional().default(''),
@@ -77,6 +83,15 @@ const EnvSchema = z.object({
   GEMINI_CHAT_MODEL: z.string().default('gemini-flash-latest'),
 
   RESEND_API_KEY: z.string().optional().default(''),
+
+  // Must be on a domain verified with Resend. Free mailbox providers
+  // (gmail.com and friends) cannot be verified, so they will be rejected.
+  // Blank falls back to Resend's sandbox sender, which only reaches your own
+  // account address.
+  EMAIL_FROM: z.string().optional().default(''),
+
+  // Where replies land. Not authenticated, so an ordinary mailbox is fine.
+  EMAIL_REPLY_TO: z.string().optional().default(''),
   FRONTEND_URL: z.string().min(1, 'FRONTEND_URL is required'),
   // Origin of the admin dashboard (apps/admin).
   ADMIN_URL: z.string().default('http://localhost:3001'),

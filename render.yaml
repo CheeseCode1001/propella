@@ -11,15 +11,14 @@ services:
     region: frankfurt # closest to the eu-west-1 database
     plan: starter # free tier sleeps after 15 min, which breaks study reminders
 
+    # One line, chained with &&. Render joins a multi-line block into a single
+    # command without inserting separators, so newlines alone would run this as
+    # `corepack enable pnpm install …` and fail.
+    #
     # pnpm workspaces: the shared package must be built before the API compiles
     # against it. `prisma migrate deploy` runs here rather than at boot so a bad
     # migration fails the deploy instead of a running instance.
-    buildCommand: |
-      corepack enable
-      pnpm install --frozen-lockfile
-      pnpm --filter @propella/shared build
-      pnpm --filter @propella/api exec prisma migrate deploy
-      pnpm --filter @propella/api build
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @propella/shared build && pnpm --filter @propella/api exec prisma migrate deploy && pnpm --filter @propella/api build
 
     startCommand: node apps/api/dist/server.js
 
@@ -73,7 +72,12 @@ services:
       # Blank disables sending; sign-up still works, codes just go to the log.
       - key: RESEND_API_KEY
         sync: false
+      # Must be on a domain verified with Resend — a Gmail address is rejected.
+      # Blank falls back to Resend's sandbox sender (testing only).
       - key: EMAIL_FROM
+        sync: false
+      # Replies land here; an ordinary mailbox is fine.
+      - key: EMAIL_REPLY_TO
         sync: false
 
       # ─── Web push ─────────────────────────────────────────────────────

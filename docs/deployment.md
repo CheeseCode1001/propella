@@ -68,14 +68,12 @@ point it at the repo, and it will prompt for every secret.
 | Instance type | Starter or above |
 | Health check path | `/health` |
 
-**Build command:**
+**Build command** — paste this as a **single line**. Render's build field runs
+one command, so newlines are not separators; without `&&` it becomes
+`corepack enable pnpm install …` and fails immediately:
 
 ```bash
-corepack enable
-pnpm install --frozen-lockfile
-pnpm --filter @propella/shared build
-pnpm --filter @propella/api exec prisma migrate deploy
-pnpm --filter @propella/api build
+corepack enable && pnpm install --frozen-lockfile && pnpm --filter @propella/shared build && pnpm --filter @propella/api exec prisma migrate deploy && pnpm --filter @propella/api build
 ```
 
 **Start command:**
@@ -108,25 +106,69 @@ live until the new build succeeds.
 | `GEMINI_QUIZ_MODEL` | — | `gemini-flash-latest` |
 | `GEMINI_CHAT_MODEL` | — | `gemini-flash-latest` |
 | `RESEND_API_KEY` | — | Blank disables email; sign-up still works |
-| `EMAIL_FROM` | — | e.g. `Propella <noreply@yourdomain.com>` |
+| `EMAIL_FROM` | — | Must be on a **domain you verified with Resend** — see below |
+| `EMAIL_REPLY_TO` | — | Where replies go. An ordinary Gmail address is fine here |
 | `VAPID_PUBLIC_KEY` | — | From `pnpm --filter @propella/api push:keys` |
 | `VAPID_PRIVATE_KEY` | — | Same command. **Secret** — never ship to the browser |
-| `VAPID_SUBJECT` | — | `mailto:you@yourdomain.com` |
-| `SUPER_ADMIN_EMAIL` | ✅ | The first admin account |
-| `SUPER_ADMIN_PASSWORD` | ✅ | A real password — the seed refuses defaults in production |
+| `VAPID_SUBJECT` | — | `mailto:` any address you read — Gmail is fine. Defaults if blank |
+| `SUPER_ADMIN_EMAIL` | ⚠️ | The first admin account. Deferrable — see below |
+| `SUPER_ADMIN_PASSWORD` | ⚠️ | A real password. Both must be set together |
 | `COOKIE_DOMAIN` | — | Only if API and web share a parent domain (see below) |
 
 ### Seeding
 
-Once the service is live, run this **once** from Render's shell
-(**Dashboard → Shell**):
+Seeding writes to the **database**, not to the server — so run it from your own
+machine. You do not need Render's shell, which the free plan does not provide
+anyway.
+
+Your `apps/api/.env` already points at the production Supabase database, so:
 
 ```bash
 pnpm --filter @propella/api seed
 ```
 
-That loads the subject syllabus and creates the super admin from
-`SUPER_ADMIN_EMAIL` / `SUPER_ADMIN_PASSWORD`. It is idempotent — safe to re-run.
+That loads the subject syllabus and, in development, creates a super admin with
+default credentials. It is idempotent — safe to re-run, and re-running after
+editing `src/seeds/subjects.ts` updates the syllabus in place.
+
+**Because dev and production share one database, that seed has already run.**
+The syllabus is loaded and `admin@propella.local` exists.
+
+#### Optional: seed automatically on deploy
+
+If you would rather not run it by hand, append it to Render's build command.
+It is idempotent, so running on every deploy is harmless:
+
+```bash
+pnpm --filter @propella/api seed
+```
+
+The super-admin part still skips in production unless `SUPER_ADMIN_EMAIL` and
+`SUPER_ADMIN_PASSWORD` are both set.
+
+### ⚠️ Change the seeded admin password before launch
+
+The existing `admin@propella.local` account was created with the development
+default. **That is now a production credential on a publicly reachable API.**
+
+The normal reset flow needs email, which a fresh deployment usually lacks, so
+there is a script for exactly this:
+
+```bash
+pnpm --filter @propella/api admin:password admin@propella.local 'a-real-password'
+
+# Or omit the password and it prompts without echoing:
+pnpm --filter @propella/api admin:password admin@propella.local
+```
+
+Better still, use your own email address as the admin rather than the
+placeholder:
+
+```bash
+# Sign up through the student app first, then:
+pnpm --filter @propella/api admin:grant you@example.com
+pnpm --filter @propella/api admin:list
+```
 
 ---
 
@@ -201,6 +243,195 @@ The API sets that automatically when `NODE_ENV=production`. Locally it uses
 
 ---
 
+## Running on Render's free plan
+
+It works, with three real limitations. None of them need a code change, but you
+should know about them before students use it.
+
+### No shell
+
+Free services have no **Shell** tab. Everything you might have wanted a shell
+for is a database operation, so run it from your machine instead — the Supabase
+database is reachable from anywhere:
+
+```bash
+pnpm --filter @propella/api seed              # syllabus + super admin
+pnpm --filter @propella/api db:deploy         # apply migrations
+pnpm --filter @propella/api admin:grant  you@example.com
+pnpm --filter @propella/api admin:list
+pnpm --filter @propella/api admin:password you@example.com
+```
+
+The only thing that genuinely needs the server is reading logs, and those are
+in the Render dashboard.
+
+### It sleeps after 15 minutes
+
+An idle free service spins down, and the next request waits **around 50 seconds**
+for it to wake. In practice:
+
+- The first student to arrive after a quiet spell sees a very slow page.
+- **Scheduled work does not run while asleep.** Study reminders, streak warnings
+  and the weekly digest fire from an in-process scheduler, so they are delayed
+  until something wakes the service — or missed entirely.
+- A long AI answer can be cut off if the service sleeps mid-stream.
+
+Pinging the service to keep it awake is against Render's terms and burns the
+750 free hours anyway. If reminders matter, that is the reason to upgrade.
+
+### 750 instance-hours a month
+
+One always-on service uses about 730, so a single free service fits — but two do
+not. Keep the API as your only Render service; both front-ends are on Vercel,
+which does not count against this.
+
+### What still works fine on free
+
+Sign-up, study, quizzes, mocks, the syllabus reader, notes, the planner,
+achievements, push notifications and admin broadcasts all work normally. It is a
+perfectly reasonable way to demo the app or run a small pilot — just not to
+launch reminders on.
+
+---
+
+## What you can leave until later
+
+Only these actually block a first deploy:
+
+`NODE_ENV` · `DATABASE_URL` · `DIRECT_URL` · `JWT_ACCESS_SECRET` ·
+`JWT_REFRESH_SECRET` · `FRONTEND_URL` · `ADMIN_URL` · `GEMINI_API_KEY`
+
+Everything else can be added afterwards with a redeploy. Specifically:
+
+### `EMAIL_REPLY_TO` — leave it out entirely
+
+No consequence at all. The reply-to header is simply omitted, and replies go to
+whatever `EMAIL_FROM` is. Add it whenever you like.
+
+### `VAPID_SUBJECT` — safe to skip
+
+Falls back to `mailto:support@propella.app`. Push services do not verify that
+you own the address, so push still works; it is only the contact point if a
+push service needs to reach the operator. Blank and whitespace are both treated
+as "use the default", so an empty variable in the Render dashboard is harmless.
+
+Worth setting to an address you actually read before you have many users.
+
+### `SUPER_ADMIN_EMAIL` / `SUPER_ADMIN_PASSWORD` — deferrable, with a caveat
+
+The API boots fine without them. The seed logs
+`Skipping super-admin seed: …` and moves on — **so there will be no admin
+account, and no way into the admin console.**
+
+Set them together whenever you are ready, then re-run the seed:
+
+```bash
+pnpm --filter @propella/api seed
+```
+
+If you would rather not put a password in the environment at all, sign up
+through the student app as normal and promote that account instead:
+
+```bash
+pnpm --filter @propella/api admin:grant you@example.com
+pnpm --filter @propella/api admin:list
+```
+
+Either route works, and both are idempotent. Note that setting
+`SUPER_ADMIN_EMAIL` to an address that already has an account **promotes** it
+rather than creating a second one, and never overwrites its password.
+
+---
+
+## Email: what a Gmail address can and cannot be
+
+Two different addresses, two different rules.
+
+### `EMAIL_FROM` — **a Gmail address will not work**
+
+Resend will only send `from` an address on a domain you have **verified with
+Resend**, which means adding SPF/DKIM records to that domain's DNS. You cannot
+add DNS records to `gmail.com`, so `you@gmail.com` is rejected. This is not a
+Resend quirk — every reputable sender works this way, because otherwise anyone
+could send mail claiming to be you.
+
+Your options:
+
+| Option | What happens | Good for |
+|---|---|---|
+| **Leave `EMAIL_FROM` blank** | Falls back to Resend's sandbox sender, `onboarding@resend.dev`. Works instantly with no domain — but **only delivers to the address that owns your Resend account** | Testing |
+| **Verify a domain** | Buy a domain (~$10/year), add it in Resend → Domains, paste the DNS records it gives you, then set `EMAIL_FROM="Propella <noreply@yourdomain.com>"` | Production |
+
+Until you verify a domain, real students will not receive verification codes.
+Sign-up still works — the code is written to the Render logs — but you cannot
+launch on that.
+
+### `EMAIL_REPLY_TO` — **a Gmail address is fine**
+
+Reply-to is not authenticated, so it can be any mailbox. Set it to your Gmail
+and replies to Propella's emails land in your normal inbox:
+
+```
+EMAIL_REPLY_TO=youraddress@gmail.com
+```
+
+### `VAPID_SUBJECT` — **a Gmail address is fine**
+
+This is only a contact URI. Push services (Google, Mozilla, Apple) use it to
+reach the operator if a server starts misbehaving. **No mail is ever sent to
+it**, it is never shown to students, and it needs no verification. It just has
+to be a valid `mailto:` or `https:` URI:
+
+```
+VAPID_SUBJECT=mailto:youraddress@gmail.com
+```
+
+---
+
+## Generating the VAPID keys
+
+VAPID is a keypair that proves to a push service that a notification really came
+from your server. You generate it **once per environment** and it is not issued
+by anyone — there is no account to sign up for.
+
+```bash
+pnpm --filter @propella/api push:keys
+```
+
+It prints something like:
+
+```
+Add these to apps/api/.env:
+
+VAPID_PUBLIC_KEY=BP7ahRbpUNBWNO_XRbk3LCoGTwHGhCKJwaYDYhViPJJABKIWlckml_g3gZPTblL8qqPTRQAZvnvtnZaazXRudfo
+VAPID_PRIVATE_KEY=6HxSF8wXLWPshX4esrS8T27WSvBGMpOiZdOCHG5JsD8
+
+And to apps/web/.env.local:
+
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=BP7ahRbpUNBWNO_XRbk3LCoGTwHGhCKJwaYDYhViPJJABKIWlckml_g3gZPTblL8qqPTRQAZvnvtnZaazXRudfo
+```
+
+Where each value goes:
+
+| Value | Goes to | Notes |
+|---|---|---|
+| `VAPID_PUBLIC_KEY` | **Render** | Also shipped to browsers — not a secret |
+| `VAPID_PRIVATE_KEY` | **Render only** | A secret. Never commit it, never put it in a `NEXT_PUBLIC_*` variable |
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | **Vercel** (web project) | Must be **byte-identical** to `VAPID_PUBLIC_KEY` on Render, or subscriptions are rejected |
+| `VAPID_SUBJECT` | **Render** | `mailto:` your address — Gmail is fine |
+
+Two rules:
+
+- **Generate a separate pair for production.** The dev pair is already in
+  `apps/api/.env`; do not reuse it.
+- **Never rotate the keys on a live deployment** unless you have to. Changing
+  them invalidates every existing subscription, and every student has to turn
+  notifications on again.
+
+Leave all three blank and push is simply off — in-app notifications still work.
+
+---
+
 ## Gotcha: a stale `DATABASE_URL` in your shell
 
 This machine has a `DATABASE_URL` set in the **Windows user environment** that
@@ -250,6 +481,10 @@ pnpm --filter @propella/api seed
 # Grant admin access to an existing account
 pnpm --filter @propella/api admin:grant someone@example.com
 pnpm --filter @propella/api admin:list
+
+# Set a password directly (no email needed — use when mail is not configured,
+# or to change the seeded super admin on a host with no shell)
+pnpm --filter @propella/api admin:password someone@example.com
 
 # Verify a deployment end to end (signup → study → quiz → admin).
 # The base URL is an argument; with none it targets localhost:5000.

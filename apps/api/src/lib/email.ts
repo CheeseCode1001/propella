@@ -3,7 +3,25 @@ import { env } from '../config/env'
 import { logger } from '../config/logger'
 
 const resend = new Resend(env.RESEND_API_KEY || 're_placeholder')
-const FROM = 'Propella <onboarding@resend.dev>'
+
+/**
+ * The sender address.
+ *
+ * Resend only accepts a `from` on a domain you have verified with it, which
+ * rules out free mailbox providers — you cannot add DNS records to gmail.com.
+ * The default is Resend's sandbox sender, which works with no domain but only
+ * delivers to the address that owns the Resend account, so it is fine for
+ * testing and not for real students.
+ *
+ * In production set EMAIL_FROM to an address on your own verified domain.
+ */
+const FROM = env.EMAIL_FROM || 'Propella <onboarding@resend.dev>'
+
+/**
+ * Where replies go. A normal mailbox is fine here — unlike `from`, the
+ * reply-to address is not authenticated, so a Gmail address works.
+ */
+const REPLY_TO = env.EMAIL_REPLY_TO || undefined
 
 function base(body: string): string {
   return `<!DOCTYPE html>
@@ -48,6 +66,7 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string): Prom
   try {
     await resend.emails.send({
       from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
       to,
       subject: 'Reset your Propella password',
       html: base(`
@@ -70,6 +89,7 @@ export async function sendVerificationCodeEmail(to: string, code: string): Promi
   try {
     await resend.emails.send({
       from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
       to,
       subject: `${code} is your Propella verification code`,
       html: base(`
@@ -89,6 +109,7 @@ export async function sendStreakWarningEmail(to: string, streak: number): Promis
   try {
     await resend.emails.send({
       from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
       to,
       subject: `Your ${streak}-day streak is at risk`,
       html: base(`
@@ -114,6 +135,7 @@ export async function sendStudyReminderEmail(
     const link = payload.deeplink ? `${env.FRONTEND_URL}${payload.deeplink}` : `${env.FRONTEND_URL}/dashboard`
     await resend.emails.send({
       from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
       to,
       subject: payload.title,
       html: base(`
@@ -145,6 +167,7 @@ export async function sendWeeklyDigestEmail(
   try {
     await resend.emails.send({
       from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
       to,
       subject: 'Your Propella week in review',
       html: base(`
