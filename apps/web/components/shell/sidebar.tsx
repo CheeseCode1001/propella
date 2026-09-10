@@ -2,10 +2,11 @@
 import { Link } from '@/lib/i18n/navigation'
 import { usePathname } from 'next/navigation'
 import {
-  LayoutDashboard, Compass, Calendar, ClipboardCheck, FileText,
-  Timer, Sparkles, TrendingUp, Trophy, User, CreditCard, Bell,
-  LifeBuoy, LogOut,
-} from 'lucide-react'
+  Home2, BookSquare, Calendar, TaskSquare, DocumentText,
+  Timer1, Magicpen, Chart2, Cup, Profile, Card, Notification,
+  MessageQuestion, LogoutCurve, Lock1, Note1,
+} from 'iconsax-reactjs'
+import { NavIcon } from '@/components/common/nav-icon'
 import { useTranslations } from 'next-intl'
 import { Logo } from '@/components/common/logo'
 import { Badge } from '@/components/ui/badge'
@@ -14,6 +15,7 @@ import { SignOutDialog } from '@/components/auth/sign-out-dialog'
 import { LocaleSwitcher } from '@/components/common/locale-switcher'
 import { cn } from '@/lib/utils/cn'
 import { useState, useRef, useEffect } from 'react'
+import { useMarathonActive } from '@/lib/stores/marathon-store'
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -21,16 +23,21 @@ export function Sidebar() {
   const tNav = useTranslations('nav')
   const tAuth = useTranslations('auth')
 
+  const marathonActive = useMarathonActive()
+
+  // While a marathon is running the destinations that pull attention away from
+  // studying are locked. Study surfaces stay reachable.
   const navItems = [
-    { href: '/dashboard', icon: LayoutDashboard, label: tNav('dashboard') },
-    { href: '/roadmap', icon: Compass, label: tNav('roadmap') },
-    { href: '/planner', icon: Calendar, label: tNav('planner') },
-    { href: '/quizzes', icon: ClipboardCheck, label: tNav('quizzes') },
-    { href: '/mocks', icon: FileText, label: tNav('mocks') },
-    { href: '/marathon', icon: Timer, label: tNav('marathon') },
-    { href: '/assistant', icon: Sparkles, label: tNav('assistant') },
-    { href: '/progress', icon: TrendingUp, label: tNav('progress') },
-    { href: '/leaderboard', icon: Trophy, label: tNav('leaderboard') },
+    { href: '/dashboard', icon: Home2, label: tNav('dashboard'), lockable: false },
+    { href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false },
+    { href: '/notes', icon: Note1, label: tNav('notes'), lockable: false },
+    { href: '/planner', icon: Calendar, label: tNav('planner'), lockable: false },
+    { href: '/quizzes', icon: TaskSquare, label: tNav('quizzes'), lockable: false },
+    { href: '/mocks', icon: DocumentText, label: tNav('mocks'), lockable: false },
+    { href: '/marathon', icon: Timer1, label: tNav('marathon'), lockable: false },
+    { href: '/assistant', icon: Magicpen, label: tNav('assistant'), lockable: false },
+    { href: '/progress', icon: Chart2, label: tNav('progress'), lockable: true },
+    { href: '/leaderboard', icon: Cup, label: tNav('leaderboard'), lockable: true },
   ]
   const [menuOpen, setMenuOpen] = useState(false)
   const [signOutOpen, setSignOutOpen] = useState(false)
@@ -72,34 +79,40 @@ export function Sidebar() {
 
       {/* Nav */}
       <nav style={{ flex: 1, padding: '8px 0' }}>
-        {navItems.map(({ href, icon: Icon, label }) => {
+        {navItems.map(({ href, icon: Icon, label, lockable }) => {
           const isActive = pathname === href || pathname.startsWith(href + '/')
+          const locked = marathonActive && lockable
+
+          if (locked) {
+            return (
+              <span
+                key={href}
+                aria-disabled="true"
+                title="Locked until your marathon ends"
+                className="mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2.5 text-[14px] font-medium text-[var(--color-ink-3)] cursor-not-allowed opacity-50 select-none"
+              >
+                <NavIcon icon={Icon} active={false} size={20} />
+                <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500 }}>{label}</span>
+                <Lock1 size={14} color="currentColor" variant="Linear" style={{ marginLeft: 'auto' }} />
+              </span>
+            )
+          }
+
           return (
             <Link
               key={href}
               href={href}
+              aria-current={isActive ? 'page' : undefined}
               className={cn(
-                'flex items-center gap-3 px-6 py-2.5 text-[14px] font-medium transition-colors duration-100 no-underline',
-                'relative',
+                'mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2.5',
+                'text-[14px] font-medium no-underline transition-colors duration-100',
                 isActive
-                  ? 'text-[var(--color-ink)]'
+                  // Active page reads as a solid primary block, not a hairline.
+                  ? 'bg-[var(--color-accent)] text-white'
                   : 'text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]',
               )}
             >
-              {isActive && (
-                <span
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: '4px',
-                    bottom: '4px',
-                    width: 2,
-                    borderRadius: 2,
-                    backgroundColor: 'var(--color-accent)',
-                  }}
-                />
-              )}
-              <Icon size={18} strokeWidth={1.5} />
+              <NavIcon icon={Icon} active={isActive} size={20} />
               <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500 }}>{label}</span>
             </Link>
           )
@@ -130,9 +143,22 @@ export function Sidebar() {
               fontSize: 13,
               color: 'var(--color-ink)',
               flexShrink: 0,
+              overflow: 'hidden',
             }}
           >
-            {initial}
+            {user?.avatarUrl ? (
+              // Stored as a data URL, so next/image cannot optimise it.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={user.avatarUrl}
+                alt=""
+                width={32}
+                height={32}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              initial
+            )}
           </div>
           <div className="flex flex-col items-start min-w-0 flex-1">
             <span
@@ -172,10 +198,10 @@ export function Sidebar() {
             }}
           >
             {[
-              { href: '/settings', icon: User, label: tNav('profile') },
-              { href: '/settings?tab=plan', icon: CreditCard, label: 'Plan & billing' },
-              { href: '/settings?tab=notifications', icon: Bell, label: 'Notifications' },
-              { href: '/help', icon: LifeBuoy, label: 'Help & support' },
+              { href: '/settings', icon: Profile, label: tNav('profile') },
+              { href: '/settings?tab=plan', icon: Card, label: 'Plan & billing' },
+              { href: '/settings?tab=notifications', icon: Notification, label: 'Notifications' },
+              { href: '/help', icon: MessageQuestion, label: 'Help & support' },
             ].map(({ href, icon: Icon, label }) => (
               <Link
                 key={href}
@@ -183,7 +209,7 @@ export function Sidebar() {
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center gap-2.5 px-3 py-2 text-[14px] font-medium text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-3)] no-underline transition-colors"
               >
-                <Icon size={16} strokeWidth={1.5} />
+                <Icon size={17} color="currentColor" variant="Linear" />
                 {label}
               </Link>
             ))}
@@ -196,12 +222,26 @@ export function Sidebar() {
 
             <button
               onClick={() => { setMenuOpen(false); setSignOutOpen(true) }}
+              disabled={marathonActive}
+              title={marathonActive ? 'Finish or stop your marathon first' : undefined}
               className="flex items-center gap-2.5 px-3 py-2 text-[14px] font-medium w-full text-left transition-colors"
-              style={{ color: 'var(--color-ink-2)', background: 'none', border: 'none', cursor: 'pointer' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-paper-3)')}
+              style={{
+                color: marathonActive ? 'var(--color-ink-3)' : 'var(--color-ink-2)',
+                background: 'none',
+                border: 'none',
+                cursor: marathonActive ? 'not-allowed' : 'pointer',
+                opacity: marathonActive ? 0.5 : 1,
+              }}
+              onMouseEnter={(e) => {
+                if (!marathonActive) e.currentTarget.style.backgroundColor = 'var(--color-paper-3)'
+              }}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
-              <LogOut size={16} strokeWidth={1.5} />
+              {marathonActive ? (
+                <Lock1 size={17} color="currentColor" variant="Linear" />
+              ) : (
+                <LogoutCurve size={17} color="currentColor" variant="Linear" />
+              )}
               {tAuth('logout')}
             </button>
           </div>

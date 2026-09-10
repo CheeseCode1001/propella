@@ -1,6 +1,5 @@
-import { Types } from 'mongoose'
-import { XPEventModel } from '../../models/XPEvent'
-import { UserModel } from '../../models/User'
+import type { Prisma } from '../../config/db'
+import { prisma } from '../../config/db'
 import { getRank } from '@propella/shared'
 
 export interface LeaderboardEntry {
@@ -24,57 +23,45 @@ function formatName(fullName: string): string {
   return `${first} ${last.charAt(0).toUpperCase()}.`
 }
 
+function periodFilter(period: 'week' | 'month' | 'all'): Prisma.XPEventWhereInput {
+  if (period === 'all') return {}
+
+  const start = new Date()
+  start.setDate(start.getDate() - (period === 'week' ? 7 : 30))
+  return { createdAt: { gte: start } }
+}
+
 export async function getLeaderboard(
   userId: string,
   period: 'week' | 'month' | 'all',
 ): Promise<LeaderboardResult> {
-  const userObjectId = new Types.ObjectId(userId)
+  const where = periodFilter(period)
 
-  // Build date filter
-  const matchStage: Record<string, unknown> = {}
-  if (period === 'week') {
-    const start = new Date()
-    start.setDate(start.getDate() - 7)
-    matchStage.createdAt = { $gte: start }
-  } else if (period === 'month') {
-    const start = new Date()
-    start.setDate(start.getDate() - 30)
-    matchStage.createdAt = { $gte: start }
-  }
+  // Aggregate XP per user — top 100, plus one slot in case the caller sits at 101.
+  const grouped = await prisma.xPEvent.groupBy({
+    by: ['userId'],
+    where,
+    _sum: { amount: true },
+    orderBy: { _sum: { amount: 'desc' } },
+    take: 101,
+  })
 
-  // Aggregate XP per user
-  const pipeline: Parameters<typeof XPEventModel.aggregate>[0] = [
-    ...(Object.keys(matchStage).length > 0 ? [{ $match: matchStage }] : []),
-    {
-      $group: {
-        _id: '$userId',
-        totalXP: { $sum: '$amount' },
-      },
-    },
-    { $sort: { totalXP: -1 } },
-    { $limit: 101 }, // top 100 + potentially the caller
-  ]
+  const users = await prisma.user.findMany({
+    where: { id: { in: grouped.map((g) => g.userId) } },
+    select: { id: true, name: true },
+  })
 
-  const agg = await XPEventModel.aggregate<{ _id: Types.ObjectId; totalXP: number }>(pipeline)
+  const userMap = new Map(users.map((u) => [u.id, u.name]))
 
-  // Get all user IDs
-  const userIds = agg.map((a) => a._id)
-  const users = await UserModel.find({ _id: { $in: userIds } })
-    .select('_id name')
-    .lean()
-
-  const userMap = new Map(users.map((u) => [u._id.toString(), u.name]))
-
-  // Build ranked list
-  const entries: LeaderboardEntry[] = agg
-    .map((a, idx) => {
-      const name = userMap.get(a._id.toString()) ?? 'Anonymous'
+  const entries: LeaderboardEntry[] = grouped
+    .map((g, idx) => {
+      const xp = g._sum.amount ?? 0
       return {
         rank: idx + 1,
-        userId: a._id.toString(),
-        name: formatName(name),
-        xp: a.totalXP,
-        rankName: getRank(a.totalXP).name,
+        userId: g.userId,
+        name: formatName(userMap.get(g.userId) ?? 'Anonymous'),
+        xp,
+        rankName: getRank(xp).name,
       }
     })
     .slice(0, 100)
@@ -83,44 +70,31 @@ export async function getLeaderboard(
   let myEntry = entries.find((e) => e.userId === userId) ?? null
 
   if (!myEntry) {
-    // Caller not in top 100 — compute their position separately
-    const myXPPipeline: Parameters<typeof XPEventModel.aggregate>[0] = [
-      ...(Object.keys(matchStage).length > 0
-        ? [{ $match: { ...matchStage, userId: userObjectId } }]
-        : [{ $match: { userId: userObjectId } }]),
-      {
-        $group: {
-          _id: '$userId',
-          totalXP: { $sum: '$amount' },
-        },
-      },
-    ]
-
-    const myAgg = await XPEventModel.aggregate<{ _id: Types.ObjectId; totalXP: number }>(myXPPipeline)
-    const myXP = myAgg[0]?.totalXP ?? 0
+    // Caller is outside the top 100 — compute their standing separately.
+    const myAgg = await prisma.xPEvent.aggregate({
+      where: { ...where, userId },
+      _sum: { amount: true },
+    })
+    const myXP = myAgg._sum.amount ?? 0
 
     if (myXP > 0) {
-      // Count how many users have more XP
-      const countPipeline: Parameters<typeof XPEventModel.aggregate>[0] = [
-        ...(Object.keys(matchStage).length > 0 ? [{ $match: matchStage }] : []),
-        {
-          $group: {
-            _id: '$userId',
-            totalXP: { $sum: '$amount' },
-          },
-        },
-        { $match: { totalXP: { $gt: myXP } } },
-        { $count: 'count' },
-      ]
+      // Count users ahead of the caller. `having` filters post-aggregation, so
+      // this returns one lightweight row per user ranked above them.
+      const ahead = await prisma.xPEvent.groupBy({
+        by: ['userId'],
+        where,
+        having: { amount: { _sum: { gt: myXP } } },
+      })
 
-      const countAgg = await XPEventModel.aggregate<{ count: number }>(countPipeline)
-      const position = (countAgg[0]?.count ?? 0) + 1
-      const myName = userMap.get(userId) ?? 'You'
+      const me = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { name: true },
+      })
 
       myEntry = {
-        rank: position,
+        rank: ahead.length + 1,
         userId,
-        name: formatName(myName),
+        name: formatName(me?.name ?? 'You'),
         xp: myXP,
         rankName: getRank(myXP).name,
       }

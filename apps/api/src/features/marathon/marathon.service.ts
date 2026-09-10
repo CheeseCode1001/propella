@@ -1,8 +1,7 @@
-import { Types } from 'mongoose'
-import { MarathonRunModel, type IMarathonRun } from '../../models/MarathonRun'
-import { XPEventModel } from '../../models/XPEvent'
-import { StreakModel } from '../../models/Streak'
+import type { MarathonRun } from '../../config/db'
+import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
+import { jsonArray, type MarathonPause, type TopicCovered } from '../../models/types'
 import { XP } from '@propella/shared'
 
 export interface StartMarathonInput {
@@ -12,79 +11,63 @@ export interface StartMarathonInput {
 }
 
 export interface EndMarathonResult {
-  run: IMarathonRun
+  run: MarathonRun
   xpAwarded: number
 }
 
-export interface TopicCoveredInput {
-  subjectSlug: string
-  topicSlug: string
-  durationSec: number
+export type TopicCoveredInput = TopicCovered
+
+async function findRun(userId: string, runId: string): Promise<MarathonRun> {
+  const run = await prisma.marathonRun.findFirst({ where: { id: runId, userId } })
+  if (!run) throw new NotFoundError('Marathon run not found')
+  return run
 }
 
 export async function startMarathon(
   userId: string,
   input: StartMarathonInput,
-): Promise<IMarathonRun> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const run = await MarathonRunModel.create({
-    userId: userObjectId,
-    plannedDurationMin: input.plannedDurationMin,
-    pomodoroLength: input.pomodoroLength,
-    startedAt: new Date(),
-    status: 'running',
-    pomodorosCompleted: 0,
-    topicsCovered: [],
-    pauses: [],
-    xpAwarded: 0,
-    actualDurationSec: 0,
+): Promise<MarathonRun> {
+  return prisma.marathonRun.create({
+    data: {
+      userId,
+      plannedDurationMin: input.plannedDurationMin,
+      pomodoroLength: input.pomodoroLength,
+      startedAt: new Date(),
+      status: 'running',
+    },
   })
-
-  return run
 }
 
-export async function pauseMarathon(userId: string, runId: string): Promise<IMarathonRun> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const run = await MarathonRunModel.findOne({
-    _id: new Types.ObjectId(runId),
-    userId: userObjectId,
-  })
-
-  if (!run) throw new NotFoundError('Marathon run not found')
+export async function pauseMarathon(userId: string, runId: string): Promise<MarathonRun> {
+  const run = await findRun(userId, runId)
   if (run.status !== 'running') throw new AppError(400, 'Marathon is not running')
 
-  run.pauses.push({ at: new Date(), durationSec: 0 })
-  run.status = 'paused'
-  await run.save()
+  const pauses = jsonArray<MarathonPause>(run.pauses)
+  pauses.push({ at: new Date().toISOString(), durationSec: 0 })
 
-  return run
+  return prisma.marathonRun.update({
+    where: { id: run.id },
+    data: { pauses, status: 'paused' },
+  })
 }
 
-export async function resumeMarathon(userId: string, runId: string): Promise<IMarathonRun> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const run = await MarathonRunModel.findOne({
-    _id: new Types.ObjectId(runId),
-    userId: userObjectId,
-  })
-
-  if (!run) throw new NotFoundError('Marathon run not found')
+export async function resumeMarathon(userId: string, runId: string): Promise<MarathonRun> {
+  const run = await findRun(userId, runId)
   if (run.status !== 'paused') throw new AppError(400, 'Marathon is not paused')
 
-  // Update last pause entry with actual duration
-  const lastPause = run.pauses[run.pauses.length - 1]
+  // Close out the open pause with how long it actually lasted.
+  const pauses = jsonArray<MarathonPause>(run.pauses)
+  const lastPause = pauses[pauses.length - 1]
   if (lastPause) {
-    const durationSec = Math.floor((Date.now() - lastPause.at.getTime()) / 1000)
-    lastPause.durationSec = durationSec
+    lastPause.durationSec = Math.floor(
+      (Date.now() - new Date(lastPause.at).getTime()) / 1000,
+    )
   }
 
-  run.status = 'running'
-  run.markModified('pauses')
-  await run.save()
-
-  return run
+  return prisma.marathonRun.update({
+    where: { id: run.id },
+    data: { pauses, status: 'running' },
+  })
 }
 
 export async function endMarathon(
@@ -94,15 +77,8 @@ export async function endMarathon(
   pomodorosCompleted: number,
   topicsCovered: TopicCoveredInput[],
 ): Promise<EndMarathonResult> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const run = await MarathonRunModel.findOne({
-    _id: new Types.ObjectId(runId),
-    userId: userObjectId,
-  })
-
-  if (!run) throw new NotFoundError('Marathon run not found')
-  if (run.status === 'completed') throw new AppError(400, 'Marathon already completed')
+  const existing = await findRun(userId, runId)
+  if (existing.status === 'completed') throw new AppError(400, 'Marathon already completed')
 
   // Calculate XP
   let xpAwarded = pomodorosCompleted * XP.MARATHON_PER_POMODORO
@@ -112,54 +88,93 @@ export async function endMarathon(
 
   // Create XP event
   if (xpAwarded > 0) {
-    await XPEventModel.create({
-      userId: userObjectId,
-      source: 'marathon',
-      sourceId: run._id,
-      amount: xpAwarded,
-      reason: `Marathon: ${pomodorosCompleted} pomodoro${pomodorosCompleted !== 1 ? 's' : ''} completed`,
+    await prisma.xPEvent.create({
+      data: {
+        userId,
+        source: 'marathon',
+        sourceId: existing.id,
+        amount: xpAwarded,
+        reason: `Marathon: ${pomodorosCompleted} pomodoro${pomodorosCompleted !== 1 ? 's' : ''} completed`,
+      },
     })
   }
 
   // Update streak
-  const streak = await StreakModel.findOne({ userId: userObjectId })
+  const streak = await prisma.streak.findUnique({ where: { userId } })
   if (streak) {
     const todayString = new Date().toDateString()
-    const lastActiveDateString = streak.lastActiveDate.toDateString()
-    if (lastActiveDateString !== todayString) {
-      streak.currentStreak += 1
-      if (streak.currentStreak > streak.longestStreak) {
-        streak.longestStreak = streak.currentStreak
-      }
-      streak.lastActiveDate = new Date()
-      await streak.save()
+    if (streak.lastActiveDate.toDateString() !== todayString) {
+      const currentStreak = streak.currentStreak + 1
+      await prisma.streak.update({
+        where: { userId },
+        data: {
+          currentStreak,
+          longestStreak: Math.max(currentStreak, streak.longestStreak),
+          lastActiveDate: new Date(),
+        },
+      })
     }
   } else {
-    await StreakModel.create({
-      userId: userObjectId,
-      currentStreak: 1,
-      longestStreak: 1,
-      lastActiveDate: new Date(),
+    await prisma.streak.create({
+      data: {
+        userId,
+        currentStreak: 1,
+        longestStreak: 1,
+        lastActiveDate: new Date(),
+      },
     })
   }
 
-  // Update run
-  run.status = 'completed'
-  run.endedAt = new Date()
-  run.actualDurationSec = actualDurationSec
-  run.pomodorosCompleted = pomodorosCompleted
-  run.topicsCovered = topicsCovered
-  run.xpAwarded = xpAwarded
-  await run.save()
+  const run = await prisma.marathonRun.update({
+    where: { id: existing.id },
+    data: {
+      status: 'completed',
+      endedAt: new Date(),
+      actualDurationSec,
+      pomodorosCompleted,
+      topicsCovered,
+      xpAwarded,
+    },
+  })
 
   return { run, xpAwarded }
 }
 
-export async function getMarathonHistory(userId: string): Promise<IMarathonRun[]> {
-  const userObjectId = new Types.ObjectId(userId)
+/**
+ * Ends a run the student stopped before finishing.
+ *
+ * No XP, no streak credit and no badge — a marathon only pays out when it is
+ * seen through. The run is still saved so the history stays honest.
+ */
+export async function abandonMarathon(
+  userId: string,
+  runId: string,
+  actualDurationSec: number,
+  pomodorosCompleted: number,
+  topicsCovered: TopicCoveredInput[],
+): Promise<MarathonRun> {
+  const existing = await findRun(userId, runId)
+  if (existing.status === 'completed') {
+    throw new AppError(400, 'Marathon already completed')
+  }
 
-  return MarathonRunModel.find({ userId: userObjectId })
-    .sort({ createdAt: -1 })
-    .limit(20)
-    .lean() as unknown as IMarathonRun[]
+  return prisma.marathonRun.update({
+    where: { id: existing.id },
+    data: {
+      status: 'abandoned',
+      endedAt: new Date(),
+      actualDurationSec,
+      pomodorosCompleted,
+      topicsCovered,
+      xpAwarded: 0,
+    },
+  })
+}
+
+export async function getMarathonHistory(userId: string): Promise<MarathonRun[]> {
+  return prisma.marathonRun.findMany({
+    where: { userId },
+    orderBy: { createdAt: 'desc' },
+    take: 20,
+  })
 }

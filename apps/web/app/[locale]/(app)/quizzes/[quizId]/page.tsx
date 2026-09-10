@@ -26,6 +26,7 @@ interface QuizData {
   id: string
   type: string
   difficulty: string
+  mode: 'study' | 'exam'
   topicRef?: { subjectSlug: string; topicSlug: string }
   questions: QuizQuestion[]
 }
@@ -46,13 +47,20 @@ export default function QuizEnginePage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<AnswerMap>(new Map())
   const [submitting, setSubmitting] = useState(false)
+  // Study mode marks a question as revealed the moment it is answered.
+  const [revealed, setRevealed] = useState<Set<string>>(new Set())
 
-  // Timer per question
-  const questionStartRef = useRef<number>(Date.now())
+  // Timer per question. Seeded in the mount effect below rather than during
+  // render, since reading the clock while rendering is impure.
+  const questionStartRef = useRef<number>(0)
   const questionTimesRef = useRef<Map<string, number>>(new Map())
-  const sessionStartRef = useRef<number>(Date.now())
+  const sessionStartRef = useRef<number>(0)
 
   useEffect(() => {
+    const now = Date.now()
+    questionStartRef.current = now
+    sessionStartRef.current = now
+
     let cancelled = false
 
     async function init() {
@@ -94,15 +102,25 @@ export default function QuizEnginePage() {
     }
   }, [quizId])
 
+  const isStudyMode = quiz?.mode === 'study'
+
   const handleSelectAnswer = useCallback(
     (questionId: string, optionId: 'A' | 'B' | 'C' | 'D') => {
+      // In study mode an answered question is final - changing it after seeing
+      // the explanation would make the score meaningless.
+      if (isStudyMode && revealed.has(questionId)) return
+
       setAnswers((prev) => {
         const next = new Map(prev)
         next.set(questionId, optionId)
         return next
       })
+
+      if (isStudyMode) {
+        setRevealed((prev) => new Set(prev).add(questionId))
+      }
     },
-    [],
+    [isStudyMode, revealed],
   )
 
   function recordQuestionTime(questionId: string) {
@@ -188,6 +206,8 @@ export default function QuizEnginePage() {
   const totalQuestions = quiz.questions.length
   const currentQuestion = quiz.questions[currentIndex]!
   const selectedOption = answers.get(currentQuestion.id)
+  const isRevealed = isStudyMode && revealed.has(currentQuestion.id)
+  const answeredCorrectly = selectedOption === currentQuestion.correctOptionId
   const progressPct = ((currentIndex + 1) / totalQuestions) * 100
   const isLastQuestion = currentIndex === totalQuestions - 1
   const answeredCount = answers.size
@@ -269,11 +289,32 @@ export default function QuizEnginePage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
         {currentQuestion.options.map((option) => {
           const isSelected = selectedOption === option.id
+          const isCorrectOption = option.id === currentQuestion.correctOptionId
+
+          // Exam mode never colours the options - feedback waits for submission.
+          let accent = 'var(--color-accent)'
+          let tint = 'var(--color-accent-tint)'
+          let highlighted = isSelected
+
+          if (isRevealed) {
+            if (isCorrectOption) {
+              accent = 'var(--color-success)'
+              tint = 'var(--color-success-tint)'
+              highlighted = true
+            } else if (isSelected) {
+              accent = 'var(--color-danger)'
+              tint = 'var(--color-danger-tint)'
+              highlighted = true
+            } else {
+              highlighted = false
+            }
+          }
 
           return (
             <button
               key={option.id}
               onClick={() => handleSelectAnswer(currentQuestion.id, option.id)}
+              disabled={isRevealed}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -282,26 +323,25 @@ export default function QuizEnginePage() {
                 textAlign: 'left',
                 padding: '14px 16px',
                 borderRadius: 'var(--radius-sm)',
-                border: isSelected
-                  ? '1.5px solid var(--color-accent)'
+                border: highlighted
+                  ? `1.5px solid ${accent}`
                   : '1.5px solid var(--color-rule-2)',
-                borderLeft: isSelected
-                  ? '4px solid var(--color-accent)'
+                borderLeft: highlighted
+                  ? `4px solid ${accent}`
                   : '4px solid transparent',
-                backgroundColor: isSelected
-                  ? 'var(--color-accent-tint)'
-                  : 'var(--color-paper-2)',
-                cursor: 'pointer',
+                backgroundColor: highlighted ? tint : 'var(--color-paper-2)',
+                cursor: isRevealed ? 'default' : 'pointer',
+                opacity: isRevealed && !highlighted ? 0.55 : 1,
                 transition: 'all 0.15s',
               }}
               onMouseEnter={(e) => {
-                if (!isSelected) {
+                if (!highlighted && !isRevealed) {
                   ;(e.currentTarget as HTMLButtonElement).style.backgroundColor =
                     'var(--color-paper-3)'
                 }
               }}
               onMouseLeave={(e) => {
-                if (!isSelected) {
+                if (!highlighted && !isRevealed) {
                   ;(e.currentTarget as HTMLButtonElement).style.backgroundColor =
                     'var(--color-paper-2)'
                 }
@@ -312,7 +352,7 @@ export default function QuizEnginePage() {
                   fontFamily: 'var(--font-mono)',
                   fontSize: 13,
                   fontWeight: 700,
-                  color: isSelected ? 'var(--color-accent)' : 'var(--color-ink-3)',
+                  color: highlighted ? accent : 'var(--color-ink-3)',
                   width: 20,
                   flexShrink: 0,
                 }}
@@ -333,6 +373,52 @@ export default function QuizEnginePage() {
           )
         })}
       </div>
+
+      {/* Study-mode explanation */}
+      {isRevealed && (
+        <div
+          style={{
+            marginTop: -16,
+            marginBottom: 32,
+            padding: '14px 16px',
+            borderRadius: 'var(--radius-sm)',
+            border: `1px solid ${
+              answeredCorrectly ? 'var(--color-success)' : 'var(--color-danger)'
+            }40`,
+            backgroundColor: answeredCorrectly
+              ? 'var(--color-success-tint)'
+              : 'var(--color-danger-tint)',
+          }}
+        >
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 13,
+              fontWeight: 600,
+              color: answeredCorrectly ? 'var(--color-success)' : 'var(--color-danger)',
+              marginBottom: 6,
+            }}
+          >
+            {answeredCorrectly ? t('correct') : t('incorrect')}
+            {!answeredCorrectly && (
+              <span style={{ fontWeight: 400, color: 'var(--color-ink-2)' }}>
+                {' \u00b7 '}
+                {t('correctAnswer')}: {currentQuestion.correctOptionId}
+              </span>
+            )}
+          </p>
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 13.5,
+              lineHeight: 1.6,
+              color: 'var(--color-ink-2)',
+            }}
+          >
+            {currentQuestion.explanation}
+          </p>
+        </div>
+      )}
 
       {/* Navigation */}
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>

@@ -16,6 +16,7 @@ import { useTranslations } from 'next-intl'
 import { useRoadmap } from '@/lib/hooks/use-roadmap'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { KanbanBoard } from '@/components/planner/kanban-board'
 import type { RoadmapNode } from '@propella/shared'
 
 function getSubjectColor(slug: string): string {
@@ -198,14 +199,23 @@ export default function PlannerPage() {
           ))}
         </div>
       ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${viewMode === 'week' ? 7 : 1}, 1fr)`,
-            gap: 8,
-            alignItems: 'start',
-          }}
-        >
+        // On a phone seven columns will not fit, so the week scrolls sideways
+        // with each day holding a readable minimum width. The scrollbar is
+        // hidden — the clipped day at the edge is the cue that there is more.
+        <div className="scrollbar-hide -mx-1 overflow-x-auto px-1">
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns:
+                viewMode === 'week'
+                  ? 'repeat(7, minmax(150px, 1fr))'
+                  : 'minmax(0, 1fr)',
+              gap: 8,
+              alignItems: 'start',
+              minWidth: viewMode === 'week' ? 'max-content' : undefined,
+            }}
+            className={viewMode === 'week' ? 'lg:!min-w-0' : undefined}
+          >
           {displayDays.map((day, idx) => {
             const nodes = getNodesForDay(day)
             const dayLabel = DAY_NAMES[viewMode === 'day' ? selectedDayIndex : idx] ?? ''
@@ -315,8 +325,26 @@ export default function PlannerPage() {
               </div>
             )
           })}
+          </div>
         </div>
       )}
+
+      {/* To-do board — the calendar covers scheduled topics, this covers
+          everything else a student wants to keep track of. */}
+      <section className="mt-8">
+        <div className="mb-3">
+          <h2
+            className="text-[18px] font-medium text-[var(--color-ink)]"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            Your tasks
+          </h2>
+          <p className="text-[13px] text-[var(--color-ink-3)]">
+            Drag a card between columns as you work through it.
+          </p>
+        </div>
+        <KanbanBoard />
+      </section>
 
       {/* Session detail panel */}
       {selectedNode && (

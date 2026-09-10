@@ -13,6 +13,7 @@ const buttonVariants = cva(
         accent: 'bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-2)] active:scale-[0.98]',
         secondary: 'bg-[var(--color-paper-2)] border border-[var(--color-rule-2)] text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]',
         ghost: 'text-[var(--color-ink-2)] hover:bg-[var(--color-paper-3)]',
+        danger: 'bg-[var(--color-danger)] text-white hover:brightness-110 active:scale-[0.98]',
         link: 'text-[var(--color-accent)] underline-offset-[3px] decoration-[1px] hover:underline p-0 h-auto',
       },
       size: {

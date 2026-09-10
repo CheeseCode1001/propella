@@ -1,7 +1,7 @@
 import './config/env' // Validates env vars immediately — throws if invalid
 import { env } from './config/env'
 import { logger } from './config/logger'
-import { connectDB } from './config/db'
+import { connectDB, disconnectDB } from './config/db'
 import app from './app'
 import { startScheduler } from './lib/scheduler'
 
@@ -34,7 +34,9 @@ async function startServer(): Promise<void> {
     logger.info({ signal }, 'Received shutdown signal')
     server.close(() => {
       logger.info('HTTP server closed')
-      process.exit(0)
+      void disconnectDB()
+        .catch(() => undefined)
+        .then(() => process.exit(0))
     })
 
     // Force exit if graceful shutdown takes too long

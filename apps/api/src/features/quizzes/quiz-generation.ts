@@ -1,17 +1,67 @@
-import Anthropic from '@anthropic-ai/sdk'
-import { env } from '../../config/env'
+import { Type } from '@google/genai'
+import { getGemini, QUIZ_MODEL } from '../../lib/gemini'
 import { logger } from '../../config/logger'
+import { AppError } from '../../middleware/error-handler'
+import type { OptionId, QuizQuestion } from '../../models/types'
 
-const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY })
+export type { QuizQuestion }
 
-export interface QuizQuestion {
-  id: string
-  stem: string
-  options: Array<{ id: 'A' | 'B' | 'C' | 'D'; text: string }>
-  correctOptionId: 'A' | 'B' | 'C' | 'D'
-  explanation: string
-  topicSlug: string
-  difficulty: 'easy' | 'medium' | 'hard'
+const OPTION_IDS: OptionId[] = ['A', 'B', 'C', 'D']
+
+/**
+ * Gemini honours a response schema natively, so the model returns parseable
+ * JSON instead of prose we have to fish an array out of.
+ */
+const QUESTION_SCHEMA = {
+  type: Type.ARRAY,
+  items: {
+    type: Type.OBJECT,
+    properties: {
+      stem: {
+        type: Type.STRING,
+        description: 'The question text, in the style of a past paper.',
+      },
+      options: {
+        type: Type.ARRAY,
+        minItems: '4',
+        maxItems: '4',
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            id: { type: Type.STRING, enum: OPTION_IDS },
+            text: { type: Type.STRING },
+          },
+          required: ['id', 'text'],
+          propertyOrdering: ['id', 'text'],
+        },
+      },
+      correctOptionId: { type: Type.STRING, enum: OPTION_IDS },
+      explanation: {
+        type: Type.STRING,
+        description:
+          'Explains why the answer is correct and names the principle involved.',
+      },
+    },
+    required: ['stem', 'options', 'correctOptionId', 'explanation'],
+    propertyOrdering: ['stem', 'options', 'correctOptionId', 'explanation'],
+  },
+}
+
+interface RawQuestion {
+  stem?: unknown
+  options?: unknown
+  correctOptionId?: unknown
+  explanation?: unknown
+}
+
+function isValidOption(value: unknown): value is { id: OptionId; text: string } {
+  if (!value || typeof value !== 'object') return false
+  const option = value as { id?: unknown; text?: unknown }
+  return (
+    typeof option.text === 'string' &&
+    typeof option.id === 'string' &&
+    (OPTION_IDS as string[]).includes(option.id)
+  )
 }
 
 export async function generateQuestions(params: {
@@ -24,48 +74,81 @@ export async function generateQuestions(params: {
   recentStems?: string[]
 }): Promise<QuizQuestion[]> {
   const avoidList = params.recentStems?.length
-    ? `\nAvoid these recently-seen question stems: ${params.recentStems.slice(0, 10).join('; ')}`
+    ? `\n\nDo not repeat, and do not lightly reword, any of these recently-seen stems:\n${params.recentStems
+        .slice(0, 10)
+        .map((s) => `- ${s}`)
+        .join('\n')}`
     : ''
 
-  const prompt = `Generate ${params.count} multiple-choice questions on the topic "${params.topicName}" within the subject "${params.subjectName}" for a Nigerian ${params.examType.toUpperCase()} candidate. Difficulty: ${params.difficulty}.
+  const exam = params.examType.toUpperCase()
+
+  const prompt = `Generate ${params.count} multiple-choice questions on the topic "${params.topicName}" within the subject "${params.subjectName}" for a Nigerian ${exam} candidate. Difficulty: ${params.difficulty}.
 
 Questions must:
-- Follow the exact style and structure of ${params.examType.toUpperCase()} past papers
+- Follow the exact style, phrasing and structure of ${exam} past papers
 - Have exactly 4 options (A, B, C, D) with exactly one correct answer
-- Include a clear, teaching explanation that explains WHY the answer is correct and references the relevant principle${avoidList}
+- Use the Nigerian curriculum and Nigerian contexts for worked examples
+- Include a clear, teaching explanation that explains WHY the answer is correct and references the relevant principle${avoidList}`
 
-Return ONLY valid JSON — an array of objects with this exact shape:
-[{ "stem": "...", "options": [{"id":"A","text":"..."},{"id":"B","text":"..."},{"id":"C","text":"..."},{"id":"D","text":"..."}], "correctOptionId": "A", "explanation": "..." }]`
+  const ai = getGemini()
 
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-5',
-    max_tokens: 4096,
-    messages: [{ role: 'user', content: prompt }],
+  const response = await ai.models.generateContent({
+    model: QUIZ_MODEL,
+    contents: prompt,
+    config: {
+      responseMimeType: 'application/json',
+      responseSchema: QUESTION_SCHEMA,
+      temperature: 0.9,
+    },
   })
 
-  const text = response.content[0]?.type === 'text' ? response.content[0].text : ''
-
-  // Extract JSON from response (may have markdown code fences)
-  const jsonMatch = text.match(/\[[\s\S]*\]/)
-  if (!jsonMatch) {
-    logger.error({ text }, 'No JSON array in AI response')
-    throw new Error('No JSON array in AI response')
+  const text = response.text
+  if (!text) {
+    logger.error({ model: QUIZ_MODEL }, 'Empty response from Gemini')
+    throw new AppError(502, 'The AI returned an empty response — please retry')
   }
 
-  const raw = JSON.parse(jsonMatch[0]) as Array<{
-    stem: string
-    options: Array<{ id: string; text: string }>
-    correctOptionId: string
-    explanation: string
-  }>
+  let raw: RawQuestion[]
+  try {
+    const parsed: unknown = JSON.parse(text)
+    if (!Array.isArray(parsed)) throw new Error('Response was not a JSON array')
+    raw = parsed as RawQuestion[]
+  } catch (err) {
+    logger.error({ err, text: text.slice(0, 500) }, 'Could not parse Gemini response')
+    throw new AppError(502, 'The AI returned malformed questions — please retry')
+  }
 
-  return raw.map((q, i) => ({
-    id: `q${Date.now()}_${i}`,
-    stem: q.stem,
-    options: q.options as Array<{ id: 'A' | 'B' | 'C' | 'D'; text: string }>,
-    correctOptionId: q.correctOptionId as 'A' | 'B' | 'C' | 'D',
-    explanation: q.explanation,
-    topicSlug: params.topicSlug,
-    difficulty: params.difficulty as 'easy' | 'medium' | 'hard',
-  }))
+  const questions: QuizQuestion[] = []
+
+  for (const [i, q] of raw.entries()) {
+    // Drop anything malformed rather than persisting an unanswerable question.
+    if (
+      typeof q.stem !== 'string' ||
+      typeof q.explanation !== 'string' ||
+      typeof q.correctOptionId !== 'string' ||
+      !(OPTION_IDS as string[]).includes(q.correctOptionId) ||
+      !Array.isArray(q.options) ||
+      q.options.length !== 4 ||
+      !q.options.every(isValidOption)
+    ) {
+      logger.warn({ index: i, topicSlug: params.topicSlug }, 'Discarded malformed question')
+      continue
+    }
+
+    questions.push({
+      id: `q${Date.now().toString(36)}_${i}`,
+      stem: q.stem,
+      options: q.options,
+      correctOptionId: q.correctOptionId as OptionId,
+      explanation: q.explanation,
+      topicSlug: params.topicSlug,
+      difficulty: params.difficulty as 'easy' | 'medium' | 'hard',
+    })
+  }
+
+  if (questions.length === 0) {
+    throw new AppError(502, 'The AI returned no usable questions — please retry')
+  }
+
+  return questions
 }

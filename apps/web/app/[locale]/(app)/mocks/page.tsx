@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api-client'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { DocumentText } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Badge } from '@/components/ui/badge'
@@ -251,7 +252,9 @@ export default function MocksPage() {
         </div>
       ) : !history || history.length === 0 ? (
         <EmptyState
-          message="Mocks reveal what daily study can't. Take one when you've covered at least 30% of your roadmap."
+          icon={DocumentText}
+          title="No mock exams yet"
+          message="A full paper shows you what daily practice cannot. Try one once you have covered a good part of your syllabus."
           action={
             <Button variant="accent" onClick={() => setShowModal(true)}>
               Start your first mock

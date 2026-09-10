@@ -10,22 +10,26 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { TaskSquare } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
 import { cn } from '@/lib/utils/cn'
-import type { Subject } from '@propella/shared'
+import type { QuizMode, Subject } from '@propella/shared'
 
-type Difficulty = 'easy' | 'medium' | 'hard' | 'adaptive'
-
-const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard', 'adaptive']
-
-// difficultyLabel is now resolved via t() inside the component
+const QUIZ_MODE_OPTIONS: {
+  value: QuizMode
+  labelKey: 'studyMode' | 'examMode'
+  descKey: 'studyModeDesc' | 'examModeDesc'
+}[] = [
+  { value: 'study', labelKey: 'studyMode', descKey: 'studyModeDesc' },
+  { value: 'exam', labelKey: 'examMode', descKey: 'examModeDesc' },
+]
 
 interface QuizListItem {
   quizId: string
   attemptId: string | null
   topicSlug: string
   subjectSlug: string
-  difficulty: string
+  mode: QuizMode
   score: number | null
   questionCount: number
   createdAt: string
@@ -46,7 +50,7 @@ export default function QuizzesPage() {
 
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [selectedTopic, setSelectedTopic] = useState<string>('')
-  const [difficulty, setDifficulty] = useState<Difficulty>('medium')
+  const [mode, setMode] = useState<QuizMode>('study')
   const [generating, setGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -66,7 +70,9 @@ export default function QuizzesPage() {
         subjectSlug: selectedSubject.slug,
         topicSlug: selectedTopic,
         type: 'topic',
-        difficulty,
+        // Difficulty is no longer a user-facing choice - the engine adapts it.
+        difficulty: 'adaptive',
+        mode,
         questionCount: 10,
       })
       router.push(`/quizzes/${result.data.quizId}`)
@@ -201,7 +207,7 @@ export default function QuizzesPage() {
               </select>
             </div>
 
-            {/* Difficulty picker */}
+            {/* Mode picker */}
             <div>
               <label
                 style={{
@@ -213,38 +219,56 @@ export default function QuizzesPage() {
                   display: 'block',
                 }}
               >
-                {t('selectDifficulty')}
+                {t('selectMode')}
               </label>
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {DIFFICULTIES.map((d) => (
-                  <button
-                    key={d}
-                    onClick={() => setDifficulty(d)}
-                    style={{
-                      padding: '5px 14px',
-                      borderRadius: 999,
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: 13,
-                      fontWeight: 500,
-                      border:
-                        difficulty === d
+              <div style={{ display: 'grid', gap: 8 }}>
+                {QUIZ_MODE_OPTIONS.map((m) => {
+                  const active = mode === m.value
+                  return (
+                    <button
+                      key={m.value}
+                      onClick={() => setMode(m.value)}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        gap: 2,
+                        textAlign: 'left',
+                        padding: '10px 14px',
+                        borderRadius: 'var(--radius-sm)',
+                        border: active
                           ? '1.5px solid var(--color-accent)'
                           : '1.5px solid var(--color-rule-2)',
-                      backgroundColor:
-                        difficulty === d
+                        backgroundColor: active
                           ? 'var(--color-accent-tint)'
                           : 'var(--color-paper-2)',
-                      color:
-                        difficulty === d
-                          ? 'var(--color-accent)'
-                          : 'var(--color-ink-2)',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s',
-                    }}
-                  >
-                    {t(d)}
-                  </button>
-                ))}
+                        cursor: 'pointer',
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: 13.5,
+                          fontWeight: 600,
+                          color: active ? 'var(--color-accent)' : 'var(--color-ink)',
+                        }}
+                      >
+                        {t(m.labelKey)}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: 12,
+                          color: 'var(--color-ink-3)',
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {t(m.descKey)}
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
@@ -292,7 +316,11 @@ export default function QuizzesPage() {
             ))}
           </div>
         ) : !recentQuizzes || recentQuizzes.length === 0 ? (
-          <EmptyState message="You haven't taken a quiz. Start with a topic you marked as weak." />
+          <EmptyState
+            icon={TaskSquare}
+            title="No quizzes yet"
+            message="Pick a topic above to generate your first one. Every question you try makes the next one easier."
+          />
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {recentQuizzes.map((quiz) => (
@@ -333,7 +361,7 @@ export default function QuizzesPage() {
                     {' · '}
                     {quiz.questionCount} questions
                     {' · '}
-                    {quiz.difficulty}
+                    {quiz.mode === 'exam' ? t('examMode') : t('studyMode')}
                   </p>
                 </div>
 

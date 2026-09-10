@@ -65,6 +65,25 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string): Prom
   }
 }
 
+export async function sendVerificationCodeEmail(to: string, code: string): Promise<void> {
+  if (!canSend()) return
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to,
+      subject: `${code} is your Propella verification code`,
+      html: base(`
+        <h1>Confirm your email</h1>
+        <p>Enter this code in Propella to finish setting up your account.</p>
+        <p style="font-family: ui-monospace, monospace; font-size: 32px; font-weight: 600; letter-spacing: 0.18em; color: #1A1814; margin: 24px 0;">${code}</p>
+        <p>The code expires in 15 minutes. If you did not create a Propella account, you can ignore this email.</p>
+      `),
+    })
+  } catch (err) {
+    logger.error({ err, to }, 'Failed to send verification email')
+  }
+}
+
 export async function sendStreakWarningEmail(to: string, streak: number): Promise<void> {
   if (!canSend()) return
   try {

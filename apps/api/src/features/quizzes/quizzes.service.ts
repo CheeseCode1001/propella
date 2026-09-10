@@ -1,24 +1,27 @@
-import { Types } from 'mongoose'
-import { QuizModel } from '../../models/Quiz'
-import { QuizAttemptModel } from '../../models/QuizAttempt'
-import { SubjectModel } from '../../models/Subject'
-import { XPEventModel } from '../../models/XPEvent'
-import { StreakModel } from '../../models/Streak'
-import { RoadmapModel } from '../../models/Roadmap'
+import type { Quiz, QuizAttempt, QuizMode } from '../../config/db'
+import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
 import { generateQuestions } from './quiz-generation'
 import { calculateSM2, gradeFromPercentage } from '../../lib/spaced-repetition'
-import { updateNodeMastery } from '../roadmap/roadmap.service'
+import { QUIZ_MODEL } from '../../lib/gemini'
 import { notify } from '../notifications/notification.service'
 import { logger } from '../../config/logger'
-import type { IQuiz } from '../../models/Quiz'
-import type { IQuizAttempt } from '../../models/QuizAttempt'
+import {
+  jsonArray,
+  type ByTopicResult,
+  type OptionId,
+  type QuizAnswer,
+  type QuizQuestion,
+  type RoadmapNodeJson,
+  type SubjectTopic,
+} from '../../models/types'
 
 export interface GenerateQuizInput {
   subjectSlug: string
   topicSlug: string
   type: 'topic' | 'subject' | 'mixed' | 'weakness' | 'mock'
   difficulty: 'easy' | 'medium' | 'hard' | 'adaptive'
+  mode: QuizMode
   questionCount: number
 }
 
@@ -26,7 +29,7 @@ export interface SubmitQuizInput {
   quizId: string
   answers: Array<{
     questionId: string
-    selectedOptionId: 'A' | 'B' | 'C' | 'D'
+    selectedOptionId: OptionId
     timeSpentSec: number
   }>
   durationSec: number
@@ -35,39 +38,40 @@ export interface SubmitQuizInput {
 export async function generateQuiz(
   userId: string,
   input: GenerateQuizInput,
-): Promise<IQuiz> {
-  const userObjectId = new Types.ObjectId(userId)
-
+): Promise<Quiz> {
   // Fetch subject + topic info
-  const subject = await SubjectModel.findOne({ slug: input.subjectSlug }).lean()
+  const subject = await prisma.subject.findUnique({ where: { slug: input.subjectSlug } })
   if (!subject) {
     throw new NotFoundError(`Subject not found: ${input.subjectSlug}`)
   }
 
-  const topic = subject.topics.find((t) => t.slug === input.topicSlug)
+  const topic = jsonArray<SubjectTopic>(subject.topics).find((t) => t.slug === input.topicSlug)
   if (!topic) {
     throw new NotFoundError(`Topic not found: ${input.topicSlug}`)
   }
 
   // Fetch recent attempt stems to avoid repetition
-  const recentAttempts = await QuizAttemptModel.find({ userId: userObjectId })
-    .sort({ createdAt: -1 })
-    .limit(10)
-    .lean()
+  const recentAttempts = await prisma.quizAttempt.findMany({
+    where: { userId },
+    orderBy: { createdAt: 'desc' },
+    take: 10,
+    select: { quizId: true },
+  })
 
-  const recentQuizIds = recentAttempts.map((a) => a.quizId)
-  const recentQuizzes = await QuizModel.find({
-    _id: { $in: recentQuizIds },
-    'topicRef.topicSlug': input.topicSlug,
-  }).lean()
+  const recentQuizzes = await prisma.quiz.findMany({
+    where: {
+      id: { in: recentAttempts.map((a) => a.quizId) },
+      topicTopicSlug: input.topicSlug,
+    },
+    select: { questions: true },
+  })
 
   const recentStems = recentQuizzes
-    .flatMap((q) => q.questions.map((qu) => qu.stem))
+    .flatMap((q) => jsonArray<QuizQuestion>(q.questions).map((qu) => qu.stem))
     .slice(0, 10)
 
   // Determine effective difficulty
-  const effectiveDifficulty =
-    input.difficulty === 'adaptive' ? 'medium' : input.difficulty
+  const effectiveDifficulty = input.difficulty === 'adaptive' ? 'medium' : input.difficulty
 
   // Get exam type from subject
   const examType = subject.examTypes[0] ?? 'jamb'
@@ -84,51 +88,35 @@ export async function generateQuiz(
   })
 
   // Save quiz
-  const quiz = await QuizModel.create({
-    userId: userObjectId,
-    type: input.type,
-    topicRef: {
+  return prisma.quiz.create({
+    data: {
+      userId,
+      type: input.type,
+      topicSubjectSlug: input.subjectSlug,
+      topicTopicSlug: input.topicSlug,
       subjectSlug: input.subjectSlug,
-      topicSlug: input.topicSlug,
+      difficulty: input.difficulty,
+      mode: input.mode,
+      questionCount: questions.length,
+      questions,
+      generatedByModel: QUIZ_MODEL,
     },
-    subjectSlug: input.subjectSlug,
-    difficulty: input.difficulty,
-    questionCount: questions.length,
-    questions,
-    generatedByModel: 'claude-sonnet-4-5',
   })
-
-  return quiz
 }
 
-export async function startAttempt(
-  userId: string,
-  quizId: string,
-): Promise<IQuizAttempt> {
-  const userObjectId = new Types.ObjectId(userId)
-  const quizObjectId = new Types.ObjectId(quizId)
-
-  const quiz = await QuizModel.findOne({
-    _id: quizObjectId,
-    userId: userObjectId,
-  }).lean()
+export async function startAttempt(userId: string, quizId: string): Promise<QuizAttempt> {
+  const quiz = await prisma.quiz.findFirst({
+    where: { id: quizId, userId },
+    select: { id: true },
+  })
 
   if (!quiz) {
     throw new NotFoundError('Quiz not found')
   }
 
-  const attempt = await QuizAttemptModel.create({
-    quizId: quizObjectId,
-    userId: userObjectId,
-    startedAt: new Date(),
-    durationSec: 0,
-    answers: [],
-    score: 0,
-    byTopic: [],
-    xpAwarded: 0,
+  return prisma.quizAttempt.create({
+    data: { quizId: quiz.id, userId, startedAt: new Date() },
   })
-
-  return attempt
 }
 
 export async function submitAttempt(
@@ -136,41 +124,36 @@ export async function submitAttempt(
   attemptId: string,
   input: SubmitQuizInput,
 ): Promise<{
-  attempt: IQuizAttempt
+  attempt: QuizAttempt
   xpAwarded: number
   masteryUpdates: Array<{ topicSlug: string; mastery: number }>
 }> {
-  const userObjectId = new Types.ObjectId(userId)
-  const attemptObjectId = new Types.ObjectId(attemptId)
-
-  const [attempt, quiz] = await Promise.all([
-    QuizAttemptModel.findOne({ _id: attemptObjectId, userId: userObjectId }),
-    QuizModel.findById(input.quizId).lean(),
+  const [existingAttempt, quiz] = await Promise.all([
+    prisma.quizAttempt.findFirst({ where: { id: attemptId, userId } }),
+    prisma.quiz.findUnique({ where: { id: input.quizId } }),
   ])
 
-  if (!attempt) {
+  if (!existingAttempt) {
     throw new NotFoundError('Attempt not found')
   }
   if (!quiz) {
     throw new NotFoundError('Quiz not found')
   }
-  if (attempt.completedAt) {
+  if (existingAttempt.completedAt) {
     throw new AppError(400, 'Attempt already submitted')
   }
 
   // Build a question lookup map
-  const questionMap = new Map(quiz.questions.map((q) => [q.id, q]))
+  const questions = jsonArray<QuizQuestion>(quiz.questions)
+  const questionMap = new Map(questions.map((q) => [q.id, q]))
 
   // Grade each answer
-  const gradedAnswers = input.answers.map((a) => {
+  const gradedAnswers: QuizAnswer[] = input.answers.map((a) => {
     const question = questionMap.get(a.questionId)
-    const isCorrect = question
-      ? question.correctOptionId === a.selectedOptionId
-      : false
     return {
       questionId: a.questionId,
       selectedOptionId: a.selectedOptionId,
-      isCorrect,
+      isCorrect: question ? question.correctOptionId === a.selectedOptionId : false,
       timeSpentSec: a.timeSpentSec,
     }
   })
@@ -184,7 +167,7 @@ export async function submitAttempt(
   const topicGroups = new Map<string, { correct: number; total: number }>()
   for (const answer of gradedAnswers) {
     const question = questionMap.get(answer.questionId)
-    const topicSlug = question?.topicSlug ?? quiz.topicRef?.topicSlug ?? 'unknown'
+    const topicSlug = question?.topicSlug ?? quiz.topicTopicSlug ?? 'unknown'
     const group = topicGroups.get(topicSlug) ?? { correct: 0, total: 0 }
     group.total += 1
     if (answer.isCorrect) group.correct += 1
@@ -192,20 +175,21 @@ export async function submitAttempt(
   }
 
   // Fetch existing mastery values from roadmap for delta calculation
-  const roadmap = await RoadmapModel.findOne({ userId: userObjectId }).lean()
+  const roadmap = await prisma.roadmap.findUnique({ where: { userId } })
+  const nodes = jsonArray<RoadmapNodeJson>(roadmap?.nodes)
+  const quizSubjectSlug = quiz.topicSubjectSlug
 
-  const byTopic = Array.from(topicGroups.entries()).map(
+  function findNode(topicSlug: string): RoadmapNodeJson | undefined {
+    if (!quizSubjectSlug) return undefined
+    return nodes.find((n) => n.topicSlug === topicSlug && n.subjectSlug === quizSubjectSlug)
+  }
+
+  const byTopic: ByTopicResult[] = Array.from(topicGroups.entries()).map(
     ([topicSlug, { correct, total }]) => {
       const correctness = total > 0 ? (correct / total) * 100 : 0
-      const node = roadmap?.nodes.find(
-        (n) =>
-          n.topicSlug === topicSlug &&
-          n.subjectSlug === quiz.topicRef?.subjectSlug,
-      )
-      const oldMastery = node?.mastery ?? 0
+      const oldMastery = findNode(topicSlug)?.mastery ?? 0
       const newMastery = Math.round(oldMastery * 0.7 + correctness * 0.3)
-      const masteryDelta = newMastery - oldMastery
-      return { topicSlug, correct, total, masteryDelta }
+      return { topicSlug, correct, total, masteryDelta: newMastery - oldMastery }
     },
   )
 
@@ -213,121 +197,105 @@ export async function submitAttempt(
   const xpAwarded = Math.min(50, correctCount * 5)
 
   // Create XP event
-  await XPEventModel.create({
-    userId: userObjectId,
-    source: 'quiz',
-    sourceId: attempt._id,
-    amount: xpAwarded,
-    reason: `Quiz: ${score}% score`,
+  await prisma.xPEvent.create({
+    data: {
+      userId,
+      source: 'quiz',
+      sourceId: existingAttempt.id,
+      amount: xpAwarded,
+      reason: `Quiz: ${score}% score`,
+    },
   })
 
   // Update streak if score >= 50%
   if (score >= 50) {
-    const streak = await StreakModel.findOne({ userId: userObjectId })
+    const streak = await prisma.streak.findUnique({ where: { userId } })
     if (streak) {
       const todayString = new Date().toDateString()
       if (streak.lastActiveDate.toDateString() !== todayString) {
-        streak.currentStreak += 1
-        if (streak.currentStreak > streak.longestStreak) {
-          streak.longestStreak = streak.currentStreak
-        }
-        streak.lastActiveDate = new Date()
-        await streak.save()
+        const currentStreak = streak.currentStreak + 1
+        await prisma.streak.update({
+          where: { userId },
+          data: {
+            currentStreak,
+            longestStreak: Math.max(currentStreak, streak.longestStreak),
+            lastActiveDate: new Date(),
+          },
+        })
       }
     } else {
-      await StreakModel.create({
-        userId: userObjectId,
-        currentStreak: 1,
-        longestStreak: 1,
-        lastActiveDate: new Date(),
+      await prisma.streak.create({
+        data: { userId, currentStreak: 1, longestStreak: 1, lastActiveDate: new Date() },
       })
     }
   }
 
-  // Update mastery and SM-2 for each topic
+  // Update mastery and SM-2 for every affected node, then write the roadmap once.
   const masteryUpdates: Array<{ topicSlug: string; mastery: number }> = []
+  let roadmapChanged = false
 
   for (const topicResult of byTopic) {
     const correctness =
-      topicResult.total > 0
-        ? (topicResult.correct / topicResult.total) * 100
-        : 0
+      topicResult.total > 0 ? (topicResult.correct / topicResult.total) * 100 : 0
 
-    const node = roadmap?.nodes.find(
-      (n) =>
-        n.topicSlug === topicResult.topicSlug &&
-        n.subjectSlug === quiz.topicRef?.subjectSlug,
-    )
+    const node = findNode(topicResult.topicSlug)
+    if (!node) continue
 
-    if (node && quiz.topicRef?.subjectSlug) {
-      const oldMastery = node.mastery
-      const newMastery = Math.round(oldMastery * 0.7 + correctness * 0.3)
+    const newMastery = Math.round(node.mastery * 0.7 + correctness * 0.3)
+    node.mastery = newMastery
+    if (newMastery >= 80 && node.revisionsCompleted >= 1) {
+      node.status = 'completed'
+    }
+    masteryUpdates.push({ topicSlug: topicResult.topicSlug, mastery: newMastery })
 
-      try {
-        await updateNodeMastery(
-          userId,
-          quiz.topicRef.subjectSlug,
-          topicResult.topicSlug,
-          newMastery,
-        )
-        masteryUpdates.push({ topicSlug: topicResult.topicSlug, mastery: newMastery })
-      } catch (err) {
-        logger.warn({ err, topicSlug: topicResult.topicSlug }, 'Could not update node mastery')
-      }
+    const sm2Result = calculateSM2({
+      easeFactor: node.sm2.easeFactor,
+      interval: node.sm2.interval,
+      repetitions: node.sm2.repetitions,
+      grade: gradeFromPercentage(correctness),
+    })
+    node.sm2 = {
+      easeFactor: sm2Result.easeFactor,
+      interval: sm2Result.interval,
+      repetitions: sm2Result.repetitions,
+    }
+    node.nextRevisionAt = sm2Result.nextReviewDate.toISOString()
 
-      // Update SM-2
-      try {
-        const grade = gradeFromPercentage(correctness)
-        const sm2Result = calculateSM2({
-          easeFactor: node.sm2.easeFactor,
-          interval: node.sm2.interval,
-          repetitions: node.sm2.repetitions,
-          grade,
-        })
+    roadmapChanged = true
+  }
 
-        await RoadmapModel.updateOne(
-          {
-            userId: userObjectId,
-            'nodes.topicSlug': topicResult.topicSlug,
-            'nodes.subjectSlug': quiz.topicRef.subjectSlug,
-          },
-          {
-            $set: {
-              'nodes.$.sm2.easeFactor': sm2Result.easeFactor,
-              'nodes.$.sm2.interval': sm2Result.interval,
-              'nodes.$.sm2.repetitions': sm2Result.repetitions,
-              'nodes.$.nextRevisionAt': sm2Result.nextReviewDate,
-            },
-          },
-        )
-      } catch (err) {
-        logger.warn({ err, topicSlug: topicResult.topicSlug }, 'Could not update SM-2')
-      }
+  if (roadmapChanged) {
+    try {
+      await prisma.roadmap.update({ where: { userId }, data: { nodes } })
+    } catch (err) {
+      logger.warn({ err, userId }, 'Could not persist roadmap mastery/SM-2 updates')
     }
   }
 
   // Mark attempt as completed
-  attempt.answers = gradedAnswers
-  attempt.score = score
-  attempt.byTopic = byTopic
-  attempt.xpAwarded = xpAwarded
-  attempt.durationSec = input.durationSec
-  attempt.completedAt = new Date()
-  await attempt.save()
+  const attempt = await prisma.quizAttempt.update({
+    where: { id: existingAttempt.id },
+    data: {
+      answers: gradedAnswers,
+      score,
+      byTopic,
+      xpAwarded,
+      durationSec: input.durationSec,
+      completedAt: new Date(),
+    },
+  })
 
   // Notify for mocks and high-stakes quizzes (score 80%+) — not every casual topic quiz
-  const isMock = quiz?.type === 'mock'
+  const isMock = quiz.type === 'mock'
   const isHighScore = score >= 80
   if (isMock || isHighScore) {
-    const quizId = attempt.quizId.toString()
-    const attemptId = attempt._id.toString()
     await notify(userId, 'quiz_result', {
       title: isMock ? `Mock exam complete — ${score}%` : `Quiz result — ${score}%`,
       body: isMock
         ? `You scored ${score}% on your mock exam. Check your results.`
         : `Great result. You scored ${score}% and earned ${xpAwarded} XP.`,
-      deeplink: `/quizzes/${quizId}/results/${attemptId}`,
-      metadata: { quizId, attemptId },
+      deeplink: `/quizzes/${attempt.quizId}/results/${attempt.id}`,
+      metadata: { quizId: attempt.quizId, attemptId: attempt.id },
     })
   }
 
@@ -337,34 +305,25 @@ export async function submitAttempt(
 export async function getAttempt(
   userId: string,
   attemptId: string,
-): Promise<{ attempt: IQuizAttempt; quiz: IQuiz }> {
-  const userObjectId = new Types.ObjectId(userId)
-  const attemptObjectId = new Types.ObjectId(attemptId)
-
-  const attempt = await QuizAttemptModel.findOne({
-    _id: attemptObjectId,
-    userId: userObjectId,
-  }).lean()
+): Promise<{ attempt: QuizAttempt; quiz: Quiz }> {
+  const attempt = await prisma.quizAttempt.findFirst({
+    where: { id: attemptId, userId },
+    include: { quiz: true },
+  })
 
   if (!attempt) {
     throw new NotFoundError('Attempt not found')
   }
 
-  const quiz = await QuizModel.findById(attempt.quizId).lean()
-  if (!quiz) {
-    throw new NotFoundError('Quiz not found')
-  }
-
-  return {
-    attempt: attempt as unknown as IQuizAttempt,
-    quiz: quiz as unknown as IQuiz,
-  }
+  const { quiz, ...rest } = attempt
+  return { attempt: rest, quiz }
 }
 
 export async function listQuizzes(userId: string): Promise<
   Array<{
     quizId: string
     attemptId: string | null
+    mode: QuizMode
     topicSlug: string
     subjectSlug: string
     difficulty: string
@@ -373,41 +332,33 @@ export async function listQuizzes(userId: string): Promise<
     createdAt: string
   }>
 > {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const quizzes = await QuizModel.find({ userId: userObjectId })
-    .sort({ createdAt: -1 })
-    .limit(20)
-    .lean()
-
-  const quizIds = quizzes.map((q) => q._id)
-  const attempts = await QuizAttemptModel.find({
-    userId: userObjectId,
-    quizId: { $in: quizIds },
+  const quizzes = await prisma.quiz.findMany({
+    where: { userId },
+    orderBy: { createdAt: 'desc' },
+    take: 20,
+    include: {
+      // Most recent attempt per quiz.
+      attempts: {
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        take: 1,
+        select: { id: true, score: true, completedAt: true },
+      },
+    },
   })
-    .sort({ createdAt: -1 })
-    .lean()
-
-  // Map quizId -> most recent attempt
-  const attemptMap = new Map<string, (typeof attempts)[number]>()
-  for (const a of attempts) {
-    const key = a.quizId.toString()
-    if (!attemptMap.has(key)) {
-      attemptMap.set(key, a)
-    }
-  }
 
   return quizzes.map((q) => {
-    const attempt = attemptMap.get(q._id.toString())
+    const attempt = q.attempts[0]
     return {
-      quizId: q._id.toString(),
-      attemptId: attempt ? attempt._id.toString() : null,
-      topicSlug: q.topicRef?.topicSlug ?? '',
-      subjectSlug: q.topicRef?.subjectSlug ?? q.subjectSlug ?? '',
+      quizId: q.id,
+      attemptId: attempt?.id ?? null,
+      mode: q.mode,
+      topicSlug: q.topicTopicSlug ?? '',
+      subjectSlug: q.topicSubjectSlug ?? q.subjectSlug ?? '',
       difficulty: q.difficulty,
       score: attempt?.completedAt ? attempt.score : null,
       questionCount: q.questionCount,
-      createdAt: (q as unknown as { createdAt: Date }).createdAt.toISOString(),
+      createdAt: q.createdAt.toISOString(),
     }
   })
 }

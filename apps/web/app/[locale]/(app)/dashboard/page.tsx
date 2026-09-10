@@ -12,7 +12,10 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { NumberCounter } from '@/components/common/number-counter'
+import { Calendar, Chart2, RefreshCircle } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
+import { ErrorState, errorKindFrom } from '@/components/common/error-state'
+import { useOnlineStatus } from '@/lib/hooks/use-online-status'
 import type { TodayTopic, WeakTopic, DailyScore, UpcomingRevision } from '@propella/shared'
 import { formatDistanceToNow } from 'date-fns'
 
@@ -129,7 +132,9 @@ function TodayFocusCard({ topics }: { topics: TodayTopic[] }) {
       <CardContent>
         {topics.length === 0 ? (
           <EmptyState
-            message="No sessions scheduled. Rest day, or start a topic."
+            icon={Calendar}
+            title="Nothing scheduled today"
+            message="Enjoy the breather, or pick a topic and get a head start."
             action={
               <Button variant="link" asChild>
                 <Link href="/roadmap">Browse roadmap</Link>
@@ -456,7 +461,11 @@ function PerformanceTrendCard({ scores }: { scores: DailyScore[] }) {
       </CardHeader>
       <CardContent>
         {scores.length === 0 ? (
-          <EmptyState message="No quiz scores yet this week." />
+          <EmptyState
+            icon={Chart2}
+            title="No scores yet this week"
+            message="Take a quiz and your progress will start showing up here."
+          />
         ) : (
           <>
             <ResponsiveContainer width="100%" height={200}>
@@ -519,10 +528,8 @@ function PerformanceTrendCard({ scores }: { scores: DailyScore[] }) {
 
 // Upcoming revisions card
 function UpcomingRevisionsCard({ revisions }: { revisions: UpcomingRevision[] }) {
-  const soon = revisions.filter((r) => {
-    const diff = new Date(r.nextRevisionAt).getTime() - Date.now()
-    return diff < 48 * 60 * 60 * 1000
-  })
+  // The API already returns only revisions due within 48 hours.
+  const soon = revisions
 
   return (
     <Card className="lg:col-span-5">
@@ -531,7 +538,11 @@ function UpcomingRevisionsCard({ revisions }: { revisions: UpcomingRevision[] })
       </CardHeader>
       <CardContent>
         {soon.length === 0 ? (
-          <EmptyState message="No revisions due in the next 48 hours." />
+          <EmptyState
+            icon={RefreshCircle}
+            title="Nothing to revise yet"
+            message="Revisions appear here once you have studied a topic. You are on track."
+          />
         ) : (
           <div className="flex flex-col gap-3">
             {soon.slice(0, 3).map((r) => (
@@ -631,19 +642,22 @@ function ExamReadinessCard({ readiness }: { readiness: number }) {
 }
 
 export default function DashboardPage() {
-  const { data, isLoading, isError } = useDashboard()
+  const { data, isLoading, isError, error, refetch } = useDashboard()
   const t = useTranslations('dashboard')
+  const online = useOnlineStatus()
 
   const today = new Date()
   const dateLabel = format(today, 'EEEE, MMMM d.')
 
-  if (isError) {
+  // Only take over the page when there is nothing cached to show. With a saved
+  // copy in hand the student keeps their dashboard and just sees the banner.
+  if (isError && !data) {
     return (
-      <div className="flex items-center justify-center py-24">
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-ink-3)' }}>
-          Couldn't reach Propella. Check your connection.
-        </p>
-      </div>
+      <ErrorState
+        kind={errorKindFrom(error, online)}
+        onRetry={() => void refetch()}
+        className="mt-8"
+      />
     )
   }
 
@@ -684,16 +698,16 @@ export default function DashboardPage() {
       </div>
 
       {/* 12-col grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
         {isLoading ? (
           <>
             <TodayFocusSkeleton />
             <StreakSkeleton />
-            <GenericSkeleton colSpan="lg:col-span-4" />
+            <GenericSkeleton colSpan="lg:col-span-5" />
+            <GenericSkeleton colSpan="lg:col-span-7" />
             <GenericSkeleton colSpan="lg:col-span-6" />
             <GenericSkeleton colSpan="lg:col-span-6" />
-            <GenericSkeleton colSpan="lg:col-span-6" />
-            <GenericSkeleton colSpan="lg:col-span-6" />
+            <GenericSkeleton colSpan="lg:col-span-12" />
           </>
         ) : data ? (
           <>

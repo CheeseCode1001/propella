@@ -1,32 +1,32 @@
-import { Types } from 'mongoose'
-import { QuizModel } from '../../models/Quiz'
-import { QuizAttemptModel } from '../../models/QuizAttempt'
-import { SubjectModel } from '../../models/Subject'
-import { ExamProfileModel } from '../../models/ExamProfile'
-import { XPEventModel } from '../../models/XPEvent'
+import type { Quiz, QuizAttempt, ExamType } from '../../config/db'
+import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
 import { generateQuestions } from '../quizzes/quiz-generation'
-import type { IQuiz } from '../../models/Quiz'
-import type { IQuizAttempt } from '../../models/QuizAttempt'
+import { QUIZ_MODEL } from '../../lib/gemini'
 import { logger } from '../../config/logger'
+import {
+  jsonArray,
+  type ByTopicResult,
+  type OptionId,
+  type QuizAnswer,
+  type QuizQuestion,
+  type SubjectTopic,
+} from '../../models/types'
 
-const JAMB_TIME_LIMIT = 7200  // 2 hours in seconds
-const WAEC_NECO_TIME_LIMIT = 10800  // 3 hours in seconds
+const JAMB_TIME_LIMIT = 7200 // 2 hours in seconds
+const WAEC_NECO_TIME_LIMIT = 10800 // 3 hours in seconds
 const JAMB_QUESTIONS_PER_SUBJECT = 40
 const WAEC_NECO_TOTAL_QUESTIONS = 60
 
 export async function generateMock(
   userId: string,
-  examType: 'jamb' | 'waec' | 'neco',
+  examType: ExamType,
   subjectSlugs: string[],
-): Promise<IQuiz> {
-  const userObjectId = new Types.ObjectId(userId)
-
+): Promise<Quiz> {
   // Fetch subjects
-  const subjects = await SubjectModel.find({
-    slug: { $in: subjectSlugs },
-    examTypes: examType,
-  }).lean()
+  const subjects = await prisma.subject.findMany({
+    where: { slug: { in: subjectSlugs }, examTypes: { has: examType } },
+  })
 
   if (subjects.length === 0) {
     throw new NotFoundError('No matching subjects found for the given exam type')
@@ -34,20 +34,14 @@ export async function generateMock(
 
   const timeLimit = examType === 'jamb' ? JAMB_TIME_LIMIT : WAEC_NECO_TIME_LIMIT
 
-  let allQuestions: Array<{
-    id: string
-    stem: string
-    options: Array<{ id: 'A' | 'B' | 'C' | 'D'; text: string }>
-    correctOptionId: 'A' | 'B' | 'C' | 'D'
-    explanation: string
-    topicSlug: string
-    difficulty: 'easy' | 'medium' | 'hard'
-  }> = []
+  let allQuestions: QuizQuestion[] = []
 
   if (examType === 'jamb') {
     // 40 questions per subject
     for (const subject of subjects) {
-      const topicsForExam = subject.topics.filter((t) => t.examTypes.includes(examType))
+      const topicsForExam = jsonArray<SubjectTopic>(subject.topics).filter((t) =>
+        t.examTypes.includes(examType),
+      )
       if (topicsForExam.length === 0) continue
 
       const questionsPerTopic = Math.ceil(JAMB_QUESTIONS_PER_SUBJECT / topicsForExam.length)
@@ -74,9 +68,9 @@ export async function generateMock(
     const questionsPerSubject = Math.ceil(WAEC_NECO_TOTAL_QUESTIONS / subjects.length)
 
     for (const subject of subjects) {
-      const topicsForExam = subject.topics.filter((t) => t.examTypes.includes(examType))
-      if (topicsForExam.length === 0) continue
-
+      const topicsForExam = jsonArray<SubjectTopic>(subject.topics).filter((t) =>
+        t.examTypes.includes(examType),
+      )
       const firstTopic = topicsForExam[0]
       if (!firstTopic) continue
 
@@ -101,43 +95,30 @@ export async function generateMock(
     throw new AppError(500, 'Failed to generate any questions for the mock exam')
   }
 
-  const quiz = await QuizModel.create({
-    userId: userObjectId,
-    type: 'mock',
-    difficulty: 'medium',
-    questionCount: allQuestions.length,
-    timeLimit,
-    questions: allQuestions,
-    generatedByModel: 'claude-sonnet-4-5',
+  return prisma.quiz.create({
+    data: {
+      userId,
+      type: 'mock',
+      difficulty: 'medium',
+      questionCount: allQuestions.length,
+      timeLimit,
+      questions: allQuestions,
+      generatedByModel: QUIZ_MODEL,
+    },
   })
-
-  return quiz
 }
 
-export async function startMockAttempt(userId: string, mockId: string): Promise<IQuizAttempt> {
-  const userObjectId = new Types.ObjectId(userId)
-  const mockObjectId = new Types.ObjectId(mockId)
-
-  const mock = await QuizModel.findOne({
-    _id: mockObjectId,
-    userId: userObjectId,
-    type: 'mock',
-  }).lean()
+export async function startMockAttempt(userId: string, mockId: string): Promise<QuizAttempt> {
+  const mock = await prisma.quiz.findFirst({
+    where: { id: mockId, userId, type: 'mock' },
+    select: { id: true },
+  })
 
   if (!mock) throw new NotFoundError('Mock exam not found')
 
-  const attempt = await QuizAttemptModel.create({
-    quizId: mockObjectId,
-    userId: userObjectId,
-    startedAt: new Date(),
-    durationSec: 0,
-    answers: [],
-    score: 0,
-    byTopic: [],
-    xpAwarded: 0,
+  return prisma.quizAttempt.create({
+    data: { quizId: mock.id, userId, startedAt: new Date() },
   })
-
-  return attempt
 }
 
 export async function submitMock(
@@ -152,26 +133,25 @@ export async function submitMock(
     }>
     durationSec: number
   },
-): Promise<{ attempt: IQuizAttempt; xpAwarded: number }> {
-  const userObjectId = new Types.ObjectId(userId)
-  const attemptObjectId = new Types.ObjectId(attemptId)
-
-  const [attempt, quiz] = await Promise.all([
-    QuizAttemptModel.findOne({ _id: attemptObjectId, userId: userObjectId }),
-    QuizModel.findById(input.quizId).lean(),
+): Promise<{ attempt: QuizAttempt; xpAwarded: number }> {
+  const [existingAttempt, quiz] = await Promise.all([
+    prisma.quizAttempt.findFirst({ where: { id: attemptId, userId } }),
+    prisma.quiz.findUnique({ where: { id: input.quizId } }),
   ])
 
-  if (!attempt) throw new NotFoundError('Attempt not found')
+  if (!existingAttempt) throw new NotFoundError('Attempt not found')
   if (!quiz) throw new NotFoundError('Mock quiz not found')
-  if (attempt.completedAt) throw new AppError(400, 'Attempt already submitted')
+  if (existingAttempt.completedAt) throw new AppError(400, 'Attempt already submitted')
 
-  const questionMap = new Map(quiz.questions.map((q) => [q.id, q]))
+  const questionMap = new Map(
+    jsonArray<QuizQuestion>(quiz.questions).map((q) => [q.id, q]),
+  )
 
-  const gradedAnswers = input.answers.map((a) => {
+  const gradedAnswers: QuizAnswer[] = input.answers.map((a) => {
     const question = questionMap.get(a.questionId)
     return {
       questionId: a.questionId,
-      selectedOptionId: a.selectedOptionId as 'A' | 'B' | 'C' | 'D',
+      selectedOptionId: a.selectedOptionId as OptionId,
       isCorrect: question ? question.correctOptionId === a.selectedOptionId : false,
       timeSpentSec: a.timeSpentSec,
     }
@@ -184,39 +164,41 @@ export async function submitMock(
   // Group by topic for byTopic results
   const topicGroups = new Map<string, { correct: number; total: number }>()
   for (const answer of gradedAnswers) {
-    const question = questionMap.get(answer.questionId)
-    const topicSlug = question?.topicSlug ?? 'unknown'
+    const topicSlug = questionMap.get(answer.questionId)?.topicSlug ?? 'unknown'
     const group = topicGroups.get(topicSlug) ?? { correct: 0, total: 0 }
     group.total += 1
     if (answer.isCorrect) group.correct += 1
     topicGroups.set(topicSlug, group)
   }
 
-  const byTopic = Array.from(topicGroups.entries()).map(([topicSlug, { correct, total }]) => ({
-    topicSlug,
-    correct,
-    total,
-    masteryDelta: 0,
-  }))
+  const byTopic: ByTopicResult[] = Array.from(topicGroups.entries()).map(
+    ([topicSlug, { correct, total }]) => ({ topicSlug, correct, total, masteryDelta: 0 }),
+  )
 
   // XP: base 100 + 1 per percent
   const xpAwarded = 100 + score
 
-  await XPEventModel.create({
-    userId: userObjectId,
-    source: 'mock',
-    sourceId: attempt._id,
-    amount: xpAwarded,
-    reason: `Mock exam: ${score}% score`,
+  await prisma.xPEvent.create({
+    data: {
+      userId,
+      source: 'mock',
+      sourceId: existingAttempt.id,
+      amount: xpAwarded,
+      reason: `Mock exam: ${score}% score`,
+    },
   })
 
-  attempt.answers = gradedAnswers
-  attempt.score = score
-  attempt.byTopic = byTopic
-  attempt.xpAwarded = xpAwarded
-  attempt.durationSec = input.durationSec
-  attempt.completedAt = new Date()
-  await attempt.save()
+  const attempt = await prisma.quizAttempt.update({
+    where: { id: existingAttempt.id },
+    data: {
+      answers: gradedAnswers,
+      score,
+      byTopic,
+      xpAwarded,
+      durationSec: input.durationSec,
+      completedAt: new Date(),
+    },
+  })
 
   return { attempt, xpAwarded }
 }
@@ -224,23 +206,16 @@ export async function submitMock(
 export async function getMockAttemptResult(
   userId: string,
   attemptId: string,
-): Promise<{ attempt: IQuizAttempt; quiz: IQuiz }> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const attempt = await QuizAttemptModel.findOne({
-    _id: new Types.ObjectId(attemptId),
-    userId: userObjectId,
-  }).lean()
+): Promise<{ attempt: QuizAttempt; quiz: Quiz }> {
+  const attempt = await prisma.quizAttempt.findFirst({
+    where: { id: attemptId, userId },
+    include: { quiz: true },
+  })
 
   if (!attempt) throw new NotFoundError('Attempt not found')
 
-  const quiz = await QuizModel.findById(attempt.quizId).lean()
-  if (!quiz) throw new NotFoundError('Mock quiz not found')
-
-  return {
-    attempt: attempt as unknown as IQuizAttempt,
-    quiz: quiz as unknown as IQuiz,
-  }
+  const { quiz, ...rest } = attempt
+  return { attempt: rest, quiz }
 }
 
 export async function getMockHistory(userId: string): Promise<
@@ -254,39 +229,30 @@ export async function getMockHistory(userId: string): Promise<
     completedAt: string | null
   }>
 > {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const mocks = await QuizModel.find({ userId: userObjectId, type: 'mock' })
-    .sort({ createdAt: -1 })
-    .limit(20)
-    .lean()
-
-  const mockIds = mocks.map((m) => m._id)
-  const attempts = await QuizAttemptModel.find({
-    userId: userObjectId,
-    quizId: { $in: mockIds },
+  const mocks = await prisma.quiz.findMany({
+    where: { userId, type: 'mock' },
+    orderBy: { createdAt: 'desc' },
+    take: 20,
+    include: {
+      attempts: {
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        take: 1,
+        select: { id: true, score: true, completedAt: true },
+      },
+    },
   })
-    .sort({ createdAt: -1 })
-    .lean()
-
-  const attemptMap = new Map<string, (typeof attempts)[number]>()
-  for (const a of attempts) {
-    const key = a.quizId.toString()
-    if (!attemptMap.has(key)) attemptMap.set(key, a)
-  }
 
   return mocks.map((m) => {
-    const attempt = attemptMap.get(m._id.toString())
+    const attempt = m.attempts[0]
     return {
-      mockId: m._id.toString(),
-      attemptId: attempt ? attempt._id.toString() : null,
+      mockId: m.id,
+      attemptId: attempt?.id ?? null,
       score: attempt?.completedAt ? attempt.score : null,
       questionCount: m.questionCount,
       timeLimit: m.timeLimit ?? JAMB_TIME_LIMIT,
-      createdAt: (m as unknown as { createdAt: Date }).createdAt.toISOString(),
-      completedAt: attempt?.completedAt
-        ? (attempt.completedAt as unknown as Date).toISOString()
-        : null,
+      createdAt: m.createdAt.toISOString(),
+      completedAt: attempt?.completedAt ? attempt.completedAt.toISOString() : null,
     }
   })
 }

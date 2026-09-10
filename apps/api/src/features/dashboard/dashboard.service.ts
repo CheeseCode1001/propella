@@ -1,12 +1,7 @@
-import { Types } from 'mongoose'
-import { ExamProfileModel } from '../../models/ExamProfile'
-import { RoadmapModel } from '../../models/Roadmap'
-import { StreakModel } from '../../models/Streak'
-import { XPEventModel } from '../../models/XPEvent'
-import { QuizAttemptModel } from '../../models/QuizAttempt'
-import { SubjectModel } from '../../models/Subject'
+import { prisma } from '../../config/db'
 import { AppError } from '../../middleware/error-handler'
 import { getRank, getNextRank } from '@propella/shared'
+import { jsonArray, type RoadmapNodeJson, type SubjectTopic } from '../../models/types'
 import type {
   DashboardData,
   TodayTopic,
@@ -18,31 +13,42 @@ import type {
 } from '@propella/shared'
 
 export async function getDashboard(userId: string): Promise<DashboardData> {
-  const userObjectId = new Types.ObjectId(userId)
-
   // 1. Fetch ExamProfile
-  const examProfile = await ExamProfileModel.findOne({ userId: userObjectId }).lean()
+  const examProfile = await prisma.examProfile.findUnique({ where: { userId } })
   if (!examProfile) {
     throw new AppError(404, 'Exam profile not found — please complete onboarding')
   }
 
-  const user = await import('../../models/User').then((m) => m.UserModel.findById(userObjectId).lean())
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { onboardingCompleted: true },
+  })
   if (!user?.onboardingCompleted) {
     throw new AppError(404, 'Onboarding not complete')
   }
 
-  // 2. Fetch Roadmap
-  const roadmap = await RoadmapModel.findOne({ userId: userObjectId }).lean()
+  const [roadmap, streakRow, xpAgg, recentAttempts] = await Promise.all([
+    // 2. Roadmap
+    prisma.roadmap.findUnique({ where: { userId } }),
+    // 3. Streak
+    prisma.streak.findUnique({ where: { userId } }),
+    // 4. Total XP
+    prisma.xPEvent.aggregate({ where: { userId }, _sum: { amount: true } }),
+    // 8. Recent quiz scores: last 7 attempts
+    prisma.quizAttempt.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      take: 7,
+      select: { createdAt: true, score: true },
+    }),
+  ])
 
-  // 3. Fetch Streak
-  const streakDoc = await StreakModel.findOne({ userId: userObjectId }).lean()
-
-  const streak: UserStreak = streakDoc
+  const streak: UserStreak = streakRow
     ? {
-        currentStreak: streakDoc.currentStreak,
-        longestStreak: streakDoc.longestStreak,
-        lastActiveDate: streakDoc.lastActiveDate.toISOString(),
-        freezesAvailable: streakDoc.freezesAvailable,
+        currentStreak: streakRow.currentStreak,
+        longestStreak: streakRow.longestStreak,
+        lastActiveDate: streakRow.lastActiveDate.toISOString(),
+        freezesAvailable: streakRow.freezesAvailable,
       }
     : {
         currentStreak: 0,
@@ -51,12 +57,7 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
         freezesAvailable: 1,
       }
 
-  // 4. Aggregate total XP
-  const xpAgg = await XPEventModel.aggregate<{ _id: null; total: number }>([
-    { $match: { userId: userObjectId } },
-    { $group: { _id: null, total: { $sum: '$amount' } } },
-  ])
-  const totalXP = xpAgg[0]?.total ?? 0
+  const totalXP = xpAgg._sum.amount ?? 0
 
   // 5. Compute rank
   const rank = getRank(totalXP)
@@ -70,15 +71,21 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     xpToNextRank: nextRank ? nextRank.threshold - totalXP : null,
   }
 
-  const nodes = roadmap?.nodes ?? []
+  const nodes = jsonArray<RoadmapNodeJson>(roadmap?.nodes)
 
   // Load subjects for name resolution
   const subjectSlugs = [...new Set(nodes.map((n) => n.subjectSlug))]
-  const subjects = await SubjectModel.find({ slug: { $in: subjectSlugs } })
-    .select('slug name topics')
-    .lean()
+  const subjects = await prisma.subject.findMany({
+    where: { slug: { in: subjectSlugs } },
+    select: { slug: true, name: true, topics: true },
+  })
 
   const subjectMap = new Map(subjects.map((s) => [s.slug, s]))
+
+  function topicOf(node: RoadmapNodeJson): SubjectTopic | undefined {
+    const subject = subjectMap.get(node.subjectSlug)
+    return jsonArray<SubjectTopic>(subject?.topics).find((t) => t.slug === node.topicSlug)
+  }
 
   // 6. Today's planned topics
   const today = new Date()
@@ -86,16 +93,15 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
 
   for (const node of nodes) {
     if (
-      node.plannedStartDate <= today &&
-      node.plannedEndDate >= today &&
+      new Date(node.plannedStartDate) <= today &&
+      new Date(node.plannedEndDate) >= today &&
       (node.status === 'ready' || node.status === 'in-progress')
     ) {
-      const subject = subjectMap.get(node.subjectSlug)
-      const topic = subject?.topics.find((t) => t.slug === node.topicSlug)
+      const topic = topicOf(node)
 
       todayTopics.push({
         subjectSlug: node.subjectSlug,
-        subjectName: subject?.name ?? node.subjectSlug,
+        subjectName: subjectMap.get(node.subjectSlug)?.name ?? node.subjectSlug,
         topicSlug: node.topicSlug,
         topicName: topic?.name ?? node.topicSlug,
         estimatedMinutes: topic?.estimatedMinutes ?? 30,
@@ -110,23 +116,13 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     .filter((n) => n.mastery < 50)
     .sort((a, b) => a.mastery - b.mastery)
     .slice(0, 3)
-    .map((node) => {
-      const subject = subjectMap.get(node.subjectSlug)
-      const topic = subject?.topics.find((t) => t.slug === node.topicSlug)
-      return {
-        subjectSlug: node.subjectSlug,
-        subjectName: subject?.name ?? node.subjectSlug,
-        topicSlug: node.topicSlug,
-        topicName: topic?.name ?? node.topicSlug,
-        mastery: node.mastery,
-      }
-    })
-
-  // 8. Recent quiz scores: last 7 attempts
-  const recentAttempts = await QuizAttemptModel.find({ userId: userObjectId })
-    .sort({ createdAt: -1 })
-    .limit(7)
-    .lean()
+    .map((node) => ({
+      subjectSlug: node.subjectSlug,
+      subjectName: subjectMap.get(node.subjectSlug)?.name ?? node.subjectSlug,
+      topicSlug: node.topicSlug,
+      topicName: topicOf(node)?.name ?? node.topicSlug,
+      mastery: node.mastery,
+    }))
 
   const recentScores: DailyScore[] = recentAttempts.map((attempt) => ({
     date: attempt.createdAt.toISOString().split('T')[0] ?? attempt.createdAt.toISOString(),
@@ -140,28 +136,29 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
   for (const node of nodes) {
     if (
       node.nextRevisionAt &&
-      node.nextRevisionAt <= in48Hours &&
+      new Date(node.nextRevisionAt) <= in48Hours &&
       node.status !== 'locked'
     ) {
-      const subject = subjectMap.get(node.subjectSlug)
-      const topic = subject?.topics.find((t) => t.slug === node.topicSlug)
       upcomingRevisions.push({
         subjectSlug: node.subjectSlug,
-        subjectName: subject?.name ?? node.subjectSlug,
+        subjectName: subjectMap.get(node.subjectSlug)?.name ?? node.subjectSlug,
         topicSlug: node.topicSlug,
-        topicName: topic?.name ?? node.topicSlug,
-        nextRevisionAt: node.nextRevisionAt.toISOString(),
+        topicName: topicOf(node)?.name ?? node.topicSlug,
+        nextRevisionAt: new Date(node.nextRevisionAt).toISOString(),
       })
     }
   }
 
   const examDate = new Date(examProfile.examDate)
-  const daysToExam = Math.max(0, Math.ceil((examDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)))
+  const daysToExam = Math.max(
+    0,
+    Math.ceil((examDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+  )
 
   return {
     daysToExam,
     examType: examProfile.examType,
-    examTypes: examProfile.examTypes?.length ? examProfile.examTypes : [examProfile.examType],
+    examTypes: examProfile.examTypes.length ? examProfile.examTypes : [examProfile.examType],
     examDate: examProfile.examDate.toISOString(),
     todayTopics,
     streak,

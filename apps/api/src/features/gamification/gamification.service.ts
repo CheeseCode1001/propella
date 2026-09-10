@@ -1,19 +1,25 @@
-import { Types } from 'mongoose'
-import { XPEventModel, type XPSource } from '../../models/XPEvent'
-import { StreakModel } from '../../models/Streak'
+import type { XPSource } from '../../config/db'
+import { prisma } from '../../config/db'
 import { getRank, getNextRank } from '@propella/shared'
 import { notify } from '../notifications/notification.service'
+import { checkAndAwardBadges } from '../badges/badges.service'
 import type { XPSummary, UserStreak } from '@propella/shared'
 
-export async function getXPSummary(userId: string): Promise<XPSummary> {
-  const userObjectId = new Types.ObjectId(userId)
+export type { XPSource }
 
-  const agg = await XPEventModel.aggregate<{ _id: null; total: number }>([
-    { $match: { userId: userObjectId } },
-    { $group: { _id: null, total: { $sum: '$amount' } } },
-  ])
+/**
+ * Total XP is always summed from the append-only ledger — there is no
+ * denormalised total that can drift.
+ */
+export async function getTotalXP(userId: string): Promise<number> {
+  const agg = await prisma.xPEvent.aggregate({
+    where: { userId },
+    _sum: { amount: true },
+  })
+  return agg._sum.amount ?? 0
+}
 
-  const totalXP = agg[0]?.total ?? 0
+export function buildXPSummary(totalXP: number): XPSummary {
   const rank = getRank(totalXP)
   const nextRank = getNextRank(totalXP)
 
@@ -26,10 +32,12 @@ export async function getXPSummary(userId: string): Promise<XPSummary> {
   }
 }
 
-export async function getStreak(userId: string): Promise<UserStreak> {
-  const userObjectId = new Types.ObjectId(userId)
+export async function getXPSummary(userId: string): Promise<XPSummary> {
+  return buildXPSummary(await getTotalXP(userId))
+}
 
-  const existing = await StreakModel.findOne({ userId: userObjectId }).lean()
+export async function getStreak(userId: string): Promise<UserStreak> {
+  const existing = await prisma.streak.findUnique({ where: { userId } })
 
   if (existing) {
     return {
@@ -40,9 +48,8 @@ export async function getStreak(userId: string): Promise<UserStreak> {
     }
   }
 
-  const created = await StreakModel.create({
-    userId: userObjectId,
-    lastActiveDate: new Date(),
+  const created = await prisma.streak.create({
+    data: { userId, lastActiveDate: new Date() },
   })
 
   return {
@@ -61,30 +68,22 @@ export async function awardXP(
   reason?: string,
   multiplier?: number,
 ): Promise<number> {
-  const userObjectId = new Types.ObjectId(userId)
-
   // Snapshot rank before
-  const aggBefore = await XPEventModel.aggregate<{ _id: null; total: number }>([
-    { $match: { userId: userObjectId } },
-    { $group: { _id: null, total: { $sum: '$amount' } } },
-  ])
-  const xpBefore = aggBefore[0]?.total ?? 0
+  const xpBefore = await getTotalXP(userId)
   const rankBefore = getRank(xpBefore)
 
-  await XPEventModel.create({
-    userId: userObjectId,
-    source,
-    ...(sourceId ? { sourceId: new Types.ObjectId(sourceId) } : {}),
-    amount,
-    reason: reason ?? source,
-    ...(multiplier !== undefined ? { multiplier } : {}),
+  await prisma.xPEvent.create({
+    data: {
+      userId,
+      source,
+      amount,
+      reason: reason ?? source,
+      ...(sourceId ? { sourceId } : {}),
+      ...(multiplier !== undefined ? { multiplier } : {}),
+    },
   })
 
-  const agg = await XPEventModel.aggregate<{ _id: null; total: number }>([
-    { $match: { userId: userObjectId } },
-    { $group: { _id: null, total: { $sum: '$amount' } } },
-  ])
-  const xpAfter = agg[0]?.total ?? 0
+  const xpAfter = xpBefore + amount
 
   // Notify on rank-up
   const rankAfter = getRank(xpAfter)
@@ -95,6 +94,11 @@ export async function awardXP(
       deeplink: '/progress',
     })
   }
+
+  // Every XP award is a progress event, so this is the one place that catches
+  // badges from quizzes, sessions, marathons and streaks alike. It never
+  // throws, so a badge check cannot fail the action that earned the XP.
+  await checkAndAwardBadges(userId)
 
   return xpAfter
 }

@@ -1,7 +1,6 @@
 import express, { type Express } from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
-import mongoSanitize from 'express-mongo-sanitize'
 import cookieParser from 'cookie-parser'
 import 'express-async-errors'
 import { env } from './config/env'
@@ -22,6 +21,11 @@ import assistantRouter from './features/assistant/assistant.routes'
 import mocksRouter from './features/mocks/mocks.routes'
 import leaderboardRouter from './features/leaderboard/leaderboard.routes'
 import notificationsRouter from './features/notifications/notifications.routes'
+import adminRouter from './features/admin/admin.routes'
+import notesRouter from './features/notes/notes.routes'
+import plannerRouter from './features/planner/planner.routes'
+import topicsRouter from './features/topics/topics.routes'
+import badgesRouter from './features/badges/badges.routes'
 
 const app: Express = express()
 
@@ -36,19 +40,42 @@ app.use(helmet())
 //   }),
 // )
 
-// Allow multiple origins (dev + production)
+/**
+ * Origins allowed to call the API with credentials.
+ *
+ * The two app URLs come from the environment so a deployment does not need a
+ * code change; CORS_EXTRA_ORIGINS takes a comma-separated list for anything
+ * else (a custom domain, a second preview).
+ */
 const allowedOrigins = [
   env.FRONTEND_URL,
+  env.ADMIN_URL,
+  ...env.CORS_EXTRA_ORIGINS.split(',')
+    .map((o) => o.trim())
+    .filter(Boolean),
+  // Local development.
   'http://localhost:3000',
-  'http://192.168.0.2:3000',
-  'https://propella-web-rvy6.vercel.app',
-  'https://propella-web-rvy6-ep3fhci7g-abdulbasid-s-projects.vercel.app',
-]
+  'http://localhost:3001',
+].filter(Boolean)
+
+/**
+ * Vercel gives every deployment its own hostname, so preview builds cannot be
+ * listed ahead of time. They are matched by pattern instead, and only outside
+ * production — a live API should answer the known origins alone.
+ */
+const VERCEL_PREVIEW = /^https:\/\/[a-z0-9-]+\.vercel\.app$/i
+
+function isAllowedOrigin(origin: string): boolean {
+  if (allowedOrigins.includes(origin)) return true
+  if (env.NODE_ENV !== 'production' && VERCEL_PREVIEW.test(origin)) return true
+  return false
+}
+
 app.use(
   cors({
-    origin: function(origin, callback) {
-      // allow requests with no origin (like mobile apps, curl)
-      if (!origin || allowedOrigins.includes(origin)) {
+    origin(origin, callback) {
+      // No Origin header: same-origin, curl, or a native app. Nothing to block.
+      if (!origin || isAllowedOrigin(origin)) {
         callback(null, true)
       } else {
         callback(new Error(`CORS blocked for origin: ${origin}`))
@@ -65,8 +92,8 @@ app.use(express.json({ limit: '1mb' }))
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-// Sanitization — strips $ and . from user input to prevent NoSQL injection
-app.use(mongoSanitize())
+// NoSQL-injection sanitisation is gone with MongoDB — Prisma parameterises
+// every query, so string operators cannot be smuggled in through request bodies.
 
 // Health check (before auth)
 app.get('/health', (_req, res) => {
@@ -90,6 +117,11 @@ app.use('/api/assistant', authenticate, assistantRouter)
 app.use('/api/mocks', authenticate, mocksRouter)
 app.use('/api/leaderboard', authenticate, leaderboardRouter)
 app.use('/api/notifications', authenticate, notificationsRouter)
+app.use('/api/notes', authenticate, notesRouter)
+app.use('/api/planner', authenticate, plannerRouter)
+app.use('/api/topics', authenticate, topicsRouter)
+app.use('/api/badges', authenticate, badgesRouter)
+app.use('/api/admin', authenticate, adminRouter)
 
 // Global error handler — must be last
 app.use(errorHandler)

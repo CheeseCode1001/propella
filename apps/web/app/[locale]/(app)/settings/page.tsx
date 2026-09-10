@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useQuery } from '@tanstack/react-query'
@@ -12,6 +12,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SignOutDialog } from '@/components/auth/sign-out-dialog'
+import { AvatarUpload } from '@/components/settings/avatar-upload'
+import { PushDeviceRow } from '@/components/settings/push-device-row'
+import type { AuthUser } from '@propella/shared'
 
 type TabId = 'profile' | 'exam' | 'notifications' | 'plan' | 'privacy'
 
@@ -128,7 +131,18 @@ function ToggleRow({
 function ProfileTab() {
   const t = useTranslations('settings')
   const user = useAuthStore((s) => s.user)
+  const setUser = useAuthStore((s) => s.setUser)
   const [saved, setSaved] = useState(false)
+
+  // Saved on its own rather than with the form, so the picture updates the
+  // moment it is chosen — including the avatar in the sidebar.
+  const handleAvatarChange = useCallback(
+    async (avatarUrl: string | null) => {
+      const updated = await api.patch<{ data: AuthUser }>('/users/me', { avatarUrl })
+      setUser(updated.data)
+    },
+    [setUser],
+  )
   const { register, handleSubmit } = useForm<ProfileForm>({
     defaultValues: {
       name: user?.name ?? '',
@@ -161,32 +175,15 @@ function ProfileTab() {
             <Input id="name" {...register('name')} />
           </div>
 
-          {/* Avatar stub */}
           <div>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', marginBottom: 6 }}>
-              Avatar
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', marginBottom: 10 }}>
+              Profile picture
             </p>
-            <div
-              style={{
-                width: 64,
-                height: 64,
-                borderRadius: '50%',
-                backgroundColor: 'var(--color-paper-3)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontFamily: 'var(--font-sans)',
-                fontSize: 24,
-                fontWeight: 600,
-                color: 'var(--color-ink)',
-                marginBottom: 8,
-              }}
-            >
-              {user?.name?.charAt(0).toUpperCase() ?? 'U'}
-            </div>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--color-ink-3)' }}>
-              Avatar upload coming soon.
-            </p>
+            <AvatarUpload
+              value={user?.avatarUrl ?? null}
+              initial={user?.name?.charAt(0).toUpperCase() ?? 'U'}
+              onChange={handleAvatarChange}
+            />
           </div>
 
           <div>
@@ -335,6 +332,10 @@ function NotificationsTab() {
           checked={notifications.push}
           onChange={() => toggle('push')}
         />
+
+        {/* The preference above says whether we send; this is whether this
+            device has actually agreed to receive. Both have to be on. */}
+        <PushDeviceRow enabled={notifications.push} />
         <ToggleRow
           label="Study reminders"
           description="Daily reminders to keep your streak going"
@@ -512,6 +513,8 @@ export default function SettingsPage() {
 
   useEffect(() => {
     if (tabParam && TABS.some((t) => t.id === tabParam)) {
+      // Intentional: deep links such as /settings?tab=plan select the tab.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveTab(tabParam)
     }
   }, [tabParam])

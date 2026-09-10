@@ -1,4 +1,4 @@
-export const EXAM_TYPES = ['jamb', 'waec', 'neco'] as const
+export const EXAM_TYPES = ['jamb', 'waec', 'neco', 'undergraduate'] as const
 export type ExamType = (typeof EXAM_TYPES)[number]
 
 export const PLAN_TYPES = ['free', 'scholar'] as const
@@ -9,6 +9,9 @@ export type TopicStatus = (typeof TOPIC_STATUSES)[number]
 
 export const DIFFICULTY_LEVELS = ['easy', 'medium', 'hard', 'adaptive'] as const
 export type DifficultyLevel = (typeof DIFFICULTY_LEVELS)[number]
+
+export const QUIZ_MODES = ['study', 'exam'] as const
+export type QuizMode = (typeof QUIZ_MODES)[number]
 
 export const QUIZ_TYPES = ['topic', 'subject', 'mixed', 'weakness', 'mock'] as const
 export type QuizType = (typeof QUIZ_TYPES)[number]

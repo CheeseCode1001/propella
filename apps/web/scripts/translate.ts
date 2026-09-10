@@ -2,16 +2,25 @@
 /**
  * Translation script — run manually: pnpm translate
  *
- * Reads messages/en.json as source of truth and uses the Claude API
+ * Reads messages/en.json as source of truth and uses the Gemini API
  * to translate each top-level namespace into Yoruba, Hausa, and Igbo.
  * Existing manual overrides in messages/{locale}.fixed.json are preserved.
+ *
+ * Requires GEMINI_API_KEY in the environment.
  */
 
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI } from '@google/genai'
 import fs from 'fs/promises'
 import path from 'path'
 
-const client = new Anthropic()
+const apiKey = process.env.GEMINI_API_KEY
+if (!apiKey) {
+  console.error('GEMINI_API_KEY is not set — get a key at https://aistudio.google.com/apikey')
+  process.exit(1)
+}
+
+const client = new GoogleGenAI({ apiKey })
+const MODEL = process.env.GEMINI_TRANSLATE_MODEL ?? 'gemini-2.5-pro'
 
 const TARGET_LOCALES: Array<{ code: string; name: string }> = [
   { code: 'yo', name: 'Yoruba' },
@@ -54,13 +63,17 @@ async function translateNamespace(
 ): Promise<unknown> {
   const sourceJson = JSON.stringify({ [namespace]: value }, null, 2)
 
-  const message = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 4096,
-    messages: [{ role: 'user', content: buildPrompt(targetLanguageName, sourceJson) }],
+  const response = await client.models.generateContent({
+    model: MODEL,
+    contents: buildPrompt(targetLanguageName, sourceJson),
+    config: {
+      // Gemini returns strict JSON when asked, so no fence-stripping is needed.
+      responseMimeType: 'application/json',
+      temperature: 0.2,
+    },
   })
 
-  const raw = message.content[0]?.type === 'text' ? message.content[0].text.trim() : ''
+  const raw = (response.text ?? '').trim()
 
   try {
     const parsed = JSON.parse(raw) as JsonObject

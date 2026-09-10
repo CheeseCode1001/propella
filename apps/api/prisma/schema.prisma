@@ -1,0 +1,704 @@
+// Propella — PostgreSQL schema
+//
+// Works with any Postgres host. In apps/api/.env set:
+//   DATABASE_URL — the pooled connection string (PgBouncer / -pooler host),
+//                  used by the running app via the @prisma/adapter-pg adapter
+//   DIRECT_URL   — the direct connection string, used only by `prisma migrate`
+//                  (optional — falls back to DATABASE_URL)
+//
+// Structures that are always read and written as a whole (roadmap nodes, quiz
+// questions, chat messages, syllabus topics) are stored as jsonb. Anything that
+// is filtered, sorted or aggregated is a real, indexed column.
+
+// Prisma 7 generates the client into the project instead of node_modules.
+// moduleFormat=cjs matches this app's tsconfig (module: CommonJS).
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "cjs"
+}
+
+// Prisma 7 moved connection URLs out of the schema. They live in
+// prisma.config.ts, which reads them from apps/api/.env.
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────── enums ───────────────────────────────
+
+/// What a student is preparing for. `undergraduate` is a study track rather
+/// than an exam body — it carries its own syllabus content.
+enum ExamType {
+  jamb
+  waec
+  neco
+  undergraduate
+}
+
+enum Plan {
+  free
+  scholar
+}
+
+/// Platform access level. Admins reach the separate admin dashboard.
+enum UserRole {
+  student
+  admin
+}
+
+enum Theme {
+  system
+  light
+  dark
+}
+
+enum Locale {
+  en
+  yo
+  ha
+  ig
+}
+
+enum InstitutionType {
+  university
+  polytechnic
+  college
+}
+
+enum LearningStyle {
+  visual
+  reading
+  practice
+  mixed
+}
+
+enum QuizType {
+  topic
+  subject
+  mixed
+  weakness
+  mock
+}
+
+enum Difficulty {
+  easy
+  medium
+  hard
+  adaptive
+}
+
+/// study = explanation revealed after each answer; exam = feedback withheld
+/// until submission, the way the real paper works.
+enum QuizMode {
+  study
+  exam
+}
+
+enum MarathonStatus {
+  running
+  paused
+  completed
+  abandoned
+}
+
+enum XPSource {
+  study_session
+  quiz
+  mock
+  marathon
+  streak_milestone
+  topic_completed
+  milestone_unlocked
+  daily_challenge
+}
+
+enum NotificationType {
+  study_reminder
+  revision_due
+  streak_warning
+  streak_milestone
+  mock_available
+  quiz_result
+  topic_unlocked
+  rank_up
+  badge_earned
+  weekly_review
+  system
+  plan_change
+}
+
+enum ReminderType {
+  study_session
+  revision
+  mock
+  streak_warning
+  weekly_review
+}
+
+enum ReminderChannel {
+  push
+  email
+}
+
+enum ReminderStatus {
+  scheduled
+  sent
+  failed
+  cancelled
+}
+
+// ─────────────────────────────── models ──────────────────────────────
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  passwordHash        String
+  name                String
+  avatarUrl           String?
+  onboardingCompleted Boolean   @default(false)
+  onboardingStep      Int       @default(0)
+  plan                Plan      @default(free)
+  planExpiresAt       DateTime?
+  role                UserRole  @default(student)
+
+  // Notification preferences — flat columns so the weekly-digest job can filter
+  // on them directly instead of reaching into a nested document.
+  notifyEmail           Boolean @default(true)
+  notifyPush            Boolean @default(true)
+  notifyStudyReminders  Boolean @default(true)
+  notifyStreakReminders Boolean @default(true)
+  notifyWeeklyDigest    Boolean @default(true)
+
+  theme    Theme  @default(system)
+  timezone String @default("Africa/Lagos")
+  locale   Locale @default(en)
+
+  resetPasswordToken   String?   @unique
+  resetPasswordExpires DateTime?
+
+  /// Null until the six-digit code sent at signup is confirmed.
+  emailVerifiedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  examProfile   ExamProfile?
+  roadmap       Roadmap?
+  streak        Streak?
+  quizzes       Quiz[]
+  quizAttempts  QuizAttempt[]
+  studySessions StudySession[]
+  marathonRuns  MarathonRun[]
+  chatThreads   ChatThread[]
+  xpEvents      XPEvent[]
+  notifications Notification[]
+  reminders     Reminder[]
+  emailCodes    EmailVerification[]
+  notes         Note[]
+  plannerTasks  PlannerTask[]
+  pushSubs      PushSubscription[]
+  badges        UserBadge[]
+
+  @@index([createdAt])
+  @@map("users")
+}
+
+/// One row per issued sign-up code. Only a hash is stored, the same way
+/// password-reset tokens are handled.
+model EmailVerification {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  codeHash   String
+  expiresAt  DateTime
+  consumedAt DateTime?
+  attempts   Int       @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([expiresAt])
+  @@map("email_verifications")
+}
+
+/// Bank of real past questions, imported by an admin. Mock exams and the
+/// topic-by-topic practice mode serve from here rather than generating text.
+model PastQuestion {
+  id String @id @default(cuid())
+
+  exam        ExamType
+  year        Int
+  subjectSlug String
+  /// Optional: set when the question has been mapped to a syllabus topic.
+  topicSlug   String?
+
+  stem            String
+  /// QuizOption[] — see src/models/types.ts
+  options         Json
+  correctOptionId String
+  explanation     String?
+
+  /// Free-text provenance, e.g. "JAMB 2019 Paper 1".
+  source String?
+
+  /// sha256 of exam|year|subjectSlug|normalised stem. A stem is too long for a
+  /// btree unique index, so imports de-duplicate on this instead.
+  fingerprint String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([exam, subjectSlug])
+  @@index([exam, subjectSlug, topicSlug])
+  @@index([exam, year])
+  @@map("past_questions")
+}
+
+/// Append-only record of every admin bulk import, so a bad upload can be traced.
+model ImportBatch {
+  id String @id @default(cuid())
+
+  uploadedById String
+  filename     String
+  exam         ExamType?
+
+  rowsTotal    Int
+  rowsImported Int
+  rowsSkipped  Int
+  rowsFailed   Int
+  /// Array of { row, reason } for anything rejected.
+  errors       Json @default("[]")
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("import_batches")
+}
+
+/// Free-form study notes. Either attached to a syllabus topic (written during a
+/// study session) or standalone.
+model Note {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title   String @default("Untitled note")
+  content String @default("")
+
+  /// Set when the note was written against a specific topic.
+  subjectSlug String?
+  topicSlug   String?
+
+  pinned Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, updatedAt])
+  @@index([userId, subjectSlug, topicSlug])
+  @@map("notes")
+}
+
+/// Generated lesson content for one syllabus topic.
+///
+/// Shared across every student rather than stored per user: the material for
+/// "Projectile motion" in JAMB Physics is the same for everyone, and generating
+/// it once keeps both cost and load time down.
+model TopicContent {
+  id String @id @default(cuid())
+
+  exam        ExamType
+  subjectSlug String
+  topicSlug   String
+
+  /// Display name at the time of generation, so the reader has a heading even
+  /// if the syllabus is re-seeded.
+  topicName   String
+  subjectName String
+
+  /// One-paragraph orientation.
+  intro String
+
+  /// TopicSection[] — headed groups of bullet points. See src/models/types.ts
+  sections Json @default("[]")
+
+  /// TopicExample[] — worked examples with a question and a walkthrough.
+  examples Json @default("[]")
+
+  /// Bullet points a student can revise from.
+  summary Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([exam, subjectSlug, topicSlug])
+  @@map("topic_content")
+}
+
+/// A student's own to-do item on the planner board.
+model PlannerTask {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  title String
+  notes String @default("")
+
+  /// Which kanban column it sits in.
+  status PlannerTaskStatus @default(todo)
+
+  /// Manual ordering within a column; lower comes first.
+  position Int @default(0)
+
+  dueDate DateTime?
+
+  /// Set when the task was raised against a syllabus topic.
+  subjectSlug String?
+  topicSlug   String?
+
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId, status, position])
+  @@map("planner_tasks")
+}
+
+enum PlannerTaskStatus {
+  todo
+  doing
+  done
+}
+
+model Subject {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  name        String
+  examTypes   ExamType[]
+  description String
+  hue         String
+  /// SubjectTopic[] — see src/models/types.ts
+  topics      Json       @default("[]")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([name])
+  @@map("subjects")
+}
+
+model ExamProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  examType        ExamType
+  examTypes       ExamType[]
+  examDate        DateTime
+  intendedCourse  String?
+  institutionType InstitutionType?
+
+  /// ExamProfileSubject[] — see src/models/types.ts
+  subjects Json @default("[]")
+
+  dailyStudyMinutes Int    @default(120)
+  studyWindowStart  String @default("08:00")
+  studyWindowEnd    String @default("22:00")
+
+  learningStyle LearningStyle?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("exam_profiles")
+}
+
+model Roadmap {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  generatedAt   DateTime @default(now())
+  examDate      DateTime
+  totalWeeks    Int
+  examReadiness Int      @default(0)
+
+  /// RoadmapNode[] — see src/models/types.ts
+  nodes Json @default("[]")
+
+  /// WeeklyTarget[] — see src/models/types.ts
+  weeklyTargets Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("roadmaps")
+}
+
+model Quiz {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type       QuizType
+  difficulty Difficulty
+  mode       QuizMode   @default(study)
+
+  // Flattened topicRef
+  topicSubjectSlug String?
+  topicTopicSlug   String?
+  subjectSlug      String?
+
+  questionCount Int
+  timeLimit     Int?
+
+  /// QuizQuestion[] — see src/models/types.ts
+  questions Json @default("[]")
+
+  generatedByModel String
+  createdAt        DateTime @default(now())
+
+  attempts QuizAttempt[]
+
+  @@index([userId, createdAt])
+  @@index([userId, type, createdAt])
+  @@index([topicTopicSlug])
+  @@map("quizzes")
+}
+
+model QuizAttempt {
+  id     String @id @default(cuid())
+  quizId String
+  quiz   Quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  durationSec Int       @default(0)
+
+  /// QuizAnswer[] — see src/models/types.ts
+  answers Json @default("[]")
+
+  /// ByTopicResult[] — see src/models/types.ts
+  byTopic Json @default("[]")
+
+  score     Int @default(0)
+  xpAwarded Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([quizId])
+  @@index([userId, completedAt])
+  @@map("quiz_attempts")
+}
+
+model StudySession {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  subjectSlug String
+  topicSlug   String
+
+  startedAt   DateTime  @default(now())
+  endedAt     DateTime?
+  durationSec Int       @default(0)
+  isMarathon  Boolean   @default(false)
+  pomodoros   Int?
+
+  // 'in-progress' | 'completed' | 'abandoned' — kept as text because
+  // 'in-progress' is not a valid Postgres enum identifier.
+  status String @default("in-progress")
+
+  notesMarkdown String?
+  xpAwarded     Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, startedAt])
+  @@index([userId, status, startedAt])
+  @@map("study_sessions")
+}
+
+model MarathonRun {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  startedAt          DateTime  @default(now())
+  endedAt            DateTime?
+  plannedDurationMin Int
+  actualDurationSec  Int       @default(0)
+  pomodoroLength     Int       @default(25)
+  pomodorosCompleted Int       @default(0)
+
+  /// TopicCovered[] — see src/models/types.ts
+  topicsCovered Json @default("[]")
+
+  /// MarathonPause[] — see src/models/types.ts
+  pauses Json @default("[]")
+
+  xpAwarded Int            @default(0)
+  status    MarathonStatus @default(running)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@map("marathon_runs")
+}
+
+model ChatThread {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title String @default("New conversation")
+
+  /// ChatMessage[] — see src/models/types.ts
+  messages Json @default("[]")
+
+  archivedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, updatedAt])
+  @@map("chat_threads")
+}
+
+model Streak {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  currentStreak    Int        @default(0)
+  longestStreak    Int        @default(0)
+  lastActiveDate   DateTime   @default(now())
+  freezesAvailable Int        @default(1)
+  freezesUsed      DateTime[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([currentStreak, lastActiveDate])
+  @@map("streaks")
+}
+
+model XPEvent {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  source     XPSource
+  sourceId   String?
+  amount     Int
+  reason     String
+  multiplier Float?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([createdAt])
+  @@map("xp_events")
+}
+
+model Notification {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type     NotificationType
+  title    String
+  body     String
+  deeplink String?
+  metadata Json             @default("{}")
+
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt])
+  @@index([userId, type, createdAt])
+  @@index([expiresAt])
+  @@map("notifications")
+}
+
+/// One browser or installed app that has agreed to receive push notifications.
+///
+/// A student can have several — phone, laptop, tablet — so this is a list per
+/// user rather than a column on User.
+model PushSubscription {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// The push service URL. Unique because the browser reuses it per device.
+  endpoint String @unique
+  /// Keys from the browser's PushSubscription, needed to encrypt the payload.
+  p256dh   String
+  auth     String
+
+  /// Helps an admin recognise a device in a list; not used for delivery.
+  userAgent String?
+
+  /// Set when the push service reports the subscription is gone, so a dead
+  /// device stops being retried before it is cleaned up.
+  failedAt DateTime?
+
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime?
+
+  @@index([userId])
+  @@map("push_subscriptions")
+}
+
+/// An achievement a student has earned. The catalogue itself lives in code
+/// (packages/shared) — this only records who has which, and when.
+model UserBadge {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// Matches a BadgeId in the shared catalogue.
+  badgeId String
+
+  /// Snapshot of the value that earned it (streak length, score, count), so the
+  /// badge can say "7 day streak" long after the streak has moved on.
+  earnedValue Int @default(0)
+
+  earnedAt DateTime @default(now())
+
+  /// A badge is earned once.
+  @@unique([userId, badgeId])
+  @@index([userId, earnedAt])
+  @@map("user_badges")
+}
+
+model Reminder {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type         ReminderType
+  scheduledFor DateTime
+  channel      ReminderChannel
+
+  /// ReminderPayload — see src/models/types.ts
+  payload Json
+
+  sentAt DateTime?
+  status ReminderStatus @default(scheduled)
+
+  createdAt DateTime @default(now())
+
+  @@index([status, scheduledFor])
+  @@index([userId, type, scheduledFor])
+  @@map("reminders")
+}

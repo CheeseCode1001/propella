@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { api } from '@/lib/api-client'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { cn } from '@/lib/utils/cn'
 import { useQuery } from '@tanstack/react-query'
+import { useMarathonStore, useMarathonActive } from '@/lib/stores/marathon-store'
 
 const DURATION_OPTIONS = [30, 60, 90, 120]
 const POMODORO_OPTIONS = [
@@ -100,6 +101,8 @@ export default function MarathonPage() {
   const [pomodoroLength, setPomodoroLength] = useState(25)
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>(['english', 'mathematics'])
   const [isStarting, setIsStarting] = useState(false)
+  const startMarathon = useMarathonStore((s) => s.start)
+  const marathonActive = useMarathonActive()
 
   const { data: historyData } = useQuery({
     queryKey: ['marathon-history'],
@@ -135,13 +138,15 @@ export default function MarathonPage() {
         pomodoroLength,
         subjectSlugs: selectedSubjects,
       })
-      const runId = result.data.runId
-      // Store config in sessionStorage for the active page
-      sessionStorage.setItem(
-        `marathon-run-${runId}`,
-        JSON.stringify({ pomodoroLength, plannedDurationMin: duration }),
-      )
-      router.push(`/marathon/${runId}`)
+      // The run lives in the floating widget now, so stay inside the app shell
+      // instead of taking over the screen with a dedicated page.
+      startMarathon({
+        runId: result.data.runId,
+        plannedDurationMin: duration,
+        pomodoroLength,
+        subjectSlugs: selectedSubjects,
+      })
+      router.push('/dashboard')
     } catch {
       setIsStarting(false)
     }
@@ -271,9 +276,13 @@ export default function MarathonPage() {
             variant="accent"
             size="lg"
             onClick={handleStart}
-            disabled={isStarting || selectedSubjects.length === 0}
+            disabled={isStarting || marathonActive || selectedSubjects.length === 0}
           >
-            {isStarting ? 'Starting...' : 'Begin marathon'}
+            {isStarting
+              ? 'Starting...'
+              : marathonActive
+              ? 'Marathon already running'
+              : 'Begin marathon'}
           </Button>
         </CardContent>
       </Card>

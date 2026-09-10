@@ -125,7 +125,7 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
             }}
           >
             <p style={{ fontSize: 13, color: 'var(--color-ink-2)', margin: 0 }}>
-              Couldn't load notifications. Try again.
+              Couldn&apos;t load notifications. Try again.
             </p>
             <Button variant="ghost" size="sm" onClick={() => refetch()}>
               Retry

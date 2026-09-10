@@ -1,10 +1,8 @@
-import { Types } from 'mongoose'
-import { StudySessionModel, type IStudySession } from '../../models/StudySession'
-import { XPEventModel } from '../../models/XPEvent'
-import { StreakModel } from '../../models/Streak'
-import { RoadmapModel } from '../../models/Roadmap'
+import type { StudySession } from '../../config/db'
+import { prisma } from '../../config/db'
 import { AppError, NotFoundError } from '../../middleware/error-handler'
 import { notify } from '../notifications/notification.service'
+import { jsonArray, type RoadmapNodeJson } from '../../models/types'
 import { XP } from '@propella/shared'
 import { logger } from '../../config/logger'
 
@@ -19,22 +17,21 @@ export async function startSession(
   userId: string,
   topicRef: TopicRef,
   isMarathon: boolean,
-): Promise<IStudySession> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const session = await StudySessionModel.create({
-    userId: userObjectId,
-    topicRef,
-    isMarathon,
-    startedAt: new Date(),
-    status: 'in-progress',
+): Promise<StudySession> {
+  return prisma.studySession.create({
+    data: {
+      userId,
+      subjectSlug: topicRef.subjectSlug,
+      topicSlug: topicRef.topicSlug,
+      isMarathon,
+      startedAt: new Date(),
+      status: 'in-progress',
+    },
   })
-
-  return session
 }
 
 interface EndSessionResult {
-  session: IStudySession
+  session: StudySession
   xpAwarded: number
 }
 
@@ -44,18 +41,15 @@ export async function endSession(
   durationSec: number,
   notesMarkdown?: string,
 ): Promise<EndSessionResult> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const session = await StudySessionModel.findOne({
-    _id: new Types.ObjectId(sessionId),
-    userId: userObjectId,
+  const existing = await prisma.studySession.findFirst({
+    where: { id: sessionId, userId },
   })
 
-  if (!session) {
+  if (!existing) {
     throw new NotFoundError('Session not found')
   }
 
-  if (session.status !== 'in-progress') {
+  if (existing.status !== 'in-progress') {
     throw new AppError(400, 'Session is not in-progress')
   }
 
@@ -77,74 +71,82 @@ export async function endSession(
     reason = 'Study session (< 15 min, no XP)'
   }
 
-  // Update session
-  session.endedAt = new Date()
-  session.durationSec = durationSec
-  session.status = 'completed'
-  if (notesMarkdown !== undefined) {
-    session.notesMarkdown = notesMarkdown
-  }
-  session.xpAwarded = xpAwarded
-  await session.save()
+  const session = await prisma.studySession.update({
+    where: { id: existing.id },
+    data: {
+      endedAt: new Date(),
+      durationSec,
+      status: 'completed',
+      xpAwarded,
+      ...(notesMarkdown !== undefined ? { notesMarkdown } : {}),
+    },
+  })
 
   // Create XPEvent if XP was awarded
   if (xpAwarded > 0) {
-    await XPEventModel.create({
-      userId: userObjectId,
-      source: 'study_session',
-      sourceId: session._id,
-      amount: xpAwarded,
-      reason,
+    await prisma.xPEvent.create({
+      data: {
+        userId,
+        source: 'study_session',
+        sourceId: session.id,
+        amount: xpAwarded,
+        reason,
+      },
     })
   }
 
   // Update streak
-  const streak = await StreakModel.findOne({ userId: userObjectId })
+  const streak = await prisma.streak.findUnique({ where: { userId } })
   if (streak) {
     const todayString = new Date().toDateString()
-    const lastActiveDateString = streak.lastActiveDate.toDateString()
 
-    if (lastActiveDateString !== todayString) {
-      streak.currentStreak += 1
-      if (streak.currentStreak > streak.longestStreak) {
-        streak.longestStreak = streak.currentStreak
-      }
-      streak.lastActiveDate = new Date()
-      await streak.save()
+    if (streak.lastActiveDate.toDateString() !== todayString) {
+      const currentStreak = streak.currentStreak + 1
+      await prisma.streak.update({
+        where: { userId },
+        data: {
+          currentStreak,
+          longestStreak: Math.max(currentStreak, streak.longestStreak),
+          lastActiveDate: new Date(),
+        },
+      })
 
-      if (STREAK_MILESTONES.has(streak.currentStreak)) {
+      if (STREAK_MILESTONES.has(currentStreak)) {
         await notify(userId, 'streak_milestone', {
-          title: `${streak.currentStreak}-day streak`,
-          body: `You have studied ${streak.currentStreak} days in a row. Keep it going.`,
+          title: `${currentStreak}-day streak`,
+          body: `You have studied ${currentStreak} days in a row. Keep it going.`,
           deeplink: '/dashboard',
         })
       }
     }
   } else {
     // Create streak if it doesn't exist
-    await StreakModel.create({
-      userId: userObjectId,
-      currentStreak: 1,
-      longestStreak: 1,
-      lastActiveDate: new Date(),
+    await prisma.streak.create({
+      data: {
+        userId,
+        currentStreak: 1,
+        longestStreak: 1,
+        lastActiveDate: new Date(),
+      },
     })
   }
 
   // Update roadmap node
-  const roadmap = await RoadmapModel.findOne({ userId: userObjectId })
+  const roadmap = await prisma.roadmap.findUnique({ where: { userId } })
   if (roadmap) {
-    const node = roadmap.nodes.find(
-      (n) =>
-        n.subjectSlug === session.topicRef.subjectSlug &&
-        n.topicSlug === session.topicRef.topicSlug,
+    const nodes = jsonArray<RoadmapNodeJson>(roadmap.nodes)
+    const node = nodes.find(
+      (n) => n.subjectSlug === session.subjectSlug && n.topicSlug === session.topicSlug,
     )
     if (node) {
       if (node.status === 'ready') {
         node.status = 'in-progress'
       }
-      node.lastStudiedAt = new Date()
-      roadmap.markModified('nodes')
-      await roadmap.save()
+      node.lastStudiedAt = new Date().toISOString()
+      await prisma.roadmap.update({
+        where: { userId },
+        data: { nodes },
+      })
     } else {
       logger.warn({ userId, sessionId }, 'No matching roadmap node found for session')
     }
@@ -153,27 +155,24 @@ export async function endSession(
   return { session, xpAwarded }
 }
 
-export async function abandonSession(
-  userId: string,
-  sessionId: string,
-): Promise<void> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const session = await StudySessionModel.findOne({
-    _id: new Types.ObjectId(sessionId),
-    userId: userObjectId,
+export async function abandonSession(userId: string, sessionId: string): Promise<void> {
+  const session = await prisma.studySession.findFirst({
+    where: { id: sessionId, userId },
+    select: { id: true },
   })
 
   if (!session) {
     throw new NotFoundError('Session not found')
   }
 
-  session.status = 'abandoned'
-  await session.save()
+  await prisma.studySession.update({
+    where: { id: session.id },
+    data: { status: 'abandoned' },
+  })
 }
 
 interface PaginatedSessions {
-  sessions: IStudySession[]
+  sessions: StudySession[]
   total: number
   page: number
   limit: number
@@ -184,17 +183,17 @@ export async function getSessions(
   page: number,
   limit: number,
 ): Promise<PaginatedSessions> {
-  const userObjectId = new Types.ObjectId(userId)
   const skip = (page - 1) * limit
 
   const [sessions, total] = await Promise.all([
-    StudySessionModel.find({ userId: userObjectId })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean(),
-    StudySessionModel.countDocuments({ userId: userObjectId }),
+    prisma.studySession.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      skip,
+      take: limit,
+    }),
+    prisma.studySession.count({ where: { userId } }),
   ])
 
-  return { sessions: sessions as unknown as IStudySession[], total, page, limit }
+  return { sessions, total, page, limit }
 }

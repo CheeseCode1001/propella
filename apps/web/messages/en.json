@@ -22,7 +22,7 @@
   },
   "nav": {
     "dashboard": "Home",
-    "roadmap": "Roadmap",
+    "roadmap": "Syllabus",
     "planner": "Planner",
     "quizzes": "Quizzes",
     "mocks": "Mocks",
@@ -34,7 +34,8 @@
     "help": "Help",
     "tools": "Tools",
     "profile": "Profile",
-    "study": "Study"
+    "study": "Study",
+    "notes": "Notes"
   },
   "auth": {
     "login": "Sign in",
@@ -53,7 +54,13 @@
     "sendResetLink": "Send reset link",
     "resetLinkSent": "Reset link sent. Check your email.",
     "signOutConfirm": "Are you sure you want to sign out?",
-    "signOutDescription": "You will need to sign in again to access your study progress."
+    "signOutDescription": "You will need to sign in again to access your study progress.",
+    "verifyEmail": "Verify your email",
+    "verifyEmailSent": "We sent a 6-digit code to",
+    "verifyEmailCta": "Verify email",
+    "verifying": "Verifying",
+    "resendCode": "Resend code",
+    "resendIn": "Resend code in"
   },
   "onboarding": {
     "title": "Set up your profile",
@@ -82,8 +89,8 @@
     "buildRoadmapFirst": "Complete your profile to get a study plan."
   },
   "roadmap": {
-    "title": "Roadmap",
-    "subtitle": "Your personalised study plan",
+    "title": "Syllabus",
+    "subtitle": "Your personalised syllabus plan",
     "milestone": "Milestone",
     "locked": "Locked",
     "ready": "Ready",
@@ -133,13 +140,15 @@
     "retake": "Retake quiz",
     "backToQuizzes": "Back to quizzes",
     "generateQuiz": "Generate quiz",
-    "selectDifficulty": "Difficulty",
-    "easy": "Easy",
-    "medium": "Medium",
-    "hard": "Hard",
-    "adaptive": "Adaptive",
     "noQuizzes": "No quizzes yet.",
-    "startFirstQuiz": "Generate your first quiz to test your knowledge."
+    "startFirstQuiz": "Generate your first quiz to test your knowledge.",
+    "selectMode": "Mode",
+    "studyMode": "Study mode",
+    "studyModeDesc": "See the correct answer and explanation straight after each question.",
+    "examMode": "Exam mode",
+    "examModeDesc": "No feedback until you submit, exactly like the real paper.",
+    "yourAnswer": "Your answer",
+    "correctAnswer": "Correct answer"
   },
   "mocks": {
     "title": "Mock exams",
@@ -290,5 +299,18 @@
       "honours": "Honours",
       "summaLaudeCumLaude": "Summa Cum Laude"
     }
+  },
+  "notes": {
+    "title": "Notes",
+    "subtitle": "Everything you have written down, in one place.",
+    "empty": "Your notes will collect here as you study. Open any topic and start writing.",
+    "emptyTitle": "No notes yet",
+    "new": "New note",
+    "search": "Search your notes",
+    "untitled": "Untitled note",
+    "save": "Save note",
+    "saved": "Saved",
+    "delete": "Delete note",
+    "general": "General"
   }
 }

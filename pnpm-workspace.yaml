@@ -1,7 +1,13 @@
 packages:
   - 'apps/*'
   - 'packages/*'
-allowBuilds:
-  esbuild: true
-  sharp: true
-  unrs-resolver: true
+
+# Packages allowed to run install scripts (pnpm 10 blocks them by default).
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver
+  - '@prisma/client'
+  - prisma
+  - '@google/genai'
+  - protobufjs

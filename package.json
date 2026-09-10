@@ -7,14 +7,18 @@
   },
   "scripts": {
     "dev": "pnpm --parallel --filter './apps/*' dev",
-    "build": "pnpm --filter @propella/shared build && pnpm --filter @propella/web build",
+    "build": "pnpm --filter @propella/shared build && pnpm --filter @propella/web build && pnpm --filter @propella/admin build",
     "lint": "pnpm --recursive lint",
-    "type-check": "pnpm --recursive type-check"
+    "type-check": "pnpm --recursive type-check",
+    "db:generate": "pnpm --filter @propella/api db:generate",
+    "db:migrate": "pnpm --filter @propella/api db:migrate",
+    "db:deploy": "pnpm --filter @propella/api db:deploy",
+    "db:push": "pnpm --filter @propella/api db:push",
+    "db:studio": "pnpm --filter @propella/api db:studio",
+    "seed": "pnpm --filter @propella/api seed",
+    "test": "pnpm --filter @propella/api test"
   },
   "devDependencies": {
     "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "node-pre-gyp": "^0.17.0"
   }
 }

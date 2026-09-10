@@ -19,10 +19,10 @@ export async function getThreads(
     res.status(200).json({
       data: {
         threads: threads.map((t) => ({
-          id: (t as unknown as { _id: { toString(): string } })._id.toString(),
-          title: (t as unknown as { title: string }).title,
-          createdAt: (t as unknown as { createdAt: Date }).createdAt?.toISOString(),
-          updatedAt: (t as unknown as { updatedAt: Date }).updatedAt?.toISOString(),
+          id: t.id,
+          title: t.title,
+          createdAt: t.createdAt.toISOString(),
+          updatedAt: t.updatedAt.toISOString(),
         })),
       },
     })
@@ -42,7 +42,7 @@ export async function createThread(
 
     res.status(201).json({
       data: {
-        id: thread._id.toString(),
+        id: thread.id,
         title: thread.title,
         createdAt: thread.createdAt.toISOString(),
       },
@@ -63,19 +63,61 @@ export async function getThread(
 
     res.status(200).json({
       data: {
-        id: (thread as unknown as { _id: { toString(): string } })._id.toString(),
-        title: (thread as unknown as { title: string }).title,
-        messages: (thread as unknown as { messages: Array<{ id: string; role: string; content: string; createdAt: Date; attachedTopic?: { subjectSlug: string; topicSlug: string } }> }).messages.map((m) => ({
+        id: thread.id,
+        title: thread.title,
+        messages: thread.messages.map((m) => ({
           id: m.id,
           role: m.role,
           content: m.content,
-          createdAt: m.createdAt.toISOString(),
+          createdAt: m.createdAt,
           attachedTopic: m.attachedTopic,
         })),
-        createdAt: (thread as unknown as { createdAt: Date }).createdAt?.toISOString(),
-        updatedAt: (thread as unknown as { updatedAt: Date }).updatedAt?.toISOString(),
+        createdAt: thread.createdAt.toISOString(),
+        updatedAt: thread.updatedAt.toISOString(),
       },
     })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function renameThread(
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const { title } = req.body as { title?: unknown }
+
+    if (typeof title !== 'string') {
+      throw new AppError(400, 'A title is required')
+    }
+
+    const thread = await assistantService.renameThread(userId, req.params.id, title)
+
+    res.status(200).json({
+      data: {
+        id: thread.id,
+        title: thread.title,
+        createdAt: thread.createdAt.toISOString(),
+        updatedAt: thread.updatedAt.toISOString(),
+      },
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function deleteThread(
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    await assistantService.deleteThread(userId, req.params.id)
+    res.status(204).send()
   } catch (err) {
     next(err)
   }

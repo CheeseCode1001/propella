@@ -1,17 +1,21 @@
-import { Types } from 'mongoose'
-import { UserModel } from '../../models/User'
-import { ExamProfileModel } from '../../models/ExamProfile'
-import { StreakModel } from '../../models/Streak'
-import { XPEventModel } from '../../models/XPEvent'
-import { NotFoundError } from '../../middleware/error-handler'
+import type { ExamProfile, User } from '../../config/db'
+import { prisma } from '../../config/db'
+import { AppError, NotFoundError } from '../../middleware/error-handler'
 import { getRank, getNextRank } from '@propella/shared'
 import type { AuthUser } from '@propella/shared'
+import { jsonArray, type ExamProfileSubject } from '../../models/types'
 
 interface ExamProfileSummary {
   examType: string
   examTypes?: string[]
   examDate: string
-  subjects: { slug: string; name: string; isWeak: boolean; isStrong: boolean; currentMastery: number }[]
+  subjects: {
+    slug: string
+    name: string
+    isWeak: boolean
+    isStrong: boolean
+    currentMastery: number
+  }[]
   dailyStudyMinutes: number
   preferredStudyWindow: { start: string; end: string }
   learningStyle?: string
@@ -37,20 +41,9 @@ interface MeResponse {
   }
 }
 
-function buildAuthUser(user: {
-  _id: { toString(): string }
-  name: string
-  email: string
-  plan: 'free' | 'scholar'
-  onboardingCompleted: boolean
-  onboardingStep: number
-  theme: 'system' | 'light' | 'dark'
-  timezone: string
-  locale?: 'en' | 'yo' | 'ha' | 'ig'
-  avatarUrl?: string
-}): AuthUser {
+export function buildAuthUser(user: User): AuthUser {
   const result: AuthUser = {
-    id: user._id.toString(),
+    id: user.id,
     name: user.name,
     email: user.email,
     plan: user.plan,
@@ -58,67 +51,62 @@ function buildAuthUser(user: {
     onboardingStep: user.onboardingStep,
     theme: user.theme,
     timezone: user.timezone,
-    locale: user.locale ?? 'en',
+    locale: user.locale,
+    emailVerified: user.emailVerifiedAt !== null,
   }
-  if (user.avatarUrl !== undefined) result.avatarUrl = user.avatarUrl
+  if (user.avatarUrl !== null) result.avatarUrl = user.avatarUrl
   return result
 }
 
-export async function getMe(userId: string): Promise<MeResponse> {
-  const userObjectId = new Types.ObjectId(userId)
+export function buildExamProfileSummary(profile: ExamProfile): ExamProfileSummary {
+  const summary: ExamProfileSummary = {
+    examType: profile.examType,
+    examTypes: profile.examTypes.length ? profile.examTypes : [profile.examType],
+    examDate: profile.examDate.toISOString(),
+    subjects: jsonArray<ExamProfileSubject>(profile.subjects).map((s) => ({
+      slug: s.slug,
+      name: s.name,
+      isWeak: s.isWeak,
+      isStrong: s.isStrong,
+      currentMastery: s.currentMastery,
+    })),
+    dailyStudyMinutes: profile.dailyStudyMinutes,
+    preferredStudyWindow: {
+      start: profile.studyWindowStart,
+      end: profile.studyWindowEnd,
+    },
+  }
+  if (profile.learningStyle !== null) summary.learningStyle = profile.learningStyle
+  if (profile.intendedCourse !== null) summary.intendedCourse = profile.intendedCourse
+  if (profile.institutionType !== null) summary.institutionType = profile.institutionType
+  return summary
+}
 
-  const user = await UserModel.findById(userObjectId).lean()
+export async function getMe(userId: string): Promise<MeResponse> {
+  const user = await prisma.user.findUnique({ where: { id: userId } })
   if (!user) {
     throw new NotFoundError('User not found')
   }
 
-  const [examProfile, streakDoc, xpAgg] = await Promise.all([
-    ExamProfileModel.findOne({ userId: userObjectId }).lean(),
-    StreakModel.findOne({ userId: userObjectId }).lean(),
-    XPEventModel.aggregate<{ _id: null; total: number }>([
-      { $match: { userId: userObjectId } },
-      { $group: { _id: null, total: { $sum: '$amount' } } },
-    ]),
+  const [examProfile, streakRow, xpAgg] = await Promise.all([
+    prisma.examProfile.findUnique({ where: { userId } }),
+    prisma.streak.findUnique({ where: { userId } }),
+    prisma.xPEvent.aggregate({ where: { userId }, _sum: { amount: true } }),
   ])
 
-  const totalXP = xpAgg[0]?.total ?? 0
+  const totalXP = xpAgg._sum.amount ?? 0
   const rank = getRank(totalXP)
   const nextRank = getNextRank(totalXP)
 
-  let examProfileSummary: ExamProfileSummary | null = null
-  if (examProfile) {
-    const summary: ExamProfileSummary = {
-      examType: examProfile.examType,
-      examTypes: examProfile.examTypes?.length ? examProfile.examTypes : [examProfile.examType],
-      examDate: examProfile.examDate.toISOString(),
-      subjects: examProfile.subjects.map((s) => ({
-        slug: s.slug,
-        name: s.name,
-        isWeak: s.isWeak,
-        isStrong: s.isStrong,
-        currentMastery: s.currentMastery,
-      })),
-      dailyStudyMinutes: examProfile.dailyStudyMinutes,
-      preferredStudyWindow: {
-        start: examProfile.preferredStudyWindow.start,
-        end: examProfile.preferredStudyWindow.end,
-      },
-    }
-    if (examProfile.learningStyle !== undefined) summary.learningStyle = examProfile.learningStyle
-    if (examProfile.intendedCourse !== undefined) summary.intendedCourse = examProfile.intendedCourse
-    if (examProfile.institutionType !== undefined) summary.institutionType = examProfile.institutionType
-    examProfileSummary = summary
-  }
-
   return {
     user: buildAuthUser(user),
-    examProfile: examProfileSummary,
-    streak: streakDoc
+    examProfile: examProfile ? buildExamProfileSummary(examProfile) : null,
+    streak: streakRow
       ? {
-          currentStreak: streakDoc.currentStreak,
-          longestStreak: streakDoc.longestStreak,
-          lastActiveDate: streakDoc.lastActiveDate.toISOString(),
-          freezesAvailable: streakDoc.freezesAvailable,
+          currentStreak: streakRow.currentStreak,
+          longestStreak: streakRow.longestStreak,
+          lastActiveDate: streakRow.lastActiveDate.toISOString(),
+          freezesAvailable: streakRow.freezesAvailable,
         }
       : {
           currentStreak: 0,
@@ -141,6 +129,8 @@ interface UpdateProfileData {
   theme?: 'system' | 'light' | 'dark'
   timezone?: string
   locale?: 'en' | 'yo' | 'ha' | 'ig'
+  /** A resized data URL, or null to go back to initials. */
+  avatarUrl?: string | null
   notifications?: {
     email?: boolean
     push?: boolean
@@ -150,33 +140,67 @@ interface UpdateProfileData {
   }
 }
 
+/**
+ * Avatars are stored inline as data URLs rather than in object storage, which
+ * this deployment does not have. The browser resizes to a small square before
+ * uploading; this is the backstop that keeps an oversized or non-image payload
+ * out of the column.
+ */
+const AVATAR_MAX_BYTES = 400 * 1024
+const AVATAR_ALLOWED_TYPES = ['image/webp', 'image/jpeg', 'image/png']
+
+function validateAvatar(value: string): string {
+  const match = /^data:([a-z/+-]+);base64,([A-Za-z0-9+/=]+)$/i.exec(value.trim())
+  if (!match) {
+    throw new AppError(400, 'That image could not be read. Try another one.')
+  }
+
+  const [, mimeType = '', base64 = ''] = match
+
+  if (!AVATAR_ALLOWED_TYPES.includes(mimeType.toLowerCase())) {
+    throw new AppError(400, 'Profile pictures must be a JPEG, PNG or WebP image.')
+  }
+
+  // base64 encodes 3 bytes as 4 characters.
+  const bytes = Math.floor((base64.length * 3) / 4)
+  if (bytes > AVATAR_MAX_BYTES) {
+    throw new AppError(400, 'That image is too large. Please choose a smaller one.')
+  }
+
+  return value.trim()
+}
+
 export async function updateProfile(
   userId: string,
   data: UpdateProfileData,
 ): Promise<AuthUser> {
-  const userObjectId = new Types.ObjectId(userId)
-
-  const user = await UserModel.findById(userObjectId)
-  if (!user) {
+  const exists = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { id: true },
+  })
+  if (!exists) {
     throw new NotFoundError('User not found')
   }
 
-  if (data.name !== undefined) user.name = data.name
-  if (data.theme !== undefined) user.theme = data.theme
-  if (data.timezone !== undefined) user.timezone = data.timezone
-  if (data.locale !== undefined) user.locale = data.locale
-  if (data.notifications !== undefined) {
-    if (data.notifications.email !== undefined) user.notifications.email = data.notifications.email
-    if (data.notifications.push !== undefined) user.notifications.push = data.notifications.push
-    if (data.notifications.studyReminders !== undefined)
-      user.notifications.studyReminders = data.notifications.studyReminders
-    if (data.notifications.streakReminders !== undefined)
-      user.notifications.streakReminders = data.notifications.streakReminders
-    if (data.notifications.weeklyDigest !== undefined)
-      user.notifications.weeklyDigest = data.notifications.weeklyDigest
-  }
+  const n = data.notifications
 
-  await user.save()
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      ...(data.name !== undefined ? { name: data.name } : {}),
+      ...(data.theme !== undefined ? { theme: data.theme } : {}),
+      ...(data.timezone !== undefined ? { timezone: data.timezone } : {}),
+      ...(data.locale !== undefined ? { locale: data.locale } : {}),
+      ...(data.avatarUrl !== undefined
+        ? { avatarUrl: data.avatarUrl === null ? null : validateAvatar(data.avatarUrl) }
+        : {}),
+      ...(n?.email !== undefined ? { notifyEmail: n.email } : {}),
+      ...(n?.push !== undefined ? { notifyPush: n.push } : {}),
+      ...(n?.studyReminders !== undefined ? { notifyStudyReminders: n.studyReminders } : {}),
+      ...(n?.streakReminders !== undefined ? { notifyStreakReminders: n.streakReminders } : {}),
+      ...(n?.weeklyDigest !== undefined ? { notifyWeeklyDigest: n.weeklyDigest } : {}),
+    },
+  })
 
   return buildAuthUser(user)
 }

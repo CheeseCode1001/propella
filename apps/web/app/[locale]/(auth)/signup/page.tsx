@@ -83,7 +83,8 @@ export default function SignupPage() {
       })
       setToken(res.data.accessToken)
       setUser(res.data.user)
-      router.push('/onboarding')
+      // A six-digit code was emailed on signup; confirm it before onboarding.
+      router.push(res.data.user.emailVerified ? '/onboarding' : '/verify-email')
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Something went wrong')
     }

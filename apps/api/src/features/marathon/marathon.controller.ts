@@ -28,7 +28,7 @@ export async function startMarathon(
 
     res.status(201).json({
       data: {
-        runId: run._id.toString(),
+        runId: run.id,
         status: run.status,
         startedAt: run.startedAt.toISOString(),
         plannedDurationMin: run.plannedDurationMin,
@@ -92,7 +92,7 @@ export async function endMarathon(
     res.status(200).json({
       data: {
         run: {
-          id: result.run._id.toString(),
+          id: result.run.id,
           status: result.run.status,
           actualDurationSec: result.run.actualDurationSec,
           pomodorosCompleted: result.run.pomodorosCompleted,
@@ -100,6 +100,45 @@ export async function endMarathon(
           endedAt: result.run.endedAt?.toISOString(),
         },
         xpAwarded: result.xpAwarded,
+      },
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function abandonMarathon(
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const { actualDurationSec, pomodorosCompleted, topicsCovered } = req.body as {
+      actualDurationSec: number
+      pomodorosCompleted: number
+      topicsCovered?: Array<{ subjectSlug: string; topicSlug: string; durationSec: number }>
+    }
+
+    const run = await marathonService.abandonMarathon(
+      userId,
+      req.params.id,
+      actualDurationSec ?? 0,
+      pomodorosCompleted ?? 0,
+      topicsCovered ?? [],
+    )
+
+    res.status(200).json({
+      data: {
+        run: {
+          id: run.id,
+          status: run.status,
+          actualDurationSec: run.actualDurationSec,
+          pomodorosCompleted: run.pomodorosCompleted,
+          xpAwarded: 0,
+          endedAt: run.endedAt?.toISOString(),
+        },
+        xpAwarded: 0,
       },
     })
   } catch (err) {
@@ -119,14 +158,14 @@ export async function getMarathonHistory(
     res.status(200).json({
       data: {
         runs: runs.map((r) => ({
-          id: (r as unknown as { _id: { toString(): string } })._id.toString(),
-          status: (r as unknown as { status: string }).status,
-          startedAt: (r as unknown as { startedAt: Date }).startedAt.toISOString(),
-          endedAt: (r as unknown as { endedAt?: Date }).endedAt?.toISOString(),
-          plannedDurationMin: (r as unknown as { plannedDurationMin: number }).plannedDurationMin,
-          actualDurationSec: (r as unknown as { actualDurationSec: number }).actualDurationSec,
-          pomodorosCompleted: (r as unknown as { pomodorosCompleted: number }).pomodorosCompleted,
-          xpAwarded: (r as unknown as { xpAwarded: number }).xpAwarded,
+          id: r.id,
+          status: r.status,
+          startedAt: r.startedAt.toISOString(),
+          endedAt: r.endedAt?.toISOString(),
+          plannedDurationMin: r.plannedDurationMin,
+          actualDurationSec: r.actualDurationSec,
+          pomodorosCompleted: r.pomodorosCompleted,
+          xpAwarded: r.xpAwarded,
         })),
       },
     })

@@ -1,38 +1,41 @@
 import { differenceInWeeks, addDays, startOfDay } from 'date-fns'
-import type { IExamProfile } from '../models/ExamProfile'
-import { RoadmapModel, type IRoadmapNode, type IWeeklyTarget } from '../models/Roadmap'
-import { SubjectModel } from '../models/Subject'
+import type { ExamProfile } from '../config/db'
+import { prisma } from '../config/db'
+import {
+  jsonArray,
+  type ExamProfileSubject,
+  type RoadmapNodeJson,
+  type SubjectTopic,
+  type WeeklyTargetJson,
+} from '../models/types'
 
 export async function generateInitialRoadmap(
   userId: string,
-  profile: IExamProfile,
+  profile: ExamProfile,
 ): Promise<void> {
-  // Remove any existing roadmap for this user
-  await RoadmapModel.deleteOne({ userId })
+  const selectedExamTypes = profile.examTypes.length ? profile.examTypes : [profile.examType]
+  const profileSubjects = jsonArray<ExamProfileSubject>(profile.subjects)
 
-  const selectedExamTypes = profile.examTypes?.length
-    ? profile.examTypes
-    : [profile.examType]
-
-  const subjects = await SubjectModel.find({
-    slug: { $in: profile.subjects.map((s) => s.slug) },
-    examTypes: { $in: selectedExamTypes },
+  const subjects = await prisma.subject.findMany({
+    where: {
+      slug: { in: profileSubjects.map((s) => s.slug) },
+      examTypes: { hasSome: selectedExamTypes },
+    },
   })
 
   const examDate = new Date(profile.examDate)
   const now = new Date()
   const totalWeeks = Math.max(1, differenceInWeeks(examDate, now))
 
-  const nodes: Omit<IRoadmapNode, never>[] = []
+  const nodes: RoadmapNodeJson[] = []
 
   let dayOffset = 0
 
   for (const subject of subjects) {
-    const profileSubject = profile.subjects.find((s) => s.slug === subject.slug)
-    const timeMultiplier =
-      profileSubject?.isWeak ? 1.3 : profileSubject?.isStrong ? 0.8 : 1.0
+    const profileSubject = profileSubjects.find((s) => s.slug === subject.slug)
+    const timeMultiplier = profileSubject?.isWeak ? 1.3 : profileSubject?.isStrong ? 0.8 : 1.0
 
-    const subjectTopics = subject.topics
+    const subjectTopics = jsonArray<SubjectTopic>(subject.topics)
       .filter((t) => t.examTypes.some((examType) => selectedExamTypes.includes(examType)))
       .sort((a, b) => a.order - b.order)
 
@@ -55,11 +58,12 @@ export async function generateInitialRoadmap(
           : `${subject.name} Checkpoint`
         : undefined
 
-      const node: IRoadmapNode = {
+      // Dates inside a jsonb column are ISO strings — see models/types.ts.
+      const node: RoadmapNodeJson = {
         subjectSlug: subject.slug,
         topicSlug: topic.slug,
-        plannedStartDate: plannedStart,
-        plannedEndDate: plannedEnd,
+        plannedStartDate: plannedStart.toISOString(),
+        plannedEndDate: plannedEnd.toISOString(),
         status: i === 0 ? 'ready' : 'locked',
         mastery: 0,
         revisionsCompleted: 0,
@@ -67,30 +71,42 @@ export async function generateInitialRoadmap(
         sm2: { easeFactor: 2.5, interval: 1, repetitions: 0 },
         isMilestone,
         ...(milestoneLabel !== undefined ? { milestoneLabel } : {}),
-        nextRevisionAt: addDays(plannedEnd, 1),
+        nextRevisionAt: addDays(plannedEnd, 1).toISOString(),
       }
 
       nodes.push(node)
     }
   }
 
-  const weeklyTargets: IWeeklyTarget[] = Array.from(
+  const weeklyTargets: WeeklyTargetJson[] = Array.from(
     { length: totalWeeks },
-    (_, w): IWeeklyTarget => ({
-      weekStartDate: addDays(now, w * 7),
+    (_, w): WeeklyTargetJson => ({
+      weekStartDate: addDays(now, w * 7).toISOString(),
       topicsToComplete: Math.ceil(nodes.length / totalWeeks),
       minutesGoal: profile.dailyStudyMinutes * 7,
       quizzesTargeted: 3,
     }),
   )
 
-  await RoadmapModel.create({
-    userId,
-    generatedAt: now,
-    examDate,
-    totalWeeks,
-    examReadiness: 0,
-    nodes,
-    weeklyTargets,
+  // One roadmap per user — regenerating replaces the previous one.
+  await prisma.roadmap.upsert({
+    where: { userId },
+    create: {
+      userId,
+      generatedAt: now,
+      examDate,
+      totalWeeks,
+      examReadiness: 0,
+      nodes,
+      weeklyTargets,
+    },
+    update: {
+      generatedAt: now,
+      examDate,
+      totalWeeks,
+      examReadiness: 0,
+      nodes,
+      weeklyTargets,
+    },
   })
 }

@@ -23,6 +23,7 @@ export interface AuthUser {
   timezone: string
   locale?: 'en' | 'yo' | 'ha' | 'ig'
   avatarUrl?: string
+  emailVerified: boolean
 }
 
 export interface AuthTokens {

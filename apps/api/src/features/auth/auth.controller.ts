@@ -7,23 +7,38 @@ import { AppError } from '../../middleware/error-handler'
 const REFRESH_COOKIE_NAME = 'refresh_token'
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000
 
+const isProduction = env.NODE_ENV === 'production'
+
+/**
+ * Cookie flags for the refresh token.
+ *
+ * In production the web app (Vercel) and the API (Render) are on different
+ * registrable domains, which makes every API call cross-site. A SameSite=Lax
+ * cookie is not sent on those, so the silent refresh would fail and students
+ * would be asked to sign in on every page load. SameSite=None fixes that, and
+ * browsers only accept it together with Secure.
+ *
+ * Locally both run on localhost, which is same-site, so Lax is kept — Secure
+ * would otherwise stop the cookie being set over plain http.
+ */
+const REFRESH_COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: isProduction ? ('none' as const) : ('lax' as const),
+  path: '/',
+  ...(env.COOKIE_DOMAIN ? { domain: env.COOKIE_DOMAIN } : {}),
+}
+
 function setRefreshCookie(res: Response, token: string): void {
   res.cookie(REFRESH_COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    ...REFRESH_COOKIE_OPTIONS,
     maxAge: THIRTY_DAYS_MS,
-    ...(env.COOKIE_DOMAIN ? { domain: env.COOKIE_DOMAIN } : {}),
   })
 }
 
 function clearRefreshCookie(res: Response): void {
-  res.clearCookie(REFRESH_COOKIE_NAME, {
-    httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    ...(env.COOKIE_DOMAIN ? { domain: env.COOKIE_DOMAIN } : {}),
-  })
+  // Must match the flags the cookie was set with, or the browser keeps it.
+  res.clearCookie(REFRESH_COOKIE_NAME, REFRESH_COOKIE_OPTIONS)
 }
 
 export async function signup(
@@ -34,7 +49,7 @@ export async function signup(
   try {
     const user = await authService.signup(req.body)
     const tokens = authService.generateTokens(
-      user._id.toString(),
+      user.id,
       user.email,
       user.plan,
     )
@@ -44,7 +59,7 @@ export async function signup(
     res.status(201).json({
       data: {
         user: {
-          id: user._id.toString(),
+          id: user.id,
           name: user.name,
           email: user.email,
           plan: user.plan,
@@ -53,6 +68,7 @@ export async function signup(
           theme: user.theme,
           timezone: user.timezone,
           avatarUrl: user.avatarUrl,
+          emailVerified: user.emailVerifiedAt !== null,
         },
         accessToken: tokens.accessToken,
       },
@@ -70,7 +86,7 @@ export async function login(
   try {
     const user = await authService.login(req.body.email, req.body.password)
     const tokens = authService.generateTokens(
-      user._id.toString(),
+      user.id,
       user.email,
       user.plan,
     )
@@ -80,7 +96,7 @@ export async function login(
     res.status(200).json({
       data: {
         user: {
-          id: user._id.toString(),
+          id: user.id,
           name: user.name,
           email: user.email,
           plan: user.plan,
@@ -89,6 +105,7 @@ export async function login(
           theme: user.theme,
           timezone: user.timezone,
           avatarUrl: user.avatarUrl,
+          emailVerified: user.emailVerifiedAt !== null,
         },
         accessToken: tokens.accessToken,
       },
@@ -134,7 +151,7 @@ export async function refresh(
         accessToken: tokens.accessToken,
         user: user
           ? {
-              id: (user as { _id: { toString(): string } })._id.toString(),
+              id: user.id,
               name: user.name,
               email: user.email,
               plan: user.plan,
@@ -143,10 +160,62 @@ export async function refresh(
               theme: user.theme,
               timezone: user.timezone,
               avatarUrl: user.avatarUrl,
+              emailVerified: user.emailVerifiedAt !== null,
             }
           : null,
       },
     })
+  } catch (err) {
+    next(err)
+  }
+}
+
+/**
+ * Development-only: returns the pending verification code so the sign-up flow is
+ * usable without a mail provider. Responds 404 in production or whenever
+ * RESEND_API_KEY is configured.
+ */
+export async function devVerificationCode(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    if (!req.user?.id) throw new AppError(401, 'Not authenticated')
+    if (!authService.canRevealCodeInDev()) {
+      res.status(404).json({ error: 'Not available' })
+      return
+    }
+    const code = await authService.peekVerificationCode(req.user.id)
+    res.status(200).json({ data: { code } })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function verifyEmail(
+  req: Request<object, object, { code: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    if (!req.user?.id) throw new AppError(401, 'Not authenticated')
+    await authService.verifyEmailCode(req.user.id, req.body.code)
+    res.status(200).json({ data: { emailVerified: true } })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function resendVerification(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    if (!req.user?.id) throw new AppError(401, 'Not authenticated')
+    await authService.resendVerificationCode(req.user.id)
+    res.status(200).json({ data: { sent: true } })
   } catch (err) {
     next(err)
   }

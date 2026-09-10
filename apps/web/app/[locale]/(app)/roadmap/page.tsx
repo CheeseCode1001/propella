@@ -1,16 +1,29 @@
 'use client'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from '@/lib/i18n/navigation'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Trophy, Check, Lock } from 'lucide-react'
 import { format } from 'date-fns'
 import { useRoadmap } from '@/lib/hooks/use-roadmap'
+import { useSubjects } from '@/lib/hooks/use-subjects'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import type { RoadmapNode } from '@propella/shared'
+import { EmptyState } from '@/components/common/empty-state'
+import { FilterPills } from '@/components/common/filter-pills'
+import { BookSquare } from 'iconsax-reactjs'
+import type { ExamType, RoadmapNode } from '@propella/shared'
+
+// Exams are shown in the order candidates normally sit them.
+const EXAM_ORDER: ExamType[] = ['jamb', 'waec', 'neco', 'undergraduate']
+const EXAM_LABELS: Record<ExamType, string> = {
+  jamb: 'JAMB / UTME',
+  waec: 'WAEC',
+  neco: 'NECO',
+  undergraduate: 'Undergraduate',
+}
 
 function getSubjectColor(slug: string): string {
   const map: Record<string, string> = {
@@ -204,9 +217,9 @@ function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => 
               asChild
               onClick={(e) => e.stopPropagation()}
             >
-              <Link href={`/study/new?subject=${node.subjectSlug}&topic=${node.topicSlug}`}>
-                Start
-              </Link>
+              {/* Opens the reader, which is untimed — a timed session is
+                  something the student starts deliberately, not by tapping a topic. */}
+              <Link href={`/topics/${node.subjectSlug}/${node.topicSlug}`}>Read</Link>
             </Button>
           )}
 
@@ -238,7 +251,7 @@ function TimelineNodeRow({ node, isLast }: { node: RoadmapNode; isLast: boolean 
   }
 
   return (
-    <div style={{ display: 'flex', gap: 16, position: 'relative' }}>
+    <div style={{display: 'flex', gap: 16, position: 'relative' }}>
       {/* Timeline line + dot column */}
       <div
         style={{
@@ -283,7 +296,7 @@ function TimelineNodeRow({ node, isLast }: { node: RoadmapNode; isLast: boolean 
 
 function SkeletonNode({ isLast }: { isLast: boolean }) {
   return (
-    <div style={{ display: 'flex', gap: 16, position: 'relative' }}>
+    <div style={{width:"100%", display: 'flex', gap: 16, position: 'relative' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: 24, paddingTop: 16 }}>
         <Skeleton className="rounded-full" style={{ width: 12, height: 12 }} />
         {!isLast && (
@@ -306,21 +319,60 @@ function SkeletonNode({ isLast }: { isLast: boolean }) {
 
 export default function RoadmapPage() {
   const { data, isLoading } = useRoadmap()
+  const { data: subjectsData } = useSubjects()
   const t = useTranslations('roadmap')
-  const [activeSubject, setActiveSubject] = useState<string>('all')
 
-  // Derive unique subjects from nodes
-  const subjects = data
-    ? Array.from(new Map(data.nodes.map((n) => [n.subjectSlug, n.subjectName])).entries()).map(
+  // Null means "whatever the first available board is". Deriving the effective
+  // value instead of storing it keeps the selection correct when the student's
+  // subjects change, with no effect to sync it back.
+  const [chosenExam, setChosenExam] = useState<ExamType | null>(null)
+  const [chosenSubject, setChosenSubject] = useState<string>('all')
+
+  // Which exams each subject belongs to, so the syllabus can be split by board.
+  const examsBySubject = useMemo(
+    () => new Map<string, ExamType[]>((subjectsData ?? []).map((s) => [s.slug, s.examTypes])),
+    [subjectsData],
+  )
+
+  // Only offer boards the student actually has topics for.
+  const availableExams = useMemo(
+    () =>
+      EXAM_ORDER.filter((exam) =>
+        (data?.nodes ?? []).some((n) => examsBySubject.get(n.subjectSlug)?.includes(exam)),
+      ),
+    [data, examsBySubject],
+  )
+
+  // Fall back to the first board whenever the chosen one is not on offer.
+  const activeExam: ExamType | null =
+    chosenExam && availableExams.includes(chosenExam) ? chosenExam : (availableExams[0] ?? null)
+
+  // Board first, then subject — the subject pills only list what this board has.
+  const examNodes = useMemo(
+    () =>
+      (data?.nodes ?? []).filter((n) =>
+        activeExam ? examsBySubject.get(n.subjectSlug)?.includes(activeExam) : true,
+      ),
+    [data, activeExam, examsBySubject],
+  )
+
+  const subjects = useMemo(
+    () =>
+      Array.from(new Map(examNodes.map((n) => [n.subjectSlug, n.subjectName])).entries()).map(
         ([slug, name]) => ({ slug, name }),
-      )
-    : []
+      ),
+    [examNodes],
+  )
 
-  const filteredNodes = data
-    ? activeSubject === 'all'
-      ? data.nodes
-      : data.nodes.filter((n) => n.subjectSlug === activeSubject)
-    : []
+  // A subject carried over from another board would filter down to nothing, so
+  // it falls back to "all" rather than showing an empty syllabus.
+  const activeSubject =
+    chosenSubject !== 'all' && !subjects.some((s) => s.slug === chosenSubject)
+      ? 'all'
+      : chosenSubject
+
+  const filteredNodes =
+    activeSubject === 'all' ? examNodes : examNodes.filter((n) => n.subjectSlug === activeSubject)
 
   const completedCount = filteredNodes.filter((n) => n.status === 'completed').length
 
@@ -348,49 +400,28 @@ export default function RoadmapPage() {
         ) : null}
       </div>
 
-      {/* Subject tab pills */}
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32 }}>
-        <button
-          onClick={() => setActiveSubject('all')}
-          style={{
-            padding: '6px 14px',
-            borderRadius: 999,
-            border: 'none',
-            cursor: 'pointer',
-            fontFamily: 'var(--font-sans)',
-            fontWeight: 500,
-            fontSize: 13,
-            backgroundColor: activeSubject === 'all' ? 'var(--color-accent)' : 'var(--color-paper-3)',
-            color: activeSubject === 'all' ? 'white' : 'var(--color-ink-2)',
-            transition: 'all 0.15s',
-          }}
-        >
-          All
-        </button>
-        {subjects.map(({ slug, name }) => (
-          <button
-            key={slug}
-            onClick={() => setActiveSubject(slug)}
-            style={{
-              padding: '6px 14px',
-              borderRadius: 999,
-              border: 'none',
-              cursor: 'pointer',
-              fontFamily: 'var(--font-sans)',
-              fontWeight: 500,
-              fontSize: 13,
-              backgroundColor: activeSubject === slug ? 'var(--color-accent)' : 'var(--color-paper-3)',
-              color: activeSubject === slug ? 'white' : 'var(--color-ink-2)',
-              transition: 'all 0.15s',
-            }}
-          >
-            {name}
-          </button>
-        ))}
+      {/* Board, then subject. Picking the board first keeps each syllabus short
+          enough to scan instead of scrolling past every other exam. */}
+      <div className="mb-8 flex flex-col gap-4">
+        <FilterPills
+          label="Exam"
+          value={activeExam ?? ''}
+          onChange={(exam) => setChosenExam(exam as ExamType)}
+          options={availableExams.map((exam) => ({ value: exam, label: EXAM_LABELS[exam] }))}
+        />
+        <FilterPills
+          label="Subject"
+          value={activeSubject}
+          onChange={setChosenSubject}
+          options={[
+            { value: 'all', label: 'All' },
+            ...subjects.map(({ slug, name }) => ({ value: slug, label: name })),
+          ]}
+        />
       </div>
 
       {/* Vertical timeline */}
-      <div style={{ maxWidth: 820, margin: '0 auto' }}>
+      <div style={{ width: "100%", margin: '0 auto' }}>
         {isLoading ? (
           <>
             {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -398,9 +429,22 @@ export default function RoadmapPage() {
             ))}
           </>
         ) : filteredNodes.length === 0 ? (
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-ink-3)', textAlign: 'center', padding: 48 }}>
-            No topics found.
-          </p>
+          <EmptyState
+            icon={BookSquare}
+            title="No topics here yet"
+            message={
+              activeSubject === 'all'
+                ? 'This exam has no topics on your syllabus yet. Add the subject in your settings and it will appear here.'
+                : 'That subject has no topics for this exam yet. Try another subject, or switch exam.'
+            }
+            action={
+              activeSubject !== 'all' ? (
+                <Button variant="secondary" size="sm" onClick={() => setChosenSubject('all')}>
+                  Show all subjects
+                </Button>
+              ) : undefined
+            }
+          />
         ) : (
           filteredNodes.map((node, idx) => (
             <TimelineNodeRow

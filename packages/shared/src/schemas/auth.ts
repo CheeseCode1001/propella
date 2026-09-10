@@ -11,6 +11,10 @@ export const LoginSchema = z.object({
   password: z.string().min(1),
 })
 
+export const VerifyEmailSchema = z.object({
+  code: z.string().regex(/^\d{6}$/, 'Enter the 6-digit code'),
+})
+
 export const ForgotPasswordSchema = z.object({
   email: z.string().email().toLowerCase(),
 })

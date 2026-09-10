@@ -1,6 +1,7 @@
 {
-  "installCommand": "npm install -g pnpm@10.12.1 && pnpm install --no-frozen-lockfile",
-  "buildCommand": "pnpm --filter @propella/shared build && pnpm build",
-  "outputDirectory": ".next",
-  "framework": "nextjs"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "corepack enable && pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm --filter @propella/shared build && pnpm --filter @propella/web build",
+  "outputDirectory": "apps/web/.next"
 }

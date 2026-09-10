@@ -1,4 +1,4 @@
-interface TopicSeedData {
+type TopicSeedData = {
   slug: string
   name: string
   order: number
@@ -6,13 +6,13 @@ interface TopicSeedData {
   estimatedMinutes: number
   prerequisiteSlugs: string[]
   examWeight: number
-  examTypes: ('jamb' | 'waec' | 'neco')[]
+  examTypes: ('jamb' | 'waec' | 'neco' | 'undergraduate')[]
 }
 
-interface SubjectSeedData {
+type SubjectSeedData = {
   slug: string
   name: string
-  examTypes: ('jamb' | 'waec' | 'neco')[]
+  examTypes: ('jamb' | 'waec' | 'neco' | 'undergraduate')[]
   description: string
   hue: string
   topics: TopicSeedData[]

@@ -1,5 +1,23 @@
 # PROPELLA — UPDATE BATCH 01
 
+> ### ⚠️ Stack superseded — read this first
+>
+> The persistence and AI layers described below have been replaced. This file is
+> kept as the original design record; it is **not** the current architecture.
+>
+> | Area | This document says | Current |
+> |---|---|---|
+> | Database | MongoDB 7 + Mongoose 8 | **PostgreSQL** (Supabase / Neon) + **Prisma 7** |
+> | Schema | `apps/api/src/models/*.ts` Mongoose schemas | `apps/api/prisma/schema.prisma`; jsonb shapes in `apps/api/src/models/types.ts` |
+> | AI | Anthropic Claude (`claude-sonnet-4-5`, `claude-haiku-4-5`) | **Google Gemini** (`gemini-2.5-pro` quizzes, `gemini-2.5-flash` chat) |
+> | AI env var | `ANTHROPIC_API_KEY` | `GEMINI_API_KEY` |
+> | DB env var | `DATABASE_URL` (mongodb+srv://) | `DATABASE_URL` + `DIRECT_URL` (postgresql://) |
+>
+> Everything else — routes, XP rules, SM-2, design system, copy — still applies.
+> See the [README](../README.md) for current setup.
+
+---
+
 > **For Claude Code:** Three updates in this batch. Read this file in full before starting. Append the contents to `PROPELLA_BUILD.md` as Sections 15–17 once complete so future Claude Code instances inherit the decisions.
 >
 > Do all three updates in one branch. Order: color first (smallest, lowest risk), then notifications (medium), then i18n (largest). Verify each works before moving to the next.

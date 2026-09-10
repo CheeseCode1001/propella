@@ -1,0 +1,95 @@
+# Render blueprint for the Propella API.
+#
+# Render can read this directly (New → Blueprint), or you can create the service
+# by hand using the same values. Secrets are marked sync:false so Render prompts
+# for them instead of storing them in git.
+
+services:
+  - type: web
+    name: propella-api
+    runtime: node
+    region: frankfurt # closest to the eu-west-1 database
+    plan: starter # free tier sleeps after 15 min, which breaks study reminders
+
+    # pnpm workspaces: the shared package must be built before the API compiles
+    # against it. `prisma migrate deploy` runs here rather than at boot so a bad
+    # migration fails the deploy instead of a running instance.
+    buildCommand: |
+      corepack enable
+      pnpm install --frozen-lockfile
+      pnpm --filter @propella/shared build
+      pnpm --filter @propella/api exec prisma migrate deploy
+      pnpm --filter @propella/api build
+
+    startCommand: node apps/api/dist/server.js
+
+    healthCheckPath: /health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: '22'
+
+      # Render sets PORT itself; the app already reads it.
+
+      # ─── Database (Supabase) ──────────────────────────────────────────
+      # DATABASE_URL  : the pooled (-pooler) connection string, used at runtime
+      # DIRECT_URL    : the direct connection, used only by prisma migrate
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+
+      # ─── Auth ─────────────────────────────────────────────────────────
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: ACCESS_TOKEN_TTL
+        value: 1d
+      - key: REFRESH_TOKEN_TTL
+        value: 30d
+
+      # ─── Where the apps live ──────────────────────────────────────────
+      # Must be the exact origins, no trailing slash. They gate CORS, and the
+      # refresh cookie is cross-site in production, so these have to be right.
+      - key: FRONTEND_URL
+        sync: false
+      - key: ADMIN_URL
+        sync: false
+      - key: CORS_EXTRA_ORIGINS
+        value: ''
+
+      # ─── AI ───────────────────────────────────────────────────────────
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_QUIZ_MODEL
+        value: gemini-flash-latest
+      - key: GEMINI_CHAT_MODEL
+        value: gemini-flash-latest
+
+      # ─── Email ────────────────────────────────────────────────────────
+      # Blank disables sending; sign-up still works, codes just go to the log.
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+
+      # ─── Web push ─────────────────────────────────────────────────────
+      # Generate once with: pnpm --filter @propella/api push:keys
+      # VAPID_PUBLIC_KEY must match NEXT_PUBLIC_VAPID_PUBLIC_KEY on Vercel.
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        sync: false
+
+      # ─── First administrator ──────────────────────────────────────────
+      # The seed refuses to create a super admin in production unless both are
+      # set, so there is never a default-password account on a live deployment.
+      - key: SUPER_ADMIN_EMAIL
+        sync: false
+      - key: SUPER_ADMIN_PASSWORD
+        sync: false

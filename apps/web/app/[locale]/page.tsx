@@ -1330,6 +1330,7 @@ import {
   RotateCcw,
   TrendingUp,
   Zap,
+  Smartphone,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -1409,7 +1410,7 @@ export default function HomePage() {
               <p
                 className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-accent)] mb-6"
               >
-                Propella — for JAMB, WAEC &amp; NECO candidates
+                Propella — Pass JAMB in one sitting. Turn distractions into distinctions.
               </p>
 
               {/* headline */}
@@ -1422,8 +1423,7 @@ export default function HomePage() {
                 }}
               >
                 Stop trying to cram<br />
-                everything. Start<br />
-                understanding smartly.
+                to pass JAMB.
               </h1>
 
               {/* subhead */}
@@ -1431,8 +1431,8 @@ export default function HomePage() {
                 className="text-[17px] leading-[1.6] text-[var(--color-ink-2)] mb-6"
                 style={{ maxWidth: '520px' }}
               >
-                Propella detects your weak topics, builds a personalized roadmap, and forces
-                repetition to help you pass with 300+ in JAMB and smash your WAEC and NECO.
+                Boost your score and confidence with a system that breaks down your syllabus
+                into a simplified study guide to help you pass JAMB.
               </p>
 
               {/* punch lines */}
@@ -1441,17 +1441,20 @@ export default function HomePage() {
                   No more random reading.
                 </p>
                 <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] italic">
-                  No more forgetting everything before exams.
+                  No more forgetting everything before exam.
                 </p>
                 <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] italic">
-                  Propella is built for students who want to pass exams once.
+                  Block social media until you answer questions to earn scrolling time.
+                </p>
+                <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] italic">
+                  Propella is built for students who want to pass JAMB once.
                 </p>
               </div>
 
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-3 mb-4">
                 <Button variant="accent" size="lg" asChild>
-                  <Link href="/signup">Start studying — it&apos;s free</Link>
+                  <Link href="/signup">Help me pass JAMB</Link>
                 </Button>
                 <Button variant="ghost" size="lg" asChild>
                   <a href="#how-it-works">See how it works</a>
@@ -1460,7 +1463,8 @@ export default function HomePage() {
 
               {/* caption */}
               <p className="text-[13px] text-[var(--color-ink-3)]">
-                No card required. 2,400+ topics across the JAMB, WAEC, and NECO syllabi.
+                Finish your syllabus with a simplified AI system that works. Answer questions
+                daily and boost your chances to score 300+.
               </p>
             </div>
 
@@ -1489,7 +1493,7 @@ export default function HomePage() {
                 }}
               >
                 The problem isn&apos;t that you didn&apos;t study. It&apos;s that you didn&apos;t
-                study it enough times.
+                study correctly with the right methods — let Propella help you this time.
               </h2>
             </div>
 
@@ -1501,14 +1505,12 @@ export default function HomePage() {
                 was never real.
               </p>
               <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
-                Whether you&apos;re preparing for JAMB, WAEC, or NECO, Propella creates a
-                personalized study experience based on your strengths, weaknesses, and goals.
+                If you are preparing for JAMB, Propella creates a personalised study experience
+                based on your strengths, weaknesses and goals.
               </p>
               <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
-                Propella automates this. Every topic you study gets scheduled for review at exactly
-                the right moment — before you forget it. Not too soon, not too late. The system
-                adapts to your performance so stronger topics review less often and weaker ones get
-                the attention they deserve.
+                Propella automates your study with ease and does the heavy lifting for you. All you
+                need to do is simply show up.
               </p>
               <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] font-medium">
                 Study with structure. Practice with confidence. Walk into your exam prepared.
@@ -1593,7 +1595,7 @@ export default function HomePage() {
       <section className="py-24 bg-[var(--color-paper-2)]">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
           <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-            What&apos;s included
+            Why choose Propella?
           </p>
           <h2
             className="text-[var(--color-ink)] leading-[1.15] tracking-[-0.02em] mb-12"
@@ -1603,7 +1605,7 @@ export default function HomePage() {
               fontWeight: 500,
             }}
           >
-            Everything you need to prepare better
+            Everything you need to pass JAMB this year, all in one place.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y divide-[var(--color-rule)] md:divide-y-0 md:divide-x">
@@ -1717,6 +1719,33 @@ export default function HomePage() {
                 Track your consistency, mastery level, and overall improvement.
               </p>
             </div>
+          </div>
+
+          {/* Row 3 — the differentiator */}
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y divide-[var(--color-rule)] md:divide-y-0 md:divide-x border-t border-[var(--color-rule)]">
+            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
+              <Smartphone
+                size={20}
+                strokeWidth={1.5}
+                className="text-[var(--color-accent)] mb-4"
+              />
+              <h3
+                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                Use distracting apps to your advantage
+              </h3>
+              <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
+                Earn your scrolling time by answering questions daily and build a study habit.
+              </p>
+            </div>
+          </div>
+
+          {/* Section CTA */}
+          <div className="pt-10">
+            <Button variant="accent" size="lg" asChild>
+              <Link href="/signup">Start now for free</Link>
+            </Button>
           </div>
         </div>
       </section>

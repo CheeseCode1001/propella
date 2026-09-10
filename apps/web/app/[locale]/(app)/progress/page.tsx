@@ -5,7 +5,9 @@ import { api } from '@/lib/api-client'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Chart2 } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
+import { BadgeShelf } from '@/components/progress/badge-shelf'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Link } from '@/lib/i18n/navigation'
 
@@ -14,6 +16,20 @@ interface ProgressData {
   topicsMastered: number
   quizzesTaken: number
   averageScore: number
+  syllabusCoverage: {
+    total: number
+    covered: number
+    inProgress: number
+    remaining: number
+    bySubject: Array<{
+      subjectSlug: string
+      subjectName: string
+      total: number
+      covered: number
+      inProgress: number
+      remaining: number
+    }>
+  }
   subjectMastery: Array<{
     subjectSlug: string
     subjectName: string
@@ -215,7 +231,7 @@ export default function ProgressPage() {
 
   if (isLoading) {
     return (
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      <div style={{ width: "100%", margin: '0 auto' }}>
         <Skeleton className="h-10 w-48 mb-8" />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[1, 2, 3, 4].map((i) => (
@@ -230,7 +246,7 @@ export default function ProgressPage() {
 
   if (!hasData) {
     return (
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      <div style={{ width: "100%", margin: '0 auto' }}>
         <h1
           style={{
             fontFamily: 'var(--font-display)',
@@ -242,7 +258,11 @@ export default function ProgressPage() {
         >
           {t('title')}
         </h1>
-        <EmptyState message={t('noProgress')} />
+        <EmptyState
+          icon={Chart2}
+          title="Your progress starts here"
+          message="Finish a study session or a quiz and your hours, mastery and coverage will begin to build."
+        />
       </div>
     )
   }
@@ -252,8 +272,12 @@ export default function ProgressPage() {
     score: d.averageScore,
   }))
 
+  const coverage = data.syllabusCoverage
+  const pct = (n: number) => (coverage.total > 0 ? (n / coverage.total) * 100 : 0)
+  const coveragePct = Math.round(pct(coverage.covered))
+
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto' }}>
+    <div style={{ width: "100%", margin: '0 auto' }}>
       <h1
         style={{
           fontFamily: 'var(--font-display)',
@@ -276,6 +300,154 @@ export default function ProgressPage() {
         <StatCard label="Quizzes taken" value={data.quizzesTaken} />
         <StatCard label="Average score" value={data.averageScore} suffix="%" />
       </div>
+
+      {/* Syllabus coverage — what is done vs what is left */}
+      {data.syllabusCoverage.total > 0 && (
+        <Card style={{ marginBottom: 24 }}>
+          <CardHeader>
+            <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>
+              Syllabus coverage
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                justifyContent: 'space-between',
+                gap: 12,
+                marginBottom: 10,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 28,
+                  color: 'var(--color-ink)',
+                }}
+              >
+                {coveragePct}%
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 12,
+                  color: 'var(--color-ink-3)',
+                }}
+              >
+                {data.syllabusCoverage.covered} of {data.syllabusCoverage.total} topics covered
+              </span>
+            </div>
+
+            {/* Stacked bar: covered / in progress / remaining */}
+            <div
+              style={{
+                display: 'flex',
+                height: 10,
+                borderRadius: 999,
+                overflow: 'hidden',
+                backgroundColor: 'var(--color-paper-3)',
+                marginBottom: 12,
+              }}
+            >
+              <div
+                style={{
+                  width: `${pct(data.syllabusCoverage.covered)}%`,
+                  backgroundColor: 'var(--color-success)',
+                }}
+              />
+              <div
+                style={{
+                  width: `${pct(data.syllabusCoverage.inProgress)}%`,
+                  backgroundColor: 'var(--color-warning)',
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginBottom: 20 }}>
+              {[
+                { label: 'Covered', value: data.syllabusCoverage.covered, color: 'var(--color-success)' },
+                { label: 'In progress', value: data.syllabusCoverage.inProgress, color: 'var(--color-warning)' },
+                { label: 'Left', value: data.syllabusCoverage.remaining, color: 'var(--color-paper-3)' },
+              ].map((item) => (
+                <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span
+                    style={{
+                      width: 9,
+                      height: 9,
+                      borderRadius: 3,
+                      backgroundColor: item.color,
+                      border: '1px solid var(--color-rule-2)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--color-ink-2)' }}>
+                    {item.label}
+                    {' \u00b7 '}
+                    <strong style={{ color: 'var(--color-ink)' }}>{item.value}</strong>
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Per subject */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {data.syllabusCoverage.bySubject.map((s) => {
+                const subjectPct =
+                  s.total > 0 ? Math.round((s.covered / s.total) * 100) : 0
+                return (
+                  <div key={s.subjectSlug} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: 13,
+                        color: 'var(--color-ink-2)',
+                        width: 120,
+                        flexShrink: 0,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {s.subjectName}
+                    </p>
+                    <div
+                      style={{
+                        flex: 1,
+                        height: 7,
+                        borderRadius: 999,
+                        backgroundColor: 'var(--color-paper-3)',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${subjectPct}%`,
+                          height: '100%',
+                          backgroundColor: getSubjectColor(s.subjectSlug),
+                          transition: 'width 0.3s',
+                        }}
+                      />
+                    </div>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 11.5,
+                        color: 'var(--color-ink-3)',
+                        width: 74,
+                        textAlign: 'right',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {s.covered}/{s.total} done
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Subject mastery bars */}
       {data.subjectMastery.length > 0 && (
@@ -403,6 +575,9 @@ export default function ProgressPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Achievements */}
+      <BadgeShelf />
 
       {/* Weakest topics table */}
       {data.weakestTopics.length > 0 && (

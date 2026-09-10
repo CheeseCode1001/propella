@@ -101,6 +101,9 @@ export default function MockExamPage() {
     if (!started || !fullData) return
 
     const limit = fullData.quiz.timeLimit ?? 7200
+    // Intentional: the clock starts only once the paper is loaded and the
+    // candidate has begun, which is not knowable during render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTimeLeft(limit)
 
     intervalRef.current = setInterval(() => {

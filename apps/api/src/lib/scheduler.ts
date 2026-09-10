@@ -1,59 +1,68 @@
 import cron from 'node-cron'
-import { ReminderModel } from '../models/Reminder'
-import { StreakModel } from '../models/Streak'
-import { UserModel } from '../models/User'
-import { StudySessionModel } from '../models/StudySession'
-import { QuizAttemptModel } from '../models/QuizAttempt'
+import { prisma } from '../config/db'
 import { logger } from '../config/logger'
 import {
   sendStudyReminderEmail,
   sendStreakWarningEmail,
   sendWeeklyDigestEmail,
 } from './email'
-import { notify } from '../features/notifications/notification.service'
+import {
+  notify,
+  purgeExpiredNotifications,
+} from '../features/notifications/notification.service'
+import { jsonArray, jsonObject, type ByTopicResult, type ReminderPayload } from '../models/types'
+
+const EMPTY_PAYLOAD: ReminderPayload = { title: '', body: '' }
 
 // Every 5 minutes: process due reminders
 cron.schedule('*/5 * * * *', async () => {
   try {
-    const due = await ReminderModel.find({
-      status: 'scheduled',
-      scheduledFor: { $lte: new Date() },
-    }).limit(50)
+    const due = await prisma.reminder.findMany({
+      where: { status: 'scheduled', scheduledFor: { lte: new Date() } },
+      take: 50,
+      include: { user: { select: { email: true } } },
+    })
 
     for (const reminder of due) {
-      try {
-        const user = await UserModel.findById(reminder.userId).select('email')
-        if (!user) {
-          await reminder.updateOne({ status: 'failed' })
-          continue
-        }
+      const payload = jsonObject<ReminderPayload>(reminder.payload, EMPTY_PAYLOAD)
 
+      try {
         if (reminder.channel === 'email') {
           if (reminder.type === 'streak_warning') {
-            const streak = await StreakModel.findOne({ userId: reminder.userId })
-            await sendStreakWarningEmail(user.email, streak?.currentStreak ?? 1)
+            const streak = await prisma.streak.findUnique({
+              where: { userId: reminder.userId },
+              select: { currentStreak: true },
+            })
+            await sendStreakWarningEmail(reminder.user.email, streak?.currentStreak ?? 1)
           } else {
-            await sendStudyReminderEmail(user.email, reminder.payload as { title: string; body: string; deeplink?: string })
+            await sendStudyReminderEmail(reminder.user.email, payload)
           }
         }
 
         // Also create an in-app notification for every reminder sent
-        const notifType = reminder.type === 'streak_warning'
-          ? 'streak_warning'
-          : reminder.type === 'weekly_review'
-            ? 'weekly_review'
-            : 'study_reminder'
+        const notifType =
+          reminder.type === 'streak_warning'
+            ? 'streak_warning'
+            : reminder.type === 'weekly_review'
+              ? 'weekly_review'
+              : 'study_reminder'
 
-        await notify(reminder.userId.toString(), notifType, {
-          title: reminder.payload.title,
-          body: reminder.payload.body,
-          deeplink: reminder.payload.deeplink ?? null,
+        await notify(reminder.userId, notifType, {
+          title: payload.title,
+          body: payload.body,
+          deeplink: payload.deeplink ?? null,
         })
 
-        await reminder.updateOne({ status: 'sent', sentAt: new Date() })
+        await prisma.reminder.update({
+          where: { id: reminder.id },
+          data: { status: 'sent', sentAt: new Date() },
+        })
       } catch (err) {
-        await reminder.updateOne({ status: 'failed' })
-        logger.error({ err, reminderId: reminder._id }, 'Reminder failed')
+        await prisma.reminder.update({
+          where: { id: reminder.id },
+          data: { status: 'failed' },
+        })
+        logger.error({ err, reminderId: reminder.id }, 'Reminder failed')
       }
     }
   } catch (err) {
@@ -65,36 +74,43 @@ cron.schedule('*/5 * * * *', async () => {
 cron.schedule('0 18 * * *', async () => {
   try {
     const today = new Date(new Date().toDateString())
-    const atRisk = await StreakModel.find({
-      currentStreak: { $gt: 0 },
-      lastActiveDate: { $lt: today },
-    }).limit(500)
+    const atRisk = await prisma.streak.findMany({
+      where: { currentStreak: { gt: 0 }, lastActiveDate: { lt: today } },
+      take: 500,
+    })
 
     for (const streak of atRisk) {
       // Avoid duplicate reminders for the same day
-      const existing = await ReminderModel.findOne({
-        userId: streak.userId,
-        type: 'streak_warning',
-        scheduledFor: { $gte: today },
+      const existing = await prisma.reminder.findFirst({
+        where: {
+          userId: streak.userId,
+          type: 'streak_warning',
+          scheduledFor: { gte: today },
+        },
+        select: { id: true },
       })
       if (existing) continue
 
-      await ReminderModel.create({
-        userId: streak.userId,
-        type: 'streak_warning',
-        scheduledFor: new Date(),
-        channel: 'email',
-        payload: {
-          title: 'Your streak is at risk',
-          body: `You have a ${streak.currentStreak}-day streak. Study today to keep it.`,
+      const payload: ReminderPayload = {
+        title: 'Your streak is at risk',
+        body: `You have a ${streak.currentStreak}-day streak. Study today to keep it.`,
+      }
+
+      await prisma.reminder.create({
+        data: {
+          userId: streak.userId,
+          type: 'streak_warning',
+          scheduledFor: new Date(),
+          channel: 'email',
+          payload,
+          status: 'scheduled',
         },
-        status: 'scheduled',
       })
 
       // Immediate in-app notification (the email fires later when scheduler processes it)
-      await notify(streak.userId.toString(), 'streak_warning', {
-        title: 'Your streak is at risk',
-        body: `You have a ${streak.currentStreak}-day streak. Study today to keep it.`,
+      await notify(streak.userId, 'streak_warning', {
+        title: payload.title,
+        body: payload.body,
         deeplink: '/dashboard',
       })
     }
@@ -108,29 +124,28 @@ cron.schedule('0 18 * * *', async () => {
 // Weekly on Sunday at 19:00 UTC: send weekly digest emails
 cron.schedule('0 19 * * 0', async () => {
   try {
-    const users = await UserModel.find({
-      'notifications.weeklyDigest': true,
+    const users = await prisma.user.findMany({
+      where: { notifyWeeklyDigest: true },
+      select: { id: true, email: true },
+      take: 1000,
     })
-      .select('email notifications')
-      .limit(1000)
 
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 
     for (const user of users) {
       try {
-        const [sessions, attempts] = await Promise.all([
-          StudySessionModel.find({
-            userId: user._id,
-            status: 'completed',
-            startedAt: { $gte: weekAgo },
-          }).select('durationSec'),
-          QuizAttemptModel.find({
-            userId: user._id,
-            completedAt: { $gte: weekAgo },
-          }).select('score byTopic'),
+        const [sessionAgg, attempts] = await Promise.all([
+          prisma.studySession.aggregate({
+            where: { userId: user.id, status: 'completed', startedAt: { gte: weekAgo } },
+            _sum: { durationSec: true },
+          }),
+          prisma.quizAttempt.findMany({
+            where: { userId: user.id, completedAt: { gte: weekAgo } },
+            select: { score: true, byTopic: true },
+          }),
         ])
 
-        const studyHours = sessions.reduce((sum, s) => sum + s.durationSec, 0) / 3600
+        const studyHours = (sessionAgg._sum.durationSec ?? 0) / 3600
 
         const avgScore =
           attempts.length > 0
@@ -140,13 +155,10 @@ cron.schedule('0 19 * * 0', async () => {
         // Collect weak topics (score < 50%) from this week's attempts
         const weakMap: Record<string, { correct: number; total: number }> = {}
         for (const attempt of attempts) {
-          for (const t of attempt.byTopic ?? []) {
-            if (!weakMap[t.topicSlug]) weakMap[t.topicSlug] = { correct: 0, total: 0 }
-            const entry = weakMap[t.topicSlug]
-            if (entry) {
-              entry.correct += t.correct
-              entry.total += t.total
-            }
+          for (const t of jsonArray<ByTopicResult>(attempt.byTopic)) {
+            const entry = (weakMap[t.topicSlug] ??= { correct: 0, total: 0 })
+            entry.correct += t.correct
+            entry.total += t.total
           }
         }
         const weakTopics = Object.entries(weakMap)
@@ -160,13 +172,26 @@ cron.schedule('0 19 * * 0', async () => {
           weakTopics,
         })
       } catch (err) {
-        logger.error({ err, userId: user._id }, 'Weekly digest failed for user')
+        logger.error({ err, userId: user.id }, 'Weekly digest failed for user')
       }
     }
 
     logger.info({ count: users.length }, 'Weekly digest emails dispatched')
   } catch (err) {
     logger.error({ err }, 'Weekly digest scheduler error')
+  }
+})
+
+// Hourly: drop notifications past their expiry. MongoDB did this with a TTL
+// index; Postgres has no equivalent, so the sweep is explicit.
+cron.schedule('30 * * * *', async () => {
+  try {
+    const removed = await purgeExpiredNotifications()
+    if (removed > 0) {
+      logger.info({ removed }, 'Purged expired notifications')
+    }
+  } catch (err) {
+    logger.error({ err }, 'Notification purge error')
   }
 })
 

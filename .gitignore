@@ -1,6 +1,9 @@
 node_modules/
 .next/
 dist/
+
+# Prisma 7 generates the client into the project
+apps/api/src/generated/
 *.env
 *.env.local
 !*.env.example

@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+
+/*
+ * The admin console shares the student app palette so the two read as one
+ * product. Surfaces, rules and the aubergine accent are the same tokens.
+ */
+:root {
+  --ink: #1A1814;
+  --ink-2: #4A463E;
+  --ink-3: #7C766B;
+  --paper: #FBF9F4;
+  --paper-2: #F4F1EA;
+  --paper-3: #ECE7DD;
+  --card: #FFFFFF;
+  --rule: #E5DFD2;
+  --rule-2: #D9D2C2;
+  --accent: #6E3A5F;
+  --accent-2: #56294A;
+  --accent-tint: #F2E8EE;
+  --success: #2F6B3F;
+  --success-tint: #E8F5EC;
+  --warning: #B87A1F;
+  --warning-tint: #FDF3E3;
+  --danger: #A82F2F;
+  --danger-tint: #FDE8E8;
+  --radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #F2EFE8;
+    --ink-2: #A7A196;
+    --ink-3: #7C766B;
+    --paper: #14120F;
+    --paper-2: #1C1916;
+    --paper-3: #262220;
+    --card: #1C1916;
+    --rule: #2C2822;
+    --rule-2: #3A352E;
+    --accent: #C88FB4;
+    --accent-2: #D9A9C6;
+    --accent-tint: #2A1E26;
+    --success: #6FAF80;
+    --success-tint: #1A2E1E;
+    --warning: #D9A45C;
+    --warning-tint: #2E2210;
+    --danger: #D97070;
+    --danger-tint: #2E1414;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* Shared primitives — the admin surface is small enough not to need a UI kit. */
+.card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--rule-2);
+  background: var(--paper-2);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 120ms, border-color 120ms, opacity 120ms;
+}
+.btn:hover:not(:disabled) {
+  background: var(--paper-3);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  background: var(--accent);
+}
+.btn-danger {
+  color: var(--danger);
+  border-color: var(--rule-2);
+}
+.btn-danger:hover:not(:disabled) {
+  background: var(--danger-tint);
+}
+
+.field {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--rule-2);
+  background: var(--paper-2);
+  outline: none;
+}
+.field:focus {
+  border-color: var(--accent);
+}
+
+.label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 6px;
+}
+
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.data th {
+  text-align: left;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+  font-weight: 600;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+table.data td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.data tr:last-child td {
+  border-bottom: none;
+}
+
+.pill {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}

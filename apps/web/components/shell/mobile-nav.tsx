@@ -3,11 +3,15 @@
 import { useState } from 'react'
 import { Link } from '@/lib/i18n/navigation'
 import { usePathname } from 'next/navigation'
-import { Home, Compass, LayoutGrid, User } from 'lucide-react'
+import { Home2, BookSquare, Element3, Note1, Profile } from 'iconsax-reactjs'
+import type { Icon as IconsaxIcon } from 'iconsax-reactjs'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils/cn'
+import { NavIcon } from '@/components/common/nav-icon'
 import { ToolsSheet } from './tools-sheet'
 
+// Everything reachable from the Tools sheet, so the centre button can show as
+// active while the student is on one of them.
 const TOOLS_ROUTES = [
   '/planner',
   '/quizzes',
@@ -16,12 +20,11 @@ const TOOLS_ROUTES = [
   '/assistant',
   '/progress',
   '/leaderboard',
+  '/study',
 ]
 
 function isToolsRoute(pathname: string) {
-  return TOOLS_ROUTES.some(
-    (r) => pathname === r || pathname.startsWith(r + '/'),
-  )
+  return TOOLS_ROUTES.some((r) => pathname === r || pathname.startsWith(r + '/'))
 }
 
 export function MobileNav() {
@@ -29,7 +32,7 @@ export function MobileNav() {
   const [sheetOpen, setSheetOpen] = useState(false)
   const t = useTranslations('nav')
 
-  const toolsActive = isToolsRoute(pathname)
+  const toolsActive = isToolsRoute(pathname) || sheetOpen
 
   return (
     <>
@@ -42,16 +45,15 @@ export function MobileNav() {
           paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >
-        {/* Home */}
-        <NavTab href="/dashboard" icon={Home} label={t('dashboard')} pathname={pathname} />
+        <NavTab href="/dashboard" icon={Home2} label={t('dashboard')} pathname={pathname} />
+        <NavTab href="/roadmap" icon={BookSquare} label={t('roadmap')} pathname={pathname} />
 
-        {/* Roadmap */}
-        <NavTab href="/roadmap" icon={Compass} label={t('roadmap')} pathname={pathname} />
-
-        {/* Study CTA — raised circle */}
+        {/* Tools — raised primary button in the centre */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Link
-            href="/study/new"
+          <button
+            onClick={() => setSheetOpen(true)}
+            aria-label={t('tools')}
+            aria-expanded={sheetOpen}
             style={{
               width: 56,
               height: 56,
@@ -61,30 +63,18 @@ export function MobileNav() {
               alignItems: 'center',
               justifyContent: 'center',
               marginBottom: 12,
-              boxShadow: '0 4px 12px rgba(178,58,46,0.35)',
+              boxShadow: '0 4px 12px color-mix(in srgb, var(--color-accent) 40%, transparent)',
               flexShrink: 0,
+              border: 'none',
+              cursor: 'pointer',
             }}
-            aria-label="Study"
           >
-            <Compass size={24} strokeWidth={1.5} color="white" />
-          </Link>
+            <Element3 size={24} color="white" variant={toolsActive ? 'Bold' : 'Linear'} />
+          </button>
         </div>
 
-        {/* Tools */}
-        <button
-          onClick={() => setSheetOpen(true)}
-          className={cn(
-            'flex flex-col items-center gap-1 px-3 py-1 transition-colors bg-transparent border-none cursor-pointer',
-            toolsActive ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-3)]',
-          )}
-          aria-label="Tools"
-        >
-          <LayoutGrid size={22} strokeWidth={1.5} />
-          <span style={{ fontSize: 10, fontWeight: 500, fontFamily: 'var(--font-sans)' }}>{t('tools')}</span>
-        </button>
-
-        {/* Profile */}
-        <NavTab href="/settings" icon={User} label={t('profile')} pathname={pathname} />
+        <NavTab href="/notes" icon={Note1} label={t('notes')} pathname={pathname} />
+        <NavTab href="/settings" icon={Profile} label={t('profile')} pathname={pathname} />
       </nav>
 
       <ToolsSheet open={sheetOpen} onClose={() => setSheetOpen(false)} />
@@ -94,23 +84,36 @@ export function MobileNav() {
 
 interface NavTabProps {
   href: string
-  icon: React.ElementType
+  icon: IconsaxIcon
   label: string
   pathname: string
 }
 
-function NavTab({ href, icon: Icon, label, pathname }: NavTabProps) {
+function NavTab({ href, icon, label, pathname }: NavTabProps) {
   const isActive = pathname === href || pathname.startsWith(href + '/')
   return (
     <Link
       href={href}
+      aria-current={isActive ? 'page' : undefined}
       className={cn(
-        'flex flex-col items-center gap-1 px-3 py-1 no-underline transition-colors',
-        isActive ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-3)]',
+        'flex flex-col items-center gap-0.5 rounded-[var(--radius-md)] px-3 py-1.5',
+        'no-underline transition-colors duration-100',
+        // The active tab reads as a solid primary block, matching the sidebar.
+        isActive
+          ? 'bg-[var(--color-accent)] text-white'
+          : 'text-[var(--color-ink-3)]',
       )}
     >
-      <Icon size={22} strokeWidth={1.5} />
-      <span style={{ fontSize: 10, fontWeight: 500, fontFamily: 'var(--font-sans)' }}>{label}</span>
+      <NavIcon icon={icon} active={isActive} size={21} />
+      <span
+        style={{
+          fontSize: 10,
+          fontWeight: isActive ? 600 : 500,
+          fontFamily: 'var(--font-sans)',
+        }}
+      >
+        {label}
+      </span>
     </Link>
   )
 }

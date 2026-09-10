@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Offline — Propella</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --paper: #fbf9f4;
+        --ink: #1a1814;
+        --ink-2: #4a463e;
+        --accent: #6e3a5f;
+        --rule: #e5dfd2;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #14120f;
+          --ink: #f2efe8;
+          --ink-2: #a7a196;
+          --rule: #2c2822;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      }
+      .card {
+        max-width: 380px;
+        text-align: center;
+      }
+      .mark {
+        width: 52px;
+        height: 52px;
+        margin: 0 auto 20px;
+        border-radius: 12px;
+        background: var(--accent);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 26px;
+        font-weight: 700;
+      }
+      h1 { font-size: 20px; margin: 0 0 8px; font-weight: 600; }
+      p { margin: 0 0 20px; color: var(--ink-2); font-size: 14px; line-height: 1.6; }
+      button {
+        font: inherit;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 1px solid var(--rule);
+        background: var(--accent);
+        color: #fff;
+        cursor: pointer;
+      }
+      .hint { margin-top: 18px; font-size: 12.5px; color: var(--ink-2); }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="mark">P</div>
+      <h1>You are offline</h1>
+      <p>
+        Propella needs a connection to load new topics and quizzes. Pages you have already
+        visited stay available.
+      </p>
+      <button onclick="location.reload()">Try again</button>
+      <p class="hint">Your study progress is saved and will sync when you reconnect.</p>
+    </div>
+  </body>
+</html>

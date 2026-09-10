@@ -33,6 +33,7 @@ export async function updateMe(
       theme?: 'system' | 'light' | 'dark'
       timezone?: string
       locale?: 'en' | 'yo' | 'ha' | 'ig'
+      avatarUrl?: string | null
       notifications?: {
         email?: boolean
         push?: boolean

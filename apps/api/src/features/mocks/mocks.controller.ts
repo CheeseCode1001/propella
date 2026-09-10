@@ -23,11 +23,11 @@ export async function generateMock(
 
     res.status(201).json({
       data: {
-        mockId: mock._id.toString(),
+        mockId: mock.id,
         questionCount: mock.questionCount,
         timeLimit: mock.timeLimit,
         type: mock.type,
-        createdAt: (mock as unknown as { createdAt: Date }).createdAt.toISOString(),
+        createdAt: mock.createdAt.toISOString(),
       },
     })
   } catch (err) {
@@ -46,7 +46,7 @@ export async function startMockAttempt(
 
     res.status(201).json({
       data: {
-        attemptId: attempt._id.toString(),
+        attemptId: attempt.id,
         startedAt: attempt.startedAt.toISOString(),
       },
     })
@@ -76,7 +76,7 @@ export async function submitMock(
 
     res.status(200).json({
       data: {
-        attemptId: result.attempt._id.toString(),
+        attemptId: result.attempt.id,
         score: result.attempt.score,
         xpAwarded: result.xpAwarded,
         completedAt: result.attempt.completedAt?.toISOString(),
@@ -102,7 +102,7 @@ export async function getMockAttemptResult(
     res.status(200).json({
       data: {
         attempt: {
-          id: attempt._id.toString(),
+          id: attempt.id,
           score: attempt.score,
           xpAwarded: attempt.xpAwarded,
           durationSec: attempt.durationSec,
@@ -111,7 +111,7 @@ export async function getMockAttemptResult(
           completedAt: attempt.completedAt?.toISOString(),
         },
         quiz: {
-          id: quiz._id.toString(),
+          id: quiz.id,
           questionCount: quiz.questionCount,
           questions: quiz.questions,
           timeLimit: quiz.timeLimit,

@@ -6,6 +6,7 @@ import { api } from '@/lib/api-client'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Cup } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
 import { useAuthStore } from '@/lib/stores/auth-store'
 
@@ -222,7 +223,11 @@ export default function LeaderboardPage() {
               ))}
             </div>
           ) : entries.length === 0 ? (
-            <EmptyState message={t('noData')} />
+            <EmptyState
+              icon={Cup}
+              title="Nobody on the board yet"
+              message="Study a topic or finish a quiz to earn your first XP and appear here."
+            />
           ) : (
             entries.map((entry) => (
               <LeaderboardRow
