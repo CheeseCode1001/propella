@@ -9,7 +9,15 @@ Three pieces:
 | `apps/admin` | **Vercel** | Admin console (Next.js) |
 | Database | **Supabase** | Postgres — already provisioned |
 
-Deploy in that order. The apps need the API's URL, and the API needs theirs.
+Deploy in that order — but note the loop: the front-ends need the API's URL,
+and the API needs theirs. You cannot know both up front, so:
+
+1. Deploy the **API** first. `FRONTEND_URL` and `ADMIN_URL` can be left unset —
+   the service starts anyway and logs a warning. CORS blocks every browser
+   origin until they are set, which fails closed rather than open.
+2. Deploy **web** and **admin**, pointing `NEXT_PUBLIC_API_URL` at the Render URL.
+3. Go back to Render, set `FRONTEND_URL` and `ADMIN_URL` to the Vercel origins,
+   and redeploy. **Nothing works in a browser until you do this step.**
 
 ---
 
@@ -99,8 +107,8 @@ live until the new build succeeds.
 | `JWT_REFRESH_SECRET` | ✅ | `openssl rand -hex 64` (different from the above) |
 | `ACCESS_TOKEN_TTL` | — | `1d` |
 | `REFRESH_TOKEN_TTL` | — | `30d` |
-| `FRONTEND_URL` | ✅ | `https://your-web.vercel.app` — exact origin, **no trailing slash** |
-| `ADMIN_URL` | ✅ | `https://your-admin.vercel.app` |
+| `FRONTEND_URL` | ⚠️ | `https://your-web.vercel.app` — exact origin, **no trailing slash**. Can be set after the first deploy |
+| `ADMIN_URL` | ⚠️ | `https://your-admin.vercel.app`. Same |
 | `CORS_EXTRA_ORIGINS` | — | Comma-separated extras (custom domain, second preview) |
 | `GEMINI_API_KEY` | ✅ | From [AI Studio](https://aistudio.google.com/apikey) |
 | `GEMINI_QUIZ_MODEL` | — | `gemini-flash-latest` |

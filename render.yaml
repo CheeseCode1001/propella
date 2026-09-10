@@ -53,6 +53,9 @@ services:
       # ─── Where the apps live ──────────────────────────────────────────
       # Must be the exact origins, no trailing slash. They gate CORS, and the
       # refresh cookie is cross-site in production, so these have to be right.
+      # Can be left blank on the very first deploy — the API starts and warns.
+      # CORS blocks every browser origin until they are set, so fill them in as
+      # soon as the Vercel projects have URLs, then redeploy.
       - key: FRONTEND_URL
         sync: false
       - key: ADMIN_URL

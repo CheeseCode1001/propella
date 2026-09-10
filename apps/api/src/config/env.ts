@@ -92,7 +92,9 @@ const EnvSchema = z.object({
 
   // Where replies land. Not authenticated, so an ordinary mailbox is fine.
   EMAIL_REPLY_TO: z.string().optional().default(''),
-  FRONTEND_URL: z.string().min(1, 'FRONTEND_URL is required'),
+  // Not required to boot: a first deploy does not yet know its own front-end
+  // URL. Empty means CORS allows no browser origin — see the warning below.
+  FRONTEND_URL: z.string().default(''),
   // Origin of the admin dashboard (apps/admin).
   ADMIN_URL: z.string().default('http://localhost:3001'),
 
@@ -118,9 +120,35 @@ if (!parsed.success) {
   const problems = parsed.error.issues
     .map((issue) => `  • ${issue.path.join('.')}: ${issue.message}`)
     .join('\n')
+
+  // The fix differs by environment, and pointing a hosting platform at a .env
+  // file it does not have wastes a lot of time.
+  const remedy = isProduction
+    ? 'Set these in your hosting platform\'s environment (Render: Dashboard → Environment).'
+    : 'Copy apps/api/.env.example to apps/api/.env and fill it in.'
+
   throw new Error(
-    `Invalid environment configuration in apps/api/.env:\n${problems}\n\n` +
-      `Copy apps/api/.env.example to apps/api/.env and fill it in.`,
+    `Invalid environment configuration:\n${problems}\n\n${remedy}`,
+  )
+}
+
+/**
+ * The app can start without knowing where the front-end lives — a first deploy
+ * genuinely does not know its own Vercel URL yet. CORS then allows no browser
+ * origin at all, which fails closed rather than open, and this warning says how
+ * to finish the setup.
+ */
+if (isProduction && !parsed.data.FRONTEND_URL) {
+  console.warn(
+    [
+      '',
+      '[env] FRONTEND_URL is not set.',
+      '      The API will start, but browsers will be blocked by CORS and',
+      '      password-reset links will be malformed.',
+      '      Set FRONTEND_URL to the exact origin of the web app',
+      '      (e.g. https://your-app.vercel.app — no trailing slash) and redeploy.',
+      '',
+    ].join('\n'),
   )
 }
 
