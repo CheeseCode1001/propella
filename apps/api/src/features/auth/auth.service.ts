@@ -5,6 +5,11 @@ import type { User } from '../../config/db'
 import type { SignupInput } from '@propella/shared'
 import { prisma } from '../../config/db'
 import { env } from '../../config/env'
+import {
+  attachReferral,
+  qualifyReferral,
+  ensureReferralCode,
+} from '../referrals/referrals.service'
 import { logger } from '../../config/logger'
 import { AppError } from '../../middleware/error-handler'
 import { sendPasswordResetEmail, sendVerificationCodeEmail } from '../../lib/email'
@@ -141,6 +146,10 @@ export async function verifyEmailCode(userId: string, code: string): Promise<voi
       data: { emailVerifiedAt: new Date() },
     }),
   ])
+
+  // Verification is the qualifying action for a referral — it is the cheapest
+  // proof a real person is behind the account. Idempotent and never throws.
+  await qualifyReferral(userId)
 }
 
 export interface JwtTokenPayload {
@@ -176,6 +185,21 @@ export async function signup(data: SignupInput): Promise<User> {
       streak: { create: { lastActiveDate: new Date() } },
     },
   })
+
+  // Give them their own code straight away, so it is ready the first time they
+  // open the invite panel. Never blocks sign-up if it fails.
+  try {
+    await ensureReferralCode(user.id)
+  } catch (err) {
+    logger.warn({ err, userId: user.id }, 'Could not assign a referral code at signup')
+  }
+
+  // Record who invited them, if anyone. Nothing is paid out yet — that happens
+  // when they verify their email. Swallows every failure by design: a bad code
+  // must not cost somebody their account.
+  if (data.referralCode) {
+    await attachReferral(user.id, data.referralCode)
+  }
 
   // Fire the verification code immediately; a failure here must not roll back a
   // successful signup, so it is reported and the user can resend.

@@ -1,6 +1,7 @@
 'use client'
-import { Link } from '@/lib/i18n/navigation'
-import { usePathname } from 'next/navigation'
+// Locale-aware: next/navigation's usePathname keeps the /en prefix, which never
+// matches these locale-less hrefs — that is why nothing looked active.
+import { Link, usePathname } from '@/lib/i18n/navigation'
 import {
   Home2, BookSquare, Calendar, TaskSquare, DocumentText,
   Timer1, Magicpen, Chart2, Cup, Profile, Card, Notification,
@@ -78,7 +79,7 @@ export function Sidebar() {
       </div>
 
       {/* Nav */}
-      <nav style={{ flex: 1, padding: '8px 0' }}>
+      <nav className="flex flex-1 flex-col gap-1.5" style={{ padding: '12px 0' }}>
         {navItems.map(({ href, icon: Icon, label, lockable }) => {
           const isActive = pathname === href || pathname.startsWith(href + '/')
           const locked = marathonActive && lockable
@@ -89,7 +90,7 @@ export function Sidebar() {
                 key={href}
                 aria-disabled="true"
                 title="Locked until your marathon ends"
-                className="mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2.5 text-[14px] font-medium text-[var(--color-ink-3)] cursor-not-allowed opacity-50 select-none"
+                className="mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-1.5 text-[14px] font-medium text-[var(--color-ink-3)] cursor-not-allowed opacity-50 select-none"
               >
                 <NavIcon icon={Icon} active={false} size={20} />
                 <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500 }}>{label}</span>
@@ -104,7 +105,7 @@ export function Sidebar() {
               href={href}
               aria-current={isActive ? 'page' : undefined}
               className={cn(
-                'mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2.5',
+                'mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-1.5',
                 'text-[14px] font-medium no-underline transition-colors duration-100',
                 isActive
                   // Active page reads as a solid primary block, not a hairline.
@@ -112,8 +113,13 @@ export function Sidebar() {
                   : 'text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]',
               )}
             >
+              {/* Icon and label both inherit the white from the parent. */}
               <NavIcon icon={Icon} active={isActive} size={20} />
-              <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500 }}>{label}</span>
+              <span
+                style={{ fontFamily: 'var(--font-sans)', fontWeight: isActive ? 600 : 500 }}
+              >
+                {label}
+              </span>
             </Link>
           )
         })}

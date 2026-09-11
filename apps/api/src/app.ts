@@ -26,6 +26,7 @@ import notesRouter from './features/notes/notes.routes'
 import plannerRouter from './features/planner/planner.routes'
 import topicsRouter from './features/topics/topics.routes'
 import badgesRouter from './features/badges/badges.routes'
+import referralsRouter from './features/referrals/referrals.routes'
 
 const app: Express = express()
 
@@ -121,6 +122,7 @@ app.use('/api/notes', authenticate, notesRouter)
 app.use('/api/planner', authenticate, plannerRouter)
 app.use('/api/topics', authenticate, topicsRouter)
 app.use('/api/badges', authenticate, badgesRouter)
+app.use('/api/referrals', authenticate, referralsRouter)
 app.use('/api/admin', authenticate, adminRouter)
 
 // Global error handler — must be last

@@ -247,7 +247,9 @@ function TimelineNodeRow({ node, isLast }: { node: RoadmapNode; isLast: boolean 
   const router = useRouter()
 
   function handleClick() {
-    router.push(`/roadmap/${node.subjectSlug}/${node.topicSlug}`)
+    // Straight to the reader. The old /roadmap/[subject]/[topic] page only ever
+    // filled two of its four tabs, which is why some topics opened blank.
+    router.push(`/topics/${node.subjectSlug}/${node.topicSlug}`)
   }
 
   return (
@@ -428,6 +430,20 @@ export default function RoadmapPage() {
               <SkeletonNode key={i} isLast={i === 6} />
             ))}
           </>
+        ) : (data?.nodes?.length ?? 0) === 0 ? (
+          // No roadmap at all. Almost always means onboarding was never
+          // finished — the plan is built from the subjects chosen there — so
+          // say that rather than showing a blank page.
+          <EmptyState
+            icon={BookSquare}
+            title="Your syllabus is not built yet"
+            message="Tell us which exams you are sitting and which subjects you are taking, and we will lay out every topic in the order to study them."
+            action={
+              <Button variant="accent" size="sm" asChild>
+                <Link href="/onboarding">Build my syllabus</Link>
+              </Button>
+            }
+          />
         ) : filteredNodes.length === 0 ? (
           <EmptyState
             icon={BookSquare}

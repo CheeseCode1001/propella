@@ -5,7 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Link, useRouter } from '@/lib/i18n/navigation'
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
+import { Gift } from 'iconsax-reactjs'
 import { useTranslations } from 'next-intl'
 import { SignupSchema } from '@propella/shared'
 import { Card, CardContent } from '@/components/ui/card'
@@ -73,6 +75,10 @@ export default function SignupPage() {
     resolver: zodResolver(SignupFormSchema),
   })
 
+  // Set when they arrived through an invite link (/signup?ref=CODE).
+  const searchParams = useSearchParams()
+  const referralCode = searchParams.get('ref')?.trim() ?? null
+
   async function onSubmit(data: SignupFormValues) {
     setServerError(null)
     try {
@@ -80,6 +86,8 @@ export default function SignupPage() {
         name: data.name,
         email: data.email,
         password: data.password,
+        // An unknown code is ignored server-side rather than failing sign-up.
+        ...(referralCode ? { referralCode } : {}),
       })
       setToken(res.data.accessToken)
       setUser(res.data.user)
@@ -104,6 +112,26 @@ export default function SignupPage() {
             Five minutes to set up. Then we build your roadmap.
           </p>
         </div>
+
+        {/* Confirms the invite was picked up, so it does not apply silently. */}
+        {referralCode && (
+          <div
+            className="mb-5 flex items-start gap-2.5 rounded-[var(--radius-md)] px-3.5 py-3"
+            style={{ backgroundColor: 'var(--color-accent-tint)' }}
+          >
+            <Gift
+              size={17}
+              color="var(--color-accent)"
+              variant="Bold"
+              style={{ flexShrink: 0, marginTop: 1 }}
+            />
+            <p className="text-[12.5px] leading-[1.55] text-[var(--color-ink-2)]">
+              You were invited with code{' '}
+              <strong className="text-[var(--color-ink)]">{referralCode.toUpperCase()}</strong>.
+              Confirm your email after signing up and you both get AI credits.
+            </p>
+          </div>
+        )}
 
         <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
           <div>

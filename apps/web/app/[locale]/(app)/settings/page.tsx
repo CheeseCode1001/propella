@@ -14,13 +14,15 @@ import { Label } from '@/components/ui/label'
 import { SignOutDialog } from '@/components/auth/sign-out-dialog'
 import { AvatarUpload } from '@/components/settings/avatar-upload'
 import { PushDeviceRow } from '@/components/settings/push-device-row'
+import { ReferralPanel } from '@/components/settings/referral-panel'
 import type { AuthUser } from '@propella/shared'
 
-type TabId = 'profile' | 'exam' | 'notifications' | 'plan' | 'privacy'
+type TabId = 'profile' | 'exam' | 'referrals' | 'notifications' | 'plan' | 'privacy'
 
 const TABS: Array<{ id: TabId; label: string }> = [
   { id: 'profile', label: 'Profile' },
   { id: 'exam', label: 'Exam' },
+  { id: 'referrals', label: 'Invite friends' },
   { id: 'notifications', label: 'Notifications' },
   { id: 'plan', label: 'Plan' },
   { id: 'privacy', label: 'Privacy' },
@@ -522,13 +524,14 @@ export default function SettingsPage() {
   const tabContent: Record<TabId, React.ReactNode> = {
     profile: <ProfileTab />,
     exam: <ExamTab />,
+    referrals: <ReferralPanel />,
     notifications: <NotificationsTab />,
     plan: <PlanTab />,
     privacy: <PrivacyTab />,
   }
 
   return (
-    <div style={{ maxWidth: 640, margin: '0 auto' }}>
+    <div style={{ width: "100%", margin: '0 auto' }}>
       {/* Header */}
       <h1
         style={{

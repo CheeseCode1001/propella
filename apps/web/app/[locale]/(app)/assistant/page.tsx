@@ -15,6 +15,8 @@ import {
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { formatDistanceToNow, format as formatDate } from 'date-fns'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { api, getAccessToken } from '@/lib/api-client'
 import { Button } from '@/components/ui/button'
@@ -323,9 +325,13 @@ export default function AssistantPage() {
   const [pendingDelete, setPendingDelete] = useState<ChatThread | null>(null)
   /** Mobile only — the conversation list is always visible from lg up. */
   const [threadsOpen, setThreadsOpen] = useState(false)
+  const searchParams = useSearchParams()
+  const router = useRouter()
   /** When on, replies are read out as they finish — hands-free revision. */
   const [voiceMode, setVoiceMode] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  // Guards the ?ask= handoff so a re-render cannot send the question twice.
+  const handoffSentRef = useRef(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const { supported: canSpeak, speaking, speak, stop: stopSpeaking } = useSpeech()
@@ -464,6 +470,23 @@ export default function AssistantPage() {
     [activeThreadId, isStreaming, queryClient, dictation, voiceMode, speak],
   )
 
+  /**
+   * Handoff from the topic reader: /assistant?ask=<question>.
+   *
+   * Sent once on arrival so the student lands on an answer already being
+   * written, then the parameter is stripped so a refresh does not re-ask.
+   */
+  useEffect(() => {
+    const question = searchParams.get('ask')
+    if (!question || handoffSentRef.current) return
+
+    handoffSentRef.current = true
+    router.replace('/assistant')
+    void handleSend(question)
+    // handleSend is stable enough for a one-shot that guards itself with a ref.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
+
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -494,8 +517,8 @@ export default function AssistantPage() {
           'shrink-0 flex-col gap-1 overflow-y-auto border-r border-[var(--color-rule)]',
           'bg-[var(--color-paper)] p-3',
           threadsOpen
-            ? 'fixed inset-y-0 left-0 z-50 flex w-[78vw] max-w-[280px] lg:static lg:z-auto lg:w-[210px]'
-            : 'hidden lg:flex lg:w-[210px]',
+            ? 'fixed inset-y-0 left-0 z-50 flex w-[78vw] max-w-[280px] lg:static lg:z-auto lg:w-[280px]'
+            : 'hidden lg:flex lg:w-[280px]',
         )}
       >
         <Button

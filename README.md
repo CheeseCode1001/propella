@@ -170,6 +170,58 @@ pnpm --filter @propella/api admin:grant you@example.com
 pnpm --filter @propella/api admin:list      # who currently has access
 ```
 
+### The syllabus and topic lessons
+
+The syllabus lives in code, at [apps/api/src/seeds/syllabus/](apps/api/src/seeds/syllabus/) —
+one module per subject, **261 topics across 11 subjects**. Each topic carries its
+teaching `order` and real `prerequisiteSlugs`, and that is what the roadmap
+generator turns into a study plan: topics are laid out in teaching sequence and
+stay locked until their prerequisites are done.
+
+```bash
+pnpm --filter @propella/api seed
+```
+
+The seed validates before it writes. A prerequisite that does not exist, or one
+taught *after* the topic that needs it, would silently lock that topic out of
+every student plan — so the seed refuses rather than shipping a syllabus nobody
+can finish.
+
+| Subject | Topics |
+|---|---|
+| Mathematics | 38 |
+| Physics | 37 |
+| Chemistry | 32 |
+| Biology | 30 |
+| Agricultural Science | 22 |
+| Economics | 21 |
+| Geography | 18 |
+| Commerce | 18 |
+| Government | 17 |
+| English Language | 14 |
+| Literature in English | 14 |
+
+**Lesson content is generated, not authored.** The first time anyone opens a
+topic the model writes the lesson, and it is cached in `topic_content` and
+shared by every student from then on. To generate them ahead of time so nobody
+waits:
+
+```bash
+pnpm --filter @propella/api warm:topics                  # everything outstanding
+pnpm --filter @propella/api warm:topics -- --subject mathematics
+pnpm --filter @propella/api warm:topics -- --dry-run     # show what would run
+```
+
+It is resumable: each lesson is saved the moment it is generated and cached
+topics are skipped, so re-running continues exactly where it stopped.
+
+**A full run needs a paid Gemini key.** The free tier's daily quota runs out
+after roughly 30 topics. The script detects that specifically and stops rather
+than grinding through the remaining 200-odd doomed attempts. On the free tier
+you can either run it a little each day, or leave lessons to generate on
+demand — which works fine, it just costs the first reader of each topic about
+twenty seconds.
+
 ### Push notifications
 
 Study reminders, streak warnings, achievements and admin announcements are

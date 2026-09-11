@@ -4,6 +4,9 @@ export const SignupSchema = z.object({
   name: z.string().min(2).max(100),
   email: z.string().email().toLowerCase(),
   password: z.string().min(8).max(128),
+  /// Referral code, if they arrived through an invite link. Optional and
+  /// never validated here — an unknown code is simply ignored.
+  referralCode: z.string().max(32).optional(),
 })
 
 export const LoginSchema = z.object({

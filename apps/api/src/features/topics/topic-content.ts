@@ -99,15 +99,24 @@ function isExample(value: unknown): value is TopicExample {
   )
 }
 
-/** Model overload (503) and rate limiting (429) are worth waiting out. */
+/**
+ * Momentary overload. Worth waiting out — the next attempt usually works.
+ */
 function isTransient(err: unknown): boolean {
   const message = err instanceof Error ? err.message : String(err)
-  return (
-    message.includes('"code":503') ||
-    message.includes('"code":429') ||
-    message.includes('UNAVAILABLE') ||
-    message.includes('RESOURCE_EXHAUSTED')
-  )
+  return message.includes('"code":503') || message.includes('UNAVAILABLE')
+}
+
+/**
+ * The API key has no quota left.
+ *
+ * Distinct from overload on purpose: retrying cannot fix it, and reporting it
+ * as "busy" sends whoever is debugging after a throughput problem that is not
+ * there. On the free tier this resets daily.
+ */
+function isQuotaExhausted(err: unknown): boolean {
+  const message = err instanceof Error ? err.message : String(err)
+  return message.includes('RESOURCE_EXHAUSTED') || message.includes('"code":429')
 }
 
 /**
@@ -131,6 +140,16 @@ async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
       logger.warn({ attempt: attempt + 1, waitMs }, 'Gemini busy, retrying topic generation')
       await new Promise((resolve) => setTimeout(resolve, waitMs))
     }
+  }
+
+  if (isQuotaExhausted(lastError)) {
+    // Says "quota" in the log so an operator knows to check billing, while the
+    // student sees something that makes sense to them.
+    logger.error({ err: lastError }, 'Gemini quota exhausted — topic content unavailable')
+    throw new AppError(
+      503,
+      'Study notes are temporarily unavailable. Please try again later.',
+    )
   }
 
   if (isTransient(lastError)) {

@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Link } from '@/lib/i18n/navigation'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/lib/i18n/navigation'
 import { Home2, BookSquare, Element3, Note1, Profile } from 'iconsax-reactjs'
 import type { Icon as IconsaxIcon } from 'iconsax-reactjs'
 import { useTranslations } from 'next-intl'
@@ -98,10 +97,9 @@ function NavTab({ href, icon, label, pathname }: NavTabProps) {
       className={cn(
         'flex flex-col items-center gap-0.5 rounded-[var(--radius-md)] px-3 py-1.5',
         'no-underline transition-colors duration-100',
-        // The active tab reads as a solid primary block, matching the sidebar.
-        isActive
-          ? 'bg-[var(--color-accent)] text-white'
-          : 'text-[var(--color-ink-3)]',
+        // Tinted rather than filled: a solid block per tab is heavy on a bar
+        // this small, so the accent goes on the icon and label instead.
+        isActive ? 'text-[var(--color-accent)]' : 'text-[var(--color-ink-3)]',
       )}
     >
       <NavIcon icon={icon} active={isActive} size={21} />

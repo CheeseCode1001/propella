@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ErrorState, errorKindFrom } from '@/components/common/error-state'
 import { useOnlineStatus } from '@/lib/hooks/use-online-status'
+import { TopicActions } from '@/components/topics/topic-actions'
 
 interface TopicSection {
   heading: string
@@ -94,6 +95,10 @@ export default function TopicReaderPage() {
 
   return (
     <article className="mx-auto w-full max-w-[720px] pb-4">
+      {/* Pinned to the top of the page, above everything, so the actions are
+          always one tap away while reading. */}
+      <TopicActions topic={data} />
+
       {/* Breadcrumb */}
       <Link
         href="/roadmap"

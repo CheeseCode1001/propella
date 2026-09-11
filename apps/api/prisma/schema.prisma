@@ -200,6 +200,14 @@ model User {
   pushSubs      PushSubscription[]
   badges        UserBadge[]
 
+  /// Short shareable code. Assigned on first use rather than at signup, so
+  /// existing accounts get one the first time they open the referral panel.
+  referralCode String? @unique
+
+  referralsMade    Referral[]    @relation("ReferralsMade")
+  referralReceived Referral?     @relation("ReferralReceived")
+  creditEvents     CreditEvent[]
+
   @@index([createdAt])
   @@map("users")
 }
@@ -628,6 +636,70 @@ model Notification {
   @@index([userId, type, createdAt])
   @@index([expiresAt])
   @@map("notifications")
+}
+
+/// One person inviting another.
+///
+/// A row is created the moment someone signs up with a referral code, and is
+/// only rewarded once the invited student proves they are real — see
+/// QUALIFYING_ACTION in referrals.service.ts. That keeps the scheme from paying
+/// out for throwaway sign-ups.
+model Referral {
+  id String @id @default(cuid())
+
+  /// Who shared the code.
+  referrer   User   @relation("ReferralsMade", fields: [referrerId], references: [id], onDelete: Cascade)
+  referrerId String
+
+  /// Who joined. One row per invited account, enforced by the unique index.
+  invitee   User   @relation("ReferralReceived", fields: [inviteeId], references: [id], onDelete: Cascade)
+  inviteeId String @unique
+
+  /// The code as typed, kept for support questions.
+  code String
+
+  /// Null until the invitee completes the qualifying action.
+  qualifiedAt    DateTime?
+  /// Credits granted to the referrer, at the rate in force when it qualified.
+  creditsAwarded Int       @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@index([referrerId, createdAt])
+  @@index([code])
+  @@map("referrals")
+}
+
+/// Append-only ledger of AI credit movements.
+///
+/// A running total on User would drift; a ledger can always be re-summed, and
+/// it answers "where did my credits go?" which a single number cannot.
+model CreditEvent {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  /// Positive to grant, negative to spend.
+  amount Int
+  source CreditSource
+  reason String
+
+  /// The referral, quiz or thread this movement belongs to.
+  sourceId String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@map("credit_events")
+}
+
+enum CreditSource {
+  referral_bonus
+  signup_bonus
+  referred_signup
+  admin_adjustment
+  assistant_message
+  quiz_generation
 }
 
 /// One browser or installed app that has agreed to receive push notifications.

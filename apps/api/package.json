@@ -21,7 +21,8 @@
     "test": "node scripts/smoke.cjs && node scripts/smoke-admin.cjs",
     "test:admin": "node scripts/smoke-admin.cjs",
     "test:smoke": "node scripts/smoke.cjs",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "warm:topics": "tsx scripts/warm-topic-content.ts"
   },
   "dependencies": {
     "@google/genai": "^2.21.0",
