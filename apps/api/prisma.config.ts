@@ -6,7 +6,7 @@ import { defineConfig } from 'prisma/config'
 // Prisma 7 no longer reads .env automatically, and connection URLs have moved
 // out of schema.prisma into this file. fileURLToPath (not URL.pathname) is what
 // survives a project path containing spaces.
-loadEnv({ path: resolve(dirname(fileURLToPath(import.meta.url)), '.env') })
+loadEnv({ path: resolve(dirname(fileURLToPath(import.meta.url)), '.env'), override: true })
 
 /**
  * Migrations run over a direct connection — poolers in transaction mode cannot
