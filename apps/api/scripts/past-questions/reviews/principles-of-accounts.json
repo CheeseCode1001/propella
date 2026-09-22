@@ -1,0 +1,1023 @@
+{
+ "add": {
+  "1995": [
+   16
+  ]
+ },
+ "allow": [
+  "drawing",
+  "figure",
+  "extract",
+  "statement",
+  "table of"
+ ],
+ "banner": "Principles of Account",
+ "dehyphenate": true,
+ "drop": {
+  "1994": [
+   24,
+   25
+  ],
+  "1995": [
+   26,
+   28,
+   47,
+   49
+  ],
+  "1997": [
+   31,
+   37,
+   38,
+   44
+  ],
+  "1998": [
+   47
+  ],
+  "1999": [
+   3,
+   4,
+   21,
+   22,
+   39,
+   40,
+   45,
+   46,
+   47,
+   48
+  ]
+ },
+ "edit": {
+  "1994": {
+   "10": {
+    "options": [
+     "₦5,000",
+     "₦6,500",
+     "₦5,500",
+     "₦15,000"
+    ],
+    "question": "The account of Tanko Nig Ltd. has these entries. Debit side: 1/10 Balance b/f ₦5,000 and Sales ₦10,000. Credit side: 2/10 Cash ₦3,000 and 15/10 Bank ₦6,500. What is the closing balance of the account?"
+   },
+   "16": {
+    "options": [
+     "₦30,000",
+     "₦25,000",
+     "₦20,000",
+     "₦15,000"
+    ],
+    "question": "Given: purchases ₦20,000, sales ₦40,000, carriage inwards ₦5,000, carriage outwards ₦5,000, opening stock ₦10,000 and closing stock ₦5,000. What is the cost of goods sold?"
+   },
+   "18": {
+    "options": [
+     "₦9,600",
+     "₦7,600",
+     "₦6,000",
+     "₦2,000"
+    ],
+    "question": "A trader's stock records are: opening balance 1/1/90, 3,000 units at ₦3.00 each; purchases in January, 15,000 units at ₦3.50; purchases in February, 25,000 units at ₦4.00; sales in January, 13,000 units at ₦4.50; sales in February, 28,000 units at ₦5.00. Using LIFO, determine the value of the closing stock."
+   },
+   "19": {
+    "options": [
+     "₦65,000",
+     "₦57,000",
+     "₦48,000",
+     "₦37,000"
+    ],
+    "question": "A trader's stock records are: opening balance 1/1/90, 3,000 units at ₦3.00 each; purchases in January, 15,000 units at ₦3.50; purchases in February, 25,000 units at ₦4.00; sales in January, 13,000 units at ₦4.50; sales in February, 28,000 units at ₦5.00. What is the gross profit at the end of February if the closing stock were valued at ₦20,000?"
+   },
+   "27": {
+    "options": [
+     "₦146",
+     "₦165",
+     "₦186",
+     "₦314"
+    ],
+    "question": "A trader's inventory records are: beginning inventory 20 units at ₦6 each (₦120); sale no. 1, 18 units; purchase no. 1, 30 units at ₦8 each (₦240); sale no. 2, 20 units; purchase no. 2, 10 units at ₦9 each (₦90). Using the FIFO method of stock valuation, the ending inventory cost is"
+   },
+   "28": {
+    "options": [
+     "₦136",
+     "₦176",
+     "₦196",
+     "₦264"
+    ],
+    "question": "A trader's inventory records are: beginning inventory 20 units at ₦6 each (₦120); sale no. 1, 18 units; purchase no. 1, 30 units at ₦8 each (₦240); sale no. 2, 20 units; purchase no. 2, 10 units at ₦9 each (₦90). Using the LIFO inventory procedure, the ending inventory cost is"
+   },
+   "30": {
+    "options": [
+     "₦2,500",
+     "₦2,540",
+     "₦2,570",
+     "₦2,590"
+    ],
+    "question": "The following information relates to a hockey club: subscriptions owing at the beginning ₦40, subscriptions owing at the end ₦35, subscriptions received in advance at the beginning ₦15 and subscriptions received during the period ₦2,560. The amount to be shown in the income and expenditure account would be"
+   },
+   "32": {
+    "options": [
+     "₦22,000",
+     "₦100,000",
+     "₦150,000",
+     "₦250,000"
+    ],
+    "question": "Ada and Udo are lawyers who went into partnership as Ado & Co. Ada brought in cash of ₦12,000, furnishing worth ₦18,000 and a motor vehicle worth ₦70,000. Udo brought in cash ₦10,000, a building valued at ₦5,000 and a personal computer worth ₦135,000. What is the capital of Ado & Co.?"
+   },
+   "33": {
+    "options": [
+     "2 : 1",
+     "3 : 2",
+     "2 : 3",
+     "1 : 2"
+    ],
+    "question": "Ada and Udo are lawyers who went into partnership as Ado & Co. Ada brought in cash of ₦12,000, furnishing worth ₦18,000 and a motor vehicle worth ₦70,000. Udo brought in cash ₦10,000, a building valued at ₦5,000 and a personal computer worth ₦135,000. What is the profit sharing ratio if it is based on the capital contributed by Ada and Udo?"
+   },
+   "39": {
+    "options": [
+     "₦2",
+     "₦0.80",
+     "₦0.60",
+     "₦0.50"
+    ],
+    "question": "A limited liability company has an authorized share capital of ₦50 million split into 100 million shares. 80 million shares were offered for subscription at 60k per share payable in full on application, and these have been fully subscribed and issued. What is the nominal value of each share?"
+   },
+   "40": {
+    "options": [
+     "₦40 million",
+     "₦48 million",
+     "₦50 million",
+     "₦80 million"
+    ],
+    "question": "A limited liability company has an authorized share capital of ₦50 million split into 100 million shares. 80 million shares were offered for subscription at 60k per share payable in full on application, and these have been fully subscribed and issued. What is the issued capital?"
+   },
+   "43": {
+    "options": [
+     "6.14 times per year",
+     "8.14 times per year",
+     "8.60 times per year",
+     "8.64 times per year"
+    ],
+    "question": "The accounts of Buba (Nig.) Plc for the year ended December 31, 1993 showed gross sales ₦219,900, sales returns and allowances ₦4,900 and net sales ₦215,000. Accounts receivable (net) were ₦20,000 on 1/1/93 and ₦30,000 on 31/12/93. The turnover of accounts receivable is"
+   },
+   "44": {
+    "options": [
+     "33.33%",
+     "25.00%",
+     "20.00%",
+     "14.28%"
+    ],
+    "question": "Given sales ₦20,000 and cost of sales ₦15,000, the gross profit margin would be"
+   },
+   "45": {
+    "options": [
+     "₦11,500",
+     "₦12,500",
+     "₦20,000",
+     "₦23,000"
+    ],
+    "question": "Perebeni Enterprises has two departments, A and B. Department A: opening stock ₦5,000, purchases ₦26,000, closing stock ₦7,000, sales ₦45,000. Department B: opening stock ₦1,500, purchases ₦3,000, closing stock ₦2,500, sales ₦4,000. Rent of ₦8,300 and general expenses of ₦3,200 are shared in the ratio 4 : 1. What is the company's gross profit for the year?"
+   },
+   "46": {
+    "options": [
+     "₦2,000",
+     "(₦2,000)",
+     "(₦300)",
+     "₦300"
+    ],
+    "question": "Perebeni Enterprises has two departments, A and B. Department A: opening stock ₦5,000, purchases ₦26,000, closing stock ₦7,000, sales ₦45,000. Department B: opening stock ₦1,500, purchases ₦3,000, closing stock ₦2,500, sales ₦4,000. Rent of ₦8,300 and general expenses of ₦3,200 are shared in the ratio 4 : 1. What is the net profit (or loss) contributed by department B?"
+   }
+  },
+  "1995": {
+   "15": {
+    "options": [
+     "To cover some expenses of the following year",
+     "To ascertain the actual expenses incurred and income earned during the year",
+     "To show the provisions made during the year",
+     "To show the total expenses paid and income received during the year"
+    ],
+    "question": "Why are adjustments in the profit and loss account necessary?"
+   },
+   "16": {
+    "options": [
+     "₦2,487,500.00",
+     "₦2,736,250.00",
+     "₦4,511,192.00",
+     "₦4,975,000.00"
+    ],
+    "question": "A machine cost ₦5,000,000, has an estimated useful life of 20 years and a residual value of ₦25,000. It was acquired on 1/1/71 and is depreciated by the straight line method. Accumulated depreciation on the asset as at 31/12/81 was"
+   },
+   "17": {
+    "options": [
+     "₦3,731,250.00",
+     "₦2,487,500.00",
+     "₦1,268,750.00",
+     "₦1,020,000.00"
+    ],
+    "question": "A machine cost ₦5,000,000, has an estimated useful life of 20 years and a residual value of ₦25,000. It was acquired on 1/1/71 and is depreciated by the straight line method. The book value of the asset as at 31/12/86 was"
+   },
+   "18": {
+    "options": [
+     "₦29,800",
+     "₦29,500",
+     "₦29,400",
+     "₦29,000"
+    ],
+    "question": "A draft balance sheet as at 31/12/92 shows fixed assets at cost ₦200,000 less accumulated depreciation ₦100,000, and current assets of stock in trade ₦10,000, trade debtors ₦4,500, cash at bank ₦22,800 and cash in hand ₦9,700. Trade creditors' account was maintained at 25% of the capital. What was the balance in the trade creditors account as at 31/12/92?"
+   },
+   "19": {
+    "options": [
+     "₦76,000",
+     "₦83,000",
+     "₦117,600",
+     "₦117,650"
+    ],
+    "question": "A draft balance sheet as at 31/12/92 shows fixed assets at cost ₦200,000 less accumulated depreciation ₦100,000, and current assets of stock in trade ₦10,000, trade debtors ₦4,500, cash at bank ₦22,800 and cash in hand ₦9,700. Trade creditors' account was maintained at 25% of the capital. What was the balance in the capital account as at 31/12/92?"
+   },
+   "24": {
+    "options": [
+     "₦3,860",
+     "₦3,806",
+     "₦3,680",
+     "₦3,086"
+    ],
+    "question": "A retailer, when fixing his selling price, adds one-quarter to the cost of the article. His expenses are 10% of his sales, his total sales are ₦23,000 and he turned over his stock five times in the year. Compute the average amount of stock in hand at cost price."
+   },
+   "25": {
+    "options": [
+     "₦5,750",
+     "₦5,650",
+     "₦3,200",
+     "₦2,300"
+    ],
+    "question": "A retailer, when fixing his selling price, adds one-quarter to the cost of the article. His expenses are 10% of his sales, his total sales are ₦23,000 and he turned over his stock five times in the year. The net profit for the year is"
+   },
+   "29": {
+    "options": [
+     "credited to the income and expenditure account and shown as a liability in the balance sheet",
+     "debited to the income and expenditure account and shown as an asset in the balance sheet",
+     "credited to the income and expenditure account and shown as an asset in the balance sheet",
+     "debited to the income and expenditure account and shown as a liability in the balance sheet"
+    ],
+    "question": "Subscriptions in arrears are"
+   },
+   "31": {
+    "options": [
+     "₦2,530",
+     "₦2,680",
+     "₦2,830",
+     "₦2,980"
+    ],
+    "question": "A charitable club has the following figures: subscriptions received in 1991 ₦2,800; subscriptions unpaid in 1990 ₦300; subscriptions paid for 1992 ₦150; subscriptions due 1991 ₦180. How much should be charged to the income and expenditure account of this club as subscription for 1991?"
+   },
+   "36": {
+    "options": [
+     "₦7,500",
+     "₦6,000",
+     "₦5,400",
+     "₦4,500"
+    ],
+    "question": "Halidu and Hamed are business partners with ₦30,000 and ₦20,000 capital respectively. At the end of the financial year a profit of ₦12,000, which included Halidu's salary of ₦3,000, was made. Halidu's share of the profit is"
+   },
+   "39": {
+    "options": [
+     "₦130,000",
+     "₦120,000",
+     "₦113,000",
+     "₦100,000"
+    ],
+    "question": "An extract from the balance sheet of Yakubu (Nigeria) Limited as at 31st December 1993 shows: ordinary shares authorized ₦100,000 and issued ₦80,000; 10% preference shares authorized ₦30,000 and issued ₦20,000; share premium ₦20,000; profit and loss account ₦13,000; trade creditors ₦30,000; accruals ₦5,000; stock ₦10,000; debtors ₦40,000; bank ₦25,000. Equity shareholders' fund is"
+   },
+   "40": {
+    "options": [
+     "₦13,000",
+     "₦11,300",
+     "₦10,000",
+     "₦8,000"
+    ],
+    "question": "An extract from the balance sheet of Yakubu (Nigeria) Limited as at 31st December 1993 shows: ordinary shares authorized ₦100,000 and issued ₦80,000; 10% preference shares authorized ₦30,000 and issued ₦20,000; share premium ₦20,000; profit and loss account ₦13,000. If a 10% dividend is approved, what is the dividend payable to ordinary shareholders?"
+   },
+   "48": {
+    "options": [
+     "₦420,000",
+     "₦380,000",
+     "₦240,000",
+     "₦200,000"
+    ],
+    "question": "Eko Local Government expenditure was: hospital building ₦200,000, drugs ₦180,000 and hospital beds and mattresses ₦40,000. Capital expenditure is"
+   }
+  },
+  "1997": {
+   "10": {
+    "options": [
+     "₦88,500 debit",
+     "₦88,500 credit",
+     "₦59,410 credit",
+     "₦59,410 debit"
+    ],
+    "question": "What is the balance of the bank account in the diagram?"
+   },
+   "14": {
+    "options": [
+     "₦14,583",
+     "₦25,000",
+     "₦35,417",
+     "₦37,415"
+    ],
+    "question": "On 30/05/93 Tolu & Co. paid 2 years rent of ₦50,000 which was debited to the rent account. At 31/12/93, what portion of that amount was prepaid?"
+   },
+   "15": {
+    "options": [
+     "debit rent account and credit adjustment account",
+     "debit prepayment account and credit rent account",
+     "debit rent account and credit prepayment account",
+     "debit adjustment account and credit prepayment account"
+    ],
+    "question": "On 30/05/93 Tolu & Co. paid 2 years rent of ₦50,000 which was debited to the rent account. The adjustment needed as at 31st December, 1993 is to"
+   },
+   "34": {
+    "options": [
+     "₦15,050",
+     "₦14,550",
+     "₦14,300",
+     "₦13,400"
+    ],
+    "question": "The receipts and payments account of Gbagada Social Club for 1993 shows subscriptions received ₦14,300. Subscriptions in arrears were ₦300 on 1/1/93 and ₦450 on 31/12/93, while subscriptions received in advance were ₦500 on 1/1/93 and ₦400 on 31/12/93. Subscription relating to the accounting year 1993 in the income and expenditure account is"
+   },
+   "35": {
+    "options": [
+     "₦8,570",
+     "₦8,470",
+     "₦7,850",
+     "₦7,520"
+    ],
+    "question": "On 1st January 1993 Gbagada Social Club had a cash balance of ₦720, furniture of ₦7,000, subscriptions in arrears of ₦300 and subscriptions received in advance of ₦500. The accumulated fund on 1st January 1993 is"
+   },
+   "45": {
+    "options": [
+     "₦12,000",
+     "₦11,000",
+     "₦8,000",
+     "₦4,000"
+    ],
+    "question": "The balance sheet of Udoh trading company as at 31st December, 1992 shows capital ₦39,000, long-term loan ₦15,000, creditors ₦9,000 and accrued wages ₦5,000 against land ₦20,000, building ₦30,000, stock ₦4,000, cash ₦8,000 and debtors ₦6,000. What is the working capital?"
+   },
+   "46": {
+    "options": [
+     "1 : 1",
+     "1 : 2",
+     "2 : 3",
+     "3 : 2"
+    ],
+    "question": "The balance sheet of Udoh trading company as at 31st December, 1992 shows capital ₦39,000, long-term loan ₦15,000, creditors ₦9,000 and accrued wages ₦5,000 against land ₦20,000, building ₦30,000, stock ₦4,000, cash ₦8,000 and debtors ₦6,000. The acid test ratio in the company is"
+   }
+  },
+  "1998": {
+   "11": {
+    "options": [
+     "₦106",
+     "₦101",
+     "₦70",
+     "₦36"
+    ],
+    "question": "The initial imprest as at July 1st was ₦500. Petty cash vouchers with the custodian by July 15th added up to ₦394. An IOU slip received from a co-worker was ₦65 and there was a shortage of ₦5 cash. What was the actual cash in the till as at 15th July?"
+   },
+   "12": {
+    "options": [
+     "₦399",
+     "₦394",
+     "₦358",
+     "₦101"
+    ],
+    "question": "The initial imprest as at July 1st was ₦500. Petty cash vouchers with the custodian by July 15th added up to ₦394. An IOU slip received from a co-worker was ₦65 and there was a shortage of ₦5 cash. The co-worker made a refund on July 18th just before the imprest was replenished. The amount required to replenish the payments made from the imprest was"
+   },
+   "15": {
+    "options": [
+     "₦19,550",
+     "₦18,950",
+     "₦18,350",
+     "₦17,500"
+    ],
+    "question": "Sobande Incorporation acquired a machine that involved the following expenditures: gross invoice price ₦15,000, sales tax ₦900, purchases discount taken ₦300, freight ₦750, assembly of machine ₦500, installation of machine ₦800, assorted spare parts for future use ₦1,200 and turning and adjusting machine ₦700. What is the initial accounting cost of the machine?"
+   },
+   "17": {
+    "options": [
+     "₦40,000",
+     "₦41,500",
+     "₦41,700",
+     "₦48,500"
+    ],
+    "question": "The balance sheet of Wazobia Enterprises as at 1/1/95 shows capital ₦40,000 against furnishing ₦10,000, ceiling fan ₦1,500 and cash in hand ₦28,500. At 31/1/95 the following was ascertained: shop rent ₦12,000 paid for the year, total purchases ₦15,000, total sales ₦8,200, stock of goods left ₦10,000 and sales boy paid ₦500. What is the new balance sheet total as at 31/1/95?"
+   },
+   "18": {
+    "options": [
+     "₦22,800",
+     "₦21,200",
+     "₦9,200",
+     "₦800"
+    ],
+    "question": "The balance sheet of Wazobia Enterprises as at 1/1/95 shows capital ₦40,000 against furnishing ₦10,000, ceiling fan ₦1,500 and cash in hand ₦28,500. At 31/1/95 the following was ascertained: shop rent ₦12,000 paid for the year, total purchases ₦15,000, total sales ₦8,200, stock of goods left ₦10,000 and sales boy paid ₦500. What is the balance on its cash account as at 31/1/95?"
+   },
+   "23": {
+    "options": [
+     "₦7,200",
+     "₦98,800",
+     "₦100,000",
+     "₦105,200"
+    ],
+    "question": "Determine the year's purchases from the following information relating to a firm: total creditors b/f ₦7,200, total cash payments to suppliers ₦98,800 and total creditors c/f ₦8,400."
+   },
+   "28": {
+    "options": [
+     "₦487,100",
+     "₦457,700",
+     "₦449,500",
+     "₦440,300"
+    ],
+    "question": "Raw materials inventory at the beginning of a period was ₦46,800 and at the close of the period there was a balance of ₦38,600. From the purchases made during the period, defective materials costing ₦9,200 were returned. The cost of materials consumed during the period was ₦448,500. What was the total purchases made during the period?"
+   },
+   "29": {
+    "options": [
+     "₦487,100",
+     "₦449,500",
+     "₦448,500",
+     "₦440,300"
+    ],
+    "question": "Raw materials inventory at the beginning of a period was ₦46,800 and at the close of the period there was a balance of ₦38,600. From the purchases made during the period, defective materials costing ₦9,200 were returned. The cost of materials consumed during the period was ₦448,500. What is the cost of materials available for use during the period?"
+   },
+   "38": {
+    "options": [
+     "₦210",
+     "₦315",
+     "₦450",
+     "₦840"
+    ],
+    "question": "Dan and Baker are in partnership with capitals of ₦50,000 and ₦30,000 respectively. The partnership agreement provides that profits be shared in the ratio of capital, Baker be paid a salary of ₦8,000 and both partners pay interest on drawings at 6% per annum. At the end of the year Dan drew ₦15,000 while Baker drew ₦14,000 in four equal instalments on 31/3, 30/6, 30/9 and 31/12. What is the interest on the drawings by Baker?"
+   },
+   "39": {
+    "options": [
+     "₦1,200",
+     "₦1,800",
+     "₦3,000",
+     "₦4,800"
+    ],
+    "question": "Dan and Baker are in partnership with capitals of ₦50,000 and ₦30,000 respectively, on which interest is allowed at 6% per annum. Determine the total interest on capital due to the partners."
+   },
+   "7": {
+    "options": [
+     "₦147,910",
+     "₦138,500",
+     "₦88,500",
+     "₦85,800"
+    ],
+    "question": "A list of balances reads: bank account ₦59,410, capital account ₦50,000, purchases account ₦20,000, rent ₦2,500, stationery ₦90, typewriter ₦6,500 and sales ₦38,000. In preparing a trial balance from this list, what is the total in the debit and credit columns?"
+   }
+  },
+  "1999": {
+   "14": {
+    "options": [
+     "₦69,300",
+     "₦84,300",
+     "₦81,600",
+     "₦106,400"
+    ],
+    "question": "A trader's records show capital opening balance ₦307,000, closing balance ₦342,000, net profit for the period ₦121,600, opening stock ₦98,800, purchases ₦706,000, carriage inwards ₦17,500, cost of goods sold ₦740,700, total selling, general and administrative expenses ₦526,000 and discount received ₦9,650. What is the closing stock for the period?"
+   },
+   "15": {
+    "options": [
+     "₦535,650",
+     "₦628,300",
+     "₦637,950",
+     "₦647,600"
+    ],
+    "question": "A trader's records show net profit for the period ₦121,600, total selling, general and administrative expenses ₦526,000 and discount received ₦9,650. Calculate the gross profit for the period."
+   },
+   "23": {
+    "options": [
+     "₦29,000",
+     "₦31,500",
+     "₦46,500",
+     "₦50,000"
+    ],
+    "question": "Given: total cash received from debtors ₦30,000, total purchases for the period ₦21,000, amount owed by debtors at the beginning of the period ₦4,000, equipment bought ₦2,500 and amount owed by debtors at the end of the period ₦3,000. Determine the value of sales for the period."
+   },
+   "29": {
+    "options": [
+     "₦6,150",
+     "₦4,850",
+     "₦4,650",
+     "₦1,300"
+    ],
+    "question": "Given: club debtors at start ₦150, cash sales ₦4,850, club debtors at close ₦900 and cash received from debtors ₦550. What is the amount of club sales?"
+   },
+   "32": {
+    "options": [
+     "₦7,500",
+     "₦9,000",
+     "₦12,500",
+     "₦20,000"
+    ],
+    "question": "As part of the initial investment, a partner contributes office equipment that originally cost ₦20,000 and on which provision for depreciation of ₦12,500 had been recorded. If the partners agree on a valuation of ₦9,000 for the equipment, what amount should be debited to the office equipment account?"
+   },
+   "34": {
+    "options": [
+     "₦9,300",
+     "₦6,600",
+     "₦4,850",
+     "₦4,450"
+    ],
+    "question": "The appropriation account of a partnership charges Kudu and Wale with interest on capital of ₦750 and ₦550, salaries of ₦800 and ₦600, and shares of profit of ₦3,300 each. Determine the net profit of the partnership."
+   }
+  },
+  "2000": {
+   "4": {
+    "options": [
+     "₦12,500",
+     "₦10,000",
+     "₦8,000",
+     "₦7,500"
+    ],
+    "question": "Given: sales ₦20,000, cost of sales ₦10,000, operating expenses ₦2,500 and expenses prepaid included in operating expenses ₦500. Calculate the net profit."
+   },
+   "41": {
+    "options": [
+     "purchase consideration equals goodwill",
+     "purchase consideration equals net value",
+     "purchase consideration is greater than the net value",
+     "net value is greater than the liabilities"
+    ],
+    "question": "A business is acquired at par when the"
+   },
+   "46": {
+    "options": [
+     "special trust fund",
+     "agency fund",
+     "national loan fund",
+     "contingency fund"
+    ],
+    "question": "The channel through which all government borrowing and domestic lending transactions pass is called"
+   },
+   "5": {
+    "options": [
+     "100%",
+     "50%",
+     "40%",
+     "30%"
+    ],
+    "question": "Given: sales ₦20,000, cost of sales ₦10,000, operating expenses ₦2,500 and expenses prepaid included in operating expenses ₦500. What is the gross profit margin?"
+   },
+   "6": {
+    "options": [
+     "transactions systematically for routine managerial decision making",
+     "events clearly to ensure adequate checks and balances",
+     "events clearly to facilitate strategic managerial decision-making",
+     "transactions systematically to ascertain the financial position of a business"
+    ],
+    "question": "The main object of book keeping is to record economic"
+   },
+   "9": {
+    "options": [
+     "₦125,000",
+     "₦114,500",
+     "₦105,500",
+     "₦105,250"
+    ],
+    "question": "The trial balance extracts of Yahuza Enterprises as at Dec. 31, 1998 show capital ₦21,000, premises ₦90,000, debtors ₦35,000, provision for depreciation at 1/1/98 ₦9,000 and provision for bad and doubtful debts ₦1,500. If the premises are to be depreciated at 10% on cost and a 5% provision is to be allowed on debtors, the total assets in the balance sheet is"
+   }
+  },
+  "2002": {
+   "1": {
+    "options": [
+     "balance sheet",
+     "provision for bad debt",
+     "profit and loss account",
+     "trading account"
+    ],
+    "question": "In preparing the final accounts, the bad debt account is closed by a transfer to the"
+   },
+   "42": {
+    "options": [
+     "draw up the statement of affairs",
+     "draw up a T-account to establish the amount",
+     "compare the journal entries with the ledger",
+     "prepare a trial balance from the ledger"
+    ],
+    "question": "Given an incomplete record without sufficient information to determine profit, the necessary thing to do is to"
+   },
+   "7": {
+    "options": [
+     "III and IV",
+     "I and II",
+     "I and III",
+     "II and III"
+    ],
+    "question": "Given: I. Fixtures account, II. Machinery account, III. Wages account, IV. Rent account. Which of these are nominal accounts?"
+   }
+  },
+  "2003": {
+   "36": {
+    "options": [
+     "suspense account",
+     "statement of affairs",
+     "realization account",
+     "trial balance"
+    ],
+    "question": "The first step in converting a single entry to a double entry system of bookkeeping is to prepare a"
+   }
+  },
+  "2004": {
+   "1": {
+    "options": [
+     "consistency",
+     "materiality",
+     "objectivity",
+     "realization"
+    ],
+    "question": "The accounting principle that is applied to check arbitrary actions on the part of accountants is"
+   }
+  }
+ },
+ "images": {
+  "1997": {
+   "10": [
+    [
+     8,
+     344,
+     513,
+     562,
+     603
+    ]
+   ]
+  }
+ },
+ "rich": true,
+ "topics": {
+  "1994": {
+   "1": "nature-of-accounting",
+   "10": "double-entry",
+   "11": "trial-balance-and-errors",
+   "12": "cash-book",
+   "13": "cash-book",
+   "14": "bank-reconciliation",
+   "15": "final-accounts",
+   "16": "final-accounts",
+   "17": "final-accounts",
+   "18": "stock-valuation",
+   "19": "stock-valuation",
+   "2": "nature-of-accounting",
+   "20": "adjustments-and-depreciation",
+   "21": "adjustments-and-depreciation",
+   "22": "control-accounts",
+   "23": "control-accounts",
+   "26": "manufacturing-accounts",
+   "27": "stock-valuation",
+   "28": "stock-valuation",
+   "29": "not-for-profit-accounts",
+   "3": "nature-of-accounting",
+   "30": "not-for-profit-accounts",
+   "31": "not-for-profit-accounts",
+   "32": "partnership-accounts",
+   "33": "partnership-accounts",
+   "34": "partnership-accounts",
+   "35": "partnership-accounts",
+   "36": "partnership-accounts",
+   "37": "partnership-accounts",
+   "38": "company-accounts",
+   "39": "company-accounts",
+   "4": "nature-of-accounting",
+   "40": "company-accounts",
+   "41": "company-accounts",
+   "42": "interpretation-of-accounts",
+   "43": "interpretation-of-accounts",
+   "44": "interpretation-of-accounts",
+   "45": "departmental-accounts",
+   "46": "departmental-accounts",
+   "47": "public-sector-accounting",
+   "48": "public-sector-accounting",
+   "49": "public-sector-accounting",
+   "5": "double-entry",
+   "50": "public-sector-accounting",
+   "6": "adjustments-and-depreciation",
+   "7": "double-entry",
+   "8": "trial-balance-and-errors",
+   "9": "books-of-original-entry"
+  },
+  "1995": {
+   "1": "nature-of-accounting",
+   "10": "cash-book",
+   "11": "books-of-original-entry",
+   "12": "trial-balance-and-errors",
+   "13": "final-accounts",
+   "14": "bank-reconciliation",
+   "15": "adjustments-and-depreciation",
+   "16": "adjustments-and-depreciation",
+   "17": "adjustments-and-depreciation",
+   "18": "final-accounts",
+   "19": "final-accounts",
+   "2": "nature-of-accounting",
+   "20": "adjustments-and-depreciation",
+   "21": "control-accounts",
+   "22": "control-accounts",
+   "23": "incomplete-records",
+   "24": "incomplete-records",
+   "25": "incomplete-records",
+   "27": "manufacturing-accounts",
+   "29": "not-for-profit-accounts",
+   "3": "nature-of-accounting",
+   "30": "not-for-profit-accounts",
+   "31": "not-for-profit-accounts",
+   "32": "not-for-profit-accounts",
+   "33": "partnership-accounts",
+   "34": "partnership-accounts",
+   "35": "partnership-accounts",
+   "36": "partnership-accounts",
+   "37": "partnership-accounts",
+   "38": "partnership-accounts",
+   "39": "company-accounts",
+   "4": "books-of-original-entry",
+   "40": "company-accounts",
+   "41": "interpretation-of-accounts",
+   "42": "company-accounts",
+   "43": "interpretation-of-accounts",
+   "44": "departmental-accounts",
+   "45": "branch-accounts",
+   "46": "branch-accounts",
+   "48": "public-sector-accounting",
+   "5": "double-entry",
+   "50": "public-sector-accounting",
+   "6": "books-of-original-entry",
+   "7": "double-entry",
+   "8": "double-entry",
+   "9": "trial-balance-and-errors"
+  },
+  "1997": {
+   "1": "nature-of-accounting",
+   "10": "cash-book",
+   "11": "cash-book",
+   "12": "bank-reconciliation",
+   "13": "bank-reconciliation",
+   "14": "adjustments-and-depreciation",
+   "15": "adjustments-and-depreciation",
+   "16": "books-of-original-entry",
+   "17": "final-accounts",
+   "18": "final-accounts",
+   "19": "final-accounts",
+   "2": "nature-of-accounting",
+   "20": "adjustments-and-depreciation",
+   "21": "adjustments-and-depreciation",
+   "22": "control-accounts",
+   "23": "control-accounts",
+   "24": "control-accounts",
+   "25": "control-accounts",
+   "26": "incomplete-records",
+   "27": "incomplete-records",
+   "28": "stock-valuation",
+   "29": "manufacturing-accounts",
+   "3": "nature-of-accounting",
+   "30": "manufacturing-accounts",
+   "32": "manufacturing-accounts",
+   "33": "not-for-profit-accounts",
+   "34": "not-for-profit-accounts",
+   "35": "not-for-profit-accounts",
+   "36": "partnership-accounts",
+   "39": "partnership-accounts",
+   "4": "books-of-original-entry",
+   "40": "partnership-accounts",
+   "41": "company-accounts",
+   "42": "company-accounts",
+   "43": "company-accounts",
+   "45": "interpretation-of-accounts",
+   "46": "interpretation-of-accounts",
+   "47": "branch-accounts",
+   "48": "departmental-accounts",
+   "49": "public-sector-accounting",
+   "5": "books-of-original-entry",
+   "50": "public-sector-accounting",
+   "6": "double-entry",
+   "7": "books-of-original-entry",
+   "8": "double-entry",
+   "9": "trial-balance-and-errors"
+  },
+  "1998": {
+   "1": "nature-of-accounting",
+   "10": "cash-book",
+   "11": "cash-book",
+   "12": "cash-book",
+   "13": "bank-reconciliation",
+   "14": "books-of-original-entry",
+   "15": "adjustments-and-depreciation",
+   "16": "stock-valuation",
+   "17": "incomplete-records",
+   "18": "incomplete-records",
+   "19": "adjustments-and-depreciation",
+   "2": "nature-of-accounting",
+   "20": "control-accounts",
+   "21": "control-accounts",
+   "22": "control-accounts",
+   "23": "incomplete-records",
+   "24": "incomplete-records",
+   "25": "incomplete-records",
+   "26": "manufacturing-accounts",
+   "27": "manufacturing-accounts",
+   "28": "manufacturing-accounts",
+   "29": "manufacturing-accounts",
+   "3": "nature-of-accounting",
+   "30": "not-for-profit-accounts",
+   "31": "not-for-profit-accounts",
+   "32": "not-for-profit-accounts",
+   "33": "partnership-accounts",
+   "34": "partnership-accounts",
+   "35": "partnership-accounts",
+   "36": "partnership-accounts",
+   "38": "partnership-accounts",
+   "39": "partnership-accounts",
+   "4": "books-of-original-entry",
+   "40": "company-accounts",
+   "41": "company-accounts",
+   "42": "company-accounts",
+   "43": "company-accounts",
+   "44": "interpretation-of-accounts",
+   "45": "departmental-accounts",
+   "46": "branch-accounts",
+   "48": "public-sector-accounting",
+   "49": "public-sector-accounting",
+   "5": "double-entry",
+   "50": "public-sector-accounting",
+   "6": "double-entry",
+   "7": "trial-balance-and-errors",
+   "8": "double-entry",
+   "9": "stock-valuation"
+  },
+  "1999": {
+   "1": "nature-of-accounting",
+   "10": "bank-reconciliation",
+   "11": "cash-book",
+   "12": "adjustments-and-depreciation",
+   "13": "adjustments-and-depreciation",
+   "14": "final-accounts",
+   "15": "final-accounts",
+   "16": "books-of-original-entry",
+   "17": "adjustments-and-depreciation",
+   "18": "incomplete-records",
+   "19": "control-accounts",
+   "2": "nature-of-accounting",
+   "20": "incomplete-records",
+   "23": "incomplete-records",
+   "24": "manufacturing-accounts",
+   "25": "manufacturing-accounts",
+   "26": "manufacturing-accounts",
+   "27": "manufacturing-accounts",
+   "28": "not-for-profit-accounts",
+   "29": "not-for-profit-accounts",
+   "30": "not-for-profit-accounts",
+   "31": "partnership-accounts",
+   "32": "partnership-accounts",
+   "33": "partnership-accounts",
+   "34": "partnership-accounts",
+   "35": "company-accounts",
+   "36": "company-accounts",
+   "37": "interpretation-of-accounts",
+   "38": "company-accounts",
+   "41": "company-accounts",
+   "42": "company-accounts",
+   "43": "company-accounts",
+   "44": "departmental-accounts",
+   "49": "public-sector-accounting",
+   "5": "double-entry",
+   "50": "public-sector-accounting",
+   "6": "double-entry",
+   "7": "books-of-original-entry",
+   "8": "cash-book",
+   "9": "cash-book"
+  },
+  "2000": {
+   "1": "control-accounts",
+   "10": "cash-book",
+   "11": "books-of-original-entry",
+   "12": "trial-balance-and-errors",
+   "13": "final-accounts",
+   "14": "nature-of-accounting",
+   "2": "adjustments-and-depreciation",
+   "20": "incomplete-records",
+   "21": "manufacturing-accounts",
+   "23": "incomplete-records",
+   "24": "manufacturing-accounts",
+   "25": "incomplete-records",
+   "26": "control-accounts",
+   "3": "bank-reconciliation",
+   "30": "not-for-profit-accounts",
+   "31": "partnership-accounts",
+   "35": "partnership-accounts",
+   "36": "not-for-profit-accounts",
+   "38": "partnership-accounts",
+   "4": "final-accounts",
+   "41": "company-accounts",
+   "43": "departmental-accounts",
+   "44": "public-sector-accounting",
+   "46": "public-sector-accounting",
+   "48": "public-sector-accounting",
+   "5": "final-accounts",
+   "6": "nature-of-accounting",
+   "8": "cash-book",
+   "9": "adjustments-and-depreciation"
+  },
+  "2001": {
+   "1": "nature-of-accounting",
+   "10": "cash-book",
+   "11": "books-of-original-entry",
+   "12": "bank-reconciliation",
+   "13": "final-accounts",
+   "16": "books-of-original-entry",
+   "2": "nature-of-accounting",
+   "21": "incomplete-records",
+   "27": "manufacturing-accounts",
+   "3": "nature-of-accounting",
+   "32": "not-for-profit-accounts",
+   "33": "partnership-accounts",
+   "35": "partnership-accounts",
+   "36": "partnership-accounts",
+   "37": "company-accounts",
+   "38": "company-accounts",
+   "39": "company-accounts",
+   "4": "double-entry",
+   "43": "company-accounts",
+   "44": "departmental-accounts",
+   "46": "branch-accounts",
+   "47": "branch-accounts",
+   "48": "public-sector-accounting",
+   "7": "books-of-original-entry",
+   "8": "books-of-original-entry",
+   "9": "cash-book"
+  },
+  "2002": {
+   "1": "adjustments-and-depreciation",
+   "11": "cash-book",
+   "14": "books-of-original-entry",
+   "17": "departmental-accounts",
+   "3": "cash-book",
+   "30": "manufacturing-accounts",
+   "31": "branch-accounts",
+   "33": "manufacturing-accounts",
+   "36": "stock-valuation",
+   "37": "incomplete-records",
+   "38": "control-accounts",
+   "39": "incomplete-records",
+   "42": "incomplete-records",
+   "44": "incomplete-records",
+   "45": "final-accounts",
+   "46": "public-sector-accounting",
+   "49": "partnership-accounts",
+   "5": "books-of-original-entry",
+   "50": "public-sector-accounting",
+   "6": "bank-reconciliation",
+   "7": "double-entry"
+  },
+  "2003": {
+   "1": "bank-reconciliation",
+   "10": "double-entry",
+   "11": "nature-of-accounting",
+   "14": "final-accounts",
+   "17": "adjustments-and-depreciation",
+   "2": "nature-of-accounting",
+   "22": "control-accounts",
+   "23": "stock-valuation",
+   "25": "manufacturing-accounts",
+   "26": "manufacturing-accounts",
+   "27": "manufacturing-accounts",
+   "3": "nature-of-accounting",
+   "30": "not-for-profit-accounts",
+   "36": "incomplete-records",
+   "38": "not-for-profit-accounts",
+   "39": "incomplete-records",
+   "40": "public-sector-accounting",
+   "46": "branch-accounts",
+   "49": "branch-accounts",
+   "8": "nature-of-accounting",
+   "9": "cash-book"
+  },
+  "2004": {
+   "1": "nature-of-accounting",
+   "12": "adjustments-and-depreciation",
+   "13": "adjustments-and-depreciation",
+   "16": "stock-valuation",
+   "19": "control-accounts",
+   "21": "adjustments-and-depreciation",
+   "22": "incomplete-records",
+   "25": "manufacturing-accounts",
+   "3": "books-of-original-entry",
+   "30": "not-for-profit-accounts",
+   "31": "not-for-profit-accounts",
+   "32": "departmental-accounts",
+   "35": "departmental-accounts",
+   "37": "branch-accounts",
+   "38": "partnership-accounts",
+   "4": "double-entry",
+   "41": "partnership-accounts",
+   "42": "partnership-accounts",
+   "44": "company-accounts",
+   "47": "company-accounts",
+   "48": "public-sector-accounting",
+   "49": "public-sector-accounting",
+   "50": "public-sector-accounting",
+   "7": "trial-balance-and-errors",
+   "8": "cash-book",
+   "9": "cash-book"
+  }
+ }
+}

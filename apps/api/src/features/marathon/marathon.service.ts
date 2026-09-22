@@ -2,6 +2,7 @@ import type { MarathonRun } from '../../config/db'
 import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
 import { jsonArray, type MarathonPause, type TopicCovered } from '../../models/types'
+import { recordStreakActivity } from '../gamification/streak'
 import { XP } from '@propella/shared'
 
 export interface StartMarathonInput {
@@ -99,31 +100,7 @@ export async function endMarathon(
     })
   }
 
-  // Update streak
-  const streak = await prisma.streak.findUnique({ where: { userId } })
-  if (streak) {
-    const todayString = new Date().toDateString()
-    if (streak.lastActiveDate.toDateString() !== todayString) {
-      const currentStreak = streak.currentStreak + 1
-      await prisma.streak.update({
-        where: { userId },
-        data: {
-          currentStreak,
-          longestStreak: Math.max(currentStreak, streak.longestStreak),
-          lastActiveDate: new Date(),
-        },
-      })
-    }
-  } else {
-    await prisma.streak.create({
-      data: {
-        userId,
-        currentStreak: 1,
-        longestStreak: 1,
-        lastActiveDate: new Date(),
-      },
-    })
-  }
+  await recordStreakActivity(userId)
 
   const run = await prisma.marathonRun.update({
     where: { id: existing.id },

@@ -2,6 +2,7 @@ import { prisma } from '../../config/db'
 import { AppError } from '../../middleware/error-handler'
 import { getRank, getNextRank } from '@propella/shared'
 import { jsonArray, type RoadmapNodeJson, type SubjectTopic } from '../../models/types'
+import { toUserStreak } from '../gamification/streak'
 import type {
   DashboardData,
   TodayTopic,
@@ -43,19 +44,7 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     }),
   ])
 
-  const streak: UserStreak = streakRow
-    ? {
-        currentStreak: streakRow.currentStreak,
-        longestStreak: streakRow.longestStreak,
-        lastActiveDate: streakRow.lastActiveDate.toISOString(),
-        freezesAvailable: streakRow.freezesAvailable,
-      }
-    : {
-        currentStreak: 0,
-        longestStreak: 0,
-        lastActiveDate: new Date().toISOString(),
-        freezesAvailable: 1,
-      }
+  const streak: UserStreak = toUserStreak(streakRow)
 
   const totalXP = xpAgg._sum.amount ?? 0
 

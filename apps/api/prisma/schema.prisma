@@ -251,6 +251,11 @@ model PastQuestion {
   /// Free-text provenance, e.g. "JAMB 2019 Paper 1".
   source String?
 
+  /// Diagram, graph or table the question cannot be answered without. Either a
+  /// path under /static/past-questions/ (served by the API from
+  /// data/past-questions/images) or an absolute https URL.
+  imageUrl String?
+
   /// sha256 of exam|year|subjectSlug|normalised stem. A stem is too long for a
   /// btree unique index, so imports de-duplicate on this instead.
   fingerprint String @unique

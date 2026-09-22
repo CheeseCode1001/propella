@@ -1,0 +1,1121 @@
+{
+  "add": {
+    "1994": [
+      10,
+      49
+    ],
+    "1997": [
+      50
+    ],
+    "1998": [
+      14
+    ],
+    "1999": [
+      16
+    ],
+    "2002": [
+      11
+    ]
+  },
+  "allow": [
+    "drawing"
+  ],
+  "banner": "Commerce",
+  "dehyphenate": true,
+  "drop": {},
+  "edit": {
+    "1994": {
+      "10": {
+        "options": [
+          "N65,250",
+          "N60,000",
+          "N48,650",
+          "N41,950"
+        ],
+        "question": "What is the working capital as at December 31, 1992?"
+      },
+      "31": {
+        "options": [
+          "Fashion",
+          "Innovation",
+          "Fad",
+          "Attribute"
+        ],
+        "question": "Which of the following items has the shortest effect on the consumer?"
+      },
+      "48": {
+        "options": [
+          "currying favour from local people",
+          "finding a way to spend excess profits",
+          "fulfilling part of its social responsibility",
+          "investing its idle funds"
+        ],
+        "question": "When an oil exploring and mining company builds a health centre in one of the communities where it operates, such a company is"
+      },
+      "49": {
+        "options": [
+          "1st July, 1976",
+          "25th June, 1975",
+          "14th March, 1975",
+          "3rd May, 1974"
+        ],
+        "question": "The West African Clearing House became legally operational on"
+      },
+      "9": {
+        "options": [
+          "N27,380",
+          "N34,980",
+          "N36,180",
+          "N51,680"
+        ],
+        "question": "What is the circulating capital of the sole proprietor?"
+      }
+    },
+    "1995": {
+      "25": {
+        "question": "An invoice of N600 is marked '5% 1 month, 2 1/2% 3 months, 1% 5 months'. If a customer pays in the second month of purchase, how much will he remit to the seller?"
+      },
+      "44": {
+        "options": [
+          "privatization",
+          "commercialization",
+          "indigenization",
+          "nationalization"
+        ],
+        "question": "The Federal Government made efforts at rendering public enterprises more efficient and profit-oriented through the process of"
+      }
+    },
+    "1997": {
+      "24": {
+        "options": [
+          "inspect goods in ships",
+          "import goods by ships",
+          "collect duties in ships",
+          "load and unload ships"
+        ],
+        "question": "Stevedores as a term in foreign trade means men who"
+      },
+      "49": {
+        "options": [
+          "economic environment",
+          "legal environment",
+          "political environment",
+          "social environment"
+        ],
+        "question": "The existing system of governance and the administrative sub-divisions of a country which affect the operations of business in the country is described as"
+      },
+      "50": {
+        "options": [
+          "a company's management style ineffective",
+          "a company's product obsolete",
+          "the control mechanism difficult to implement",
+          "the motivational factors in the company difficult to monitor"
+        ],
+        "question": "Sudden technological changes can have the effect of making"
+      },
+      "7": {
+        "options": [
+          "Musa",
+          "Okon",
+          "Taiwo",
+          "Kalu"
+        ],
+        "question": "Musa: Taiwo, why are you in business?\nTaiwo: To optimize profit, provide quality products and discharge my social responsibilities. What of you?\nMusa: I am in business to minimize cost, provide products at low prices and as you said, discharge my social responsibilities. What of you, Okon and Kalu?\nOkon: I am in business to cater for the need of the consumers at all costs.\nKalu: I am in business to make profit, provide quality products at reasonable prices and establish a good reputation for myself.\n\nThe businessman that may end up not discharging his social responsibility is"
+      },
+      "8": {
+        "options": [
+          "Okon",
+          "Taiwo",
+          "Kalu",
+          "Musa"
+        ],
+        "question": "The business with the best objectives is"
+      }
+    },
+    "1998": {
+      "13": {
+        "options": [
+          "4:1",
+          "4.5:1",
+          "5:1",
+          "25.5:1"
+        ]
+      },
+      "14": {
+        "options": [
+          "2.95:1",
+          "4.25:1",
+          "4.75:1",
+          "5.55:1"
+        ],
+        "question": "What is the acid-test ratio?"
+      },
+      "18": {
+        "question": "What document is required when a country imposes ad valorem import duties on goods?"
+      },
+      "29": {
+        "options": [
+          "I and II only",
+          "I and III only",
+          "I, II and III",
+          "II and III only"
+        ],
+        "question": "I. Companies must be registered as private limited liability companies\nII. Companies must have less than 100 shareholders\nIII. No shareholder may have more than 75% of issued share capital\n\nWhich of the following are requirements for admission into the second-tier securities market?"
+      },
+      "46": {
+        "options": [
+          "People -> control -> ideas",
+          "Material -> production -> ideas",
+          "Finance -> marketing -> product",
+          "Material -> production -> product"
+        ],
+        "question": "EXTERNAL ENVIRONMENT -> INTERNAL ENVIRONMENT -> EXTERNAL ENVIRONMENT\n\nWhich of the following sequences can best fit into this system flow?"
+      },
+      "7": {
+        "options": [
+          "sole proprietorship",
+          "general partnership",
+          "limited partnership",
+          "joint venture"
+        ],
+        "question": "Mr Obi is a manager of Obi Agricultural Venture. He makes all the decisions and takes all profits from the business. He had agreed with Alhaji Musa (a farmer) to pool their resources together and expand their business. They invite Mr. Abayomi (a cotton grower) to join them. Mr Abayomi agreed on the condition that his liability in the new firm will be limited to his investment in it. They thus registered Obi, Musa & Abayomi Agricultural Ventures.\n\nIt can be deduced that Obi Agricultural Ventures is a"
+      },
+      "8": {
+        "options": [
+          "He can assign his shares to another without consent of other partners",
+          "He cannot take part in the management of the business",
+          "His actions as a limited partner can bind the firm",
+          "His death will automatically dissolve the partnership"
+        ],
+        "question": "Mr Obi is a manager of Obi Agricultural Venture. He makes all the decisions and takes all profits from the business. He had agreed with Alhaji Musa (a farmer) to pool their resources together and expand their business. They invite Mr. Abayomi (a cotton grower) to join them. Mr Abayomi agreed on the condition that his liability in the new firm will be limited to his investment in it. They thus registered Obi, Musa & Abayomi Agricultural Ventures.\n\nWhich of the following statements is true of Mr Abayomi?"
+      }
+    },
+    "1999": {
+      "15": {
+        "options": [
+          "the materials should be supplied by Ade",
+          "the materials should be supplied by both of them",
+          "the materials should be supplied by Benson",
+          "Benson should be asked to reduce his trade discount"
+        ],
+        "question": "Kabir receives two quotations. Ade quotes N100 less 20% trade discount, while Benson quotes N100 less 30% trade discount and 10% cash discount. If Kabir wants to take advantage of trade and cash discount, then"
+      },
+      "16": {
+        "options": [
+          "can refuse to pay on due date since it is only a promise",
+          "is bound to redeem the note for cash on due date",
+          "is not bound to renew the note before payment",
+          "can return the goods purchased and refuse to pay"
+        ],
+        "question": "A company which issues a promissory note in lieu of payment for goods purchased"
+      },
+      "27": {
+        "options": [
+          "I, III and IV",
+          "II, III and IV",
+          "II and V",
+          "I and II"
+        ],
+        "question": "I. Foreign investment\nII. Long-term lending\nIII. Short-term lending\nIV. Foreign exchange reserve\nV. Short-term borrowing\n\nWhich combination of these is included in the capital account of international trade?"
+      },
+      "3": {
+        "options": [
+          "Aboki Plc",
+          "Babalawee",
+          "shareholders",
+          "creditors"
+        ],
+        "question": "Aboki Plc became insolvent and decided to wind up to meet the legitimate claims of its creditors. Babalawee was called in to manage the dissolution.\n\nAfter paying the debts of Aboki Plc, the balance goes to"
+      },
+      "4": {
+        "options": [
+          "a claimant",
+          "a manager",
+          "an assessor",
+          "a receiver"
+        ],
+        "question": "Babalawee was called in to manage the dissolution of insolvent Aboki Plc. Babalawee is a"
+      },
+      "44": {
+        "options": [
+          "I and II only",
+          "I, II and III only",
+          "I, II and IV only",
+          "I, II, III and IV"
+        ],
+        "question": "I. Money and machine\nII. Materials and money\nIII. Market and Man\nIV. Materials and Man\n\nWhich combination of these are basic resources in business?"
+      }
+    },
+    "2000": {
+      "37": {
+        "options": [
+          "planning, supervising, communication and directing",
+          "coordinating, supervising, staffing and communicating",
+          "planning, controlling, organising and directing",
+          "directing, supervising, motivating and controlling"
+        ],
+        "question": "The composite functions of management are"
+      },
+      "38": {
+        "options": [
+          "recruitment, interview and appointment",
+          "recruitment, selection and placement",
+          "recruitment, test and placement",
+          "recruitment, procurement and appointment"
+        ],
+        "question": "The three components of staffing are"
+      },
+      "42": {
+        "options": [
+          "line and functional structure",
+          "functional structure",
+          "line and staff structure",
+          "line structure"
+        ],
+        "question": "The organisational structure above represents"
+      }
+    },
+    "2001": {
+      "20": {
+        "options": [
+          "N4,500",
+          "N7,500",
+          "N10,500",
+          "N12,000"
+        ],
+        "question": "Mr. Awala is a retailer of a single product. He sells at the standard price. He gives a trade discount of 5%, quantity discount of 3% for a volume above 1000 units and a cash discount of 2/10 net 30. The existing selling price of the product is N100 per unit. Mr. Bacus purchased 1,500 units of the product on credit and promised to pay Mr. Awala in cash in the first 10 days after purchase.\n\nThe trade discount receivable by Mr. Bacus is:"
+      },
+      "21": {
+        "options": [
+          "N2,760",
+          "N3,000",
+          "N6,500",
+          "N9,500"
+        ],
+        "question": "Mr. Awala is a retailer of a single product. He sells at the standard price. He gives a trade discount of 5%, quantity discount of 3% for a volume above 1000 units and a cash discount of 2/10 net 30. The existing selling price of the product is N100 per unit. Mr. Bacus purchased 1,500 units of the product on credit and promised to pay Mr. Awala in cash in the first 10 days after purchase.\n\nIf Mr. Bacus fulfils his promise, he will be entitled to a cash discount of"
+      },
+      "33": {
+        "options": [
+          "method of transactions agreed to by members",
+          "number of participating members in a day",
+          "changes in the prices and earning of securities",
+          "changes in the official rules set by the market"
+        ],
+        "question": "The Nigerian Stock Exchange publishes a daily official list that gives full information on the"
+      },
+      "38": {
+        "options": [
+          "I & II",
+          "I & III",
+          "II & IV",
+          "III & IV"
+        ],
+        "question": "Companies I, II, III and IV produce and sell electronic videos. Company I sells its video for N14,000 each and offers advice on how to fix and operate them. Company II sells at N14,000 and its representatives go to install at no additional cost. Company III sells at N15,000 and offers credit sales at N15,500 per video while Company IV sells at N15,000 each.\n\nWhich of these companies are more engaged in public relations activities?"
+      },
+      "39": {
+        "options": [
+          "IV",
+          "III",
+          "II",
+          "I"
+        ],
+        "question": "Companies I, II, III and IV produce and sell electronic videos. Company I sells its video for N14,000 each and offers advice on how to fix and operate them. Company II sells at N14,000 and its representatives go to install at no additional cost. Company III sells at N15,000 and offers credit sales at N15,500 per video while Company IV sells at N15,000 each.\n\nWhich of these companies offer after sales services?"
+      },
+      "40": {
+        "options": [
+          "Musa and Jacob",
+          "Musa and Audu",
+          "Adamu and Musa",
+          "Audu and Jacob"
+        ],
+        "question": "Musa rented a room to Adamu for N1,500 and N1,000 part-payment was made. Adamu brought Audu and Jacob his friends to stay in the room. The two friends later pay the balance of N500 to Musa.\n\nWho are parties to the contract of renting the room?"
+      },
+      "41": {
+        "options": [
+          "Musa",
+          "Audu",
+          "Adamu",
+          "Jacob"
+        ],
+        "question": "Musa rented a room to Adamu for N1,500 and N1,000 part-payment was made. Adamu brought Audu and Jacob his friends to stay in the room. The two friends later pay the balance of N500 to Musa.\n\nWho is the offeree in this contract?"
+      },
+      "44": {
+        "options": [
+          "promote and protect trade, industry and agriculture",
+          "advise members on regulations of other countries",
+          "settle disputes that arise out of trade",
+          "publish books and periodicals desired by members"
+        ],
+        "question": "One of the major functions of a chamber of commerce is to:"
+      },
+      "50": {
+        "options": [
+          "embark on a comprehensive survey of the available water resources",
+          "carry out research for the development of fresh water fisheries",
+          "develop infrastructure to facilitate economic activities",
+          "promote trade among member-states to improve standard of living"
+        ],
+        "question": "One of the main objectives of establishing the Niger River Basin Commission was to:"
+      }
+    },
+    "2002": {
+      "10": {
+        "options": [
+          "standard organization of Nigeria",
+          "Nigeria consumer's association",
+          "manufactures association of Nigeria",
+          "Nigeria chamber of commerce"
+        ],
+        "question": "The agency in Nigeria which ensure that products conform to government quality specification is the"
+      },
+      "11": {
+        "options": [
+          "advertising strategy",
+          "economic responsibility",
+          "marketing strategy",
+          "social responsibility"
+        ],
+        "question": "Awarding scholarships and sponsoring sports by a business organization are example of"
+      },
+      "28": {
+        "options": [
+          "I, II, III and VIII",
+          "III, V, VI and VIII",
+          "I, II, III and VI",
+          "II, V, VI and VII"
+        ],
+        "question": "Given:\nI. Retail\nII. Export\nIII. Transport\nIV. Import\nV. Insurance\nVI. Banking and finance\nVII. Wholesale\nVIII. Communication\n\nWhich of these are aids to trade?"
+      },
+      "43": {
+        "options": [
+          "banker's bank, lender of last resort and issuance of currency",
+          "service, currency management and financial intermediation",
+          "banking services, foreign exchange operations and open market operations",
+          "service monetary policy and developmental functions"
+        ],
+        "question": "The principal objectives of the Central Bank of Nigeria can be classified broadly into"
+      }
+    },
+    "2003": {
+      "15": {
+        "options": [
+          "The competitor",
+          "The buyer",
+          "Profit-making",
+          "Sales"
+        ],
+        "question": "The focal point of marketing is"
+      },
+      "45": {
+        "options": [
+          "Decree establishing the business",
+          "Ownership structure of the business",
+          "Size and the type of the bank",
+          "Burden of cost and repayment"
+        ],
+        "question": "An essential factor for evaluating the different sources of funds for a business is the"
+      },
+      "7": {
+        "options": [
+          "N382,500",
+          "N425,000",
+          "N363,375",
+          "N61,625"
+        ],
+        "question": "Ojo purchased the following items from Sani at the specified prices on credit: 200 cartons of milk at N1,000 per carton, 150 bags of sugar at N500 per bag, 50 bags of rice at N3,000 per bag. Sani allowed 10% trade discount and 5% cash discount if payment is made within the agreed period. Ojo paid within the agreed period.\n\nWhat was the amount paid by Ojo?"
+      },
+      "8": {
+        "options": [
+          "N42,500",
+          "N27,500",
+          "N22,500",
+          "N20,000"
+        ],
+        "question": "Ojo purchased the following items from Sani at the specified prices on credit: 200 cartons of milk at N1,000 per carton, 150 bags of sugar at N500 per bag, 50 bags of rice at N3,000 per bag. Sani allowed 10% trade discount and 5% cash discount if payment is made within the agreed period. Ojo paid within the agreed period.\n\nHow much was the trade discount?"
+      }
+    }
+  },
+  "images": {
+    "1994": {
+      "10": [
+        [
+          1,
+          318,
+          100,
+          582,
+          286
+        ]
+      ],
+      "9": [
+        [
+          1,
+          318,
+          100,
+          582,
+          286
+        ]
+      ]
+    },
+    "1998": {
+      "13": [
+        [
+          9,
+          344,
+          54,
+          574,
+          152
+        ]
+      ],
+      "14": [
+        [
+          9,
+          344,
+          54,
+          574,
+          152
+        ]
+      ]
+    },
+    "1999": {
+      "12": [
+        [
+          12,
+          30,
+          300,
+          271,
+          422
+        ]
+      ],
+      "13": [
+        [
+          12,
+          30,
+          300,
+          271,
+          422
+        ]
+      ]
+    },
+    "2000": {
+      "26": [
+        [
+          15,
+          356,
+          612,
+          568,
+          680
+        ]
+      ],
+      "42": [
+        [
+          16,
+          305,
+          515,
+          555,
+          626
+        ]
+      ],
+      "6": [
+        [
+          14,
+          300,
+          215,
+          520,
+          410
+        ]
+      ],
+      "7": [
+        [
+          14,
+          300,
+          215,
+          520,
+          410
+        ]
+      ]
+    },
+    "2001": {
+      "13": [
+        [
+          18,
+          30,
+          242,
+          259,
+          351
+        ]
+      ],
+      "14": [
+        [
+          18,
+          30,
+          242,
+          259,
+          351
+        ]
+      ]
+    },
+    "2003": {
+      "46": [
+        [
+          25,
+          318,
+          190,
+          582,
+          315
+        ]
+      ],
+      "47": [
+        [
+          25,
+          318,
+          190,
+          582,
+          315
+        ]
+      ]
+    },
+    "2004": {
+      "34": [
+        [
+          27,
+          47,
+          510,
+          267,
+          622
+        ]
+      ],
+      "35": [
+        [
+          27,
+          47,
+          510,
+          267,
+          622
+        ]
+      ]
+    }
+  },
+  "rich": true,
+  "topics": {
+    "1994": {
+      "1": "nature-of-commerce",
+      "10": "business-documents-accounts",
+      "11": "business-documents-accounts",
+      "12": "business-documents-accounts",
+      "13": "foreign-trade",
+      "14": "business-units",
+      "15": "home-trade",
+      "16": "home-trade",
+      "17": "foreign-trade",
+      "18": "foreign-trade",
+      "19": "trade-documents",
+      "2": "nature-of-commerce",
+      "20": "transportation",
+      "21": "communication",
+      "22": "warehousing",
+      "23": "insurance",
+      "24": "money-capital-markets",
+      "25": "banking-commerce",
+      "26": "banking-commerce",
+      "27": "business-units",
+      "28": "money-capital-markets",
+      "29": "money-capital-markets",
+      "3": "nature-of-commerce",
+      "30": "advertising-marketing",
+      "31": "advertising-marketing",
+      "32": "advertising-marketing",
+      "33": "advertising-marketing",
+      "34": "business-management",
+      "35": "business-management",
+      "36": "business-management",
+      "37": "commercial-environment-nigeria",
+      "38": "foreign-trade",
+      "39": "consumer-protection",
+      "4": "commercial-environment-nigeria",
+      "40": "business-management",
+      "41": "commercial-environment-nigeria",
+      "42": "consumer-protection",
+      "43": "business-management",
+      "44": "business-management",
+      "45": "business-management",
+      "46": "advertising-marketing",
+      "47": "banking-commerce",
+      "48": "commercial-environment-nigeria",
+      "49": "foreign-trade",
+      "5": "business-units",
+      "50": "commercial-environment-nigeria",
+      "6": "business-units",
+      "7": "business-units",
+      "8": "business-units",
+      "9": "business-documents-accounts"
+    },
+    "1995": {
+      "1": "business-units",
+      "10": "business-units",
+      "11": "business-finance",
+      "12": "money-capital-markets",
+      "13": "money-capital-markets",
+      "14": "business-finance",
+      "15": "business-documents-accounts",
+      "16": "money-capital-markets",
+      "17": "business-documents-accounts",
+      "18": "business-documents-accounts",
+      "19": "home-trade",
+      "2": "nature-of-commerce",
+      "20": "foreign-trade",
+      "21": "foreign-trade",
+      "22": "banking-commerce",
+      "23": "trade-documents",
+      "24": "trade-documents",
+      "25": "business-documents-accounts",
+      "26": "money-capital-markets",
+      "27": "transportation",
+      "28": "insurance",
+      "29": "insurance",
+      "3": "occupations",
+      "30": "insurance",
+      "31": "money-capital-markets",
+      "32": "banking-commerce",
+      "33": "banking-commerce",
+      "34": "money-capital-markets",
+      "35": "advertising-marketing",
+      "36": "advertising-marketing",
+      "37": "advertising-marketing",
+      "38": "advertising-marketing",
+      "39": "advertising-marketing",
+      "4": "occupations",
+      "40": "advertising-marketing",
+      "41": "business-management",
+      "42": "consumer-protection",
+      "43": "commercial-environment-nigeria",
+      "44": "commercial-environment-nigeria",
+      "45": "commercial-environment-nigeria",
+      "46": "business-management",
+      "47": "business-management",
+      "48": "business-management",
+      "49": "business-management",
+      "5": "business-units",
+      "50": "commercial-environment-nigeria",
+      "6": "business-units",
+      "7": "business-units",
+      "8": "business-units",
+      "9": "business-units"
+    },
+    "1997": {
+      "1": "nature-of-commerce",
+      "10": "business-units",
+      "11": "business-units",
+      "12": "business-units",
+      "13": "money-capital-markets",
+      "14": "money-capital-markets",
+      "15": "business-finance",
+      "16": "business-finance",
+      "17": "business-units",
+      "18": "business-documents-accounts",
+      "19": "business-documents-accounts",
+      "2": "commercial-environment-nigeria",
+      "20": "business-documents-accounts",
+      "21": "home-trade",
+      "22": "trade-documents",
+      "23": "foreign-trade",
+      "24": "foreign-trade",
+      "25": "trade-documents",
+      "26": "home-trade",
+      "27": "transportation",
+      "28": "transportation",
+      "29": "insurance",
+      "3": "banking-commerce",
+      "30": "insurance",
+      "31": "banking-commerce",
+      "32": "banking-commerce",
+      "33": "money-capital-markets",
+      "34": "business-documents-accounts",
+      "35": "advertising-marketing",
+      "36": "advertising-marketing",
+      "37": "advertising-marketing",
+      "38": "business-units",
+      "39": "commercial-environment-nigeria",
+      "4": "occupations",
+      "40": "advertising-marketing",
+      "41": "consumer-protection",
+      "42": "consumer-protection",
+      "43": "commercial-environment-nigeria",
+      "44": "business-units",
+      "45": "business-management",
+      "46": "business-management",
+      "47": "business-management",
+      "48": "commercial-environment-nigeria",
+      "49": "commercial-environment-nigeria",
+      "5": "business-units",
+      "50": "commercial-environment-nigeria",
+      "6": "business-units",
+      "7": "commercial-environment-nigeria",
+      "8": "business-units",
+      "9": "business-units"
+    },
+    "1998": {
+      "1": "nature-of-commerce",
+      "10": "business-units",
+      "11": "business-units",
+      "12": "business-units",
+      "13": "business-documents-accounts",
+      "14": "business-documents-accounts",
+      "15": "business-finance",
+      "16": "business-documents-accounts",
+      "17": "home-trade",
+      "18": "trade-documents",
+      "19": "foreign-trade",
+      "2": "occupations",
+      "20": "trade-documents",
+      "21": "home-trade",
+      "22": "communication",
+      "23": "trade-documents",
+      "24": "insurance",
+      "25": "insurance",
+      "26": "banking-commerce",
+      "27": "banking-commerce",
+      "28": "money-capital-markets",
+      "29": "money-capital-markets",
+      "3": "occupations",
+      "30": "advertising-marketing",
+      "31": "advertising-marketing",
+      "32": "advertising-marketing",
+      "33": "advertising-marketing",
+      "34": "business-management",
+      "35": "business-management",
+      "36": "business-management",
+      "37": "business-management",
+      "38": "advertising-marketing",
+      "39": "commercial-environment-nigeria",
+      "4": "business-units",
+      "40": "consumer-protection",
+      "41": "commercial-environment-nigeria",
+      "42": "transportation",
+      "43": "business-units",
+      "44": "business-management",
+      "45": "business-management",
+      "46": "commercial-environment-nigeria",
+      "47": "commercial-environment-nigeria",
+      "48": "business-management",
+      "49": "foreign-trade",
+      "5": "business-units",
+      "50": "foreign-trade",
+      "6": "business-units",
+      "7": "business-units",
+      "8": "business-units",
+      "9": "business-units"
+    },
+    "1999": {
+      "1": "nature-of-commerce",
+      "10": "business-units",
+      "11": "business-finance",
+      "12": "trade-documents",
+      "13": "trade-documents",
+      "14": "trade-documents",
+      "15": "home-trade",
+      "16": "trade-documents",
+      "17": "home-trade",
+      "18": "trade-documents",
+      "19": "trade-documents",
+      "2": "nature-of-commerce",
+      "20": "trade-documents",
+      "21": "home-trade",
+      "22": "insurance",
+      "23": "banking-commerce",
+      "24": "insurance",
+      "25": "warehousing",
+      "26": "communication",
+      "27": "foreign-trade",
+      "28": "communication",
+      "29": "money-capital-markets",
+      "3": "business-units",
+      "30": "money-capital-markets",
+      "31": "money-capital-markets",
+      "32": "advertising-marketing",
+      "33": "advertising-marketing",
+      "34": "advertising-marketing",
+      "35": "advertising-marketing",
+      "36": "business-management",
+      "37": "commercial-environment-nigeria",
+      "38": "business-management",
+      "39": "home-trade",
+      "4": "business-units",
+      "40": "business-management",
+      "41": "business-units",
+      "42": "business-management",
+      "43": "business-management",
+      "44": "business-management",
+      "45": "business-management",
+      "46": "commercial-environment-nigeria",
+      "47": "commercial-environment-nigeria",
+      "48": "consumer-protection",
+      "49": "commercial-environment-nigeria",
+      "5": "business-units",
+      "50": "foreign-trade",
+      "6": "nature-of-commerce",
+      "7": "business-units",
+      "8": "business-documents-accounts",
+      "9": "business-documents-accounts"
+    },
+    "2000": {
+      "1": "commercial-environment-nigeria",
+      "10": "business-units",
+      "11": "nature-of-commerce",
+      "12": "business-units",
+      "13": "communication",
+      "14": "insurance",
+      "15": "banking-commerce",
+      "16": "communication",
+      "17": "home-trade",
+      "18": "communication",
+      "19": "transportation",
+      "2": "business-units",
+      "20": "home-trade",
+      "21": "nature-of-commerce",
+      "22": "insurance",
+      "23": "banking-commerce",
+      "24": "communication",
+      "25": "trade-documents",
+      "26": "advertising-marketing",
+      "27": "advertising-marketing",
+      "28": "advertising-marketing",
+      "29": "nature-of-commerce",
+      "3": "banking-commerce",
+      "30": "business-units",
+      "31": "advertising-marketing",
+      "32": "advertising-marketing",
+      "33": "money-capital-markets",
+      "34": "money-capital-markets",
+      "35": "money-capital-markets",
+      "36": "foreign-trade",
+      "37": "business-management",
+      "38": "business-management",
+      "39": "business-units",
+      "4": "business-units",
+      "40": "foreign-trade",
+      "41": "commercial-environment-nigeria",
+      "42": "business-management",
+      "43": "commercial-environment-nigeria",
+      "44": "commercial-environment-nigeria",
+      "45": "commercial-environment-nigeria",
+      "46": "business-units",
+      "47": "business-units",
+      "48": "home-trade",
+      "49": "business-units",
+      "5": "nature-of-commerce",
+      "50": "consumer-protection",
+      "6": "business-documents-accounts",
+      "7": "business-documents-accounts",
+      "8": "business-units",
+      "9": "occupations"
+    },
+    "2001": {
+      "1": "nature-of-commerce",
+      "10": "business-finance",
+      "11": "business-finance",
+      "12": "business-documents-accounts",
+      "13": "business-documents-accounts",
+      "14": "business-documents-accounts",
+      "15": "home-trade",
+      "16": "home-trade",
+      "17": "trade-documents",
+      "18": "foreign-trade",
+      "19": "trade-documents",
+      "2": "nature-of-commerce",
+      "20": "home-trade",
+      "21": "home-trade",
+      "22": "banking-commerce",
+      "23": "warehousing",
+      "24": "warehousing",
+      "25": "insurance",
+      "26": "insurance",
+      "27": "insurance",
+      "28": "trade-documents",
+      "29": "communication",
+      "3": "nature-of-commerce",
+      "30": "communication",
+      "31": "money-capital-markets",
+      "32": "business-units",
+      "33": "money-capital-markets",
+      "34": "money-capital-markets",
+      "35": "money-capital-markets",
+      "36": "advertising-marketing",
+      "37": "advertising-marketing",
+      "38": "advertising-marketing",
+      "39": "advertising-marketing",
+      "4": "occupations",
+      "40": "commercial-environment-nigeria",
+      "41": "commercial-environment-nigeria",
+      "42": "business-units",
+      "43": "business-units",
+      "44": "business-units",
+      "45": "business-management",
+      "46": "business-management",
+      "47": "business-management",
+      "48": "commercial-environment-nigeria",
+      "49": "foreign-trade",
+      "5": "business-units",
+      "50": "foreign-trade",
+      "6": "business-units",
+      "7": "business-units",
+      "8": "business-units",
+      "9": "business-units"
+    },
+    "2002": {
+      "1": "nature-of-commerce",
+      "10": "consumer-protection",
+      "11": "commercial-environment-nigeria",
+      "12": "business-units",
+      "13": "commercial-environment-nigeria",
+      "14": "insurance",
+      "15": "communication",
+      "16": "insurance",
+      "17": "communication",
+      "18": "communication",
+      "19": "communication",
+      "2": "occupations",
+      "20": "transportation",
+      "21": "insurance",
+      "22": "money-capital-markets",
+      "23": "business-finance",
+      "24": "money-capital-markets",
+      "25": "business-units",
+      "26": "banking-commerce",
+      "27": "trade-documents",
+      "28": "nature-of-commerce",
+      "29": "business-management",
+      "3": "nature-of-commerce",
+      "30": "home-trade",
+      "31": "business-management",
+      "32": "business-units",
+      "33": "commercial-environment-nigeria",
+      "34": "business-units",
+      "35": "business-management",
+      "36": "money-capital-markets",
+      "37": "foreign-trade",
+      "38": "business-units",
+      "39": "nature-of-commerce",
+      "4": "nature-of-commerce",
+      "40": "advertising-marketing",
+      "41": "money-capital-markets",
+      "42": "advertising-marketing",
+      "43": "banking-commerce",
+      "44": "trade-documents",
+      "45": "advertising-marketing",
+      "46": "business-units",
+      "47": "business-units",
+      "48": "home-trade",
+      "49": "home-trade",
+      "5": "nature-of-commerce",
+      "50": "business-units",
+      "6": "commercial-environment-nigeria",
+      "7": "commercial-environment-nigeria",
+      "8": "foreign-trade",
+      "9": "commercial-environment-nigeria"
+    },
+    "2003": {
+      "1": "business-units",
+      "10": "nature-of-commerce",
+      "11": "insurance",
+      "12": "advertising-marketing",
+      "13": "insurance",
+      "14": "communication",
+      "15": "advertising-marketing",
+      "16": "insurance",
+      "17": "business-management",
+      "18": "transportation",
+      "19": "business-management",
+      "2": "foreign-trade",
+      "20": "communication",
+      "21": "advertising-marketing",
+      "22": "business-management",
+      "23": "nature-of-commerce",
+      "24": "business-units",
+      "25": "business-units",
+      "26": "nature-of-commerce",
+      "27": "nature-of-commerce",
+      "28": "nature-of-commerce",
+      "29": "nature-of-commerce",
+      "3": "commercial-environment-nigeria",
+      "30": "nature-of-commerce",
+      "31": "commercial-environment-nigeria",
+      "32": "commercial-environment-nigeria",
+      "33": "nature-of-commerce",
+      "34": "banking-commerce",
+      "35": "business-units",
+      "36": "communication",
+      "37": "commercial-environment-nigeria",
+      "38": "communication",
+      "39": "commercial-environment-nigeria",
+      "4": "business-units",
+      "40": "consumer-protection",
+      "41": "communication",
+      "42": "banking-commerce",
+      "43": "business-finance",
+      "44": "money-capital-markets",
+      "45": "business-finance",
+      "46": "business-documents-accounts",
+      "47": "business-documents-accounts",
+      "48": "money-capital-markets",
+      "49": "business-finance",
+      "5": "nature-of-commerce",
+      "50": "banking-commerce",
+      "6": "commercial-environment-nigeria",
+      "7": "home-trade",
+      "8": "home-trade",
+      "9": "transportation"
+    },
+    "2004": {
+      "1": "transportation",
+      "10": "commercial-environment-nigeria",
+      "11": "foreign-trade",
+      "12": "commercial-environment-nigeria",
+      "13": "consumer-protection",
+      "14": "foreign-trade",
+      "15": "consumer-protection",
+      "16": "home-trade",
+      "17": "commercial-environment-nigeria",
+      "18": "commercial-environment-nigeria",
+      "19": "commercial-environment-nigeria",
+      "2": "insurance",
+      "20": "business-finance",
+      "21": "banking-commerce",
+      "22": "money-capital-markets",
+      "23": "banking-commerce",
+      "24": "money-capital-markets",
+      "25": "money-capital-markets",
+      "26": "foreign-trade",
+      "27": "money-capital-markets",
+      "28": "business-documents-accounts",
+      "29": "business-units",
+      "3": "communication",
+      "30": "business-units",
+      "31": "business-management",
+      "32": "business-units",
+      "33": "business-units",
+      "34": "nature-of-commerce",
+      "35": "nature-of-commerce",
+      "36": "communication",
+      "37": "business-units",
+      "38": "nature-of-commerce",
+      "39": "nature-of-commerce",
+      "4": "advertising-marketing",
+      "40": "warehousing",
+      "41": "business-units",
+      "42": "trade-documents",
+      "43": "trade-documents",
+      "44": "foreign-trade",
+      "45": "business-units",
+      "46": "foreign-trade",
+      "47": "home-trade",
+      "48": "business-units",
+      "49": "home-trade",
+      "5": "insurance",
+      "50": "consumer-protection",
+      "6": "insurance",
+      "7": "communication",
+      "8": "communication",
+      "9": "advertising-marketing"
+    }
+  }
+}

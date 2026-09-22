@@ -1,0 +1,8050 @@
+{
+ "questions": [
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "A group of closely related organisms capable of interbreeding to produce fertile offspring are known as members of a",
+   "options": [
+    {
+     "id": "A",
+     "text": "kingdom"
+    },
+    {
+     "id": "B",
+     "text": "class"
+    },
+    {
+     "id": "C",
+     "text": "family"
+    },
+    {
+     "id": "D",
+     "text": "species"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q1"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "A beaker of pond water containing few specimens of Euglena was placed in a dark room for two weeks. At the end of this period, the specimens of Euglena were still alive because they were",
+   "options": [
+    {
+     "id": "A",
+     "text": "able to carry out holozoic nutrition"
+    },
+    {
+     "id": "B",
+     "text": "able to carry out photosynthesis using carbon dioxide in the pond water"
+    },
+    {
+     "id": "C",
+     "text": "better adapted to life in darkness than to life in light"
+    },
+    {
+     "id": "D",
+     "text": "not overcrowded"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "cell-structure",
+   "question": "The cytoplasm of the cell is considered a very important component because it",
+   "options": [
+    {
+     "id": "A",
+     "text": "regulates the amount of energy in the cell"
+    },
+    {
+     "id": "B",
+     "text": "suspends all cell organelles"
+    },
+    {
+     "id": "C",
+     "text": "is the outermost part of the cell"
+    },
+    {
+     "id": "D",
+     "text": "is solely responsible for cell division"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "cell-transport",
+   "question": "Red blood cells were found to have burst open after being placed in distilled water for an hour. This phenomenon is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "plasmolysis"
+    },
+    {
+     "id": "B",
+     "text": "diffusion"
+    },
+    {
+     "id": "C",
+     "text": "haemolysis"
+    },
+    {
+     "id": "D",
+     "text": "wilting"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "The curvature movement of plants in response to the stimulus of water is called",
+   "options": [
+    {
+     "id": "A",
+     "text": "hydrotropism"
+    },
+    {
+     "id": "B",
+     "text": "geotropism"
+    },
+    {
+     "id": "C",
+     "text": "Phototropism"
+    },
+    {
+     "id": "D",
+     "text": "thigmotropism"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "support-movement",
+   "question": "The longest bone in the body is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "humerous"
+    },
+    {
+     "id": "B",
+     "text": "femur"
+    },
+    {
+     "id": "C",
+     "text": "scapula"
+    },
+    {
+     "id": "D",
+     "text": "tibia"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "support-movement",
+   "question": "Which of the following structures is not a skeletal material?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Chitin"
+    },
+    {
+     "id": "B",
+     "text": "Cartilage"
+    },
+    {
+     "id": "C",
+     "text": "Bone"
+    },
+    {
+     "id": "D",
+     "text": "Muscle"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "The reason why the flow of blood through the capillaries is very slow is",
+   "options": [
+    {
+     "id": "A",
+     "text": "because the walls of capillaries are very thin"
+    },
+    {
+     "id": "B",
+     "text": "to avoid high - blood pressure"
+    },
+    {
+     "id": "C",
+     "text": "to ensure that the individual does not get dizzy"
+    },
+    {
+     "id": "D",
+     "text": "to allow adequate time for exchange of materials"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "Which of the following groups of organisms has kidney as their excretory organ?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Fishes, amphibians, birds, man"
+    },
+    {
+     "id": "B",
+     "text": "Fishes, amphibians, annelids, insects"
+    },
+    {
+     "id": "C",
+     "text": "Fishes, reptiles, birds, tapeworms"
+    },
+    {
+     "id": "D",
+     "text": "Fishes protozoans, amphibians, man"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "homeostasis",
+   "question": "What physiological term can be used to describe the regulation of the body temperature of the lizard?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Homeostasis"
+    },
+    {
+     "id": "B",
+     "text": "Homeothermy"
+    },
+    {
+     "id": "C",
+     "text": "Poikilothermy"
+    },
+    {
+     "id": "D",
+     "text": "Osmoregulation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "homeostasis",
+   "question": "The reason why hospitals use saline solutions as drip instead of water is",
+   "options": [
+    {
+     "id": "A",
+     "text": "because salt is a preservative"
+    },
+    {
+     "id": "B",
+     "text": "to prevent contamination of the body"
+    },
+    {
+     "id": "C",
+     "text": "to maintain the composition of body fluids"
+    },
+    {
+     "id": "D",
+     "text": "to increase the number of blood cells"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "sense-organs",
+   "question": "The part of the ear which contains nerve cells sensitive to sound vibrations is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "cochlea"
+    },
+    {
+     "id": "B",
+     "text": "ampulla"
+    },
+    {
+     "id": "C",
+     "text": "tympanum"
+    },
+    {
+     "id": "D",
+     "text": "malleus"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "sense-organs",
+   "question": "Spectacles with convex lenses correct long-sightedness by",
+   "options": [
+    {
+     "id": "A",
+     "text": "converging the Light rays before they enter the eye"
+    },
+    {
+     "id": "B",
+     "text": "diverging the light rays before they enter the eye"
+    },
+    {
+     "id": "C",
+     "text": "reducing light intensity before it enters the eye"
+    },
+    {
+     "id": "D",
+     "text": "increasing light intensity before it enters the eye"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "A seed of a flowering plant can best be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "radicle and plumule"
+    },
+    {
+     "id": "B",
+     "text": "the developed ovule"
+    },
+    {
+     "id": "C",
+     "text": "the embryo and endosperm"
+    },
+    {
+     "id": "D",
+     "text": "developed ovary"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "Which of the following processes removes carbon from the atmosphere?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Putrefaction"
+    },
+    {
+     "id": "B",
+     "text": "Photosynthesis"
+    },
+    {
+     "id": "C",
+     "text": "volcanic eruption"
+    },
+    {
+     "id": "D",
+     "text": "Burning fuels"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "Which of the following cycles involves the process of precipitation and transpiration?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Water cycles"
+    },
+    {
+     "id": "B",
+     "text": "Carbon cycle"
+    },
+    {
+     "id": "C",
+     "text": "Nitrogen cycle"
+    },
+    {
+     "id": "D",
+     "text": "oxygen cycle"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "What is the critical limiting factor for plants below the photic zone in an aquatic ecosystem?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Availability of nutrients"
+    },
+    {
+     "id": "B",
+     "text": "Availability of water"
+    },
+    {
+     "id": "C",
+     "text": "intensity of light"
+    },
+    {
+     "id": "D",
+     "text": "Carbon dioxide concentration"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following instruments is used to estimate the number of plants in a habitat?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Pooter"
+    },
+    {
+     "id": "B",
+     "text": "Pitfall trap"
+    },
+    {
+     "id": "C",
+     "text": "Quadrat"
+    },
+    {
+     "id": "D",
+     "text": "Sweep net"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following statements is true about sandy soil? It",
+   "options": [
+    {
+     "id": "A",
+     "text": "has limited air space"
+    },
+    {
+     "id": "B",
+     "text": "is light and easy to dig"
+    },
+    {
+     "id": "C",
+     "text": "drains slowly"
+    },
+    {
+     "id": "D",
+     "text": "is heavy and poorly aerated"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "Which of the following diseases is not hereditary?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Albinism"
+    },
+    {
+     "id": "B",
+     "text": "Scabies"
+    },
+    {
+     "id": "C",
+     "text": "Haemophilia"
+    },
+    {
+     "id": "D",
+     "text": "Colour blindness"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "cell-structure",
+   "question": "DNA in eukaryotic cells is contained in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "central vacuole"
+    },
+    {
+     "id": "B",
+     "text": "nucleus"
+    },
+    {
+     "id": "C",
+     "text": "lysosome"
+    },
+    {
+     "id": "D",
+     "text": "golgi body"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "cell-division",
+   "question": "Cytokinesis of mitosis is a process that ensures that",
+   "options": [
+    {
+     "id": "A",
+     "text": "each daughter cell gets the necessary organelle"
+    },
+    {
+     "id": "B",
+     "text": "there is distribution of a complete set of genes into each daughter cell"
+    },
+    {
+     "id": "C",
+     "text": "daughter cells inherit new genetic combinations"
+    },
+    {
+     "id": "D",
+     "text": "worn out organelles are excluded from daughter cells"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "An animal which is active during the day is known as a",
+   "options": [
+    {
+     "id": "A",
+     "text": "nocturnal animal"
+    },
+    {
+     "id": "B",
+     "text": "diurnal animal"
+    },
+    {
+     "id": "C",
+     "text": "terrestrial animal"
+    },
+    {
+     "id": "D",
+     "text": "homoatomic animal"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "Evidence of evolution include the following except",
+   "options": [
+    {
+     "id": "A",
+     "text": "fossil records"
+    },
+    {
+     "id": "B",
+     "text": "comparative anatomy"
+    },
+    {
+     "id": "C",
+     "text": "mutation of genes"
+    },
+    {
+     "id": "D",
+     "text": "geographical distribution of organisms"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "An accurate identification of a rapist can be carried out by conducting a",
+   "options": [
+    {
+     "id": "A",
+     "text": "RNA analysis"
+    },
+    {
+     "id": "B",
+     "text": "DNA analysis"
+    },
+    {
+     "id": "C",
+     "text": "blood group test"
+    },
+    {
+     "id": "D",
+     "text": "behavioural traits test"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "A boy who is fond of swimming in a pond finds himself passing urine with traces of blood. He is likely to have contracted",
+   "options": [
+    {
+     "id": "A",
+     "text": "schistosomiasis"
+    },
+    {
+     "id": "B",
+     "text": "onchocerciasis"
+    },
+    {
+     "id": "C",
+     "text": "poliomyelitis"
+    },
+    {
+     "id": "D",
+     "text": "salmonellosis"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "cell-structure",
+   "question": "Which of the following characterizes a mature plant cell?",
+   "options": [
+    {
+     "id": "A",
+     "text": "the cytoplasm fills up the entire cell space"
+    },
+    {
+     "id": "B",
+     "text": "the nucleus is pushed to the centre of the cell"
+    },
+    {
+     "id": "C",
+     "text": "the cell wall is made up of cellulose"
+    },
+    {
+     "id": "D",
+     "text": "the nucleus is small and irregular in shape"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "The dominant phase in the life cycle of a fern is the?",
+   "options": [
+    {
+     "id": "A",
+     "text": "gametophyte"
+    },
+    {
+     "id": "B",
+     "text": "prothallus"
+    },
+    {
+     "id": "C",
+     "text": "sporophyte"
+    },
+    {
+     "id": "D",
+     "text": "antheridium"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "reproduction-animals",
+   "question": "Parental care is exhibited by",
+   "options": [
+    {
+     "id": "A",
+     "text": "toads"
+    },
+    {
+     "id": "B",
+     "text": "snails"
+    },
+    {
+     "id": "C",
+     "text": "earthworms"
+    },
+    {
+     "id": "D",
+     "text": "birds"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Which of the following groups of cells is devoid of true nuclei",
+   "options": [
+    {
+     "id": "A",
+     "text": "algae"
+    },
+    {
+     "id": "B",
+     "text": "monera"
+    },
+    {
+     "id": "C",
+     "text": "fungi"
+    },
+    {
+     "id": "D",
+     "text": "viruses"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "Which of the following is true of the transverse section of a dicot stem?",
+   "options": [
+    {
+     "id": "A",
+     "text": "the epidermis is completely encircled by the cortex"
+    },
+    {
+     "id": "B",
+     "text": "the xylem is more interiorly located than the phloem"
+    },
+    {
+     "id": "C",
+     "text": "the cambium lies between the cortex and the vascular bundles"
+    },
+    {
+     "id": "D",
+     "text": "the vascular bundles are randomly scattered within the cortex"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "The mode of nutrition of sun dew and bladder wort can be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "autotrophic"
+    },
+    {
+     "id": "B",
+     "text": "saprophytic"
+    },
+    {
+     "id": "C",
+     "text": "holozoic"
+    },
+    {
+     "id": "D",
+     "text": "chemosynthetic"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "When the mixture of a food substance and Benedict's solution was warmed, the solution changed from blue to black-red. This indicates the presence of",
+   "options": [
+    {
+     "id": "A",
+     "text": "reducing sugar"
+    },
+    {
+     "id": "B",
+     "text": "fatty acid"
+    },
+    {
+     "id": "C",
+     "text": "sucrose"
+    },
+    {
+     "id": "D",
+     "text": "amino acid"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "The primary structure responsible for pumping blood for circulation through the mammalian circulatory systems is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "veins"
+    },
+    {
+     "id": "B",
+     "text": "right auricle"
+    },
+    {
+     "id": "C",
+     "text": "arteries"
+    },
+    {
+     "id": "D",
+     "text": "left ventricle"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "Circulation of blood to all parts of the body except the lungs is through",
+   "options": [
+    {
+     "id": "A",
+     "text": "the pulmonary artery"
+    },
+    {
+     "id": "B",
+     "text": "systemic circulation"
+    },
+    {
+     "id": "C",
+     "text": "the lymphatic system"
+    },
+    {
+     "id": "D",
+     "text": "pulmonary circulation"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "Yeast respires anaerobically to convert simple sugar to carbon (IV) oxide and",
+   "options": [
+    {
+     "id": "A",
+     "text": "alcohol"
+    },
+    {
+     "id": "B",
+     "text": "acid"
+    },
+    {
+     "id": "C",
+     "text": "oxygen"
+    },
+    {
+     "id": "D",
+     "text": "water"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "The sheet of muscle that separates the thoracic and the abdominal cavities is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "diaphragm"
+    },
+    {
+     "id": "B",
+     "text": "intercostal muscle"
+    },
+    {
+     "id": "C",
+     "text": "pleural membrane"
+    },
+    {
+     "id": "D",
+     "text": "pericardium"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "The oily substance that lubricates the mammalian hair to keep it flexible and water repellent is secreted by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "sweat glands"
+    },
+    {
+     "id": "B",
+     "text": "sebaceous glands"
+    },
+    {
+     "id": "C",
+     "text": "fatty cells"
+    },
+    {
+     "id": "D",
+     "text": "granular layer"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "The outer layer of the kidney where the Bowman's capsules are found is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "cortex"
+    },
+    {
+     "id": "B",
+     "text": "pelvis"
+    },
+    {
+     "id": "C",
+     "text": "medulla"
+    },
+    {
+     "id": "D",
+     "text": "pyramid"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "reproduction-animals",
+   "question": "In the male reproductive system of a mammal, sperm is stored in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "van deferens"
+    },
+    {
+     "id": "B",
+     "text": "urethra"
+    },
+    {
+     "id": "C",
+     "text": "epididymis"
+    },
+    {
+     "id": "D",
+     "text": "seminiferous tubules"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "Chemosynthetic organisms are capable of manufacturing their food from simple inorganic substances through the process of",
+   "options": [
+    {
+     "id": "A",
+     "text": "oxidation"
+    },
+    {
+     "id": "B",
+     "text": "denitrification"
+    },
+    {
+     "id": "C",
+     "text": "reduction"
+    },
+    {
+     "id": "D",
+     "text": "phosphorylation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "digestive-system",
+   "question": "The part of the human gut that has an acidic content is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "stomach"
+    },
+    {
+     "id": "B",
+     "text": "duodenum"
+    },
+    {
+     "id": "C",
+     "text": "ileum"
+    },
+    {
+     "id": "D",
+     "text": "colon"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "A food chain always begins with a",
+   "options": [
+    {
+     "id": "A",
+     "text": "consumer"
+    },
+    {
+     "id": "B",
+     "text": "decomposer"
+    },
+    {
+     "id": "C",
+     "text": "producer"
+    },
+    {
+     "id": "D",
+     "text": "primary consumer"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Mycorrhizae promote plant growth by",
+   "options": [
+    {
+     "id": "A",
+     "text": "absorbing inorganic ions from the soil"
+    },
+    {
+     "id": "B",
+     "text": "protecting it from infection"
+    },
+    {
+     "id": "C",
+     "text": "helping it to utilize atmospheric nitrogen"
+    },
+    {
+     "id": "D",
+     "text": "serving as a growth regulator"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "reproduction-animals",
+   "question": "The barrier between maternal and foetal blood is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "placenta"
+    },
+    {
+     "id": "B",
+     "text": "liver"
+    },
+    {
+     "id": "C",
+     "text": "umbilical cord"
+    },
+    {
+     "id": "D",
+     "text": "uterine wall"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "The blood component that has the greatest affinity for oxygen is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "lymphocytes"
+    },
+    {
+     "id": "B",
+     "text": "leucocytes"
+    },
+    {
+     "id": "C",
+     "text": "erythrocytes"
+    },
+    {
+     "id": "D",
+     "text": "thrombocytes"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following organisms is mainly found in the marine habitat?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Achatina"
+    },
+    {
+     "id": "B",
+     "text": "Tilapia"
+    },
+    {
+     "id": "C",
+     "text": "Dog fish"
+    },
+    {
+     "id": "D",
+     "text": "Tortoise"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "support-movement",
+   "question": "The two halves of the pelvic girdle are joined together at the",
+   "options": [
+    {
+     "id": "A",
+     "text": "pubic symphysis"
+    },
+    {
+     "id": "B",
+     "text": "ilium"
+    },
+    {
+     "id": "C",
+     "text": "pubis"
+    },
+    {
+     "id": "D",
+     "text": "obturator foramen"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Low annual rainfall, sparse vegetation, high diurnal temperatures and cold nights are characteristic features of the",
+   "options": [
+    {
+     "id": "A",
+     "text": "tropical rainforest"
+    },
+    {
+     "id": "B",
+     "text": "desert"
+    },
+    {
+     "id": "C",
+     "text": "montane forest"
+    },
+    {
+     "id": "D",
+     "text": "guinea savanna"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The activity of an organism which affects the survival of another organism in the same habitat constitutes",
+   "options": [
+    {
+     "id": "A",
+     "text": "an edaphic factor"
+    },
+    {
+     "id": "B",
+     "text": "an abiotic factor"
+    },
+    {
+     "id": "C",
+     "text": "a biotic factor"
+    },
+    {
+     "id": "D",
+     "text": "a physiographic factor"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The average number of individuals of a species per unit area of the habitat is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "population density"
+    },
+    {
+     "id": "B",
+     "text": "population frequency"
+    },
+    {
+     "id": "C",
+     "text": "population size"
+    },
+    {
+     "id": "D",
+     "text": "population distribution"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "The vector for yellow fever is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Aedes mosquito"
+    },
+    {
+     "id": "B",
+     "text": "Anopheles mosquito"
+    },
+    {
+     "id": "C",
+     "text": "tsetse fly"
+    },
+    {
+     "id": "D",
+     "text": "blackfly"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "The protozoan plasmodium falciparum is transmitted by",
+   "options": [
+    {
+     "id": "A",
+     "text": "female Anopheles mosquitoes"
+    },
+    {
+     "id": "B",
+     "text": "female Aedes mosquitoes"
+    },
+    {
+     "id": "C",
+     "text": "female Culex mosquitoes"
+    },
+    {
+     "id": "D",
+     "text": "Female blackfly"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "A dilute solution of phenylthiocarbamide tastes bitter to some people and is tasteless to others. This is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "taste bud variation"
+    },
+    {
+     "id": "B",
+     "text": "discontinuous variation"
+    },
+    {
+     "id": "C",
+     "text": "morphological variation"
+    },
+    {
+     "id": "D",
+     "text": "continuous variation"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "Thyroxine and adrenalin are examples of hormones which control",
+   "options": [
+    {
+     "id": "A",
+     "text": "blood grouping"
+    },
+    {
+     "id": "B",
+     "text": "tongue rolling"
+    },
+    {
+     "id": "C",
+     "text": "behavioural patterns"
+    },
+    {
+     "id": "D",
+     "text": "colour variation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q44"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "A pair of genes that control a trait is referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "an allele"
+    },
+    {
+     "id": "B",
+     "text": "recessive"
+    },
+    {
+     "id": "C",
+     "text": "dominant"
+    },
+    {
+     "id": "D",
+     "text": "a hybrid"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "cell-division",
+   "question": "The chromosome number of a cell before and after the process of meiosis is conventionally represented as",
+   "options": [
+    {
+     "id": "A",
+     "text": "2n → 2n"
+    },
+    {
+     "id": "B",
+     "text": "n → n"
+    },
+    {
+     "id": "C",
+     "text": "n → 2n"
+    },
+    {
+     "id": "D",
+     "text": "2n → n"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q46"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "If both parents are heterozygous for a trait, the probability that an offspring will be recessive for that trait is",
+   "options": [
+    {
+     "id": "A",
+     "text": "3⁄4"
+    },
+    {
+     "id": "B",
+     "text": "1⁄2"
+    },
+    {
+     "id": "C",
+     "text": "1⁄4"
+    },
+    {
+     "id": "D",
+     "text": "1"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "At what stage in the life history of a mammal is the sex of an individual set?",
+   "options": [
+    {
+     "id": "A",
+     "text": "at adolescence"
+    },
+    {
+     "id": "B",
+     "text": "at puberty"
+    },
+    {
+     "id": "C",
+     "text": "at birth"
+    },
+    {
+     "id": "D",
+     "text": "at conception"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The main distinguishing features between the soldier termite and other members of the caste are the",
+   "options": [
+    {
+     "id": "A",
+     "text": "presence of wings, possession of a small head and large thorax"
+    },
+    {
+     "id": "B",
+     "text": "presence of wings, possession of a large thorax and a small head"
+    },
+    {
+     "id": "C",
+     "text": "absence of wings, possession of strong mandibles and a large head"
+    },
+    {
+     "id": "D",
+     "text": "absence of wings, possession of big head and the absence of mandible"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q49"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The flippers of a whale and the fins of a fish are examples of",
+   "options": [
+    {
+     "id": "A",
+     "text": "divergent evolution"
+    },
+    {
+     "id": "B",
+     "text": "coevolution"
+    },
+    {
+     "id": "C",
+     "text": "continuous variation"
+    },
+    {
+     "id": "D",
+     "text": "convergent evolution"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q50"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "In which of the following species is the biomass of an individual the smallest?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Agama sp"
+    },
+    {
+     "id": "B",
+     "text": "Bufo sp"
+    },
+    {
+     "id": "C",
+     "text": "Spirogyra sp"
+    },
+    {
+     "id": "D",
+     "text": "Tilapia sp"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Seed plants are divided into",
+   "options": [
+    {
+     "id": "A",
+     "text": "tracheophytes and ferns"
+    },
+    {
+     "id": "B",
+     "text": "angiosperms and gymnosperms"
+    },
+    {
+     "id": "C",
+     "text": "monocotyledons and dicotyledons"
+    },
+    {
+     "id": "D",
+     "text": "thallophytes and bryophytes"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "reproduction-animals",
+   "question": "In which of the following groups of vertebrates is parental care mostly exhibited?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Reptilia"
+    },
+    {
+     "id": "B",
+     "text": "Amphibia"
+    },
+    {
+     "id": "C",
+     "text": "Aves"
+    },
+    {
+     "id": "D",
+     "text": "Mammalia"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The adaptive importance of nuptial flight from termite colonies is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "disperse the reproductives in order to establish new colonies"
+    },
+    {
+     "id": "B",
+     "text": "provide abundant food for birds and other animals during the early rains"
+    },
+    {
+     "id": "C",
+     "text": "ensure cross-breeding between members of one colony and another"
+    },
+    {
+     "id": "D",
+     "text": "expel the reproductives so as to provide enough food for other members"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "cell-transport",
+   "question": "Which of the following can cause shrinkage of living cells?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Hypotonic solution"
+    },
+    {
+     "id": "B",
+     "text": "Isotonic solution"
+    },
+    {
+     "id": "C",
+     "text": "Deionized water"
+    },
+    {
+     "id": "D",
+     "text": "Hypertonic solution"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "Which of the following is true of leucocytes?",
+   "options": [
+    {
+     "id": "A",
+     "text": "they are respiratory pigments"
+    },
+    {
+     "id": "B",
+     "text": "they are most numerous and ramify all cells"
+    },
+    {
+     "id": "C",
+     "text": "they are large and nucleated"
+    },
+    {
+     "id": "D",
+     "text": "they are involved in blood clotting"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "The conversion of a nutrient into a molecule in the body of a consumer is referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "digestion"
+    },
+    {
+     "id": "B",
+     "text": "assimilation"
+    },
+    {
+     "id": "C",
+     "text": "absorption"
+    },
+    {
+     "id": "D",
+     "text": "inhibition"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "living-things-characteristics",
+   "question": "The ability of living organism to detect and respond to changes in the environment is referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "locomotion"
+    },
+    {
+     "id": "B",
+     "text": "irritability"
+    },
+    {
+     "id": "C",
+     "text": "growth"
+    },
+    {
+     "id": "D",
+     "text": "taxis"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "An example of an endospermous seed is",
+   "options": [
+    {
+     "id": "A",
+     "text": "maize grain"
+    },
+    {
+     "id": "B",
+     "text": "cashew nut"
+    },
+    {
+     "id": "C",
+     "text": "cotton seed"
+    },
+    {
+     "id": "D",
+     "text": "been seed"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "The path followed by air as it passes through the lungs in mammals is",
+   "options": [
+    {
+     "id": "A",
+     "text": "trachea → bronchi → bronchioles → alveoli"
+    },
+    {
+     "id": "B",
+     "text": "bronchi → trachea → alveoli → bronchioles"
+    },
+    {
+     "id": "C",
+     "text": "trachea → bronchioles →bronchi→ alveoli"
+    },
+    {
+     "id": "D",
+     "text": "bronchioles → alveoli → bronchi →trachea"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "nervous-system",
+   "question": "The movement response of a cockroach away from a light source can be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "positive phototaxism"
+    },
+    {
+     "id": "B",
+     "text": "negative phototaxism"
+    },
+    {
+     "id": "C",
+     "text": "negative phototropism"
+    },
+    {
+     "id": "D",
+     "text": "positive phototropism"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "The vascular tissues in higher plants are responsible for",
+   "options": [
+    {
+     "id": "A",
+     "text": "the movement of food and water"
+    },
+    {
+     "id": "B",
+     "text": "suction pressure"
+    },
+    {
+     "id": "C",
+     "text": "transpiration pull"
+    },
+    {
+     "id": "D",
+     "text": "the transport of gases and water"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "Which of the following organs regulates the levels of water, salts, hydrogen ions and urea in the mammalian blood?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Liver"
+    },
+    {
+     "id": "B",
+     "text": "Kidney"
+    },
+    {
+     "id": "C",
+     "text": "Bladder"
+    },
+    {
+     "id": "D",
+     "text": "Colon"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "The sequence of the one-way gaseous exchange mechanism in a fish is",
+   "options": [
+    {
+     "id": "A",
+     "text": "operculum → gills → mouth"
+    },
+    {
+     "id": "B",
+     "text": "gills → operculum → mouth"
+    },
+    {
+     "id": "C",
+     "text": "mouth → operculum → gills"
+    },
+    {
+     "id": "D",
+     "text": "mouth → gills → operculum"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "reproduction-animals",
+   "question": "The type of asexual reproduction that is common to both Paramecium and protists is",
+   "options": [
+    {
+     "id": "A",
+     "text": "budding"
+    },
+    {
+     "id": "B",
+     "text": "sporulation"
+    },
+    {
+     "id": "C",
+     "text": "fragmentation"
+    },
+    {
+     "id": "D",
+     "text": "fission"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "In an experiment to determine the percentage of humus and water in a soil sample, the following results were obtained: Weight of the evaporating basin alone = 80.5g Weight of basin and soil = 101.5g Weight after drying the soil in the oven = 99.0g Weight of basin and roasted soil = 95.5g The percentage of humus in the soil sample is",
+   "options": [
+    {
+     "id": "A",
+     "text": "16.7%"
+    },
+    {
+     "id": "B",
+     "text": "17.6%"
+    },
+    {
+     "id": "C",
+     "text": "26.7%"
+    },
+    {
+     "id": "D",
+     "text": "16.2%"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "An example of a filter -feeding animal is",
+   "options": [
+    {
+     "id": "A",
+     "text": "shark"
+    },
+    {
+     "id": "B",
+     "text": "butterfly"
+    },
+    {
+     "id": "C",
+     "text": "whale"
+    },
+    {
+     "id": "D",
+     "text": "mosquito"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following is a feature of the population pyramid of a developing country?",
+   "options": [
+    {
+     "id": "A",
+     "text": "long lifespan"
+    },
+    {
+     "id": "B",
+     "text": "low birth rate"
+    },
+    {
+     "id": "C",
+     "text": "low death rate"
+    },
+    {
+     "id": "D",
+     "text": "short lifespan"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The interaction of a community of organisms with its abiotic environment constitutes",
+   "options": [
+    {
+     "id": "A",
+     "text": "niche"
+    },
+    {
+     "id": "B",
+     "text": "a food chain"
+    },
+    {
+     "id": "C",
+     "text": "an ecosystem"
+    },
+    {
+     "id": "D",
+     "text": "a microhabitat"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "The vector of the malaria parasite is",
+   "options": [
+    {
+     "id": "A",
+     "text": "female Aedes mosquito"
+    },
+    {
+     "id": "B",
+     "text": "female Anopheles mosquito"
+    },
+    {
+     "id": "C",
+     "text": "male Culex mosquito"
+    },
+    {
+     "id": "D",
+     "text": "female Culex mosquito"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following instruments is used to measure relative humidity?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Hydrometer"
+    },
+    {
+     "id": "B",
+     "text": "Thermometer"
+    },
+    {
+     "id": "C",
+     "text": "Hygrometer"
+    },
+    {
+     "id": "D",
+     "text": "Anemometer"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "Exo-erythrocytic phase of the life cycle of malaria parasite occurs in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "liver of humans"
+    },
+    {
+     "id": "B",
+     "text": "reticuloendothelial cells of humans"
+    },
+    {
+     "id": "C",
+     "text": "Malpighian tubules of mosquito"
+    },
+    {
+     "id": "D",
+     "text": "brain of humans"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Habitats are generally classified into",
+   "options": [
+    {
+     "id": "A",
+     "text": "biotic and abiotic"
+    },
+    {
+     "id": "B",
+     "text": "aquatic and terrestrial"
+    },
+    {
+     "id": "C",
+     "text": "arboreal and marine biomes"
+    },
+    {
+     "id": "D",
+     "text": "microhabitats and macrohabitats"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "Dracunculiasis can be contracted through",
+   "options": [
+    {
+     "id": "A",
+     "text": "eating contaminated food"
+    },
+    {
+     "id": "B",
+     "text": "drinking contaminated water"
+    },
+    {
+     "id": "C",
+     "text": "bathing in contaminated water"
+    },
+    {
+     "id": "D",
+     "text": "bites of blackfly"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following groups of environmental factors are density- dependent?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Food, salinity, accumulation of metabolites and light"
+    },
+    {
+     "id": "B",
+     "text": "Temperature, salinity predation and disease"
+    },
+    {
+     "id": "C",
+     "text": "Food predation, disease and accumulation of metabolites"
+    },
+    {
+     "id": "D",
+     "text": "Temperature food disease and light"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Millet, sorghum, maize and onions are common crops grown in Nigeria in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "tropical rainforests"
+    },
+    {
+     "id": "B",
+     "text": "Sudan savanna"
+    },
+    {
+     "id": "C",
+     "text": "montane forests"
+    },
+    {
+     "id": "D",
+     "text": "Sahel savanna"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "In which of the following biomes is the south western part of Nigeria located?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Temperate forest"
+    },
+    {
+     "id": "B",
+     "text": "Tropical rainforest"
+    },
+    {
+     "id": "C",
+     "text": "Tropical woodland"
+    },
+    {
+     "id": "D",
+     "text": "Desert"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "The inheritable characters that are determined by a gene located on the X- chromosome is",
+   "options": [
+    {
+     "id": "A",
+     "text": "recessive"
+    },
+    {
+     "id": "B",
+     "text": "sex-linked"
+    },
+    {
+     "id": "C",
+     "text": "homozygous"
+    },
+    {
+     "id": "D",
+     "text": "dominant"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Lack of space in a population could lead to an increase in",
+   "options": [
+    {
+     "id": "A",
+     "text": "water scarcity"
+    },
+    {
+     "id": "B",
+     "text": "birth rate"
+    },
+    {
+     "id": "C",
+     "text": "disease rate"
+    },
+    {
+     "id": "D",
+     "text": "drought"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "If the cross of a red-flowered plant with a white-flowered plant produces a pink- flowered plant, it is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "codominance"
+    },
+    {
+     "id": "B",
+     "text": "incomplete dominance"
+    },
+    {
+     "id": "C",
+     "text": "mutation"
+    },
+    {
+     "id": "D",
+     "text": "linkage"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "Which of the following theories was NOT considered by Darwin in his evolutionary theory?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Variation"
+    },
+    {
+     "id": "B",
+     "text": "Survival of the fittest"
+    },
+    {
+     "id": "C",
+     "text": "Use and disuse"
+    },
+    {
+     "id": "D",
+     "text": "Competition"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q44"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "The number of alleles controlling blood groups in humans",
+   "options": [
+    {
+     "id": "A",
+     "text": "3"
+    },
+    {
+     "id": "B",
+     "text": "4"
+    },
+    {
+     "id": "C",
+     "text": "5"
+    },
+    {
+     "id": "D",
+     "text": "2"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q46"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "During blood transfusion, agglutination may occur as a result of the reaction between",
+   "options": [
+    {
+     "id": "A",
+     "text": "contrasting antigens and antibodies"
+    },
+    {
+     "id": "B",
+     "text": "two different antigens"
+    },
+    {
+     "id": "C",
+     "text": "two different antibodies"
+    },
+    {
+     "id": "D",
+     "text": "similar antigens and antibodies"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The fallacy in Lamarck's evolutionary theory was the assumption that",
+   "options": [
+    {
+     "id": "A",
+     "text": "traits are acquired through disuse of body parts"
+    },
+    {
+     "id": "B",
+     "text": "acquired traits are heritable"
+    },
+    {
+     "id": "C",
+     "text": "acquired traits are seldom formed"
+    },
+    {
+     "id": "D",
+     "text": "traits are acquired through the use of body parts"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "Which of the following is most advanced in the evolutionary trend of animals?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Liver fluke"
+    },
+    {
+     "id": "B",
+     "text": "Earthworm"
+    },
+    {
+     "id": "C",
+     "text": "Snail"
+    },
+    {
+     "id": "D",
+     "text": "Cockroach"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "growth-development",
+   "question": "Plants that show secondary growth are usually found among the",
+   "options": [
+    {
+     "id": "A",
+     "text": "thallophytes"
+    },
+    {
+     "id": "B",
+     "text": "pteridophytes"
+    },
+    {
+     "id": "C",
+     "text": "monocotyledons"
+    },
+    {
+     "id": "D",
+     "text": "dicotyledons"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "The fungi are distinct group of eukaryotes mainly because they have",
+   "options": [
+    {
+     "id": "A",
+     "text": "spores"
+    },
+    {
+     "id": "B",
+     "text": "no chlorophyll"
+    },
+    {
+     "id": "C",
+     "text": "many fruiting bodies"
+    },
+    {
+     "id": "D",
+     "text": "sexual and sexual reproduction"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "An arthropod that is destructive at early stage of its life cycle is",
+   "options": [
+    {
+     "id": "A",
+     "text": "butterfly"
+    },
+    {
+     "id": "B",
+     "text": "mosquito"
+    },
+    {
+     "id": "C",
+     "text": "bee"
+    },
+    {
+     "id": "D",
+     "text": "millipede"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "An animal body that can be cut along its axis in any plane to give two identical parts is said to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "radially symmetrical"
+    },
+    {
+     "id": "B",
+     "text": "bilaterally symmetrical"
+    },
+    {
+     "id": "C",
+     "text": "asymmetrical"
+    },
+    {
+     "id": "D",
+     "text": "symmetrical"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Which of the following possesses mammary gland?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Dogfish"
+    },
+    {
+     "id": "B",
+     "text": "whale"
+    },
+    {
+     "id": "C",
+     "text": "shark"
+    },
+    {
+     "id": "D",
+     "text": "catfish"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The feature that links birds to reptiles in evolution is the possession of",
+   "options": [
+    {
+     "id": "A",
+     "text": "feathers"
+    },
+    {
+     "id": "B",
+     "text": "break"
+    },
+    {
+     "id": "C",
+     "text": "skeleton"
+    },
+    {
+     "id": "D",
+     "text": "scales"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Countershading is an adaptive feature that enables animals to",
+   "options": [
+    {
+     "id": "A",
+     "text": "fight enemies"
+    },
+    {
+     "id": "B",
+     "text": "remain undetected"
+    },
+    {
+     "id": "C",
+     "text": "warn enemies"
+    },
+    {
+     "id": "D",
+     "text": "attract mates"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "Which of the following plant structures lacks a waterproof cuticle?",
+   "options": [
+    {
+     "id": "A",
+     "text": "leaf"
+    },
+    {
+     "id": "B",
+     "text": "stem"
+    },
+    {
+     "id": "C",
+     "text": "root"
+    },
+    {
+     "id": "D",
+     "text": "shoot"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "In plants which of the following is required in minute quantities for growth?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Copper"
+    },
+    {
+     "id": "B",
+     "text": "Potassium"
+    },
+    {
+     "id": "C",
+     "text": "Phosphorus"
+    },
+    {
+     "id": "D",
+     "text": "Sodium"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "Which of the following organisms is both parasitic and autotrophic?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Sundew"
+    },
+    {
+     "id": "B",
+     "text": "Loranthus"
+    },
+    {
+     "id": "C",
+     "text": "Rhizopus"
+    },
+    {
+     "id": "D",
+     "text": "Tapeworm"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "digestive-system",
+   "question": "A function of the hydrochloric acid produced in the human stomach during digestion is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "neutralise the effect of bile"
+    },
+    {
+     "id": "B",
+     "text": "coagulate milk protein and emulsify fats"
+    },
+    {
+     "id": "C",
+     "text": "stop the action of ptyalin"
+    },
+    {
+     "id": "D",
+     "text": "break up food into smaller particles"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "Which of the following is a polysaccharide?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Glucose"
+    },
+    {
+     "id": "B",
+     "text": "Sucrose"
+    },
+    {
+     "id": "C",
+     "text": "Maltose"
+    },
+    {
+     "id": "D",
+     "text": "Cellulose"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "In the kidney of mammals, the site of ultrafiltration is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "uriniferous tubule"
+    },
+    {
+     "id": "B",
+     "text": "Bowman's capsule"
+    },
+    {
+     "id": "C",
+     "text": "loop of Henle"
+    },
+    {
+     "id": "D",
+     "text": "renal tubule"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "growth-development",
+   "question": "Which of the following is involved in secondary thickening in plants?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Collenchyma and xylem cells"
+    },
+    {
+     "id": "B",
+     "text": "Vascular cambium"
+    },
+    {
+     "id": "C",
+     "text": "Vascular cambium and cork cambium"
+    },
+    {
+     "id": "D",
+     "text": "Cork cambium and sclerenchyma"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "An example of a fruit that develops from a single carpel is",
+   "options": [
+    {
+     "id": "A",
+     "text": "okro"
+    },
+    {
+     "id": "B",
+     "text": "tomato"
+    },
+    {
+     "id": "C",
+     "text": "bean"
+    },
+    {
+     "id": "D",
+     "text": "orange"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "Plant growth can be artificially stimulated by the addition of",
+   "options": [
+    {
+     "id": "A",
+     "text": "gibberellin"
+    },
+    {
+     "id": "B",
+     "text": "kinin"
+    },
+    {
+     "id": "C",
+     "text": "abscisic acid"
+    },
+    {
+     "id": "D",
+     "text": "ethylene"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "nervous-system",
+   "question": "The autonomic nervous system consists of neurons that control the",
+   "options": [
+    {
+     "id": "A",
+     "text": "voluntary muscles"
+    },
+    {
+     "id": "B",
+     "text": "heart beat"
+    },
+    {
+     "id": "C",
+     "text": "tongue"
+    },
+    {
+     "id": "D",
+     "text": "hands"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Plants of temperate origin can be grown in tropical areas in the vegetation zones of the",
+   "options": [
+    {
+     "id": "A",
+     "text": "rain forest"
+    },
+    {
+     "id": "B",
+     "text": "Guinea savanna"
+    },
+    {
+     "id": "C",
+     "text": "Sudan savanna"
+    },
+    {
+     "id": "D",
+     "text": "montane forest"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "The water cycle is maintained mainly by",
+   "options": [
+    {
+     "id": "A",
+     "text": "evaporation of water in the environment"
+    },
+    {
+     "id": "B",
+     "text": "evaporation and condensation of water in the environment"
+    },
+    {
+     "id": "C",
+     "text": "condensation of water in the environment"
+    },
+    {
+     "id": "D",
+     "text": "transpiration and respiration in plants"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Organisms living in an estuarine habitat are adapted to",
+   "options": [
+    {
+     "id": "A",
+     "text": "withstand wide fluctuations in temperature"
+    },
+    {
+     "id": "B",
+     "text": "survive only in water with low salinity"
+    },
+    {
+     "id": "C",
+     "text": "withstand wide fluctuations in salinity"
+    },
+    {
+     "id": "D",
+     "text": "feed only on phytoplankton and dead organic matter"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The presence of stilt roots, pneumatophores, sunken stomata and salt glands are adaptive features of plants found in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "tropical rainforest"
+    },
+    {
+     "id": "B",
+     "text": "mangrove swamps"
+    },
+    {
+     "id": "C",
+     "text": "grassland"
+    },
+    {
+     "id": "D",
+     "text": "montane forest"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Which of the following animals can exist solely on the water they get from food and metabolic reactions?",
+   "options": [
+    {
+     "id": "A",
+     "text": "forest arboreal dweller"
+    },
+    {
+     "id": "B",
+     "text": "Desert dwellers"
+    },
+    {
+     "id": "C",
+     "text": "forest-ground dweller"
+    },
+    {
+     "id": "D",
+     "text": "rainforest dwellers"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The most likely first colonizers of a bare rock are",
+   "options": [
+    {
+     "id": "A",
+     "text": "mosses"
+    },
+    {
+     "id": "B",
+     "text": "ferns"
+    },
+    {
+     "id": "C",
+     "text": "lichen"
+    },
+    {
+     "id": "D",
+     "text": "fungi"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The abiotic factors that control human population include",
+   "options": [
+    {
+     "id": "A",
+     "text": "disease and famine"
+    },
+    {
+     "id": "B",
+     "text": "space and rainfall"
+    },
+    {
+     "id": "C",
+     "text": "flooding and earthquake"
+    },
+    {
+     "id": "D",
+     "text": "temperature and disease"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "conservation-pollution",
+   "question": "An indigenous method of renewing and maintaining soil fertility is by",
+   "options": [
+    {
+     "id": "A",
+     "text": "clearing farms by burning"
+    },
+    {
+     "id": "B",
+     "text": "planting one crop type"
+    },
+    {
+     "id": "C",
+     "text": "adding inorganic fertilizers yearly"
+    },
+    {
+     "id": "D",
+     "text": "crop rotation and shifting cultivation"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "The diseases caused by water-borne pathogens include",
+   "options": [
+    {
+     "id": "A",
+     "text": "gonorrhoea and poliomyelitis"
+    },
+    {
+     "id": "B",
+     "text": "typhoid and syphilis"
+    },
+    {
+     "id": "C",
+     "text": "tuberculosis and cholera"
+    },
+    {
+     "id": "D",
+     "text": "typhoid and cholera"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "A yellow maize is planted and all the fruits obtained are of yellow seeds. When they are cross-bred, yellow seeds and white seeds are obtained in a ratio 3:1. The yellow seed is said to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "non-heritable"
+    },
+    {
+     "id": "B",
+     "text": "sex-linked"
+    },
+    {
+     "id": "C",
+     "text": "a recessive trait"
+    },
+    {
+     "id": "D",
+     "text": "a dominant trait"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "When a colour-blind man marries a carrier woman. What is the probability of their offspring being colour blind?",
+   "options": [
+    {
+     "id": "A",
+     "text": "25%"
+    },
+    {
+     "id": "B",
+     "text": "50%"
+    },
+    {
+     "id": "C",
+     "text": "75%"
+    },
+    {
+     "id": "D",
+     "text": "100%"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "The correct base pairing for DNA is",
+   "options": [
+    {
+     "id": "A",
+     "text": "adenine → thymine and guanine → cytosine"
+    },
+    {
+     "id": "B",
+     "text": "adenine → guanine and thymine → cytosine"
+    },
+    {
+     "id": "C",
+     "text": "adenine → cytosine and guanine → thymine"
+    },
+    {
+     "id": "D",
+     "text": "adenine → adenine and cytosine → cytosine"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The short thick beak in birds is an adaptation for",
+   "options": [
+    {
+     "id": "A",
+     "text": "crushing seeds"
+    },
+    {
+     "id": "B",
+     "text": "sucking nectar"
+    },
+    {
+     "id": "C",
+     "text": "tearing flash"
+    },
+    {
+     "id": "D",
+     "text": "straining mud"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q46"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The basking of Agama lizards in the sun is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "change the colour of their body"
+    },
+    {
+     "id": "B",
+     "text": "raise their body temperature to become active"
+    },
+    {
+     "id": "C",
+     "text": "fight to defend their territories"
+    },
+    {
+     "id": "D",
+     "text": "attract the female for courtship"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The significance of a very large number of termites involved in nuptial swarming is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "provide birds with plenty of food"
+    },
+    {
+     "id": "B",
+     "text": "ensure their perpetuation despite predatory pressure"
+    },
+    {
+     "id": "C",
+     "text": "search for a favourable place to breed"
+    },
+    {
+     "id": "D",
+     "text": "ensure that every individual gets a mate"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The use and disuse of body parts and the inheritance of acquired traits were used to explain",
+   "options": [
+    {
+     "id": "A",
+     "text": "Darwin's theory"
+    },
+    {
+     "id": "B",
+     "text": "Lamarck's theory"
+    },
+    {
+     "id": "C",
+     "text": "genetic drift"
+    },
+    {
+     "id": "D",
+     "text": "gene flow"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q49"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "From his study of Galapagos finches, Darwin derived his theory of evolution from",
+   "options": [
+    {
+     "id": "A",
+     "text": "comparative anatomy"
+    },
+    {
+     "id": "B",
+     "text": "comparative physiology"
+    },
+    {
+     "id": "C",
+     "text": "fossil remains"
+    },
+    {
+     "id": "D",
+     "text": "comparative embryology"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q50"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "living-things-characteristics",
+   "question": "The process in which complex substances are broken down into simpler ones is referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "anabolism"
+    },
+    {
+     "id": "B",
+     "text": "catabolism"
+    },
+    {
+     "id": "C",
+     "text": "metabolism"
+    },
+    {
+     "id": "D",
+     "text": "tropism"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "The organ which is sensitive to light in Euglena is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "gullet"
+    },
+    {
+     "id": "B",
+     "text": "flagellum"
+    },
+    {
+     "id": "C",
+     "text": "chloroplast"
+    },
+    {
+     "id": "D",
+     "text": "eyespot"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "cell-structure",
+   "question": "The organelles present in cells that are actively respiring and photosynthesizing are",
+   "options": [
+    {
+     "id": "A",
+     "text": "lysosomes and ribosomes"
+    },
+    {
+     "id": "B",
+     "text": "Golgi apparatus and endoplasmic reticulum"
+    },
+    {
+     "id": "C",
+     "text": "nucleus and centrioles"
+    },
+    {
+     "id": "D",
+     "text": "mitochondria and chloroplast"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "Taenia solium can be found in",
+   "options": [
+    {
+     "id": "A",
+     "text": "cow"
+    },
+    {
+     "id": "B",
+     "text": "goat"
+    },
+    {
+     "id": "C",
+     "text": "dog"
+    },
+    {
+     "id": "D",
+     "text": "pig"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Which of the following describes a characteristic of arthropods?",
+   "options": [
+    {
+     "id": "A",
+     "text": "The organism finds it easy to grow freely"
+    },
+    {
+     "id": "B",
+     "text": "the organism has a pair of jointed appendages"
+    },
+    {
+     "id": "C",
+     "text": "the body is not divided into a number of segments seg"
+    },
+    {
+     "id": "D",
+     "text": "the body is covered by chitin"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Which of the following types of feathers is used for flight in birds?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Quill"
+    },
+    {
+     "id": "B",
+     "text": "Filo plume"
+    },
+    {
+     "id": "C",
+     "text": "Covert"
+    },
+    {
+     "id": "D",
+     "text": "Down"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The plants that grow in deserts or very dry areas are referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "mesophytes"
+    },
+    {
+     "id": "B",
+     "text": "hydrophytes"
+    },
+    {
+     "id": "C",
+     "text": "epiphytes"
+    },
+    {
+     "id": "D",
+     "text": "xerophytes"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Proboscis is a structure that is mostly found in",
+   "options": [
+    {
+     "id": "A",
+     "text": "insects"
+    },
+    {
+     "id": "B",
+     "text": "tapeworms"
+    },
+    {
+     "id": "C",
+     "text": "amphibians"
+    },
+    {
+     "id": "D",
+     "text": "molluscs"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The structural adaptation of desert plants for water conservation is",
+   "options": [
+    {
+     "id": "A",
+     "text": "broad leaves with numerous stomata"
+    },
+    {
+     "id": "B",
+     "text": "spongy mesophyll"
+    },
+    {
+     "id": "C",
+     "text": "spiny leaves"
+    },
+    {
+     "id": "D",
+     "text": "prominent stomata in leaves"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The long and sharp clawed feet of birds is an adaptation for",
+   "options": [
+    {
+     "id": "A",
+     "text": "crushing seeds"
+    },
+    {
+     "id": "B",
+     "text": "scooping mud"
+    },
+    {
+     "id": "C",
+     "text": "tearing flesh"
+    },
+    {
+     "id": "D",
+     "text": "grasping prey"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "During the manufacture of food by plants, which of the following organism use energy from the sun?",
+   "options": [
+    {
+     "id": "A",
+     "text": "anabaena"
+    },
+    {
+     "id": "B",
+     "text": "sulphur bacteria"
+    },
+    {
+     "id": "C",
+     "text": "Nitrosomonas sp"
+    },
+    {
+     "id": "D",
+     "text": "Nitrobacter sp"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "Movement of minerals and chemical compounds with a plant occurs during",
+   "options": [
+    {
+     "id": "A",
+     "text": "osmosis"
+    },
+    {
+     "id": "B",
+     "text": "translocation"
+    },
+    {
+     "id": "C",
+     "text": "transpiration"
+    },
+    {
+     "id": "D",
+     "text": "diffusion"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "digestive-system",
+   "question": "The enzyme that is present in the saliva is",
+   "options": [
+    {
+     "id": "A",
+     "text": "rennin"
+    },
+    {
+     "id": "B",
+     "text": "lipase"
+    },
+    {
+     "id": "C",
+     "text": "pepsin"
+    },
+    {
+     "id": "D",
+     "text": "ptyalin"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "Plants that have special devices for trapping and digesting insects are",
+   "options": [
+    {
+     "id": "A",
+     "text": "carnivorous"
+    },
+    {
+     "id": "B",
+     "text": "symbiotic"
+    },
+    {
+     "id": "C",
+     "text": "parasitic"
+    },
+    {
+     "id": "D",
+     "text": "saprophytic"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "The process of transforming the chemical energy of cellular fuels into the high energy bonds of ATP in plants is",
+   "options": [
+    {
+     "id": "A",
+     "text": "autotropism"
+    },
+    {
+     "id": "B",
+     "text": "photosynthesis"
+    },
+    {
+     "id": "C",
+     "text": "photolysis"
+    },
+    {
+     "id": "D",
+     "text": "respiration"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Fungi are referred to as heterotrophs because they",
+   "options": [
+    {
+     "id": "A",
+     "text": "are filamentous"
+    },
+    {
+     "id": "B",
+     "text": "lack chlorophyll"
+    },
+    {
+     "id": "C",
+     "text": "have mycelium"
+    },
+    {
+     "id": "D",
+     "text": "lack roots"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "An example of a parasitic protozoan is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Paramecium"
+    },
+    {
+     "id": "B",
+     "text": "Plasmodium"
+    },
+    {
+     "id": "C",
+     "text": "Euglena"
+    },
+    {
+     "id": "D",
+     "text": "Chlamydomonas"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "The blood circulatory system of vertebrates consists of",
+   "options": [
+    {
+     "id": "A",
+     "text": "heart, arteries, capillaries and veins"
+    },
+    {
+     "id": "B",
+     "text": "heart, aorta, capillaries and veins"
+    },
+    {
+     "id": "C",
+     "text": "heart, aorta, arteries and veins"
+    },
+    {
+     "id": "D",
+     "text": "heart, vena cava, arteries, and veins"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "A plant tissue that carries water and mineral salts is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "cambium"
+    },
+    {
+     "id": "B",
+     "text": "xylem"
+    },
+    {
+     "id": "C",
+     "text": "cortex"
+    },
+    {
+     "id": "D",
+     "text": "phloem"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "Which of the following helps in the clotting of blood?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Red blood cells"
+    },
+    {
+     "id": "B",
+     "text": "White blood cells"
+    },
+    {
+     "id": "C",
+     "text": "Plasma"
+    },
+    {
+     "id": "D",
+     "text": "Platelets"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "Which of the following forms about 55% of the volume of the blood in man?",
+   "options": [
+    {
+     "id": "A",
+     "text": "leucocytes"
+    },
+    {
+     "id": "B",
+     "text": "platelets"
+    },
+    {
+     "id": "C",
+     "text": "plasma"
+    },
+    {
+     "id": "D",
+     "text": "erythrocytes"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "The part of the mammalian skin involved in excretion is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "sweat glands"
+    },
+    {
+     "id": "B",
+     "text": "Malpighian layer"
+    },
+    {
+     "id": "C",
+     "text": "sebaceous gland"
+    },
+    {
+     "id": "D",
+     "text": "horny layer"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "Which of the following is a waste product of an insect?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Alkaloids"
+    },
+    {
+     "id": "B",
+     "text": "Uric acid"
+    },
+    {
+     "id": "C",
+     "text": "Sweat"
+    },
+    {
+     "id": "D",
+     "text": "Mucilage"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "support-movement",
+   "question": "The main structure in vertebrates that supports and protects the body is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "skeleton"
+    },
+    {
+     "id": "B",
+     "text": "ligament"
+    },
+    {
+     "id": "C",
+     "text": "muscle"
+    },
+    {
+     "id": "D",
+     "text": "joint"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "support-movement",
+   "question": "The chitin in the exoskeleton of many arthropods is strengthened by",
+   "options": [
+    {
+     "id": "A",
+     "text": "lids"
+    },
+    {
+     "id": "B",
+     "text": "proteins"
+    },
+    {
+     "id": "C",
+     "text": "calcium compounds"
+    },
+    {
+     "id": "D",
+     "text": "organic salt"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "The transfer of pollen grains from the anther to a stigma is",
+   "options": [
+    {
+     "id": "A",
+     "text": "propagation"
+    },
+    {
+     "id": "B",
+     "text": "placentation"
+    },
+    {
+     "id": "C",
+     "text": "pollination"
+    },
+    {
+     "id": "D",
+     "text": "fertilization"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "The male reproductive organ of a flower is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "carpel"
+    },
+    {
+     "id": "B",
+     "text": "stamen"
+    },
+    {
+     "id": "C",
+     "text": "petal"
+    },
+    {
+     "id": "D",
+     "text": "sepal"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "The gland that is found just below the hypothalamus is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "parathyroid"
+    },
+    {
+     "id": "B",
+     "text": "adrenal"
+    },
+    {
+     "id": "C",
+     "text": "pituitary"
+    },
+    {
+     "id": "D",
+     "text": "thyroid"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "The most important plant hormone is",
+   "options": [
+    {
+     "id": "A",
+     "text": "cytokinin"
+    },
+    {
+     "id": "B",
+     "text": "abscisic acid"
+    },
+    {
+     "id": "C",
+     "text": "auxin"
+    },
+    {
+     "id": "D",
+     "text": "gibberellin"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "sense-organs",
+   "question": "The sensory cell that responds to dim light is referred to as the",
+   "options": [
+    {
+     "id": "A",
+     "text": "cone"
+    },
+    {
+     "id": "B",
+     "text": "lens"
+    },
+    {
+     "id": "C",
+     "text": "rod"
+    },
+    {
+     "id": "D",
+     "text": "iris"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "Oestrogen is a hormone that is synthesized in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "ovaries"
+    },
+    {
+     "id": "B",
+     "text": "testes"
+    },
+    {
+     "id": "C",
+     "text": "anterior pituitary"
+    },
+    {
+     "id": "D",
+     "text": "adrenal cortex"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "sense-organs",
+   "question": "The eye defect cause by the development of cloudy areas in the lenses is",
+   "options": [
+    {
+     "id": "A",
+     "text": "presbyopia"
+    },
+    {
+     "id": "B",
+     "text": "glaucoma"
+    },
+    {
+     "id": "C",
+     "text": "cataract"
+    },
+    {
+     "id": "D",
+     "text": "astigmatism"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "conservation-pollution",
+   "question": "A pollutant that is biodegradable is",
+   "options": [
+    {
+     "id": "A",
+     "text": "crude oil"
+    },
+    {
+     "id": "B",
+     "text": "heavy metals"
+    },
+    {
+     "id": "C",
+     "text": "cellophane"
+    },
+    {
+     "id": "D",
+     "text": "sewage"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "A tropical disease caused by Trypanosoma is",
+   "options": [
+    {
+     "id": "A",
+     "text": "sleeping sickness"
+    },
+    {
+     "id": "B",
+     "text": "river blindness"
+    },
+    {
+     "id": "C",
+     "text": "yellow fever"
+    },
+    {
+     "id": "D",
+     "text": "malaria"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The solid part of the ecosystem is referred to as the",
+   "options": [
+    {
+     "id": "A",
+     "text": "atmosphere"
+    },
+    {
+     "id": "B",
+     "text": "hydrosphere"
+    },
+    {
+     "id": "C",
+     "text": "biosphere"
+    },
+    {
+     "id": "D",
+     "text": "lithosphere"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "Which of the following is caused by Treponema pallidum?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Gonorrhoea"
+    },
+    {
+     "id": "B",
+     "text": "Leprosy"
+    },
+    {
+     "id": "C",
+     "text": "Tuberculosis"
+    },
+    {
+     "id": "D",
+     "text": "Syphilis"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "To which blood group do universal recipients belong?",
+   "options": [
+    {
+     "id": "A",
+     "text": "B"
+    },
+    {
+     "id": "B",
+     "text": "A"
+    },
+    {
+     "id": "C",
+     "text": "O"
+    },
+    {
+     "id": "D",
+     "text": "AB"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q44"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "The clumping together of red blood cells is",
+   "options": [
+    {
+     "id": "A",
+     "text": "agglutination"
+    },
+    {
+     "id": "B",
+     "text": "fusion"
+    },
+    {
+     "id": "C",
+     "text": "transfusion"
+    },
+    {
+     "id": "D",
+     "text": "compatibility"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Physiological adaptation to very dry conditions in animals demonstrates",
+   "options": [
+    {
+     "id": "A",
+     "text": "rejuvenation"
+    },
+    {
+     "id": "B",
+     "text": "xeromorphism"
+    },
+    {
+     "id": "C",
+     "text": "hibernation"
+    },
+    {
+     "id": "D",
+     "text": "aestivation"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q46"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "One of adaptation of Cactus opuntia to conserve water is the reduction of",
+   "options": [
+    {
+     "id": "A",
+     "text": "internodes"
+    },
+    {
+     "id": "B",
+     "text": "stem to leaves"
+    },
+    {
+     "id": "C",
+     "text": "leaves to spine"
+    },
+    {
+     "id": "D",
+     "text": "flower size"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "levels-of-organisation",
+   "question": "The lowest level of organization in living organisms is",
+   "options": [
+    {
+     "id": "A",
+     "text": "organ"
+    },
+    {
+     "id": "B",
+     "text": "cell"
+    },
+    {
+     "id": "C",
+     "text": "system"
+    },
+    {
+     "id": "D",
+     "text": "tissue"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Which of the following organisms is multi-cellular?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Chlamydomonas"
+    },
+    {
+     "id": "B",
+     "text": "Spirogyra"
+    },
+    {
+     "id": "C",
+     "text": "Amoeba"
+    },
+    {
+     "id": "D",
+     "text": "Euglena"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "In bryophytes, sex organs are produced in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "protonema"
+    },
+    {
+     "id": "B",
+     "text": "sporophyte"
+    },
+    {
+     "id": "C",
+     "text": "gametophyte"
+    },
+    {
+     "id": "D",
+     "text": "rhizoid"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Seed plants are the most dominant vegetation on land because of",
+   "options": [
+    {
+     "id": "A",
+     "text": "their motile gametes"
+    },
+    {
+     "id": "B",
+     "text": "their ability to photosynthesize"
+    },
+    {
+     "id": "C",
+     "text": "efficient seed dispersal"
+    },
+    {
+     "id": "D",
+     "text": "availability of water"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following is an arboreal organism?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Elephant"
+    },
+    {
+     "id": "B",
+     "text": "Fish"
+    },
+    {
+     "id": "C",
+     "text": "Antelope"
+    },
+    {
+     "id": "D",
+     "text": "Bird"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "I 2⁄1 , c 0⁄0, pm 3⁄2, m 3⁄3. The general formula above represents that of",
+   "options": [
+    {
+     "id": "A",
+     "text": "an omnivore"
+    },
+    {
+     "id": "B",
+     "text": "a detritus feeder"
+    },
+    {
+     "id": "C",
+     "text": "a carnivore"
+    },
+    {
+     "id": "D",
+     "text": "a herbivore"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "A circulatory system is very essential in mammals but not in smaller organisms like Amoeba because",
+   "options": [
+    {
+     "id": "A",
+     "text": "amoeba lives in freshwater"
+    },
+    {
+     "id": "B",
+     "text": "diffusion is sufficient to transport materials in Amoeba"
+    },
+    {
+     "id": "C",
+     "text": "amoeba lacks blood containing haemoglobin"
+    },
+    {
+     "id": "D",
+     "text": "amoeba exhibits anaerobic respiration"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "In vascular plants, the sieve tubes and companion cells are present in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "cambium"
+    },
+    {
+     "id": "B",
+     "text": "cortex"
+    },
+    {
+     "id": "C",
+     "text": "xylem"
+    },
+    {
+     "id": "D",
+     "text": "phloem"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "The stomata of leaves are similar in function to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "pharynx of humans"
+    },
+    {
+     "id": "B",
+     "text": "scales of fish"
+    },
+    {
+     "id": "C",
+     "text": "spiracle of insects"
+    },
+    {
+     "id": "D",
+     "text": "trachea of toads"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "The use of moist skin for respiration in amphibians is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "cellular respiration"
+    },
+    {
+     "id": "B",
+     "text": "cutaneous respiration"
+    },
+    {
+     "id": "C",
+     "text": "buccal respiration"
+    },
+    {
+     "id": "D",
+     "text": "pulmonary respiration"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "Water in plants is removed as water vapour through the process of",
+   "options": [
+    {
+     "id": "A",
+     "text": "diffusion"
+    },
+    {
+     "id": "B",
+     "text": "osmosis"
+    },
+    {
+     "id": "C",
+     "text": "evaporation"
+    },
+    {
+     "id": "D",
+     "text": "transpiration"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "An example of an organ of perennation in plants is",
+   "options": [
+    {
+     "id": "A",
+     "text": "rhizome"
+    },
+    {
+     "id": "B",
+     "text": "seed"
+    },
+    {
+     "id": "C",
+     "text": "petal of a flower"
+    },
+    {
+     "id": "D",
+     "text": "calyx of flower"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Alternation of generation is a feature shown in",
+   "options": [
+    {
+     "id": "A",
+     "text": "mosses"
+    },
+    {
+     "id": "B",
+     "text": "fungi"
+    },
+    {
+     "id": "C",
+     "text": "grasses"
+    },
+    {
+     "id": "D",
+     "text": "conifers"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "nervous-system",
+   "question": "Coordination and regulation of body activities in mammals are achieved by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "nerves and muscle"
+    },
+    {
+     "id": "B",
+     "text": "nerves and hormones"
+    },
+    {
+     "id": "C",
+     "text": "nerves only"
+    },
+    {
+     "id": "D",
+     "text": "hormones only"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "nervous-system",
+   "question": "The Cerebellum of the Brain controls",
+   "options": [
+    {
+     "id": "A",
+     "text": "reflex action"
+    },
+    {
+     "id": "B",
+     "text": "muscular activity"
+    },
+    {
+     "id": "C",
+     "text": "emotional expressions"
+    },
+    {
+     "id": "D",
+     "text": "the Endocrine system"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "nervous-system",
+   "question": "The part of the brain responsible for peristalsis is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Olfactory Lobe"
+    },
+    {
+     "id": "B",
+     "text": "Medulla Oblongata"
+    },
+    {
+     "id": "C",
+     "text": "Hypothalamus"
+    },
+    {
+     "id": "D",
+     "text": "Thalamus"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following instruments is used for measuring atmospheric pressure?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Hydrometer"
+    },
+    {
+     "id": "B",
+     "text": "Hygrometer"
+    },
+    {
+     "id": "C",
+     "text": "Thermometer"
+    },
+    {
+     "id": "D",
+     "text": "Barometer"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The influence of soil on organisms in a habitat is referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "edaphic"
+    },
+    {
+     "id": "B",
+     "text": "physiographic"
+    },
+    {
+     "id": "C",
+     "text": "biotic"
+    },
+    {
+     "id": "D",
+     "text": "topographic"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "The genetic make-up of an organism is described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "allele"
+    },
+    {
+     "id": "B",
+     "text": "chromosome"
+    },
+    {
+     "id": "C",
+     "text": "phenotype"
+    },
+    {
+     "id": "D",
+     "text": "genotype"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The major limiting factor of productivity in the aquatic habitat is",
+   "options": [
+    {
+     "id": "A",
+     "text": "food"
+    },
+    {
+     "id": "B",
+     "text": "temperature"
+    },
+    {
+     "id": "C",
+     "text": "water"
+    },
+    {
+     "id": "D",
+     "text": "sunlight"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "Which of the following group of organisms feeds directly on green plants?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Primary Consumers"
+    },
+    {
+     "id": "B",
+     "text": "Secondary Consumers"
+    },
+    {
+     "id": "C",
+     "text": "Producers"
+    },
+    {
+     "id": "D",
+     "text": "Decomposers"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "A characteristic feature of tropical rainforest is that it",
+   "options": [
+    {
+     "id": "A",
+     "text": "Contains trees with narrow leaves"
+    },
+    {
+     "id": "B",
+     "text": "Contains large number of plant species"
+    },
+    {
+     "id": "C",
+     "text": "Contains fewer number of plant species"
+    },
+    {
+     "id": "D",
+     "text": "Has total annual rainfall of less than 50cm"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The study of how and why population size change over time is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Population estimation"
+    },
+    {
+     "id": "B",
+     "text": "Population dynamics"
+    },
+    {
+     "id": "C",
+     "text": "Population ecology"
+    },
+    {
+     "id": "D",
+     "text": "Population Cycle"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "A severe and long dry season is a characteristic feature of",
+   "options": [
+    {
+     "id": "A",
+     "text": "Sahel Savanna"
+    },
+    {
+     "id": "B",
+     "text": "Mangrove Swamps"
+    },
+    {
+     "id": "C",
+     "text": "Sudan Savanna"
+    },
+    {
+     "id": "D",
+     "text": "Guinea Savanna"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "Which of the following is a nitrogen- fixing blue-green algae of soil?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Rhizobium"
+    },
+    {
+     "id": "B",
+     "text": "Nitrosomonas"
+    },
+    {
+     "id": "C",
+     "text": "Clostridium"
+    },
+    {
+     "id": "D",
+     "text": "Anabaena"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The soil with highest water-retaining capacity is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Clayey Soil"
+    },
+    {
+     "id": "B",
+     "text": "Stoney soil"
+    },
+    {
+     "id": "C",
+     "text": "Sandy soil"
+    },
+    {
+     "id": "D",
+     "text": "Loamy Soil"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "The causative agent of Poliomyelitis is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Virus"
+    },
+    {
+     "id": "B",
+     "text": "Fungus"
+    },
+    {
+     "id": "C",
+     "text": "Protozoan"
+    },
+    {
+     "id": "D",
+     "text": "Bacterium"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "conservation-pollution",
+   "question": "One of the ways of controlling noise pollution in urban areas is",
+   "options": [
+    {
+     "id": "A",
+     "text": "by siting industries away from residential areas"
+    },
+    {
+     "id": "B",
+     "text": "that fuel should be completely combusted by engines"
+    },
+    {
+     "id": "C",
+     "text": "by planting trees on both sides of the road"
+    },
+    {
+     "id": "D",
+     "text": "by wearing ear devices"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "conservation-pollution",
+   "question": "A constituent of the exhaust fumes from electricity generating sets which causes serious pollution is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Carbon (II) Oxide"
+    },
+    {
+     "id": "B",
+     "text": "Water Vapour"
+    },
+    {
+     "id": "C",
+     "text": "Ozone"
+    },
+    {
+     "id": "D",
+     "text": "Carbon (IV) Oxide"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "Which of the following is true of small pox?",
+   "options": [
+    {
+     "id": "A",
+     "text": "It is transmitted by bacteria"
+    },
+    {
+     "id": "B",
+     "text": "It can effectively be controlled with antibiotics"
+    },
+    {
+     "id": "C",
+     "text": "It can effectively be controlled by vaccination"
+    },
+    {
+     "id": "D",
+     "text": "It is a water-borne infection"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "reproduction-animals",
+   "question": "When the adults have reach a certain degree of weakness, the process of binary fission is replaced by conjugation in",
+   "options": [
+    {
+     "id": "A",
+     "text": "Paramecium"
+    },
+    {
+     "id": "B",
+     "text": "Euglena"
+    },
+    {
+     "id": "C",
+     "text": "Amoeba"
+    },
+    {
+     "id": "D",
+     "text": "Plasmodium"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "Whorls, arches, loops and compounds are types of variation in",
+   "options": [
+    {
+     "id": "A",
+     "text": "Colour"
+    },
+    {
+     "id": "B",
+     "text": "Finger prints"
+    },
+    {
+     "id": "C",
+     "text": "Hair Colour"
+    },
+    {
+     "id": "D",
+     "text": "Blood group"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "A couple has 10 children, all female. Which of the following best explains the situation?",
+   "options": [
+    {
+     "id": "A",
+     "text": "The sex determination was by the man's X chromosome"
+    },
+    {
+     "id": "B",
+     "text": "The man's sperm count is low"
+    },
+    {
+     "id": "C",
+     "text": "The woman is not capable of producing male children"
+    },
+    {
+     "id": "D",
+     "text": "The sex determination was by the man's Y chromosome"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "A biological agent with antiviral property is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Interferon"
+    },
+    {
+     "id": "B",
+     "text": "enzyme"
+    },
+    {
+     "id": "C",
+     "text": "antibiotic"
+    },
+    {
+     "id": "D",
+     "text": "disinfectant"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q44"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "One of the advantages of outbreeding is",
+   "options": [
+    {
+     "id": "A",
+     "text": "pests tolerance"
+    },
+    {
+     "id": "B",
+     "text": "disease resistance"
+    },
+    {
+     "id": "C",
+     "text": "fast growth"
+    },
+    {
+     "id": "D",
+     "text": "tall height"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The stream-lined shape of fishes is an adaptation for",
+   "options": [
+    {
+     "id": "A",
+     "text": "Securing mates"
+    },
+    {
+     "id": "B",
+     "text": "easy movement"
+    },
+    {
+     "id": "C",
+     "text": "obtaining food"
+    },
+    {
+     "id": "D",
+     "text": "defence and attack"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "One adaptation shown by hydrophytes in fresh water habitats is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "waxy cuticle on shoot surface"
+    },
+    {
+     "id": "B",
+     "text": "poor development of roots and xylem tissues"
+    },
+    {
+     "id": "C",
+     "text": "well-developed roots and supporting system"
+    },
+    {
+     "id": "D",
+     "text": "leaves reduced to spines"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "Which of the following use diffusion as the principal method of gaseous exchange?",
+   "options": [
+    {
+     "id": "A",
+     "text": "grasshopper"
+    },
+    {
+     "id": "B",
+     "text": "rat spines"
+    },
+    {
+     "id": "C",
+     "text": "lizard"
+    },
+    {
+     "id": "D",
+     "text": "earthworm"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The theory which supports the view that the large muscles developed by an athlete will be passed on to the offspring was proposed by",
+   "options": [
+    {
+     "id": "A",
+     "text": "Mendel"
+    },
+    {
+     "id": "B",
+     "text": "Darwin"
+    },
+    {
+     "id": "C",
+     "text": "Lamarck"
+    },
+    {
+     "id": "D",
+     "text": "Pasteur"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "The chromosomes of members of the kingdom Monera are within the",
+   "options": [
+    {
+     "id": "A",
+     "text": "nucleoplasm"
+    },
+    {
+     "id": "B",
+     "text": "nucleus"
+    },
+    {
+     "id": "C",
+     "text": "nucleolus"
+    },
+    {
+     "id": "D",
+     "text": "cytoplasm"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The mangrove swamp in Nigeria is restricted to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Sahel savanna"
+    },
+    {
+     "id": "B",
+     "text": "Guinea savanna"
+    },
+    {
+     "id": "C",
+     "text": "Tropical rainforest"
+    },
+    {
+     "id": "D",
+     "text": "Sudan savanna"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "digestive-system",
+   "question": "The pancreas secretes enzymes for the digestion of",
+   "options": [
+    {
+     "id": "A",
+     "text": "fats, proteins and carbohydrates"
+    },
+    {
+     "id": "B",
+     "text": "fats, vitamins and cellulose"
+    },
+    {
+     "id": "C",
+     "text": "fats, carbohydrates and vitamins"
+    },
+    {
+     "id": "D",
+     "text": "proteins, cellulose and minerals"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "The causative agent of bird flu is a",
+   "options": [
+    {
+     "id": "A",
+     "text": "protozoan"
+    },
+    {
+     "id": "B",
+     "text": "virus"
+    },
+    {
+     "id": "C",
+     "text": "bacterium"
+    },
+    {
+     "id": "D",
+     "text": "fungus"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "A water medium is necessary for fertilization in",
+   "options": [
+    {
+     "id": "A",
+     "text": "conifers"
+    },
+    {
+     "id": "B",
+     "text": "angiosperms"
+    },
+    {
+     "id": "C",
+     "text": "ferns"
+    },
+    {
+     "id": "D",
+     "text": "fungi"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "growth-development",
+   "question": "The process of shedding the exoskeleton of an arthropod is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "ecdysis"
+    },
+    {
+     "id": "B",
+     "text": "in star formation"
+    },
+    {
+     "id": "C",
+     "text": "metamorphosis"
+    },
+    {
+     "id": "D",
+     "text": "osmosis"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "digestive-system",
+   "question": "Which of the following is a major cause of constipation in humans?",
+   "options": [
+    {
+     "id": "A",
+     "text": "lack of roughage"
+    },
+    {
+     "id": "B",
+     "text": "vitamin B"
+    },
+    {
+     "id": "C",
+     "text": "vitamin E"
+    },
+    {
+     "id": "D",
+     "text": "lack of salts"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "In mammals, the organ directly on top of the kidney is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "adrenal gland"
+    },
+    {
+     "id": "B",
+     "text": "prostate gland"
+    },
+    {
+     "id": "C",
+     "text": "pancreas"
+    },
+    {
+     "id": "D",
+     "text": "thyroid gland"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "An example of a fish that aestivates is",
+   "options": [
+    {
+     "id": "A",
+     "text": "croaker"
+    },
+    {
+     "id": "B",
+     "text": "lung fish"
+    },
+    {
+     "id": "C",
+     "text": "shark"
+    },
+    {
+     "id": "D",
+     "text": "cat fish"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "The opening and closing of the stoma are regulated by",
+   "options": [
+    {
+     "id": "A",
+     "text": "respiration"
+    },
+    {
+     "id": "B",
+     "text": "osmosis"
+    },
+    {
+     "id": "C",
+     "text": "diffusion"
+    },
+    {
+     "id": "D",
+     "text": "transpiration"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Which of the following is common to the mosquito, housefly and blackfly?",
+   "options": [
+    {
+     "id": "A",
+     "text": "they are parasites of man"
+    },
+    {
+     "id": "B",
+     "text": "their immature stages are aquatic"
+    },
+    {
+     "id": "C",
+     "text": "they undergo complete metamorphosis"
+    },
+    {
+     "id": "D",
+     "text": "their adults have two pairs of wings"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The organs that will be most useful to giant African rats in finding their way in underground habitats are the",
+   "options": [
+    {
+     "id": "A",
+     "text": "nostrils"
+    },
+    {
+     "id": "B",
+     "text": "eyes"
+    },
+    {
+     "id": "C",
+     "text": "vibrissae"
+    },
+    {
+     "id": "D",
+     "text": "tails"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "A crucible of 5gm weighed 10gm after filling with fresh soil. It is then heated in an oven at 100°C for 1 hour. After cooling in a desiccator, the weight was 8gm. The fraction of water (by mass) in the soil is",
+   "options": [
+    {
+     "id": "A",
+     "text": "0.8"
+    },
+    {
+     "id": "B",
+     "text": "0.2"
+    },
+    {
+     "id": "C",
+     "text": "0.4"
+    },
+    {
+     "id": "D",
+     "text": "0.6"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "The waste product of plants used in the conversion of hide to leather is",
+   "options": [
+    {
+     "id": "A",
+     "text": "alkaloid"
+    },
+    {
+     "id": "B",
+     "text": "resin"
+    },
+    {
+     "id": "C",
+     "text": "tannin"
+    },
+    {
+     "id": "D",
+     "text": "gun"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "The photosynthetic pigments include",
+   "options": [
+    {
+     "id": "A",
+     "text": "chloroplast and cytochromes"
+    },
+    {
+     "id": "B",
+     "text": "melanin and haemoglobin"
+    },
+    {
+     "id": "C",
+     "text": "chlorophyll and carotenoids"
+    },
+    {
+     "id": "D",
+     "text": "carotenoids and haemoglobin"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The highest level of ecological organization is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "ecosystem"
+    },
+    {
+     "id": "B",
+     "text": "niche"
+    },
+    {
+     "id": "C",
+     "text": "biosphere"
+    },
+    {
+     "id": "D",
+     "text": "population"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "A biotic factor which affects the distribution and abundance of organism in a terrestrial habitat is",
+   "options": [
+    {
+     "id": "A",
+     "text": "pH"
+    },
+    {
+     "id": "B",
+     "text": "competition"
+    },
+    {
+     "id": "C",
+     "text": "temperature"
+    },
+    {
+     "id": "D",
+     "text": "light"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "sense-organs",
+   "question": "The eye defect that rises because the cornea is not curved smoothly is",
+   "options": [
+    {
+     "id": "A",
+     "text": "astigmatism"
+    },
+    {
+     "id": "B",
+     "text": "short-sightedness"
+    },
+    {
+     "id": "C",
+     "text": "long-sightedness"
+    },
+    {
+     "id": "D",
+     "text": "presbyopia"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Which of the following is an example of parasitism?",
+   "options": [
+    {
+     "id": "A",
+     "text": "a squirrel living in an abandoned nest of a bird"
+    },
+    {
+     "id": "B",
+     "text": "mistletoe growing on an orange tree"
+    },
+    {
+     "id": "C",
+     "text": "fungi growing on a dead tree branch"
+    },
+    {
+     "id": "D",
+     "text": "cattle egrets taking tasks from the body of cattle"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "biology",
+   "topic": "cell-structure",
+   "question": "The cell organelle solely responsible for respiration is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "nucleus"
+    },
+    {
+     "id": "B",
+     "text": "nucleolus"
+    },
+    {
+     "id": "C",
+     "text": "endoplasmic reticulum"
+    },
+    {
+     "id": "D",
+     "text": "mitochondrion"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Which of the following structures is a protective adaptive feature of the Agama Lizard to the environment?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Nuchal crest"
+    },
+    {
+     "id": "B",
+     "text": "Claws"
+    },
+    {
+     "id": "C",
+     "text": "Scaly skin"
+    },
+    {
+     "id": "D",
+     "text": "Gular fold"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q1"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Which of the following adapts an insect for feeding?",
+   "options": [
+    {
+     "id": "A",
+     "text": "suitable mouthparts"
+    },
+    {
+     "id": "B",
+     "text": "paired antennae"
+    },
+    {
+     "id": "C",
+     "text": "segmented body"
+    },
+    {
+     "id": "D",
+     "text": "jointed appendages"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "Which of the following results from the cross between Yy and Yy?",
+   "options": [
+    {
+     "id": "A",
+     "text": "2Yy-2yy"
+    },
+    {
+     "id": "B",
+     "text": "2Yy:yy:YY"
+    },
+    {
+     "id": "C",
+     "text": "YY:2Yy:yy"
+    },
+    {
+     "id": "D",
+     "text": "YY: Yy:2yy"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "Which of the following is NOT part of the carbon cycle?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Organic carbon"
+    },
+    {
+     "id": "B",
+     "text": "Decomposition"
+    },
+    {
+     "id": "C",
+     "text": "Nitrates formation"
+    },
+    {
+     "id": "D",
+     "text": "Photosynthesis"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "respiration",
+   "question": "In cellular respiration, energy is stored in the form of",
+   "options": [
+    {
+     "id": "A",
+     "text": "heat energy"
+    },
+    {
+     "id": "B",
+     "text": "adenosine diphosphate"
+    },
+    {
+     "id": "C",
+     "text": "adenosine monophosphate"
+    },
+    {
+     "id": "D",
+     "text": "adenosine triphosphate"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "The principal organ for the manufacture of food in autotrophy is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "root hair"
+    },
+    {
+     "id": "B",
+     "text": "growing root"
+    },
+    {
+     "id": "C",
+     "text": "mature fruit"
+    },
+    {
+     "id": "D",
+     "text": "green leaf"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "A disease that results from lack of iodine in the diet of humans is",
+   "options": [
+    {
+     "id": "A",
+     "text": "beriberi"
+    },
+    {
+     "id": "B",
+     "text": "scurvy"
+    },
+    {
+     "id": "C",
+     "text": "rickets"
+    },
+    {
+     "id": "D",
+     "text": "goiter"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The process whereby some organism with certain favourable features get established in an area is",
+   "options": [
+    {
+     "id": "A",
+     "text": "gene mutation"
+    },
+    {
+     "id": "B",
+     "text": "dispersal"
+    },
+    {
+     "id": "C",
+     "text": "overcrowding"
+    },
+    {
+     "id": "D",
+     "text": "natural selection"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The rise and fall of ocean water during the day is referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "gravity"
+    },
+    {
+     "id": "B",
+     "text": "a pull"
+    },
+    {
+     "id": "C",
+     "text": "tide"
+    },
+    {
+     "id": "D",
+     "text": "zone"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following is a producer in an aquatic habitat?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Nymphaea"
+    },
+    {
+     "id": "B",
+     "text": "Dryopteris"
+    },
+    {
+     "id": "C",
+     "text": "planarian"
+    },
+    {
+     "id": "D",
+     "text": "Similium"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The relationship that exist between a shark and Remora is",
+   "options": [
+    {
+     "id": "A",
+     "text": "parasitism"
+    },
+    {
+     "id": "B",
+     "text": "commensalism"
+    },
+    {
+     "id": "C",
+     "text": "saprophytism"
+    },
+    {
+     "id": "D",
+     "text": "symbiosis"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "levels-of-organisation",
+   "question": "I. Tissue II. System III. Cell IV Organ The correct sequence of increasing level of complexity is",
+   "options": [
+    {
+     "id": "A",
+     "text": "IV-II-III"
+    },
+    {
+     "id": "B",
+     "text": "I-II-III-IV"
+    },
+    {
+     "id": "C",
+     "text": "IV-III-I-II"
+    },
+    {
+     "id": "D",
+     "text": "III-I-IV-II"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "Which of the following is not an inheritable disease?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Poliomyelitis"
+    },
+    {
+     "id": "B",
+     "text": "Sickle-cell anaemia"
+    },
+    {
+     "id": "C",
+     "text": "Mental illness"
+    },
+    {
+     "id": "D",
+     "text": "Haemophilia"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "Which of the finger print types occur most frequently in the population of human beings",
+   "options": [
+    {
+     "id": "A",
+     "text": "Double-loop"
+    },
+    {
+     "id": "B",
+     "text": "Whorl"
+    },
+    {
+     "id": "C",
+     "text": "Arch"
+    },
+    {
+     "id": "D",
+     "text": "Loop"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "Beriberi results from a deficiency of",
+   "options": [
+    {
+     "id": "A",
+     "text": "vitamin A"
+    },
+    {
+     "id": "B",
+     "text": "vitamin E"
+    },
+    {
+     "id": "C",
+     "text": "vitamin B"
+    },
+    {
+     "id": "D",
+     "text": "vitamin C"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "Bacteria which add atmospheric nitrogen to the soil are",
+   "options": [
+    {
+     "id": "A",
+     "text": "putrefying bacteria"
+    },
+    {
+     "id": "B",
+     "text": "nitrifying bacteria"
+    },
+    {
+     "id": "C",
+     "text": "nitrogen fixing bacteria"
+    },
+    {
+     "id": "D",
+     "text": "denitrifying bacteria"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The spines of the hedgehog is an adaptive features for",
+   "options": [
+    {
+     "id": "A",
+     "text": "Courtship"
+    },
+    {
+     "id": "B",
+     "text": "defence"
+    },
+    {
+     "id": "C",
+     "text": "water conservation"
+    },
+    {
+     "id": "D",
+     "text": "obtaining food"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following instruments is used to measure temperature?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Thermometer"
+    },
+    {
+     "id": "B",
+     "text": "Hygrometer"
+    },
+    {
+     "id": "C",
+     "text": "Anemometer"
+    },
+    {
+     "id": "D",
+     "text": "Hydrometer"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "In human, puffiness and water retention in the body is a possible symptom of",
+   "options": [
+    {
+     "id": "A",
+     "text": "bladder malfunction"
+    },
+    {
+     "id": "B",
+     "text": "poor digestion"
+    },
+    {
+     "id": "C",
+     "text": "kidney malfunction"
+    },
+    {
+     "id": "D",
+     "text": "obesity"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The theory of evolution which postulates that all living organisms have a common ancestor was proposed by",
+   "options": [
+    {
+     "id": "A",
+     "text": "Linnaeus"
+    },
+    {
+     "id": "B",
+     "text": "Darwin"
+    },
+    {
+     "id": "C",
+     "text": "Lamarck"
+    },
+    {
+     "id": "D",
+     "text": "Mendel"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "Mammals requires roughage in their food to",
+   "options": [
+    {
+     "id": "A",
+     "text": "provide energy"
+    },
+    {
+     "id": "B",
+     "text": "slow down aging"
+    },
+    {
+     "id": "C",
+     "text": "ease digestion"
+    },
+    {
+     "id": "D",
+     "text": "prevent disease"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "Variation can occur among offspring of living organism because",
+   "options": [
+    {
+     "id": "A",
+     "text": "seeds are produced by self-pollination"
+    },
+    {
+     "id": "B",
+     "text": "zygotes are produced by cross fertilisation"
+    },
+    {
+     "id": "C",
+     "text": "they are produced by binary fission"
+    },
+    {
+     "id": "D",
+     "text": "they are produced without fertilisation"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "The lowest unit of classification is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Kingdom"
+    },
+    {
+     "id": "B",
+     "text": "class"
+    },
+    {
+     "id": "C",
+     "text": "phylum"
+    },
+    {
+     "id": "D",
+     "text": "species"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "Two important process involved in the absorption and transport of materials in plants are",
+   "options": [
+    {
+     "id": "A",
+     "text": "flaccidity and turgidity"
+    },
+    {
+     "id": "B",
+     "text": "diffusion and plasmolysis"
+    },
+    {
+     "id": "C",
+     "text": "plasmolysis and capillarity"
+    },
+    {
+     "id": "D",
+     "text": "osmosis and diffusion"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "energy-flow-nutrient-cycles",
+   "question": "A series of organism existing in an ecosystem through which energy is transformed can be referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "food cycle"
+    },
+    {
+     "id": "B",
+     "text": "food chain"
+    },
+    {
+     "id": "C",
+     "text": "pyramid on numbers"
+    },
+    {
+     "id": "D",
+     "text": "food web"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "In which part of Nigeria are Mangrove swamps found?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Chad Basin"
+    },
+    {
+     "id": "B",
+     "text": "Niger Delta"
+    },
+    {
+     "id": "C",
+     "text": "Benue Valley"
+    },
+    {
+     "id": "D",
+     "text": "Mambilla Plateau"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "The breeding methods that are useful in selective breeding of animals and plants are",
+   "options": [
+    {
+     "id": "A",
+     "text": "inbreeding and cross- breeding"
+    },
+    {
+     "id": "B",
+     "text": "inbreeding and hetero-breeding"
+    },
+    {
+     "id": "C",
+     "text": "inbreeding and out-breeding"
+    },
+    {
+     "id": "D",
+     "text": "inbreeding and self-breeding"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "cell-transport",
+   "question": "In a small unicellular organism, diffusion is sufficient for transport because",
+   "options": [
+    {
+     "id": "A",
+     "text": "the surface area to volume ratio is small"
+    },
+    {
+     "id": "B",
+     "text": "they have lungs for diffusion"
+    },
+    {
+     "id": "C",
+     "text": "materials have to move over long distance"
+    },
+    {
+     "id": "D",
+     "text": "the surface area to volume ratio is large"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "nervous-system",
+   "question": "The function of the spinal cord is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "stand the body structure erect"
+    },
+    {
+     "id": "B",
+     "text": "control involuntary actions"
+    },
+    {
+     "id": "C",
+     "text": "transmit impulses to the brain"
+    },
+    {
+     "id": "D",
+     "text": "regulates developmental changes"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "evolution",
+   "question": "The first vertebrates to ventures out of water and lives on land are the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Pisces"
+    },
+    {
+     "id": "B",
+     "text": "Amphibians"
+    },
+    {
+     "id": "C",
+     "text": "Reptiles"
+    },
+    {
+     "id": "D",
+     "text": "Aves"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "Which of the following factors mostly determine the major biomes of the world.",
+   "options": [
+    {
+     "id": "A",
+     "text": "pressure and wind speed"
+    },
+    {
+     "id": "B",
+     "text": "temperature and wind speed"
+    },
+    {
+     "id": "C",
+     "text": "pressure and rainfall"
+    },
+    {
+     "id": "D",
+     "text": "Temperature and rainfall"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "Severe diarrhea, dehydration and weakness are symptoms of",
+   "options": [
+    {
+     "id": "A",
+     "text": "cholera"
+    },
+    {
+     "id": "B",
+     "text": "chickenpox"
+    },
+    {
+     "id": "C",
+     "text": "malaria"
+    },
+    {
+     "id": "D",
+     "text": "yellow fever"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "A common characteristic found among the crustaceans is the possession of",
+   "options": [
+    {
+     "id": "A",
+     "text": "a pair of antennae"
+    },
+    {
+     "id": "B",
+     "text": "a pair of walking legs on each segment"
+    },
+    {
+     "id": "C",
+     "text": "four pairs of walking legs on the cephalothorax"
+    },
+    {
+     "id": "D",
+     "text": "two pairs of antennae"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "In which of the following groups of invertebrates are flagella and cilia found",
+   "options": [
+    {
+     "id": "A",
+     "text": "annelids"
+    },
+    {
+     "id": "B",
+     "text": "protists"
+    },
+    {
+     "id": "C",
+     "text": "coelenterates"
+    },
+    {
+     "id": "D",
+     "text": "Anthropods"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "Physiological variation in human population is evidence in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "difference in the fingerprints"
+    },
+    {
+     "id": "B",
+     "text": "physical appearance of individuals"
+    },
+    {
+     "id": "C",
+     "text": "differences in height and weight"
+    },
+    {
+     "id": "D",
+     "text": "ability to roll the tongue"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "In photosynthesis, oxygen is liberated during",
+   "options": [
+    {
+     "id": "A",
+     "text": "conversion of energy"
+    },
+    {
+     "id": "B",
+     "text": "photolysis"
+    },
+    {
+     "id": "C",
+     "text": "splitting of carbon (IV)oxide"
+    },
+    {
+     "id": "D",
+     "text": "glycolysis"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "animal-nutrition",
+   "question": "The piercing and sucking mouth parts are found in",
+   "options": [
+    {
+     "id": "A",
+     "text": "grasshoppers"
+    },
+    {
+     "id": "B",
+     "text": "mosquitoes"
+    },
+    {
+     "id": "C",
+     "text": "termites"
+    },
+    {
+     "id": "D",
+     "text": "cockroaches"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q1"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "hormonal-coordination",
+   "question": "The hormones that regulate plant growth are",
+   "options": [
+    {
+     "id": "A",
+     "text": "ethylene and auxins"
+    },
+    {
+     "id": "B",
+     "text": "auxin and gibberellins"
+    },
+    {
+     "id": "C",
+     "text": "cytokinin and abscisic acid"
+    },
+    {
+     "id": "D",
+     "text": "ethylene and gibberellins"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Which of the following pair of organisms exhibit parasitic association?",
+   "options": [
+    {
+     "id": "A",
+     "text": "insect and plant"
+    },
+    {
+     "id": "B",
+     "text": "cattle and egret"
+    },
+    {
+     "id": "C",
+     "text": "shark and remora"
+    },
+    {
+     "id": "D",
+     "text": "tsetse-fly and cattle"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "Which of the following group of animals can withstand the rigour of the arid land?",
+   "options": [
+    {
+     "id": "A",
+     "text": "locust, camel, lizard and snakes"
+    },
+    {
+     "id": "B",
+     "text": "monkeys, chameleon, earthworm and grasshopper"
+    },
+    {
+     "id": "C",
+     "text": "monkeys, grasshopper, snail and snakes"
+    },
+    {
+     "id": "D",
+     "text": "lungfish, duck, butterfly and lizards"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "support-movement",
+   "question": "Suture joint is found in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "hip"
+    },
+    {
+     "id": "B",
+     "text": "ankle"
+    },
+    {
+     "id": "C",
+     "text": "skull"
+    },
+    {
+     "id": "D",
+     "text": "elbow"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "excretion",
+   "question": "The organelle responsible for osmoregulation in Paramecium is",
+   "options": [
+    {
+     "id": "A",
+     "text": "flame cell"
+    },
+    {
+     "id": "B",
+     "text": "nephridia"
+    },
+    {
+     "id": "C",
+     "text": "contractile vacuole"
+    },
+    {
+     "id": "D",
+     "text": "Malpighian tubule"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "transport-animals",
+   "question": "The platelets in mammalian blood are responsible for",
+   "options": [
+    {
+     "id": "A",
+     "text": "transporting oxygen"
+    },
+    {
+     "id": "B",
+     "text": "initiating clotting"
+    },
+    {
+     "id": "C",
+     "text": "removing carbon (IV) oxide"
+    },
+    {
+     "id": "D",
+     "text": "destroying micro-organisms"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The most important factor that determines the different types of vegetation is",
+   "options": [
+    {
+     "id": "A",
+     "text": "light"
+    },
+    {
+     "id": "B",
+     "text": "wind"
+    },
+    {
+     "id": "C",
+     "text": "temperature"
+    },
+    {
+     "id": "D",
+     "text": "rainfall"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "When testing for the presence of starch in a leaf, the reason for dipping the decolourised leaf in hot water is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "detect the starch"
+    },
+    {
+     "id": "B",
+     "text": "kill the leaf"
+    },
+    {
+     "id": "C",
+     "text": "soften the leaf"
+    },
+    {
+     "id": "D",
+     "text": "remove the chlorophyll"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The relationship between remora and shark can best be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "parasitism"
+    },
+    {
+     "id": "B",
+     "text": "amensalism"
+    },
+    {
+     "id": "C",
+     "text": "mutualism"
+    },
+    {
+     "id": "D",
+     "text": "commensalism"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The major characteristic of a fresh water habitat is the possession of",
+   "options": [
+    {
+     "id": "A",
+     "text": "high turbidity"
+    },
+    {
+     "id": "B",
+     "text": "high density"
+    },
+    {
+     "id": "C",
+     "text": "low salinity"
+    },
+    {
+     "id": "D",
+     "text": "high current"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "micro-organisms-disease",
+   "question": "The causative organism of cholera is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Clostridium sp"
+    },
+    {
+     "id": "B",
+     "text": "shigella sp"
+    },
+    {
+     "id": "C",
+     "text": "vibrio sp"
+    },
+    {
+     "id": "D",
+     "text": "salmonella typhi"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "plant-nutrition",
+   "question": "The process that takes place in the dark stage of photosynthesis is",
+   "options": [
+    {
+     "id": "A",
+     "text": "oxidation of water"
+    },
+    {
+     "id": "B",
+     "text": "photolysis of water"
+    },
+    {
+     "id": "C",
+     "text": "oxidation of carbon (IV) oxide"
+    },
+    {
+     "id": "D",
+     "text": "reduction of carbon (IV) oxide"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "conservation-pollution",
+   "question": "Chlorofluorocarbons are air pollutants that originates from",
+   "options": [
+    {
+     "id": "A",
+     "text": "crude oil refining"
+    },
+    {
+     "id": "B",
+     "text": "coal mining"
+    },
+    {
+     "id": "C",
+     "text": "motor vehicle exhaust"
+    },
+    {
+     "id": "D",
+     "text": "cooling system"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "levels-of-organisation",
+   "question": "Which of the following is organ level of organisation?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Volvox sp"
+    },
+    {
+     "id": "B",
+     "text": "paramecium caudatum"
+    },
+    {
+     "id": "C",
+     "text": "hydra viridis"
+    },
+    {
+     "id": "D",
+     "text": "onion bulb"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "reproduction-animals",
+   "question": "The simplest form of reproduction is",
+   "options": [
+    {
+     "id": "A",
+     "text": "conjugation"
+    },
+    {
+     "id": "B",
+     "text": "budding"
+    },
+    {
+     "id": "C",
+     "text": "spore formation"
+    },
+    {
+     "id": "D",
+     "text": "binary fission"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "reproduction-plants",
+   "question": "Which of the following is a characteristic of wind-pollinated flower?",
+   "options": [
+    {
+     "id": "A",
+     "text": "flowers lack nectar"
+    },
+    {
+     "id": "B",
+     "text": "flowers are conspicuous"
+    },
+    {
+     "id": "C",
+     "text": "flowers have perianths"
+    },
+    {
+     "id": "D",
+     "text": "flowers are bisexual"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "cell-division",
+   "question": "The process required for formation of gamete in sexual reproduction is",
+   "options": [
+    {
+     "id": "A",
+     "text": "implantation"
+    },
+    {
+     "id": "B",
+     "text": "fertilisation"
+    },
+    {
+     "id": "C",
+     "text": "mitosis"
+    },
+    {
+     "id": "D",
+     "text": "meiosis"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "In an experiment to determine the humus in a soil sample the following results were obtained Mass of dish - 20g Mass of dry soil - 7.5g Mass of dish + soil after burning = 25g The percentage of humus in the given sample is",
+   "options": [
+    {
+     "id": "A",
+     "text": "9.1"
+    },
+    {
+     "id": "B",
+     "text": "37.5"
+    },
+    {
+     "id": "C",
+     "text": "12.5"
+    },
+    {
+     "id": "D",
+     "text": "33.3"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The presence of termites and earthworms in soil promote",
+   "options": [
+    {
+     "id": "A",
+     "text": "porosity and fertility"
+    },
+    {
+     "id": "B",
+     "text": "porosity and aeration"
+    },
+    {
+     "id": "C",
+     "text": "aeration and fertility"
+    },
+    {
+     "id": "D",
+     "text": "acidity and aeration"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "Which of the following is a sex-link character?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Dwarfism"
+    },
+    {
+     "id": "B",
+     "text": "Albinism"
+    },
+    {
+     "id": "C",
+     "text": "Tongue rolling"
+    },
+    {
+     "id": "D",
+     "text": "Colour blindness"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "The outer-most tissue of the herbaceous roots is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "cuticle"
+    },
+    {
+     "id": "B",
+     "text": "pericycle"
+    },
+    {
+     "id": "C",
+     "text": "epidermis"
+    },
+    {
+     "id": "D",
+     "text": "endodermis"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "transport-plants",
+   "question": "The respective tissues that transport water and manufactured food in plants are",
+   "options": [
+    {
+     "id": "A",
+     "text": "xylem and phloem"
+    },
+    {
+     "id": "B",
+     "text": "phloem and tracheid"
+    },
+    {
+     "id": "C",
+     "text": "phloem and xylem"
+    },
+    {
+     "id": "D",
+     "text": "xylem and tracheid"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "An adaptive feature of plants in the savanna is",
+   "options": [
+    {
+     "id": "A",
+     "text": "fissured bark"
+    },
+    {
+     "id": "B",
+     "text": "few grasses"
+    },
+    {
+     "id": "C",
+     "text": "tall trees"
+    },
+    {
+     "id": "D",
+     "text": "long lifespan"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "A grasshopper's cuticle becomes green during the season and black after fire. The reasons for the change is ---",
+   "options": [
+    {
+     "id": "A",
+     "text": "obtain food"
+    },
+    {
+     "id": "B",
+     "text": "predators"
+    },
+    {
+     "id": "C",
+     "text": "secure mates"
+    },
+    {
+     "id": "D",
+     "text": "escape detection"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "classification",
+   "question": "Which of the following is the most advance plant?",
+   "options": [
+    {
+     "id": "A",
+     "text": "merchantia"
+    },
+    {
+     "id": "B",
+     "text": "Dryopteris"
+    },
+    {
+     "id": "C",
+     "text": "Chlamydomonas"
+    },
+    {
+     "id": "D",
+     "text": "Spirogyra"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The soil type with the least ability to retain nutrients is",
+   "options": [
+    {
+     "id": "A",
+     "text": "sandy loam"
+    },
+    {
+     "id": "B",
+     "text": "clay loam"
+    },
+    {
+     "id": "C",
+     "text": "loam"
+    },
+    {
+     "id": "D",
+     "text": "sand"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "A humming bird is able to feed on nectar because its beak is",
+   "options": [
+    {
+     "id": "A",
+     "text": "short, slender and ridged"
+    },
+    {
+     "id": "B",
+     "text": "short, strong and conical"
+    },
+    {
+     "id": "C",
+     "text": "long, slender and slightly curved"
+    },
+    {
+     "id": "D",
+     "text": "long, wide and slightly curved"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecology-basics",
+   "question": "The effect of overcrowding is",
+   "options": [
+    {
+     "id": "A",
+     "text": "immigration"
+    },
+    {
+     "id": "B",
+     "text": "reduced competition"
+    },
+    {
+     "id": "C",
+     "text": "emigration"
+    },
+    {
+     "id": "D",
+     "text": "reduced mortality"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "support-movement",
+   "question": "The vertebrae that allows the skull to nod and rotate are",
+   "options": [
+    {
+     "id": "A",
+     "text": "axis and cervical"
+    },
+    {
+     "id": "B",
+     "text": "atlas and thoracis"
+    },
+    {
+     "id": "C",
+     "text": "axis and atlas"
+    },
+    {
+     "id": "D",
+     "text": "atlas and cervical"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "genetics-inheritance",
+   "question": "The component of the cell that determines paternity resides in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "centrosome"
+    },
+    {
+     "id": "B",
+     "text": "ribosome"
+    },
+    {
+     "id": "C",
+     "text": "nucleus"
+    },
+    {
+     "id": "D",
+     "text": "mitochondria"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "ecological-associations",
+   "question": "The insect-trapping by the leaves of Venus flytrap is an example of a",
+   "options": [
+    {
+     "id": "A",
+     "text": "adaptive coloration"
+    },
+    {
+     "id": "B",
+     "text": "structural adaptation"
+    },
+    {
+     "id": "C",
+     "text": "environmental adaptation"
+    },
+    {
+     "id": "D",
+     "text": "behaviour adaptation"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "biology",
+   "topic": "variation-applications",
+   "question": "Morphological variation in humans include",
+   "options": [
+    {
+     "id": "A",
+     "text": "height, skin, colour and tongue rolling"
+    },
+    {
+     "id": "B",
+     "text": "weight, finger prints and body shape"
+    },
+    {
+     "id": "C",
+     "text": "height, weight and blood group"
+    },
+    {
+     "id": "D",
+     "text": "skin colour, blood and height"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q39"
+  }
+ ]
+}

@@ -4,6 +4,7 @@ import { getRank, getNextRank } from '@propella/shared'
 import { notify } from '../notifications/notification.service'
 import { checkAndAwardBadges } from '../badges/badges.service'
 import type { XPSummary, UserStreak } from '@propella/shared'
+import { toUserStreak } from './streak'
 
 export type { XPSource }
 
@@ -36,28 +37,12 @@ export async function getXPSummary(userId: string): Promise<XPSummary> {
   return buildXPSummary(await getTotalXP(userId))
 }
 
+/**
+ * Read-only: the row is written when the student studies. Creating it here
+ * raced with the other requests of the same page load.
+ */
 export async function getStreak(userId: string): Promise<UserStreak> {
-  const existing = await prisma.streak.findUnique({ where: { userId } })
-
-  if (existing) {
-    return {
-      currentStreak: existing.currentStreak,
-      longestStreak: existing.longestStreak,
-      lastActiveDate: existing.lastActiveDate.toISOString(),
-      freezesAvailable: existing.freezesAvailable,
-    }
-  }
-
-  const created = await prisma.streak.create({
-    data: { userId, lastActiveDate: new Date() },
-  })
-
-  return {
-    currentStreak: created.currentStreak,
-    longestStreak: created.longestStreak,
-    lastActiveDate: created.lastActiveDate.toISOString(),
-    freezesAvailable: created.freezesAvailable,
-  }
+  return toUserStreak(await prisma.streak.findUnique({ where: { userId } }))
 }
 
 export async function awardXP(

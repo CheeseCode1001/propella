@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import type { QuizAttempt, QuizMode } from '../../config/db'
-import { QUIZ_MODES } from '@propella/shared'
+import { QUIZ_MODES, QUIZ_TYPES } from '@propella/shared'
 import { AppError } from '../../middleware/error-handler'
 import { jsonArray, type QuizAnswer } from '../../models/types'
 import * as quizzesService from './quizzes.service'
@@ -24,14 +24,19 @@ export async function generateQuiz(
     const userId = requireUser(req)
     const { subjectSlug, topicSlug, type, difficulty, mode, questionCount } = req.body as {
       subjectSlug: string
-      topicSlug: string
-      type: 'topic' | 'subject' | 'mixed' | 'weakness' | 'mock'
+      topicSlug?: string
+      type?: 'topic' | 'subject' | 'mixed' | 'weakness' | 'mock'
       difficulty: 'easy' | 'medium' | 'hard' | 'adaptive'
       mode: QuizMode
       questionCount: number
     }
 
-    if (!subjectSlug || !topicSlug) {
+    if (type !== undefined && !QUIZ_TYPES.includes(type)) {
+      throw new AppError(400, 'Invalid quiz type')
+    }
+
+    // A 'subject' quiz draws past questions from every topic in the subject.
+    if (!subjectSlug || (!topicSlug && type !== 'subject')) {
       throw new AppError(400, 'subjectSlug and topicSlug are required')
     }
 

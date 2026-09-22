@@ -19,9 +19,40 @@ export async function generateMock(
       subjectSlugs: string[]
     }
 
+    if (!['jamb', 'waec', 'neco'].includes(examType)) {
+      throw new AppError(400, 'examType must be jamb, waec or neco')
+    }
+    if (!Array.isArray(subjectSlugs) || subjectSlugs.length === 0) {
+      throw new AppError(400, 'Choose at least one subject')
+    }
+
     const mock = await mocksService.generateMock(userId, examType, subjectSlugs)
 
     res.status(201).json({
+      data: {
+        mockId: mock.id,
+        questionCount: mock.questionCount,
+        timeLimit: mock.timeLimit,
+        type: mock.type,
+        createdAt: mock.createdAt.toISOString(),
+      },
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+/** Summary for the pre-start screen - the questions only arrive once an attempt starts. */
+export async function getMock(
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const mock = await mocksService.getMock(userId, req.params.id)
+
+    res.status(200).json({
       data: {
         mockId: mock.id,
         questionCount: mock.questionCount,

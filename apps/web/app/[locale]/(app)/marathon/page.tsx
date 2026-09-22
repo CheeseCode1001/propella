@@ -6,6 +6,7 @@ import { api } from '@/lib/api-client'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/lib/stores/auth-store'
+import { useSubjects } from '@/lib/hooks/use-subjects'
 import { cn } from '@/lib/utils/cn'
 import { useQuery } from '@tanstack/react-query'
 import { useMarathonStore, useMarathonActive } from '@/lib/stores/marathon-store'
@@ -16,7 +17,8 @@ const POMODORO_OPTIONS = [
   { length: 50, label: '50 min', requiresPlan: true },
 ]
 
-const SUBJECT_SLUGS = [
+/** Shown until the live subject list loads. */
+const FALLBACK_SUBJECTS = [
   { slug: 'english', name: 'English' },
   { slug: 'mathematics', name: 'Mathematics' },
   { slug: 'physics', name: 'Physics' },
@@ -100,6 +102,10 @@ export default function MarathonPage() {
   const [duration, setDuration] = useState(60)
   const [pomodoroLength, setPomodoroLength] = useState(25)
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>(['english', 'mathematics'])
+  const { data: allSubjects } = useSubjects()
+  const subjectOptions = allSubjects
+    ? allSubjects.map((s) => ({ slug: s.slug, name: s.name }))
+    : FALLBACK_SUBJECTS
   const [isStarting, setIsStarting] = useState(false)
   const startMarathon = useMarathonStore((s) => s.start)
   const marathonActive = useMarathonActive()
@@ -249,7 +255,7 @@ export default function MarathonPage() {
               Subjects to cover
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {SUBJECT_SLUGS.map((s) => (
+              {subjectOptions.map((s) => (
                 <SubjectChip
                   key={s.slug}
                   name={s.name}

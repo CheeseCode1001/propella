@@ -4,6 +4,7 @@ import { AppError, NotFoundError } from '../../middleware/error-handler'
 import { getRank, getNextRank } from '@propella/shared'
 import type { AuthUser } from '@propella/shared'
 import { jsonArray, type ExamProfileSubject } from '../../models/types'
+import { toUserStreak } from '../gamification/streak'
 
 interface ExamProfileSummary {
   examType: string
@@ -101,19 +102,7 @@ export async function getMe(userId: string): Promise<MeResponse> {
   return {
     user: buildAuthUser(user),
     examProfile: examProfile ? buildExamProfileSummary(examProfile) : null,
-    streak: streakRow
-      ? {
-          currentStreak: streakRow.currentStreak,
-          longestStreak: streakRow.longestStreak,
-          lastActiveDate: streakRow.lastActiveDate.toISOString(),
-          freezesAvailable: streakRow.freezesAvailable,
-        }
-      : {
-          currentStreak: 0,
-          longestStreak: 0,
-          lastActiveDate: new Date().toISOString(),
-          freezesAvailable: 1,
-        },
+    streak: toUserStreak(streakRow),
     xp: {
       totalXP,
       rankName: rank.name,

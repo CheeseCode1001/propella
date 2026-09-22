@@ -17,6 +17,7 @@ router.post(
 router.post('/:id/attempt', mocksController.startMockAttempt)
 router.post('/attempts/:attemptId/submit', mocksController.submitMock)
 router.get('/attempts/:attemptId', mocksController.getMockAttemptResult)
+router.get('/:id', mocksController.getMock)
 router.get('/', mocksController.getMockHistory)
 
 export default router

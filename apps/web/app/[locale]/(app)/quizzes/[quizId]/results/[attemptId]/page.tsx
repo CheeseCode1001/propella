@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { api } from '@/lib/api-client'
+import { QuestionImage } from '@/components/common/question-image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { LoadingState } from '@/components/common/loading-state'
@@ -20,13 +21,15 @@ interface QuizQuestion {
   explanation: string
   topicSlug: string
   difficulty: string
+  /** Diagram the question depends on (past-question bank). */
+  imageUrl?: string
 }
 
 interface QuizData {
   id: string
   type: string
   difficulty: string
-  topicRef?: { subjectSlug: string; topicSlug: string }
+  topicRef?: { subjectSlug: string; topicSlug: string | null }
   questions: QuizQuestion[]
 }
 
@@ -162,6 +165,8 @@ function QuestionReviewItem({
           >
             {question.stem}
           </p>
+
+          {question.imageUrl && <QuestionImage url={question.imageUrl} compact />}
 
           {/* Options */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -304,15 +309,15 @@ export default function QuizResultsPage() {
     if (!data) return
     setRegenerating(true)
     try {
-      const topicSlug =
-        data.quiz.topicRef?.topicSlug ?? data.attempt.answers[0]
-          ? data.quiz.questions[0]?.topicSlug ?? ''
-          : ''
+      // A whole-subject quiz has no topic of its own; its questions each carry
+      // their own, so only a topic quiz falls back to the first question's.
+      const wholeSubject = data.quiz.type === 'subject' && !data.quiz.topicRef?.topicSlug
+      const topicSlug = data.quiz.topicRef?.topicSlug || data.quiz.questions[0]?.topicSlug || ''
       const subjectSlug = data.quiz.topicRef?.subjectSlug ?? ''
       const result = await api.post<{ data: { quizId: string } }>('/quizzes/generate', {
         subjectSlug,
-        topicSlug,
-        type: 'topic',
+        ...(wholeSubject ? {} : { topicSlug }),
+        type: wholeSubject ? 'subject' : 'topic',
         difficulty: data.quiz.difficulty,
         questionCount: data.quiz.questions.length,
       })

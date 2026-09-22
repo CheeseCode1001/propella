@@ -95,6 +95,10 @@ export type QuizQuestion = {
   explanation: string
   topicSlug: string
   difficulty: 'easy' | 'medium' | 'hard'
+  /** Set on questions drawn from the past-question bank, e.g. "JAMB UTME 2014 Q12". */
+  source?: string
+  /** Diagram the question depends on. A /static/... path is relative to the API origin. */
+  imageUrl?: string
 }
 
 // ── QuizAttempt.answers / QuizAttempt.byTopic ────────────────────────

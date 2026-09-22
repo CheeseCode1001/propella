@@ -1,0 +1,3919 @@
+{
+ "questions": [
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: 'O deadly sin! O rude unthankfulness! Thy fault our law calls death, but the kind Prince, Taking thy part, hath rushed aside the law And turned that black word...' Deadly sin refers to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "suicide of Juliet"
+    },
+    {
+     "id": "B",
+     "text": "suicide of Romeo"
+    },
+    {
+     "id": "C",
+     "text": "murder of Paris"
+    },
+    {
+     "id": "D",
+     "text": "murder of Tybalt"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: The play is mostly written in",
+   "options": [
+    {
+     "id": "A",
+     "text": "blank verse"
+    },
+    {
+     "id": "B",
+     "text": "free verse"
+    },
+    {
+     "id": "C",
+     "text": "metres"
+    },
+    {
+     "id": "D",
+     "text": "foot"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: The spatial setting of the play is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Athens"
+    },
+    {
+     "id": "B",
+     "text": "Verona"
+    },
+    {
+     "id": "C",
+     "text": "Padua"
+    },
+    {
+     "id": "D",
+     "text": "Venice"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: Romeo is banished to Mantua because he",
+   "options": [
+    {
+     "id": "A",
+     "text": "kills Tybalt in a street duel"
+    },
+    {
+     "id": "B",
+     "text": "marries Juliet without parental consent"
+    },
+    {
+     "id": "C",
+     "text": "attends Capulet's party uninvited"
+    },
+    {
+     "id": "D",
+     "text": "attempts to kill paris his rival"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Buchi Emecheta's The Joys of Motherhood: In the novel, the society puts high value on",
+   "options": [
+    {
+     "id": "A",
+     "text": "egalitarianism"
+    },
+    {
+     "id": "B",
+     "text": "male ascendancy"
+    },
+    {
+     "id": "C",
+     "text": "procreation"
+    },
+    {
+     "id": "D",
+     "text": "gender equity"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Buchi Emecheta's The Joys of Motherhood: The medicine man links the lump discovered on the head of Nnu Ego at birth, to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "possession of physical admirable qualities that makes her an epitome of perfection"
+    },
+    {
+     "id": "B",
+     "text": "wound inflicted on the slave woman buried with Agbadi\"s wife"
+    },
+    {
+     "id": "C",
+     "text": "coming back of the Agunwa to the society to live again"
+    },
+    {
+     "id": "D",
+     "text": "ill-luck and tragic events attributed to a predestined fate"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Buchi Emecheta's The Joys of Motherhood: The constant companions of Nnaife's family are",
+   "options": [
+    {
+     "id": "A",
+     "text": "togetherness and happiness"
+    },
+    {
+     "id": "B",
+     "text": "poverty and hunger"
+    },
+    {
+     "id": "C",
+     "text": "sickness and joblessness"
+    },
+    {
+     "id": "D",
+     "text": "disagreement and humiliation"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Ferdinand Oyono's The Old Man and the Medal: In the novel, the colonialists treat the Africans with",
+   "options": [
+    {
+     "id": "A",
+     "text": "Kids\" gloves"
+    },
+    {
+     "id": "B",
+     "text": "disdain"
+    },
+    {
+     "id": "C",
+     "text": "indifference"
+    },
+    {
+     "id": "D",
+     "text": "honour"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The Ministry of peace is concerned with making _.",
+   "options": [
+    {
+     "id": "A",
+     "text": "instruments"
+    },
+    {
+     "id": "B",
+     "text": "weapons"
+    },
+    {
+     "id": "C",
+     "text": "wars"
+    },
+    {
+     "id": "D",
+     "text": "reconciliation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The subject matter of the novel is",
+   "options": [
+    {
+     "id": "A",
+     "text": "totalitarian dictatorship"
+    },
+    {
+     "id": "B",
+     "text": "exploitation and cruelty"
+    },
+    {
+     "id": "C",
+     "text": "retributive justice"
+    },
+    {
+     "id": "D",
+     "text": "class segregation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: How did Winston start his rebellion against the state",
+   "options": [
+    {
+     "id": "A",
+     "text": "By engaging in anti-party activities"
+    },
+    {
+     "id": "B",
+     "text": "By keeping a private diary"
+    },
+    {
+     "id": "C",
+     "text": "When he started a secret affair"
+    },
+    {
+     "id": "D",
+     "text": "When he spied on the party"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The party seeks power for",
+   "options": [
+    {
+     "id": "A",
+     "text": "the nation"
+    },
+    {
+     "id": "B",
+     "text": "its own sake"
+    },
+    {
+     "id": "C",
+     "text": "its members"
+    },
+    {
+     "id": "D",
+     "text": "peoples' sake"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "african-poetry",
+   "question": "Rubadiri's An African Thunderstorm, says that during thunderstorm in the village",
+   "options": [
+    {
+     "id": "A",
+     "text": "women cook their food"
+    },
+    {
+     "id": "B",
+     "text": "children play in the rain"
+    },
+    {
+     "id": "C",
+     "text": "children are delighted while women move in and out"
+    },
+    {
+     "id": "D",
+     "text": "both women and children are delighted"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "The poet persona in Marvell's To His Coy Mistress is willing to praise the lady's eyes for",
+   "options": [
+    {
+     "id": "A",
+     "text": "thirty thousand years"
+    },
+    {
+     "id": "B",
+     "text": "six decades"
+    },
+    {
+     "id": "C",
+     "text": "two centuries"
+    },
+    {
+     "id": "D",
+     "text": "a century"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "In Lawrence's Bat, the poet persona mistakes the bats for",
+   "options": [
+    {
+     "id": "A",
+     "text": "owls"
+    },
+    {
+     "id": "B",
+     "text": "swallows"
+    },
+    {
+     "id": "C",
+     "text": "pipistrello"
+    },
+    {
+     "id": "D",
+     "text": "sparrows"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "General Literary Principles: Both comedy and tragedy have",
+   "options": [
+    {
+     "id": "A",
+     "text": "happy ending"
+    },
+    {
+     "id": "B",
+     "text": "climax"
+    },
+    {
+     "id": "C",
+     "text": "tragic hero"
+    },
+    {
+     "id": "D",
+     "text": "stanza"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: A formal dignified speech or writing praising a person or a thing for past or present deeds is",
+   "options": [
+    {
+     "id": "A",
+     "text": "premiere"
+    },
+    {
+     "id": "B",
+     "text": "eulogy"
+    },
+    {
+     "id": "C",
+     "text": "anthology"
+    },
+    {
+     "id": "D",
+     "text": "lampoon"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "prose-analysis",
+   "question": "General Literary Principles: The narrative style in which the hero tells his own story directly is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "objective"
+    },
+    {
+     "id": "B",
+     "text": "subjective"
+    },
+    {
+     "id": "C",
+     "text": "first- person"
+    },
+    {
+     "id": "D",
+     "text": "third-person"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: The physical, historical or cultural background of a literary work is referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "episode"
+    },
+    {
+     "id": "B",
+     "text": "plot"
+    },
+    {
+     "id": "C",
+     "text": "time"
+    },
+    {
+     "id": "D",
+     "text": "setting"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "figures-of-speech",
+   "question": "General Literary Principles: Pun as a literary device deals with",
+   "options": [
+    {
+     "id": "A",
+     "text": "placing two opposite phrases"
+    },
+    {
+     "id": "B",
+     "text": "placing words side by side"
+    },
+    {
+     "id": "C",
+     "text": "playing on words"
+    },
+    {
+     "id": "D",
+     "text": "arrangement of words"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "General Literary Principles: In a narrative poem, the poet attempts to",
+   "options": [
+    {
+     "id": "A",
+     "text": "summarize a story"
+    },
+    {
+     "id": "B",
+     "text": "describe a place"
+    },
+    {
+     "id": "C",
+     "text": "preach a sermon"
+    },
+    {
+     "id": "D",
+     "text": "tell a story"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "General Literary Principles: The account of experiences of an individual during the course of a journey is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "a travelogue"
+    },
+    {
+     "id": "B",
+     "text": "an autobiography"
+    },
+    {
+     "id": "C",
+     "text": "a catalogue"
+    },
+    {
+     "id": "D",
+     "text": "a memoir"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "\"Basha: You dumb skull of a bone head . . . you will face court martial for this. You look everywhere? You search inside toilet bowl? Wole Soyinka: King Baabu The person being addressed above is a",
+   "options": [
+    {
+     "id": "A",
+     "text": "soldier"
+    },
+    {
+     "id": "B",
+     "text": "student"
+    },
+    {
+     "id": "C",
+     "text": "domestic servant"
+    },
+    {
+     "id": "D",
+     "text": "lawyer"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "african-drama",
+   "question": "J. C De Graft's Sons and Daughters: From its resolution of conflicts, the play can be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "tragedy"
+    },
+    {
+     "id": "B",
+     "text": "comedy"
+    },
+    {
+     "id": "C",
+     "text": "farce"
+    },
+    {
+     "id": "D",
+     "text": "melodrama"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "african-drama",
+   "question": "J. C De Graft's Sons and Daughters: 'Everything in this room outrages my sense of beauty, undermines my will to create pictures of lasting appeal. ' The speaker in the quotation above is",
+   "options": [
+    {
+     "id": "A",
+     "text": "happy"
+    },
+    {
+     "id": "B",
+     "text": "frustrated"
+    },
+    {
+     "id": "C",
+     "text": "excited"
+    },
+    {
+     "id": "D",
+     "text": "tired"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: The play reaches the point of denouement",
+   "options": [
+    {
+     "id": "A",
+     "text": "at the family feast"
+    },
+    {
+     "id": "B",
+     "text": "when Romeo kills Paris at the tomb"
+    },
+    {
+     "id": "C",
+     "text": "at the reconciliation of the feuding families"
+    },
+    {
+     "id": "D",
+     "text": "when Romeo is informed of Juliet's death"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: The news of Juliet's death is broken to Romeo in Mantua by",
+   "options": [
+    {
+     "id": "A",
+     "text": "Balthasar"
+    },
+    {
+     "id": "B",
+     "text": "Friar Lawrence"
+    },
+    {
+     "id": "C",
+     "text": "Boy"
+    },
+    {
+     "id": "D",
+     "text": "Friar John"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: In the play, Mercutio can be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "fraudulent"
+    },
+    {
+     "id": "B",
+     "text": "quarrelsome"
+    },
+    {
+     "id": "C",
+     "text": "gentle"
+    },
+    {
+     "id": "D",
+     "text": "kind-hearted"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: The plot of the play is",
+   "options": [
+    {
+     "id": "A",
+     "text": "simple"
+    },
+    {
+     "id": "B",
+     "text": "complicated"
+    },
+    {
+     "id": "C",
+     "text": "convoluted"
+    },
+    {
+     "id": "D",
+     "text": "chronological"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The power and oppression of an irresistible evil debased Winston's dreams of",
+   "options": [
+    {
+     "id": "A",
+     "text": "freedom and democracy"
+    },
+    {
+     "id": "B",
+     "text": "internal security"
+    },
+    {
+     "id": "C",
+     "text": "wealth and capitalism"
+    },
+    {
+     "id": "D",
+     "text": "sovereignty"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: Room 101 symbolizes a place of",
+   "options": [
+    {
+     "id": "A",
+     "text": "rest"
+    },
+    {
+     "id": "B",
+     "text": "fun"
+    },
+    {
+     "id": "C",
+     "text": "humiliation"
+    },
+    {
+     "id": "D",
+     "text": "tour"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "african-poetry",
+   "question": "In Rubadiri's An African Thunderstorm, the thunderstorm begins with",
+   "options": [
+    {
+     "id": "A",
+     "text": "rain from the west"
+    },
+    {
+     "id": "B",
+     "text": "clouds from the east"
+    },
+    {
+     "id": "C",
+     "text": "rain from the east"
+    },
+    {
+     "id": "D",
+     "text": "clouds from the west"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "The tone of Cope's Sonnet VII is generally",
+   "options": [
+    {
+     "id": "A",
+     "text": "persuasive"
+    },
+    {
+     "id": "B",
+     "text": "humorous"
+    },
+    {
+     "id": "C",
+     "text": "optimistic"
+    },
+    {
+     "id": "D",
+     "text": "mournful"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: The large space above the proscenium in a theatre from which the scenes are controlled is called",
+   "options": [
+    {
+     "id": "A",
+     "text": "aside"
+    },
+    {
+     "id": "B",
+     "text": "setting"
+    },
+    {
+     "id": "C",
+     "text": "anachronism"
+    },
+    {
+     "id": "D",
+     "text": "flies"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "General Literary Principles: A ballad is meant to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "acted"
+    },
+    {
+     "id": "B",
+     "text": "sung"
+    },
+    {
+     "id": "C",
+     "text": "discussed"
+    },
+    {
+     "id": "D",
+     "text": "read"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: In drama, dramaturge is he who",
+   "options": [
+    {
+     "id": "A",
+     "text": "writes or edits plays"
+    },
+    {
+     "id": "B",
+     "text": "feature in a play"
+    },
+    {
+     "id": "C",
+     "text": "directs a play"
+    },
+    {
+     "id": "D",
+     "text": "acts a film"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "General Literary Principles: Travelogue is a work of art written",
+   "options": [
+    {
+     "id": "A",
+     "text": "by a famous playwright"
+    },
+    {
+     "id": "B",
+     "text": "before the death of the author"
+    },
+    {
+     "id": "C",
+     "text": "by an unpopular novelist"
+    },
+    {
+     "id": "D",
+     "text": "on a journey"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: Plays are basically meant to",
+   "options": [
+    {
+     "id": "A",
+     "text": "change the world"
+    },
+    {
+     "id": "B",
+     "text": "keep people out of trouble"
+    },
+    {
+     "id": "C",
+     "text": "be ready for pleasure"
+    },
+    {
+     "id": "D",
+     "text": "be presented on stage"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: A character who re-enacts familiar experiences that readers easily identify with is",
+   "options": [
+    {
+     "id": "A",
+     "text": "round character"
+    },
+    {
+     "id": "B",
+     "text": "flat character"
+    },
+    {
+     "id": "C",
+     "text": "stock character"
+    },
+    {
+     "id": "D",
+     "text": "static character"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: The plot of a story generally refers to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "intrigue made by a character against the hero"
+    },
+    {
+     "id": "B",
+     "text": "way the writer ends the story"
+    },
+    {
+     "id": "C",
+     "text": "way in which the events of the story are organised"
+    },
+    {
+     "id": "D",
+     "text": "way in which the writer begins the story"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "Literary Appreciation: 'In those days. When civilization kicked us in the face, when holy water slapped brows. The vultures built in the shadow of their talons.' David Diop: The Vulture The dominant literary device used in the lines above is",
+   "options": [
+    {
+     "id": "A",
+     "text": "pun"
+    },
+    {
+     "id": "B",
+     "text": "metaphor"
+    },
+    {
+     "id": "C",
+     "text": "personification"
+    },
+    {
+     "id": "D",
+     "text": "simile"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "Literary Appreciation: 'I have said too much unto a heart of stone, And laid my honour too unchary on it', There's something in me that reproves my fault,. But such a headstrong potent fault it is That it but mocks reproof.' William Shakespeare: Twelfth Night A heart of stone in the lines above is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "metonymy"
+    },
+    {
+     "id": "B",
+     "text": "litotes"
+    },
+    {
+     "id": "C",
+     "text": "assonance"
+    },
+    {
+     "id": "D",
+     "text": "metaphor"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "Literary Appreciation: The wood decay, the woods decay and fall, The vapour weep their burthen to the ground, Man comes and fills the field and lies beneath, And after many a summer dies the swan. The subject matter of the lines above is",
+   "options": [
+    {
+     "id": "A",
+     "text": "death"
+    },
+    {
+     "id": "B",
+     "text": "rainfall"
+    },
+    {
+     "id": "C",
+     "text": "famine"
+    },
+    {
+     "id": "D",
+     "text": "storm"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q50"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "african-drama",
+   "question": "J.C. De Graft's Sons and Daughters: Who is the paternal aunt to Aaron and Maanan?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Mrs Bonu"
+    },
+    {
+     "id": "B",
+     "text": "Hannah"
+    },
+    {
+     "id": "C",
+     "text": "Fosuwa"
+    },
+    {
+     "id": "D",
+     "text": "Adwao"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: \"From forth the fatal loins of these two foes A pair of star-crossed lovers take their life...\" The lines above suggest that the tragedy in the play",
+   "options": [
+    {
+     "id": "A",
+     "text": "could have been averted"
+    },
+    {
+     "id": "B",
+     "text": "is predestined"
+    },
+    {
+     "id": "C",
+     "text": "is brought on enmity"
+    },
+    {
+     "id": "D",
+     "text": "brought misfortune on the lovers"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: \"The all-seeing sun, Ne'er saw match since first the world begun.\" The lines above were spoken by",
+   "options": [
+    {
+     "id": "A",
+     "text": "Count Paris in praise of Juliet"
+    },
+    {
+     "id": "B",
+     "text": "Romeo in praise of Juliet"
+    },
+    {
+     "id": "C",
+     "text": "Romeo in praise of Roseline"
+    },
+    {
+     "id": "D",
+     "text": "Lady Capulet in praise of Roseline"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: The major role of Mercutio in the play is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "serve as a contrast to Romeo"
+    },
+    {
+     "id": "B",
+     "text": "aid and abet Romeo's passion"
+    },
+    {
+     "id": "C",
+     "text": "annoy Tybalt"
+    },
+    {
+     "id": "D",
+     "text": "accompany Romeo to Friar Lawrence"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Romeo and Juliet: The play shares the feature of classical tragedy through the use of",
+   "options": [
+    {
+     "id": "A",
+     "text": "violence on stage"
+    },
+    {
+     "id": "B",
+     "text": "chorus"
+    },
+    {
+     "id": "C",
+     "text": "comic relief"
+    },
+    {
+     "id": "D",
+     "text": "flashback"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Ferdinand Oyono's The Old Man and the Medal: \"Meka, kneeling down in his usual fashion with his behind up in the air. Kelara knelt down beside him. Amalia and her husband knelt down as well.\" The actions of Meka, Kelara, Amalia and her husband signify",
+   "options": [
+    {
+     "id": "A",
+     "text": "parade"
+    },
+    {
+     "id": "B",
+     "text": "dance"
+    },
+    {
+     "id": "C",
+     "text": "prayer"
+    },
+    {
+     "id": "D",
+     "text": "celebration"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Ferdinand Oyono's The Old Man and the Medal: \"He had knocked his toes against so many things that he had no toenails anymore and the yaws he had suffered from his youth had twisted his toes up so that they pointed to the sky\" The description above is in reference to the foot of",
+   "options": [
+    {
+     "id": "A",
+     "text": "Kelara"
+    },
+    {
+     "id": "B",
+     "text": "Meka"
+    },
+    {
+     "id": "C",
+     "text": "Egamba"
+    },
+    {
+     "id": "D",
+     "text": "Mvondo"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "Eliot's The Journey of the Magi could be said to examine the issues of",
+   "options": [
+    {
+     "id": "A",
+     "text": "three trees on the low sky"
+    },
+    {
+     "id": "B",
+     "text": "empty wine-skins"
+    },
+    {
+     "id": "C",
+     "text": "spiritual rebirth"
+    },
+    {
+     "id": "D",
+     "text": "holy pilgrimage"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "The theme of Cope's Sonnet VII is",
+   "options": [
+    {
+     "id": "A",
+     "text": "art of poetry"
+    },
+    {
+     "id": "B",
+     "text": "adventure"
+    },
+    {
+     "id": "C",
+     "text": "contempt for literature"
+    },
+    {
+     "id": "D",
+     "text": "isolation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: A literary work in which the characters and events are used as symbols is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "characterization"
+    },
+    {
+     "id": "B",
+     "text": "allegory"
+    },
+    {
+     "id": "C",
+     "text": "metaphor"
+    },
+    {
+     "id": "D",
+     "text": "parallelism"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "prose-analysis",
+   "question": "General Literary Principles: Characterization in a novel refers to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "writer's opinion of the characters"
+    },
+    {
+     "id": "B",
+     "text": "way the characters are revealed to the reader"
+    },
+    {
+     "id": "C",
+     "text": "characters and the way they behave"
+    },
+    {
+     "id": "D",
+     "text": "reader's opinion of the characters"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "figures-of-speech",
+   "question": "General Literary Principles: In literary work, verbal irony refers to a",
+   "options": [
+    {
+     "id": "A",
+     "text": "device in which the speaker means the opposite of what he says"
+    },
+    {
+     "id": "B",
+     "text": "situation in which a character speaks or acts against the trend of events"
+    },
+    {
+     "id": "C",
+     "text": "difficult situation which defies a logical or rational resolution"
+    },
+    {
+     "id": "D",
+     "text": "device in which the actor on stage means exactly what he says"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: In the theater, words spoken by a character that are meant to be heard by the audience but not by the other characters on stage is called",
+   "options": [
+    {
+     "id": "A",
+     "text": "aside"
+    },
+    {
+     "id": "B",
+     "text": "soliloquy"
+    },
+    {
+     "id": "C",
+     "text": "acoustic"
+    },
+    {
+     "id": "D",
+     "text": "tone"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "General Literary Principles: Drama is the representation of a complete series of actions by means of",
+   "options": [
+    {
+     "id": "A",
+     "text": "movement and gesture for the screen and audience"
+    },
+    {
+     "id": "B",
+     "text": "speech, movement and gesture for the stage only"
+    },
+    {
+     "id": "C",
+     "text": "speech, movement and gesture for the stage, screen and radio"
+    },
+    {
+     "id": "D",
+     "text": "speech, gesture and movement for the screen and radio"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "General Literary Principles: A poet's use of regular rhythm is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "allegory"
+    },
+    {
+     "id": "B",
+     "text": "assonance"
+    },
+    {
+     "id": "C",
+     "text": "metre"
+    },
+    {
+     "id": "D",
+     "text": "onomatopoeia"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "General Literary Principles: A literary genre which directly imitates human action is",
+   "options": [
+    {
+     "id": "A",
+     "text": "drama"
+    },
+    {
+     "id": "B",
+     "text": "comedy"
+    },
+    {
+     "id": "C",
+     "text": "prose"
+    },
+    {
+     "id": "D",
+     "text": "poetry"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "General Literary Principles: A fable is a story in which",
+   "options": [
+    {
+     "id": "A",
+     "text": "allegations are made about characters"
+    },
+    {
+     "id": "B",
+     "text": "animals or things are used as characters"
+    },
+    {
+     "id": "C",
+     "text": "there is an important setting"
+    },
+    {
+     "id": "D",
+     "text": "the story is told in poetic form"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "figures-of-speech",
+   "question": "General Literary Principles: The juxtaposition of two contrasting ideas in a line of poetry is",
+   "options": [
+    {
+     "id": "A",
+     "text": "euphemism"
+    },
+    {
+     "id": "B",
+     "text": "synedoche"
+    },
+    {
+     "id": "C",
+     "text": "catharsis"
+    },
+    {
+     "id": "D",
+     "text": "oxymoron"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: The main aim of caricature is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "describe"
+    },
+    {
+     "id": "B",
+     "text": "expose"
+    },
+    {
+     "id": "C",
+     "text": "emphasize"
+    },
+    {
+     "id": "D",
+     "text": "ridicule"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "Literary Appreciation: \"Serrated shadows, through dark leaves, Til, bathed in warm suffusion of your dapped cells Sensation pained me, faceless, silent as night thieves.\" Wole Soyinka: Night The dominant mood in the lines above is one of",
+   "options": [
+    {
+     "id": "A",
+     "text": "apprehension"
+    },
+    {
+     "id": "B",
+     "text": "defiance"
+    },
+    {
+     "id": "C",
+     "text": "joy"
+    },
+    {
+     "id": "D",
+     "text": "indifference"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "african-drama",
+   "question": "J.C. De Graft's Sons and Daughters: From the play, the character of Aaron represents the",
+   "options": [
+    {
+     "id": "A",
+     "text": "painters"
+    },
+    {
+     "id": "B",
+     "text": "art work"
+    },
+    {
+     "id": "C",
+     "text": "new generation"
+    },
+    {
+     "id": "D",
+     "text": "old generation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "\"What, drawn and talk of peace? I hate the word As I hate hell, all Montagues, and thee Have at thee,coward!\" Based on William Shakespeare's Romeo and Juliet, the lines above reveal the speaker as a",
+   "options": [
+    {
+     "id": "A",
+     "text": "violence seeker"
+    },
+    {
+     "id": "B",
+     "text": "peace maker"
+    },
+    {
+     "id": "C",
+     "text": "real Montague"
+    },
+    {
+     "id": "D",
+     "text": "trouble shooter"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "Romeo's mood, at the beginning of the play can be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "melancholic and sentimental"
+    },
+    {
+     "id": "B",
+     "text": "dreamy and hopeful"
+    },
+    {
+     "id": "C",
+     "text": "frustrated and pensive"
+    },
+    {
+     "id": "D",
+     "text": "gay and elated"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "\" .. Put up thy sword Or manage it to part these men with me.\" The speech above was made when",
+   "options": [
+    {
+     "id": "A",
+     "text": "Tybalt challenges Romeo to duel"
+    },
+    {
+     "id": "B",
+     "text": "Prince Escalus arrives to make peace between the families"
+    },
+    {
+     "id": "C",
+     "text": "Romeo and Paris engaged themselves in a fight"
+    },
+    {
+     "id": "D",
+     "text": "Benvolio tries to separate the servants of the feuding families"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Ferdinand Oyono's the Old Man and the Medal: To the white men, the medal that is given symbolizes",
+   "options": [
+    {
+     "id": "A",
+     "text": "harmonious relationship"
+    },
+    {
+     "id": "B",
+     "text": "love"
+    },
+    {
+     "id": "C",
+     "text": "peace"
+    },
+    {
+     "id": "D",
+     "text": "friendship"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The Ministry of Love is concerned with",
+   "options": [
+    {
+     "id": "A",
+     "text": "peace and freedom"
+    },
+    {
+     "id": "B",
+     "text": "torture and pain"
+    },
+    {
+     "id": "C",
+     "text": "joy and peace"
+    },
+    {
+     "id": "D",
+     "text": "hatred and pain"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The instruments of power and torture belong to",
+   "options": [
+    {
+     "id": "A",
+     "text": "the government"
+    },
+    {
+     "id": "B",
+     "text": "the party"
+    },
+    {
+     "id": "C",
+     "text": "the thought police"
+    },
+    {
+     "id": "D",
+     "text": "individuals"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The action in the novel is built around",
+   "options": [
+    {
+     "id": "A",
+     "text": "Winston Smith"
+    },
+    {
+     "id": "B",
+     "text": "O'Brien"
+    },
+    {
+     "id": "C",
+     "text": "Julia"
+    },
+    {
+     "id": "D",
+     "text": "Big Brother"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: Winston Smith works in the Record Department of the Ministry of",
+   "options": [
+    {
+     "id": "A",
+     "text": "love"
+    },
+    {
+     "id": "B",
+     "text": "truth"
+    },
+    {
+     "id": "C",
+     "text": "peace"
+    },
+    {
+     "id": "D",
+     "text": "plenty"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "african-poetry",
+   "question": "'Since it was you who in all these thin seasons.\" The device employed in the line above from Kunene's The Heritage of Liberation, is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "apostrophe"
+    },
+    {
+     "id": "B",
+     "text": "allusion"
+    },
+    {
+     "id": "C",
+     "text": "anecdote"
+    },
+    {
+     "id": "D",
+     "text": "aside"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "african-poetry",
+   "question": "\"Let me ask for what reason or rhyme women refuse to marry? Woman cannot exist except by man, what is there in that to vex some of them so? The lines above from Give Me The Minstrel's Seat is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "pathetic fallacy"
+    },
+    {
+     "id": "B",
+     "text": "chiasmus"
+    },
+    {
+     "id": "C",
+     "text": "ironical statement"
+    },
+    {
+     "id": "D",
+     "text": "rhetorical question"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "'Time winged chariot' The line above from Marvell's To His Coy Mistress depicts",
+   "options": [
+    {
+     "id": "A",
+     "text": "how fast time flies"
+    },
+    {
+     "id": "B",
+     "text": "the usefulness of time"
+    },
+    {
+     "id": "C",
+     "text": "the measurement of time"
+    },
+    {
+     "id": "D",
+     "text": "how fast events unfold"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: A device used by a writer to recall past event in a literary work is",
+   "options": [
+    {
+     "id": "A",
+     "text": "interlude"
+    },
+    {
+     "id": "B",
+     "text": "anti-climax"
+    },
+    {
+     "id": "C",
+     "text": "flashback"
+    },
+    {
+     "id": "D",
+     "text": "foreshadowing"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "General Literary Principles: A paragraph in prose is equivalent to a",
+   "options": [
+    {
+     "id": "A",
+     "text": "trope in poetry"
+    },
+    {
+     "id": "B",
+     "text": "verse in poetry"
+    },
+    {
+     "id": "C",
+     "text": "stanza in poetry"
+    },
+    {
+     "id": "D",
+     "text": "meter in poetry"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "General Literary Principles: A device used in poetry to achieve emphasis or stress a point is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "rhyme"
+    },
+    {
+     "id": "B",
+     "text": "assonance"
+    },
+    {
+     "id": "C",
+     "text": "repetition"
+    },
+    {
+     "id": "D",
+     "text": "alliteration"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "General Literary Principles: A literary work that ridicules the shortcomings of people or ideas is",
+   "options": [
+    {
+     "id": "A",
+     "text": "a masque"
+    },
+    {
+     "id": "B",
+     "text": "a satire"
+    },
+    {
+     "id": "C",
+     "text": "an irony"
+    },
+    {
+     "id": "D",
+     "text": "a fable"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: Action without speech in a play is",
+   "options": [
+    {
+     "id": "A",
+     "text": "soliloquy"
+    },
+    {
+     "id": "B",
+     "text": "aside"
+    },
+    {
+     "id": "C",
+     "text": "epilogue"
+    },
+    {
+     "id": "D",
+     "text": "mime"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's The Tempest: Before the shipwreck that occurs at the beginning of the play, Prospero and his daughter have lived in the Island for",
+   "options": [
+    {
+     "id": "A",
+     "text": "two decades"
+    },
+    {
+     "id": "B",
+     "text": "twelve years"
+    },
+    {
+     "id": "C",
+     "text": "forty days"
+    },
+    {
+     "id": "D",
+     "text": "eighteen months"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's The Tempest: Caliban's intention to rape Miranda is born out of the desire to",
+   "options": [
+    {
+     "id": "A",
+     "text": "destroy the Island"
+    },
+    {
+     "id": "B",
+     "text": "compete with Ferdinand"
+    },
+    {
+     "id": "C",
+     "text": "populate the Island with Calibans"
+    },
+    {
+     "id": "D",
+     "text": "marry her"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's The Tempest: The character associated with savagery in the play is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Ariel"
+    },
+    {
+     "id": "B",
+     "text": "Stephano"
+    },
+    {
+     "id": "C",
+     "text": "Caliban"
+    },
+    {
+     "id": "D",
+     "text": "Ferdinand"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's The Tempest: Prospero is portrayed as a man who is",
+   "options": [
+    {
+     "id": "A",
+     "text": "full of mistrust for everybody"
+    },
+    {
+     "id": "B",
+     "text": "more interested in studying than in governance"
+    },
+    {
+     "id": "C",
+     "text": "dependent on the spirits for his survival"
+    },
+    {
+     "id": "D",
+     "text": "eager to conquer the world"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Asare Konadu's A Woman in Her Prime: According to the novel, the worst calamity that can befall a woman is",
+   "options": [
+    {
+     "id": "A",
+     "text": "inability to bear male"
+    },
+    {
+     "id": "B",
+     "text": "inability to marry"
+    },
+    {
+     "id": "C",
+     "text": "divorce children"
+    },
+    {
+     "id": "D",
+     "text": "barrenness"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Chimamanda Adichie's Purple Hibiscus: Eugene Achike in the novel is portrayed as",
+   "options": [
+    {
+     "id": "A",
+     "text": "a soft and gentle husband"
+    },
+    {
+     "id": "B",
+     "text": "an uncompromising traditionalist"
+    },
+    {
+     "id": "C",
+     "text": "a fanatical Catholic adherent"
+    },
+    {
+     "id": "D",
+     "text": "a tough retired soldier"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "african-prose",
+   "question": "Chimamanda Adichie's Purple Hibiscus: In the Achike family, the character who is central to the theme is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Kambili"
+    },
+    {
+     "id": "B",
+     "text": "Mama"
+    },
+    {
+     "id": "C",
+     "text": "Sisi"
+    },
+    {
+     "id": "D",
+     "text": "Jaja"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "Ernest Hemingway's The Old Man and the Sea: In the novel, the type of fish caught by Santiago after days of effort is",
+   "options": [
+    {
+     "id": "A",
+     "text": "shark"
+    },
+    {
+     "id": "B",
+     "text": "iris"
+    },
+    {
+     "id": "C",
+     "text": "marlin"
+    },
+    {
+     "id": "D",
+     "text": "geisha"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "Ernest Hemingway's The Old Man and the Sea: The novel demonstrates the",
+   "options": [
+    {
+     "id": "A",
+     "text": "attempt to catch fish"
+    },
+    {
+     "id": "B",
+     "text": "desire to understand life"
+    },
+    {
+     "id": "C",
+     "text": "influence of the sea on man"
+    },
+    {
+     "id": "D",
+     "text": "struggle of man against-defeat"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "Ernest Hemingway's The Old Man and the Sea: In the novel, the attitude of the old man toward nature is quite",
+   "options": [
+    {
+     "id": "A",
+     "text": "cautious and sceptical"
+    },
+    {
+     "id": "B",
+     "text": "hostile and callous"
+    },
+    {
+     "id": "C",
+     "text": "careless and indifferent"
+    },
+    {
+     "id": "D",
+     "text": "warm and friendly"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "african-poetry",
+   "question": "Jared Angira is an African poet from",
+   "options": [
+    {
+     "id": "A",
+     "text": "Sierra-Leone"
+    },
+    {
+     "id": "B",
+     "text": "Kenya"
+    },
+    {
+     "id": "C",
+     "text": "South Africa"
+    },
+    {
+     "id": "D",
+     "text": "Ghana"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "The sun in Donne's The Sun Rising is depicted through the use of",
+   "options": [
+    {
+     "id": "A",
+     "text": "invocation"
+    },
+    {
+     "id": "B",
+     "text": "ellipsis"
+    },
+    {
+     "id": "C",
+     "text": "enjambment"
+    },
+    {
+     "id": "D",
+     "text": "apostrophe"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "The allusion in Hughes's The Negro Speaks of Rivers is mainly",
+   "options": [
+    {
+     "id": "A",
+     "text": "biblical"
+    },
+    {
+     "id": "B",
+     "text": "historical"
+    },
+    {
+     "id": "C",
+     "text": "classical"
+    },
+    {
+     "id": "D",
+     "text": "literary"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: An action in a play that stimulates the audience to pity a character is",
+   "options": [
+    {
+     "id": "A",
+     "text": "pathos"
+    },
+    {
+     "id": "B",
+     "text": "parody"
+    },
+    {
+     "id": "C",
+     "text": "pyrrhic"
+    },
+    {
+     "id": "D",
+     "text": "props"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: Purgation of emotion, pity and fear is",
+   "options": [
+    {
+     "id": "A",
+     "text": "epilogue"
+    },
+    {
+     "id": "B",
+     "text": "exposition"
+    },
+    {
+     "id": "C",
+     "text": "catharsis"
+    },
+    {
+     "id": "D",
+     "text": "catastrophe"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: A device in drama where a character speaks alone is",
+   "options": [
+    {
+     "id": "A",
+     "text": "apostrophe"
+    },
+    {
+     "id": "B",
+     "text": "dialogue"
+    },
+    {
+     "id": "C",
+     "text": "soliloquy"
+    },
+    {
+     "id": "D",
+     "text": "aside"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: A plot in a literary work is about",
+   "options": [
+    {
+     "id": "A",
+     "text": "resolution of conflicts"
+    },
+    {
+     "id": "B",
+     "text": "law of poetic justice"
+    },
+    {
+     "id": "C",
+     "text": "character delineation"
+    },
+    {
+     "id": "D",
+     "text": "causal arrangement of events"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "General Literary Principles: Tone and mood of a poem refer to",
+   "options": [
+    {
+     "id": "A",
+     "text": "setting"
+    },
+    {
+     "id": "B",
+     "text": "space"
+    },
+    {
+     "id": "C",
+     "text": "locale"
+    },
+    {
+     "id": "D",
+     "text": "atmosphere"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: A funny incident within a serious situation is",
+   "options": [
+    {
+     "id": "A",
+     "text": "tragicomedy"
+    },
+    {
+     "id": "B",
+     "text": "tragic hero"
+    },
+    {
+     "id": "C",
+     "text": "comedy"
+    },
+    {
+     "id": "D",
+     "text": "comic relief"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: In literature, a flat character can be described as one who",
+   "options": [
+    {
+     "id": "A",
+     "text": "dies abruptly"
+    },
+    {
+     "id": "B",
+     "text": "achieves greatness"
+    },
+    {
+     "id": "C",
+     "text": "is undeveloped"
+    },
+    {
+     "id": "D",
+     "text": "undergoes changes"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: Dramatis personae in a play refers to",
+   "options": [
+    {
+     "id": "A",
+     "text": "cast list"
+    },
+    {
+     "id": "B",
+     "text": "protagonist and antagonist"
+    },
+    {
+     "id": "C",
+     "text": "list of characters"
+    },
+    {
+     "id": "D",
+     "text": "order of appearance"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: The speech made at the end of a dramatic performance is generally called",
+   "options": [
+    {
+     "id": "A",
+     "text": "a dirge"
+    },
+    {
+     "id": "B",
+     "text": "a monologue"
+    },
+    {
+     "id": "C",
+     "text": "a prologue"
+    },
+    {
+     "id": "D",
+     "text": "an epilogue"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "Literary Appreciation: And when you trudge on one horny pads Gullied like the soles of modern shoes Pads that even jiggers cannot conquer Horny pads in the lines above is a reference to a",
+   "options": [
+    {
+     "id": "A",
+     "text": "policeman"
+    },
+    {
+     "id": "B",
+     "text": "madman"
+    },
+    {
+     "id": "C",
+     "text": "sole of a pauper"
+    },
+    {
+     "id": "D",
+     "text": "sole of a soldier"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q44"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "figures-of-speech",
+   "question": "The repetition of a consonant sound in quick succession for sound effect is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Alliteration"
+    },
+    {
+     "id": "B",
+     "text": "Pun"
+    },
+    {
+     "id": "C",
+     "text": "onomatopoeia"
+    },
+    {
+     "id": "D",
+     "text": "Assonance"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "A play in which the acts succeed one Another without probable or necessary sequence is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Episodic"
+    },
+    {
+     "id": "B",
+     "text": "Simple"
+    },
+    {
+     "id": "C",
+     "text": "linear"
+    },
+    {
+     "id": "D",
+     "text": "Convoluted"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "A technique by which a previous scene or action can be recalled in a play to shed light on the present action is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Climax"
+    },
+    {
+     "id": "B",
+     "text": "Flashback"
+    },
+    {
+     "id": "C",
+     "text": "interlude"
+    },
+    {
+     "id": "D",
+     "text": "Catharsis"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "Criticism is a literary activity which seeks to",
+   "options": [
+    {
+     "id": "A",
+     "text": "Find faults in a literary work"
+    },
+    {
+     "id": "B",
+     "text": "Analyse and evaluate a literary work"
+    },
+    {
+     "id": "C",
+     "text": "compare and contrast novels"
+    },
+    {
+     "id": "D",
+     "text": "Discover the beauty of a literary work"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "A situation where an actor addresses the audience without the other actors hearing him is called",
+   "options": [
+    {
+     "id": "A",
+     "text": "Soliloquy"
+    },
+    {
+     "id": "B",
+     "text": "Chorus"
+    },
+    {
+     "id": "C",
+     "text": "aside"
+    },
+    {
+     "id": "D",
+     "text": "Solo"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "A band of singers and dancers in drama who act as a link between the play and the audience is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Chorus"
+    },
+    {
+     "id": "B",
+     "text": "Clown"
+    },
+    {
+     "id": "C",
+     "text": "Playwright"
+    },
+    {
+     "id": "D",
+     "text": "Cast"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "A character whose name is used as the title of the text is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Antagonist"
+    },
+    {
+     "id": "B",
+     "text": "Round"
+    },
+    {
+     "id": "C",
+     "text": "eponymous"
+    },
+    {
+     "id": "D",
+     "text": "Flat"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "In poetry, the term license implies",
+   "options": [
+    {
+     "id": "A",
+     "text": "Freedom to sell poems"
+    },
+    {
+     "id": "B",
+     "text": "Liberty the poets take with language"
+    },
+    {
+     "id": "C",
+     "text": "approval given to poets to compose poems"
+    },
+    {
+     "id": "D",
+     "text": "Honour given to deserving poets"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "The person who takes the leading role in a play or novel is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Protagonist"
+    },
+    {
+     "id": "B",
+     "text": "Actor"
+    },
+    {
+     "id": "C",
+     "text": "antagonist"
+    },
+    {
+     "id": "D",
+     "text": "Actress"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "A form of writing in which the poet write with nostalgia about simple village life is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Ballad"
+    },
+    {
+     "id": "B",
+     "text": "Romance"
+    },
+    {
+     "id": "C",
+     "text": "epic"
+    },
+    {
+     "id": "D",
+     "text": "pastoral"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "\"We all make decisions. Sometimes it is wrong, sometimes it is right.' The speaker in the lines above is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Afraid"
+    },
+    {
+     "id": "B",
+     "text": "Excited"
+    },
+    {
+     "id": "C",
+     "text": "pessimistic"
+    },
+    {
+     "id": "D",
+     "text": "Reassuring"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "'Her neck is rope-like thin, long and skinny and her face sickly pale.' Okot p' Bitek: Song of Lawino. The style used in the lines is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Narrative"
+    },
+    {
+     "id": "B",
+     "text": "Argumentative"
+    },
+    {
+     "id": "C",
+     "text": "dramatic"
+    },
+    {
+     "id": "D",
+     "text": "Descriptive"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "'once upon a time son, they used to laugh with their eyes; but now they only laugh with their teeth, while their ice-block-cold eyes search behind my shadow' G. Okara: Once upon a time The lines above are expressive of",
+   "options": [
+    {
+     "id": "A",
+     "text": "Friendliness"
+    },
+    {
+     "id": "B",
+     "text": "Insincerity"
+    },
+    {
+     "id": "C",
+     "text": "jealousy"
+    },
+    {
+     "id": "D",
+     "text": "Sympathy"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "african-poetry",
+   "question": "Kofi Awoonor is a poet from",
+   "options": [
+    {
+     "id": "A",
+     "text": "Cameroon"
+    },
+    {
+     "id": "B",
+     "text": "Nigeria"
+    },
+    {
+     "id": "C",
+     "text": "Ghana"
+    },
+    {
+     "id": "D",
+     "text": "Kenya"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "genres-overview",
+   "question": "An art that is both literary and theatrical is",
+   "options": [
+    {
+     "id": "A",
+     "text": "prosody"
+    },
+    {
+     "id": "B",
+     "text": "a prose"
+    },
+    {
+     "id": "C",
+     "text": "drama"
+    },
+    {
+     "id": "D",
+     "text": "a poem"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "The speech made by a character to himself on stage is",
+   "options": [
+    {
+     "id": "A",
+     "text": "epilogue"
+    },
+    {
+     "id": "B",
+     "text": "monologue"
+    },
+    {
+     "id": "C",
+     "text": "aside"
+    },
+    {
+     "id": "D",
+     "text": "soliloquy"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "In literature, a round character is associated with",
+   "options": [
+    {
+     "id": "A",
+     "text": "change and growth"
+    },
+    {
+     "id": "B",
+     "text": "simplicity and modesty"
+    },
+    {
+     "id": "C",
+     "text": "stability and determination"
+    },
+    {
+     "id": "D",
+     "text": "running down other characters"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "poetry-analysis",
+   "question": "The continuation of meaning without pause, from one line to the next is",
+   "options": [
+    {
+     "id": "A",
+     "text": "enjambment"
+    },
+    {
+     "id": "B",
+     "text": "synecdoche"
+    },
+    {
+     "id": "C",
+     "text": "alliteration"
+    },
+    {
+     "id": "D",
+     "text": "melodrama"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "A didactic piece is one in which the writer",
+   "options": [
+    {
+     "id": "A",
+     "text": "teaches human lessons"
+    },
+    {
+     "id": "B",
+     "text": "dictates to the reader"
+    },
+    {
+     "id": "C",
+     "text": "condemns human foibles"
+    },
+    {
+     "id": "D",
+     "text": "discuses dialectic themes"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "A reward or punishment a character receives in a literary work is",
+   "options": [
+    {
+     "id": "A",
+     "text": "point of attack"
+    },
+    {
+     "id": "B",
+     "text": "poetic justice"
+    },
+    {
+     "id": "C",
+     "text": "popular outcry"
+    },
+    {
+     "id": "D",
+     "text": "poetic license"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "In literary criticism, the vocabulary or language used by a writer is generally known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "figure of speech"
+    },
+    {
+     "id": "B",
+     "text": "diction"
+    },
+    {
+     "id": "C",
+     "text": "expression"
+    },
+    {
+     "id": "D",
+     "text": "rhythm"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "Weep not child, weep not my darling, With these kisses, let me remove your tears The ravening clouds shall no longer be victorious They shall no longer possess the sky ...The speaker of the lines is",
+   "options": [
+    {
+     "id": "A",
+     "text": "pessimistic"
+    },
+    {
+     "id": "B",
+     "text": "optimistic"
+    },
+    {
+     "id": "C",
+     "text": "helpless"
+    },
+    {
+     "id": "D",
+     "text": "carefree"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "african-drama",
+   "question": "The times has come when I can fool myself no more I am no man sadiku. My manhood ended near a week ago. The lines above reveal that the speaker",
+   "options": [
+    {
+     "id": "A",
+     "text": "has become impotent"
+    },
+    {
+     "id": "B",
+     "text": "loves women"
+    },
+    {
+     "id": "C",
+     "text": "is tired of marriage"
+    },
+    {
+     "id": "D",
+     "text": "is disgusted with life"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q46"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "When I remember by gone days I think how evening follows morning So many I loved were not yet dead, So many I love not yet born. The period of life the poet has arrived at is",
+   "options": [
+    {
+     "id": "A",
+     "text": "middle age"
+    },
+    {
+     "id": "B",
+     "text": "adolescence"
+    },
+    {
+     "id": "C",
+     "text": "old age"
+    },
+    {
+     "id": "D",
+     "text": "early childhood"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q49"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "african-drama",
+   "question": "Frank Ogodo Ogbeche's Harvest of Corruption: The play can be referred to as",
+   "options": [
+    {
+     "id": "A",
+     "text": "dramatic irony"
+    },
+    {
+     "id": "B",
+     "text": "allegory"
+    },
+    {
+     "id": "C",
+     "text": "fable"
+    },
+    {
+     "id": "D",
+     "text": "satire"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "african-drama",
+   "question": "Frank Ogodo Ogbeche's Harvest of Corruption: According to Ochuole, government job is",
+   "options": [
+    {
+     "id": "A",
+     "text": "a waste of time"
+    },
+    {
+     "id": "B",
+     "text": "time consuming"
+    },
+    {
+     "id": "C",
+     "text": "good for hardworking youths"
+    },
+    {
+     "id": "D",
+     "text": "an avenue to personalize public fund"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "Richard Wright's Native Son: 'Light flooded the room and revealed a black boy standing in a narrow space between two' The style of the lines above is",
+   "options": [
+    {
+     "id": "A",
+     "text": "narrative"
+    },
+    {
+     "id": "B",
+     "text": "dramatic"
+    },
+    {
+     "id": "C",
+     "text": "descriptive"
+    },
+    {
+     "id": "D",
+     "text": "expository"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "Richard Wright's Native Son: Bigger kills Mary due to",
+   "options": [
+    {
+     "id": "A",
+     "text": "fear"
+    },
+    {
+     "id": "B",
+     "text": "envy"
+    },
+    {
+     "id": "C",
+     "text": "hatred"
+    },
+    {
+     "id": "D",
+     "text": "distrust"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "The Proud King is",
+   "options": [
+    {
+     "id": "A",
+     "text": "didactic"
+    },
+    {
+     "id": "B",
+     "text": "pastoral"
+    },
+    {
+     "id": "C",
+     "text": "traditional"
+    },
+    {
+     "id": "D",
+     "text": "lyrical"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "non-african-poetry",
+   "question": "The mood of the person in Tennyson's Crossing the Bar is one of",
+   "options": [
+    {
+     "id": "A",
+     "text": "pain"
+    },
+    {
+     "id": "B",
+     "text": "frustration"
+    },
+    {
+     "id": "C",
+     "text": "hope"
+    },
+    {
+     "id": "D",
+     "text": "love"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: Totality of the effects produced on a reader of a literary work is",
+   "options": [
+    {
+     "id": "A",
+     "text": "tone"
+    },
+    {
+     "id": "B",
+     "text": "mood"
+    },
+    {
+     "id": "C",
+     "text": "plot"
+    },
+    {
+     "id": "D",
+     "text": "diction"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: An art form in which singers and musicians performs dramatic work combining text and music is",
+   "options": [
+    {
+     "id": "A",
+     "text": "concert"
+    },
+    {
+     "id": "B",
+     "text": "opera"
+    },
+    {
+     "id": "C",
+     "text": "theatre"
+    },
+    {
+     "id": "D",
+     "text": "pantomime"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: In literature, local colour is",
+   "options": [
+    {
+     "id": "A",
+     "text": "universal"
+    },
+    {
+     "id": "B",
+     "text": "restricted"
+    },
+    {
+     "id": "C",
+     "text": "only English"
+    },
+    {
+     "id": "D",
+     "text": "only American"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "literary-terms",
+   "question": "General Literary Principles: A clue to an event that will happen later in a work of art is",
+   "options": [
+    {
+     "id": "A",
+     "text": "flashback"
+    },
+    {
+     "id": "B",
+     "text": "fore- shadowing"
+    },
+    {
+     "id": "C",
+     "text": "premonition"
+    },
+    {
+     "id": "D",
+     "text": "digression"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "drama-analysis",
+   "question": "General Literary Principles: . . Comedy of lower kind in which believability is sacrificed for the main objective of exciting laugh is",
+   "options": [
+    {
+     "id": "A",
+     "text": "farce"
+    },
+    {
+     "id": "B",
+     "text": "comedy"
+    },
+    {
+     "id": "C",
+     "text": "melodrama"
+    },
+    {
+     "id": "D",
+     "text": "tragi comedy"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "General Literary Principles: \"I am on the world's extreme corner.' Kofi Awoonor: Song of Sorrow. The speaker in the lines move is",
+   "options": [
+    {
+     "id": "A",
+     "text": "indifferent"
+    },
+    {
+     "id": "B",
+     "text": "sad"
+    },
+    {
+     "id": "C",
+     "text": "angry"
+    },
+    {
+     "id": "D",
+     "text": "in pain"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "literature",
+   "topic": "unseen-passages",
+   "question": "General Literary Principles: We have rain but hate to plant We have the heat and the glory of the rainbow But we kill our own suns with hurtful glee The poet's feeling call be described as that of",
+   "options": [
+    {
+     "id": "A",
+     "text": "disappointment"
+    },
+    {
+     "id": "B",
+     "text": "indifference"
+    },
+    {
+     "id": "C",
+     "text": "anxiety"
+    },
+    {
+     "id": "D",
+     "text": "joy"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: Room 101 symbolises a place of",
+   "options": [
+    {
+     "id": "A",
+     "text": "rest"
+    },
+    {
+     "id": "B",
+     "text": "fun"
+    },
+    {
+     "id": "C",
+     "text": "humiliation"
+    },
+    {
+     "id": "D",
+     "text": "torture"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "literature",
+   "topic": "non-african-prose",
+   "question": "George Orwell's Nineteen Eighty-Four: The novel can be described as",
+   "options": [
+    {
+     "id": "A",
+     "text": "optimistic"
+    },
+    {
+     "id": "B",
+     "text": "antagonistic"
+    },
+    {
+     "id": "C",
+     "text": "persuasive"
+    },
+    {
+     "id": "D",
+     "text": "pessimistic"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Othello: Othello kills Desdemona because the",
+   "options": [
+    {
+     "id": "A",
+     "text": "former is jealous"
+    },
+    {
+     "id": "B",
+     "text": "former's race is insulted"
+    },
+    {
+     "id": "C",
+     "text": "latter is a witch"
+    },
+    {
+     "id": "D",
+     "text": "latter is an idol"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Othello: Brabantio is opposed to the relationship between Othello and Desdemona because",
+   "options": [
+    {
+     "id": "A",
+     "text": "he prefers Iago"
+    },
+    {
+     "id": "B",
+     "text": "Othello is a moor"
+    },
+    {
+     "id": "C",
+     "text": "Roderigo woos her first"
+    },
+    {
+     "id": "D",
+     "text": "Desdemona is too young"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "literature",
+   "topic": "non-african-drama",
+   "question": "William Shakespeare's Othello: \"Soft you; a word or two before you go. I have done the state some service an,' they know' No more of that, I pray you, in your letters, When you shall these unlucky deeds relate\" The speech above is made when the speaker is",
+   "options": [
+    {
+     "id": "A",
+     "text": "travelling"
+    },
+    {
+     "id": "B",
+     "text": "sick"
+    },
+    {
+     "id": "C",
+     "text": "dying"
+    },
+    {
+     "id": "D",
+     "text": "eloping"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q29"
+  }
+ ]
+}

@@ -19,6 +19,8 @@ export interface ParsedPastQuestion {
   correctOptionId: OptionId
   explanation: string | null
   source: string | null
+  /** Diagram or table the question depends on - see validImageUrl. */
+  imageUrl: string | null
   fingerprint: string
 }
 
@@ -61,6 +63,9 @@ const COLUMN_ALIASES: Record<string, string> = {
   correctoptionid: 'answer',
   explanation: 'explanation',
   source: 'source',
+  image: 'imageUrl',
+  imageurl: 'imageUrl',
+  diagram: 'imageUrl',
 }
 
 function normaliseHeader(name: string): string {
@@ -155,8 +160,27 @@ interface RawRow {
   answer?: string
   explanation?: string
   source?: string
+  imageUrl?: string
   options?: unknown
   correctOptionId?: string
+}
+
+/**
+ * A question image is either one of the bank's own diagrams, served by the API
+ * from data/past-questions/images, or an absolute https URL. Anything else -
+ * a local file path, javascript: - is refused rather than rendered.
+ */
+export const BANK_IMAGE_PREFIX = '/static/past-questions/'
+
+export function validImageUrl(value: string): boolean {
+  if (value.startsWith(BANK_IMAGE_PREFIX)) {
+    return /^[a-z0-9/_.-]+\.(png|jpe?g|webp)$/i.test(value) && !value.includes('..')
+  }
+  try {
+    return new URL(value).protocol === 'https:'
+  } catch {
+    return false
+  }
 }
 
 function validateRow(raw: RawRow, rowNumber: number): ParsedPastQuestion | RowError {
@@ -205,6 +229,10 @@ function validateRow(raw: RawRow, rowNumber: number): ParsedPastQuestion | RowEr
   const topic = String(raw.topicSlug ?? '').trim()
   const explanation = String(raw.explanation ?? '').trim()
   const source = String(raw.source ?? '').trim()
+  const imageUrl = String(raw.imageUrl ?? '').trim()
+  if (imageUrl && !validImageUrl(imageUrl)) {
+    return fail(`image must be an https URL or a ${BANK_IMAGE_PREFIX} path (got "${imageUrl}")`)
+  }
 
   return {
     exam: exam as ExamType,
@@ -216,6 +244,7 @@ function validateRow(raw: RawRow, rowNumber: number): ParsedPastQuestion | RowEr
     correctOptionId: answerRaw as OptionId,
     explanation: explanation || null,
     source: source || null,
+    imageUrl: imageUrl || null,
     fingerprint: fingerprint(exam, year, subjectSlug, stem),
   }
 }

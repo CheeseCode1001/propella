@@ -13,3 +13,5 @@ apps/api/src/generated/
 .pnpm-store/
 *.env.save
 *:Zone.Identifier
+__pycache__/
+*.pyc

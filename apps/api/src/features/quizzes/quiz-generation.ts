@@ -8,6 +8,9 @@ export type { QuizQuestion }
 
 const OPTION_IDS: OptionId[] = ['A', 'B', 'C', 'D']
 
+/** `Quiz.generatedByModel` for quizzes served entirely from the past-question bank. */
+export const PAST_QUESTION_BANK = 'past-question-bank'
+
 /**
  * Gemini honours a response schema natively, so the model returns parseable
  * JSON instead of prose we have to fish an array out of.

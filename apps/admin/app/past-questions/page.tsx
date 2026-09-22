@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Upload, Trash2, Download, AlertTriangle, CheckCircle2 } from 'lucide-react'
 import { Providers } from '../providers'
 import { Shell, PageHeader } from '@/components/shell'
-import { api } from '@/lib/api'
+import { api, API_URL } from '@/lib/api'
 
 interface PastQuestion {
   id: string
@@ -18,6 +18,12 @@ interface PastQuestion {
   correctOptionId: string
   explanation: string | null
   source: string | null
+  imageUrl: string | null
+}
+
+/** Bank diagrams are stored as API paths; anything else is already absolute. */
+function imageSrc(url: string): string {
+  return url.startsWith('/') ? `${API_URL}${url}` : url
 }
 
 interface ListResponse {
@@ -109,7 +115,7 @@ function UploadPanel() {
             CSV or JSON. Required columns: <code>exam</code>, <code>year</code>,{' '}
             <code>subject</code>, <code>question</code>, <code>a</code>–<code>d</code>,{' '}
             <code>answer</code>. Optional: <code>topic</code>, <code>explanation</code>,{' '}
-            <code>source</code>. Re-uploading the same file is safe — duplicates are skipped.
+            <code>source</code>, <code>image</code> (an https link to a diagram). Re-uploading the same file is safe — duplicates are skipped.
           </p>
         </div>
 
@@ -348,6 +354,25 @@ function QuestionBank() {
                   </td>
                   <td style={{ maxWidth: 460 }}>
                     <div style={{ marginBottom: 4 }}>{q.stem}</div>
+                    {q.imageUrl && (
+                      // A cross-origin thumbnail from the API; next/image would
+                      // need the API host configured for no benefit here.
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={imageSrc(q.imageUrl)}
+                        alt="Diagram for this question"
+                        loading="lazy"
+                        style={{
+                          display: 'block',
+                          maxWidth: 280,
+                          maxHeight: 180,
+                          margin: '6px 0',
+                          border: '1px solid var(--rule)',
+                          borderRadius: 6,
+                          background: '#fff',
+                        }}
+                      />
+                    )}
                     <div style={{ fontSize: 12, color: 'var(--ink-3)' }}>
                       {q.options.map((o) => `${o.id}. ${o.text}`).join('   ')}
                     </div>

@@ -10,6 +10,7 @@ import { literature } from './literature'
 import { geography } from './geography'
 import { commerce } from './commerce'
 import { agriculturalScience } from './agricultural-science'
+import { principlesOfAccounts } from './principles-of-accounts'
 
 export type { SubjectSeedData, TopicSeedData, ExamTag } from './types'
 
@@ -33,6 +34,7 @@ export const subjects: SubjectSeedData[] = [
   literature,
   geography,
   commerce,
+  principlesOfAccounts,
   agriculturalScience,
 ]
 

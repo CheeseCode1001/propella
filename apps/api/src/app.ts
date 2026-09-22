@@ -1,3 +1,4 @@
+import path from 'path'
 import express, { type Express } from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
@@ -32,6 +33,28 @@ const app: Express = express()
 
 // Security middleware
 app.use(helmet())
+
+/**
+ * Diagrams for past questions (data/past-questions/images). Mounted ahead of
+ * CORS because the web and admin apps load them with plain <img> tags from
+ * another origin; helmet's default Cross-Origin-Resource-Policy of same-origin
+ * would block that, so this route relaxes it. The files are public exam
+ * material and never change under the same name, hence the long cache.
+ */
+app.use(
+  '/static/past-questions',
+  express.static(path.resolve(__dirname, '../data/past-questions/images'), {
+    index: false,
+    maxAge: '30d',
+    setHeaders(res) {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
+    },
+  }),
+  // A missing file is a plain 404, not an application error.
+  (_req: express.Request, res: express.Response) => {
+    res.status(404).end()
+  },
+)
 // app.use(
 //   cors({
 //     origin: env.FRONTEND_URL,

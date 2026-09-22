@@ -1,0 +1,3416 @@
+{
+ "add": {
+  "1984": [
+   40
+  ],
+  "1988": [
+   30
+  ],
+  "1989": [
+   32
+  ],
+  "1990": [
+   28,
+   44
+  ],
+  "1991": [
+   9
+  ],
+  "1999": [
+   50
+  ],
+  "2001": [
+   50
+  ],
+  "2002": [
+   37,
+   42
+  ],
+  "2003": [
+   26,
+   41
+  ]
+ },
+ "allow": [
+  "underlined"
+ ],
+ "banner": "Government",
+ "bare_options": true,
+ "dehyphenate": true,
+ "drop": {
+  "2003": [
+   46
+  ]
+ },
+ "edit": {
+  "1983": {
+   "12": {
+    "question": "According to Marxist theory, those who own and control the means of production in a capitalist society are"
+   },
+   "13": {
+    "question": "While political parties aim at forming a government, pressure groups aim at"
+   },
+   "15": {
+    "question": "An election which is conducted to fill a vacant seat in a legislature is called a"
+   },
+   "18": {
+    "question": "Which of these statements is CORRECT about Proportional Representation?"
+   },
+   "19": {
+    "options": [
+     "there are no free citizens",
+     "communism is banned",
+     "the communist party is the only legal party",
+     "the ruling party is the only legal party",
+     "elections to the legislature are held at the party's conferences"
+    ]
+   },
+   "25": {
+    "options": [
+     "have a career",
+     "are not the servant of a particular government",
+     "are trained for the duties they perform",
+     "are not credited or blamed for anything they do",
+     "are entitled to pension and gratuity when they retire"
+    ]
+   },
+   "35": {
+    "options": [
+     "General Assembly",
+     "Secretary-General",
+     "World Court",
+     "Security Council",
+     "World Bank"
+    ],
+    "question": "The supreme organ of the U.N.O. is the"
+   },
+   "38": {
+    "question": "Lagos became a Crown Colony in"
+   },
+   "4": {
+    "question": "Bicameralism refers to"
+   },
+   "42": {
+    "options": [
+     "the Prime Minister ceased to be Head of State",
+     "the Governor-General's office as the representative of the Queen was abolished",
+     "the Cabinet was no longer responsible to the legislature",
+     "it introduced the Executive Presidential System",
+     "the Prime Minister was nominated by the Executive Council"
+    ],
+    "question": "The major innovation of the Republican constitution of 1963 was that"
+   },
+   "43": {
+    "question": "Which of these was NOT a demand of the nationalist movements in Nigeria?"
+   },
+   "48": {
+    "question": "In Nigeria, the institution that preserves civil liberty is the"
+   },
+   "49": {
+    "question": "Nigeria became a Federation under the new constitution of 1954 because the constitution"
+   },
+   "8": {
+    "question": "An unwritten constitution operates in"
+   }
+  },
+  "1984": {
+   "11": {
+    "options": [
+     "Legislature, the Public Service and Judiciary",
+     "Political Parties, the Executive and the Judiciary",
+     "Executive, the Legislature and the Public Corporation",
+     "Legislature, the Executive and the Judiciary",
+     "Judiciary, the Local Government and the Legislature"
+    ],
+    "question": "The three principal organs of government are the"
+   },
+   "19": {
+    "question": "An electoral district is a"
+   },
+   "20": {
+    "options": [
+     "collectively responsible to parliament",
+     "not members of the legislature",
+     "appointed by a two-thirds majority of the legislature",
+     "representative of various interests in the country",
+     "chosen from the Upper House"
+    ]
+   },
+   "26": {
+    "question": "Which of the following was NOT the responsibility of the Federal Electoral Commission in Nigeria?"
+   },
+   "27": {
+    "question": "Which of the following is NOT a civic obligation of every Nigerian citizen?"
+   },
+   "3": {
+    "question": "One feature of a totalitarian State is the existence of"
+   },
+   "34": {
+    "question": "The Richards Constitution"
+   },
+   "39": {
+    "options": [
+     "N.C.N.C. and the A.G.",
+     "N.P.C. and the N.C.N.C.",
+     "N.P.C. and the A.G.",
+     "P.R.P. and the U.P.G.A.",
+     "N.P.C. and the N.N.A."
+    ]
+   },
+   "40": {
+    "options": [
+     "Chief Anthony Enahoro",
+     "Sir Ahmadu Bello",
+     "Chief Obafemi Awolowo",
+     "Dr. Nnamdi Azikiwe",
+     "Sir James Robertson"
+    ],
+    "question": "The 1953 motion that Nigeria should become independent in 1956 was moved by"
+   },
+   "42": {
+    "question": "Under what constitution did the Supreme Court become the highest Court of Appeal in Nigeria?"
+   },
+   "43": {
+    "question": "The Constitution which introduced the ministerial system into the Nigerian political system is the"
+   },
+   "46": {
+    "question": "To be elected President of Nigeria, the 1979 Constitution states that one must have attained the age of"
+   },
+   "47": {
+    "question": "Which of the following international organisations was in existence before the outbreak of the Second World War?"
+   },
+   "5": {
+    "question": "The principle of checks and balances is necessary because it"
+   },
+   "50": {
+    "options": [
+     "The Commission on Mediation, Conciliation and Arbitration",
+     "The Council of Ministers",
+     "The General Secretariat",
+     "The Economic Commission for Africa",
+     "The Assembly of Heads of State and Government"
+    ]
+   },
+   "7": {
+    "question": "A political authority which maintains sovereign power over a specific geographical area is termed"
+   }
+  },
+  "1985": {
+   "14": {
+    "question": "The deliberate tampering with the delimitation of constituencies in order to win more seats is called"
+   },
+   "21": {
+    "options": [
+     "allowed to be voted for",
+     "allowed to exercise his voting right",
+     "not permitted to vote",
+     "allowed to nominate a candidate",
+     "a prohibited immigrant"
+    ]
+   },
+   "22": {
+    "options": [
+     "prime minister",
+     "president",
+     "majority leader",
+     "senate president",
+     "governor-general"
+    ]
+   },
+   "24": {
+    "options": [
+     "decolonization",
+     "independence",
+     "nationalism",
+     "sovereignty",
+     "enfranchisement"
+    ]
+   },
+   "30": {
+    "options": [
+     "Clifford Constitution (1922)",
+     "Richards Constitution (1946)",
+     "Macpherson Constitution (1951)",
+     "Lyttleton Constitution (1954)",
+     "Independence Constitution (1960)"
+    ]
+   },
+   "32": {
+    "options": [
+     "create more civil service jobs",
+     "encourage competitions and rivalry among groups",
+     "bring the government nearer to the people",
+     "prevent the creation of more states",
+     "levy import duties"
+    ],
+    "question": "Local governments in Nigeria are created in order to"
+   },
+   "35": {
+    "options": [
+     "Nigeria",
+     "Togo",
+     "Ghana",
+     "Burkina Faso",
+     "Cameroon"
+    ],
+    "question": "Which of the following is NOT a member of ECOWAS?"
+   },
+   "36": {
+    "options": [
+     "confirmed that Nigeria would be independent in 1960",
+     "confirmed Nigeria's federal structure",
+     "introduced franchise into Nigerian politics",
+     "made Nigeria sovereign",
+     "abolished the principle of indirect rule"
+    ]
+   },
+   "37": {
+    "options": [
+     "bicameral legislature for Eastern Nigeria",
+     "bicameral legislature for the Central government",
+     "unicameral legislature for Western Nigeria",
+     "bicameral legislature for Western Nigeria",
+     "unicameral legislature for Northern Nigeria"
+    ],
+    "question": "The Macpherson Constitution of Nigeria created a"
+   },
+   "38": {
+    "question": "The Arthur Richards Constitution introduced into Nigeria"
+   },
+   "39": {
+    "question": "In 1966, the military intervened in Nigerian politics because"
+   },
+   "4": {
+    "question": "In a democracy, sovereignty is vested in"
+   },
+   "41": {
+    "options": [
+     "provided for universal adult suffrage",
+     "made Governor dependent on the Executive Council",
+     "provided for an unofficial majority membership of the Legislative Council",
+     "provided for African representation on the Executive Council",
+     "introduced the elective principle into Nigerian politics"
+    ]
+   },
+   "42": {
+    "options": [
+     "the Governor-General could appoint any member of the House of Representatives as Prime Minister",
+     "a bicameral legislature was introduced in the country",
+     "forty-four members were elected into the Senate",
+     "higher education was made the exclusive responsibility of the federal government",
+     "the Supreme Court of Nigeria was made the highest judicial authority in the country"
+    ]
+   },
+   "43": {
+    "question": "Which of the following nations does not have veto power in the Security Council of the UNO?"
+   },
+   "44": {
+    "options": [
+     "cater for the welfare of their board members",
+     "give advice to the government on commerce",
+     "provide essential public utilities and amenities on a commercial basis",
+     "provide employment for civil servants",
+     "develop the rural areas"
+    ],
+    "question": "Public corporations are established mainly to"
+   },
+   "47": {
+    "question": "The following six political parties were registered for the 1983 elections"
+   },
+   "49": {
+    "question": "The non-permanent members of the Security Council of the United Nations Organisation (UNO) are elected for"
+   },
+   "5": {
+    "options": [
+     "a private bill",
+     "a decree",
+     "an appropriation bill",
+     "a public bill",
+     "an edict"
+    ],
+    "question": "A bill that applies to the whole population and is intended to promote the general welfare is called"
+   },
+   "50": {
+    "options": [
+     "O.A.U.",
+     "ECOWAS",
+     "U.N.O.",
+     "Commonwealth of Nations",
+     "UNESCO"
+    ]
+   },
+   "9": {
+    "options": [
+     "is used in Britain",
+     "has no written records",
+     "makes no provision for a clear-cut separation of powers",
+     "does not emanate from the legislature",
+     "is not contained in any one document"
+    ]
+   }
+  },
+  "1986": {
+   "10": {
+    "options": [
+     "enhance the people's participation in government",
+     "enable ambitious politicians to gain political power",
+     "make the state gain more power",
+     "curb the powers of the federal government"
+    ],
+    "question": "An important advantage of creating more constituent units in a federal state is to"
+   },
+   "11": {
+    "options": [
+     "the party with the majority of seats forms the Executive",
+     "there is the principle of collective responsibility",
+     "the president may come from any of the parties",
+     "the constitution must be unwritten"
+    ]
+   },
+   "13": {
+    "question": "In a parliamentary system, who ensures that members are in the House to vote on major issues? The"
+   },
+   "14": {
+    "options": [
+     "republican",
+     "revolutionary",
+     "collegial",
+     "parliamentary"
+    ]
+   },
+   "16": {
+    "options": [
+     "bourgeoisie",
+     "proletariat",
+     "feudal lords",
+     "slaves"
+    ]
+   },
+   "17": {
+    "options": [
+     "oligarchy",
+     "feudalism",
+     "socialism",
+     "presidentialism"
+    ]
+   },
+   "19": {
+    "question": "Which of the following ideologies emphasizes the abolition of government and law?"
+   },
+   "20": {
+    "options": [
+     "right to personal liberty",
+     "independence of the judiciary",
+     "freedom of the press",
+     "right to own private property"
+    ]
+   },
+   "23": {
+    "options": [
+     "'first past the post'",
+     "a referendum",
+     "an absolute majority",
+     "an indirect election"
+    ]
+   },
+   "24": {
+    "options": [
+     "a country's development",
+     "a party's programme",
+     "the national policy",
+     "an ethnic interest"
+    ]
+   },
+   "27": {
+    "question": "Which of the following ethnic groups had a centralised administration in pre-colonial Nigeria?"
+   },
+   "28": {
+    "question": "In which of the following ethnic groups was the pre-colonial political structure NOT influenced by Islamic culture?"
+   },
+   "3": {
+    "question": "A nation-state is synonymous with a"
+   },
+   "32": {
+    "options": [
+     "Racial discrimination and oppression",
+     "Corruption and ethnicity",
+     "Paternalism and indirect rule",
+     "Election malpractices and party differences"
+    ],
+    "question": "Which of the following sets of factors contributed to the development of nationalism in Nigeria?"
+   },
+   "33": {
+    "question": "Which constitution was created to legislate for the Lagos Colony and the Southern Provinces?"
+   },
+   "34": {
+    "question": "Judges in Nigeria enjoy security of tenure"
+   },
+   "37": {
+    "question": "In Nigeria, the highest court for Muslims is the"
+   },
+   "38": {
+    "question": "Who was appointed by the federal government of Nigeria as the administrator of Western Region in 1962?"
+   },
+   "39": {
+    "question": "The head of state in the First Republic of Nigeria was"
+   },
+   "40": {
+    "options": [
+     "NCNC and NEPU",
+     "AG and UMBC",
+     "NPC and NNDP",
+     "NCNC and MDF"
+    ],
+    "question": "Which of the following parties formed the opposition in the House of Representatives during the Nigerian First Republic?"
+   },
+   "41": {
+    "options": [
+     "less corrupt",
+     "more attractive financially",
+     "more efficient and result-oriented",
+     "superior to the private sector"
+    ],
+    "question": "The main objective of the Public Service Review Commission headed by Chief Jerome Udoji was to make the Nigerian public service"
+   },
+   "45": {
+    "options": [
+     "the Commonwealth",
+     "OPEC",
+     "ECOWAS",
+     "NATO"
+    ]
+   },
+   "46": {
+    "options": [
+     "unity of African States",
+     "love and peace among African States",
+     "sovereignty of most African States",
+     "economic independence of African States"
+    ],
+    "question": "The greatest achievement of the nationalist movement in Africa is the"
+   },
+   "5": {
+    "options": [
+     "there is an elected head of State who exercises actual executive powers",
+     "the head of State is not the chief executive",
+     "the executive functions are the responsibility of the entire members of a cabinet",
+     "all members of cabinet must also be members of the legislature"
+    ]
+   },
+   "50": {
+    "options": [
+     "Haile Selassie, Abubakar Tafawa Balewa, William Tubman",
+     "Abubakar Tafawa Balewa, Jean Bokassa, Kwame Nkrumah",
+     "Kwame Nkrumah, Nnamdi Azikiwe, Jomo Kenyatta",
+     "Julius Nyerere, Kwame Nkrumah, Haile Selassie"
+    ]
+   },
+   "6": {
+    "options": [
+     "initiate new legislation",
+     "execute laws",
+     "act as a check on the lower chamber",
+     "direct the activities of the lower chamber"
+    ],
+    "question": "The main function of the upper chamber in a parliamentary system of government is to"
+   },
+   "7": {
+    "question": "The federal constitution which concedes to the component units the right to secede is that of"
+   },
+   "9": {
+    "options": [
+     "legislature",
+     "opposition",
+     "upper house",
+     "weaker party in the coalition"
+    ]
+   }
+  },
+  "1987": {
+   "14": {
+    "question": "Which of the following is NOT a unique feature of a federal constitution?"
+   },
+   "16": {
+    "question": "Which of the following is NOT necessarily a characteristic feature of a state?"
+   },
+   "17": {
+    "options": [
+     "the central government shares powers equally with the state governments",
+     "all the states of the federation are equal in size and population",
+     "state courts control federal courts",
+     "the central government has exclusive power over defence and foreign affairs"
+    ]
+   },
+   "19": {
+    "options": [
+     "Karl Marx",
+     "Niccolo Machiavelli",
+     "Aristotle",
+     "Plato"
+    ]
+   },
+   "2": {
+    "options": [
+     "Civil service and parastatals",
+     "Legislature and the Executive",
+     "Executive and the Judiciary",
+     "Judiciary and the Legislature"
+    ]
+   },
+   "22": {
+    "options": [
+     "president is not responsible for his ministers' mistakes",
+     "ministers are not collectively responsible to the president",
+     "president does not need the legislature to pass laws",
+     "president is not a member of the legislature"
+    ],
+    "question": "A major feature of the presidential system of government is that the"
+   },
+   "23": {
+    "question": "The termination of a session of a legislature by proclamation issued by the head of state is called"
+   },
+   "3": {
+    "options": [
+     "the council of ministers",
+     "royalty",
+     "peasantry",
+     "the entire citizenry"
+    ],
+    "question": "In a monarchical form of government, sovereignty resides with"
+   },
+   "30": {
+    "options": [
+     "General Murtala Muhammed",
+     "General Yakubu Gowon",
+     "General Johnson Aguiyi-Ironsi",
+     "General Olusegun Obasanjo"
+    ],
+    "question": "The head of the first military government in Nigeria was"
+   },
+   "32": {
+    "options": [
+     "fight for greater participation of Nigerians in colonial politics",
+     "enable the educated elite to seize power from the chiefs",
+     "establish more schools throughout the country",
+     "fight for the free movement of youths"
+    ]
+   },
+   "33": {
+    "options": [
+     "chiefs were allowed to govern their people",
+     "colonial administrators shared power equally with traditional rulers",
+     "traditional rulers were encouraged to adopt the British system of government",
+     "colonial administrators increased the powers of traditional rulers"
+    ]
+   },
+   "34": {
+    "options": [
+     "democracy and social justice",
+     "federal character and inequality",
+     "concentration of wealth and provision of maximum welfare",
+     "national integration and ethnic loyalty"
+    ],
+    "question": "The Fundamental Objectives and Directive Principles of State Policy in the 1979 constitution do not include"
+   },
+   "35": {
+    "options": [
+     "amendment clauses of the constitution",
+     "large number of local government areas",
+     "lack of uniformity of the civil service",
+     "uneven sizes of the constituent regions"
+    ]
+   },
+   "37": {
+    "question": "The Clifford Constitution was notable for"
+   },
+   "41": {
+    "options": [
+     "perform executive functions",
+     "preside over local government councils",
+     "perform advisory roles",
+     "enact laws"
+    ]
+   },
+   "43": {
+    "options": [
+     "mutual assistance of member states in suppressing domestic uprising",
+     "non-interference in internal affairs of member states",
+     "constant readjustment of territorial boundaries of member states",
+     "unification of liberation movements in Southern Africa"
+    ]
+   },
+   "44": {
+    "question": "The administrative headquarters of ECOWAS was in"
+   },
+   "47": {
+    "question": "The Commonwealth of Nations is made up of"
+   },
+   "50": {
+    "options": [
+     "Public Complaints Commission",
+     "law court",
+     "Civil Service Commission",
+     "Police Commission"
+    ],
+    "question": "In Nigeria, the institution that preserves civil liberty is the"
+   },
+   "7": {
+    "options": [
+     "win political power",
+     "conduct free and fair elections",
+     "mobilize support on behalf of government",
+     "protect the interests of its members"
+    ]
+   },
+   "9": {
+    "question": "A parliamentary system of government is characterized by"
+   }
+  },
+  "1988": {
+   "11": {
+    "question": "Which of the following nations operates an unwritten constitution?"
+   },
+   "12": {
+    "options": [
+     "Public ownership of all forms of enterprise",
+     "Even distribution of wealth",
+     "Private ownership of the means of production",
+     "Centrally planned economy"
+    ]
+   },
+   "15": {
+    "options": [
+     "popularly acquired",
+     "more costly to exercise",
+     "less dependent on force",
+     "exercised more frequently"
+    ]
+   },
+   "16": {
+    "options": [
+     "more than half of the votes cast",
+     "an overwhelming majority of all votes cast",
+     "more votes than those for all others combined",
+     "the highest vote cast in favour of any candidate"
+    ],
+    "question": "In a simple plurality electoral system, the winner receives"
+   },
+   "17": {
+    "question": "A major weakness of a unicameral legislature is that it"
+   },
+   "20": {
+    "options": [
+     "Party manifesto",
+     "Formal amendment",
+     "Judicial decision",
+     "Statutory revision"
+    ],
+    "question": "Which of the following is NOT a mode of constitutional change?"
+   },
+   "24": {
+    "options": [
+     "Manufacturers Association of Nigeria",
+     "Chamber of Commerce, Agriculture and Industry",
+     "trade unions",
+     "traditional rulers"
+    ]
+   },
+   "26": {
+    "options": [
+     "prosecute false complainants",
+     "report findings to appropriate authorities for action",
+     "reprimand authorities against whom complaints are made",
+     "refer complaints to traditional rulers"
+    ],
+    "question": "The Public Complaints Commission is empowered to investigate complaints and"
+   },
+   "27": {
+    "question": "The basic unit of government in pre-colonial Yorubaland was the"
+   },
+   "28": {
+    "options": [
+     "meritocracy",
+     "oligarchy",
+     "theocracy",
+     "aristocracy"
+    ]
+   },
+   "29": {
+    "options": [
+     "Lord Frederick Lugard",
+     "Sir Arthur Richards",
+     "Sir Hugh Clifford",
+     "Sir Alan Burns"
+    ]
+   },
+   "3": {
+    "question": "When sovereignty rests with component states in a political system, the constitution is referred to as"
+   },
+   "30": {
+    "options": [
+     "abolition of federalism",
+     "reposting of government officials",
+     "dissolution of boards of corporations",
+     "creation of states"
+    ],
+    "question": "The major change effected by the government of Major-General J.T.U. Aguiyi-Ironsi was the"
+   },
+   "33": {
+    "question": "One of the major features of the constitutions operative in the British West African colonies during the 1920s was the"
+   },
+   "34": {
+    "options": [
+     "Macpherson Constitution",
+     "Lyttleton Constitution",
+     "Richards Constitution",
+     "Clifford Constitution"
+    ],
+    "question": "The principle of regionalism was introduced into Nigerian politics by the"
+   },
+   "35": {
+    "options": [
+     "Hugh Clifford",
+     "Arthur Richards",
+     "Frederick Lugard",
+     "Graeme Thomson"
+    ],
+    "question": "The Nigerian Council was created by"
+   },
+   "36": {
+    "options": [
+     "creation of the post of Prime Minister",
+     "creation of the second chamber at the centre",
+     "creation of the position of speaker of the House of Representatives",
+     "removal of the Governor-General as chairman of the Federal Cabinet"
+    ],
+    "question": "A landmark of the Lyttleton Constitution was"
+   },
+   "37": {
+    "options": [
+     "registration of political parties by FEDECO",
+     "financing of local governments by the Federal Government",
+     "Judicial Service Commission",
+     "bicameral legislature for the central government"
+    ],
+    "question": "A common provision in the 1963 and 1979 constitutions is the"
+   },
+   "39": {
+    "question": "Under the Independence Constitution, the head of government was the"
+   },
+   "40": {
+    "options": [
+     "NCNC and NNDP",
+     "NPC and AG",
+     "NPC and NNDP",
+     "NCNC and AG"
+    ]
+   },
+   "42": {
+    "question": "The headquarters of the Economic Commission for Africa is located in"
+   },
+   "43": {
+    "question": "The following are members of the Commonwealth EXCEPT"
+   },
+   "44": {
+    "question": "One of the functions of the Ministry of External Affairs is the"
+   },
+   "45": {
+    "options": [
+     "China, U.K., U.S.S.R., U.S.A. and France",
+     "U.S.S.R., Germany, Canada, India and China",
+     "U.K., France, U.S.A., Brazil and Ethiopia",
+     "U.S.A., China, Liberia, U.S.S.R. and Italy"
+    ],
+    "question": "The five permanent members of the United Nations Security Council are"
+   },
+   "46": {
+    "options": [
+     "Monrovia Bloc",
+     "Afro-Arab Bloc",
+     "Casablanca Powers",
+     "Brazzaville Group"
+    ]
+   },
+   "47": {
+    "options": [
+     "Adebayo Adedeji",
+     "Ide Oumarou",
+     "Diallo Telli",
+     "Edem Kodjo"
+    ],
+    "question": "Which of the following has NOT been a Secretary-General of the O.A.U.?"
+   },
+   "48": {
+    "question": "The appointment of the Secretary-General of the O.A.U. is made by the"
+   },
+   "5": {
+    "question": "In a parliamentary system of government, the offices of head of state and head of government are"
+   },
+   "7": {
+    "question": "Fascism emphasizes"
+   }
+  },
+  "1989": {
+   "10": {
+    "options": [
+     "superior knowledge of issues by the executive",
+     "fear that public debates in parliaments would endanger national security",
+     "slow and unwieldy process of decision making in legislative houses",
+     "constitutional superiority of the executive over the legislative branch of government"
+    ],
+    "question": "Delegated legislation is justified by the"
+   },
+   "11": {
+    "options": [
+     "citizens choose their own government",
+     "citizens enjoy services provided by government",
+     "government does not discriminate in its provision of services to different parts of the nation",
+     "taxes are the only source of government revenue"
+    ]
+   },
+   "13": {
+    "options": [
+     "public policy making",
+     "legislation",
+     "propaganda",
+     "lobbying"
+    ]
+   },
+   "17": {
+    "options": [
+     "embodies only tradition and customs",
+     "relies on the memories of elders and priests",
+     "codifies the basic laws in one document",
+     "embodies the basic laws in more than one document"
+    ],
+    "question": "An unwritten constitution is one which"
+   },
+   "18": {
+    "options": [
+     "encourages political dissent and opposition",
+     "represses individual freedom and opposition",
+     "promotes equality",
+     "promotes the international brotherhood of man"
+    ],
+    "question": "Fascism is a system of government which"
+   },
+   "2": {
+    "question": "Capitalism is an economic system which emphasizes"
+   },
+   "22": {
+    "options": [
+     "Capitalism, feudalism, communism",
+     "Feudalism, socialism, capitalism, communism",
+     "Communism, socialism, capitalism, feudalism",
+     "Feudalism, capitalism, socialism, communism"
+    ]
+   },
+   "23": {
+    "question": "Which of the following is NOT necessarily a characteristic of a nation-state?"
+   },
+   "25": {
+    "question": "An issue over which both the centre and the state can exercise authority in a federal system is"
+   },
+   "26": {
+    "question": "In the traditional Hausa-Fulani political system, political authority was vested in the"
+   },
+   "27": {
+    "options": [
+     "The Jam'iyyar Mutanen Arewa",
+     "The Igbo State Union",
+     "The Egbe Omo Oduduwa",
+     "Urhobo Progressive Union"
+    ],
+    "question": "Which of the following pre-independence organisations was formed in London in 1945?"
+   },
+   "29": {
+    "options": [
+     "opposed Northern traditional rulers",
+     "agitated for the formation of a unitary form of government",
+     "allied with the Northern People's Congress to form the Regional Government",
+     "won the election to the Northern House of Assembly"
+    ],
+    "question": "In the 1950s, the Northern Elements Progressive Union was notable in Nigerian politics because it"
+   },
+   "3": {
+    "question": "A country made up of semi-autonomous units is"
+   },
+   "30": {
+    "options": [
+     "Obafemi Awolowo",
+     "Duse Mohamed Ali",
+     "Ernest Ikoli",
+     "Nnamdi Azikiwe"
+    ]
+   },
+   "31": {
+    "options": [
+     "Richards Constitution",
+     "Clifford Constitution",
+     "Lyttleton Constitution",
+     "Independence Constitution"
+    ],
+    "question": "The civil service was first regionalised by the"
+   },
+   "32": {
+    "options": [
+     "1951",
+     "1953",
+     "1956",
+     "1957"
+    ],
+    "question": "The motion by Anthony Enahoro demanding independence for Nigeria was moved in"
+   },
+   "33": {
+    "options": [
+     "Ibadan constitutional conference of 1950",
+     "London constitutional conference of 1953",
+     "London constitutional conference of 1957",
+     "London constitutional conference of 1958"
+    ],
+    "question": "The office of the Prime Minister of Nigeria was first created by the"
+   },
+   "35": {
+    "options": [
+     "Slave trade, indirect rule and amalgamation",
+     "Economic exploitation, racial discrimination and political parties",
+     "Communal riots, news media and religious differences",
+     "Traditional rulers, district officers and governors-general"
+    ],
+    "question": "Which of the following aroused and promoted nationalistic feeling among Nigerians?"
+   },
+   "36": {
+    "question": "The leader of the Northern People's Congress was"
+   },
+   "37": {
+    "options": [
+     "independence in October 1960",
+     "the attainment of self-government by the regions",
+     "the adoption of the Republican Constitution in October 1963",
+     "the inception of the presidential system in October 1979"
+    ]
+   },
+   "38": {
+    "options": [
+     "President on the advice of the Prime Minister",
+     "Chief Justice of the Federation",
+     "Prime Minister",
+     "Judicial Service Commission"
+    ],
+    "question": "Under the 1963 Constitution, federal judges were appointed by the"
+   },
+   "39": {
+    "options": [
+     "written and flexible",
+     "written and rigid",
+     "flexible and unwritten",
+     "unitary and rigid"
+    ]
+   },
+   "40": {
+    "question": "The major political parties in Nigeria during the First Republic were"
+   },
+   "41": {
+    "options": [
+     "local states",
+     "levies",
+     "revenue from court fines and licenses",
+     "the Federal Government"
+    ]
+   },
+   "42": {
+    "options": [
+     "the National Assembly",
+     "the Senate",
+     "the House of Representatives",
+     "a motion approved by at least two-thirds of all the state houses of assembly"
+    ],
+    "question": "Under the 1979 Constitution of Nigeria, the President of the Federal Republic could only be removed from office by"
+   },
+   "46": {
+    "options": [
+     "the United Nations Charter",
+     "the OAU Charter",
+     "the constitution of Amnesty International",
+     "the 1979 Constitution of Nigeria"
+    ]
+   },
+   "47": {
+    "options": [
+     "Chairman of the Conference of Commonwealth Heads of Government",
+     "Queen of Great Britain",
+     "Prime Minister of Great Britain",
+     "Secretary-General of the Commonwealth"
+    ],
+    "question": "The Head of the Commonwealth of Nations is the"
+   },
+   "48": {
+    "options": [
+     "National interest",
+     "Non-alignment",
+     "African interests",
+     "International terrorism"
+    ],
+    "question": "Which of the following principles does NOT govern Nigeria's foreign policy?"
+   },
+   "49": {
+    "question": "During the struggle for Angolan independence, Nigeria supported"
+   },
+   "5": {
+    "options": [
+     "opposition to the system by the wealthy",
+     "industrialization",
+     "opposition to the system by the oppressed",
+     "the discovery of new lands"
+    ]
+   },
+   "50": {
+    "question": "Within the United Nations, the veto power is exercised in"
+   },
+   "8": {
+    "options": [
+     "a two-chamber legislature",
+     "the process of secret voting in the legislature",
+     "the lower chamber in a legislature",
+     "a one-chamber legislature"
+    ],
+    "question": "Unicameralism refers to"
+   },
+   "9": {
+    "options": [
+     "promote the welfare of their members",
+     "execute particular programmes",
+     "influence legislation in order to benefit their members",
+     "control political power"
+    ],
+    "question": "While pressure groups aim at influencing government decisions, the primary aim of political parties is to"
+   }
+  },
+  "1990": {
+   "12": {
+    "options": [
+     "peasants",
+     "bourgeoisie",
+     "nobles",
+     "proletariat"
+    ]
+   },
+   "13": {
+    "options": [
+     "state ownership of the means of production",
+     "materialism",
+     "the proletariat",
+     "capitalism"
+    ],
+    "question": "Marxism is directed against"
+   },
+   "14": {
+    "options": [
+     "judges interpret the law",
+     "lawyers interpret the law",
+     "everyone is subject to the law",
+     "the legislature makes the law"
+    ]
+   },
+   "16": {
+    "options": [
+     "crossing from the Lower House to the Upper House",
+     "changing party allegiance after election",
+     "opposing party discipline in parliament",
+     "resigning from parliament"
+    ]
+   },
+   "17": {
+    "options": [
+     "first reading",
+     "committee stage",
+     "second reading",
+     "final stage"
+    ],
+    "question": "In a parliament, the most extensive amendment to a bill takes place at the"
+   },
+   "2": {
+    "options": [
+     "winning elections",
+     "using the police",
+     "deciding cases",
+     "allocating values"
+    ],
+    "question": "The exercise of political power involves"
+   },
+   "20": {
+    "question": "Habeas corpus is an essential process for safeguarding the right of citizens to"
+   },
+   "24": {
+    "options": [
+     "Local communities",
+     "Local government councils",
+     "The Federal Electoral Commission",
+     "Traditional councils"
+    ],
+    "question": "Which of the following served as the electoral college during the election into the Constituent Assembly in 1978?"
+   },
+   "27": {
+    "options": [
+     "lay a solid foundation for Nigerian independence",
+     "help build a virile Nigerian economy",
+     "promote missionary activities",
+     "exploit and expropriate Nigerian resources for British interests"
+    ],
+    "question": "The principal objective of British colonial policy in Nigeria was to"
+   },
+   "28": {
+    "options": [
+     "Education",
+     "Pacification",
+     "Forced Labour",
+     "Taxation"
+    ],
+    "question": "Which of the following factors contributed most to cash crop production during the colonial administration in Nigeria?"
+   },
+   "29": {
+    "options": [
+     "laws",
+     "decrees",
+     "edicts",
+     "promulgations"
+    ],
+    "question": "Under the military regime in Nigeria, state enactments are known as"
+   },
+   "31": {
+    "options": [
+     "Nigerian National Democratic Party",
+     "Nigerian Youth Movement",
+     "Action Group",
+     "National Council of Nigeria and the Cameroons"
+    ],
+    "question": "The first political party in Nigeria was the"
+   },
+   "32": {
+    "question": "The major problem of the Nigerian federal structure in the First Republic was"
+   },
+   "33": {
+    "options": [
+     "Parliament",
+     "Judiciary",
+     "Legislative Council",
+     "National Assembly"
+    ],
+    "question": "The legislative organ of the Federal Government in the First Republic was the"
+   },
+   "34": {
+    "options": [
+     "The Civil Service Commission",
+     "The National Security Council",
+     "The Manpower Advisory Committee",
+     "The National Emergency Relief Agency"
+    ]
+   },
+   "36": {
+    "options": [
+     "Southern Cameroons should constitute a separate region",
+     "a House of Chiefs was to be created in the Western Region",
+     "the office of the speaker of the House of Representatives was to be created",
+     "the police was to be regionalized"
+    ]
+   },
+   "37": {
+    "options": [
+     "Ahmadu Bello and Abubakar Tafawa Balewa",
+     "Nnamdi Azikiwe and Obafemi Awolowo",
+     "Ahmadu Bello and Samuel Ladoke Akintola",
+     "Herbert Macaulay and Nnamdi Azikiwe"
+    ]
+   },
+   "38": {
+    "options": [
+     "Lyttleton Constitution",
+     "Macpherson Constitution",
+     "Richards Constitution",
+     "Clifford Constitution"
+    ],
+    "question": "Indirect election was first introduced in Nigeria by the"
+   },
+   "39": {
+    "options": [
+     "Northern People's Congress",
+     "Action Group",
+     "National Council of Nigeria and the Cameroons",
+     "Northern Elements Progressive Union"
+    ],
+    "question": "The motion for self-government was moved in 1953 by the"
+   },
+   "4": {
+    "options": [
+     "judgments",
+     "judicial oaths",
+     "orders-in-council",
+     "judicial precedents"
+    ],
+    "question": "The pronouncements of judges which have the force of law are called"
+   },
+   "40": {
+    "options": [
+     "The Igbos",
+     "The Tivs",
+     "The Ibibios",
+     "The Yorubas"
+    ],
+    "question": "Which of the following had a centralized administration in pre-colonial Nigeria?"
+   },
+   "43": {
+    "options": [
+     "The O.A.U.",
+     "ECOWAS",
+     "The E.E.C.",
+     "The U.N.O."
+    ]
+   },
+   "44": {
+    "options": [
+     "Tanganyika and Ghana",
+     "Cameroon and Niger",
+     "Togo and Namibia",
+     "Botswana and Zaire"
+    ],
+    "question": "Which of the following pairs of countries were trust territories of the United Nations?"
+   },
+   "45": {
+    "options": [
+     "Lagos",
+     "Addis Ababa",
+     "Dar-es-Salaam",
+     "Harare"
+    ]
+   },
+   "46": {
+    "options": [
+     "The Congo Group",
+     "The Brazzaville Group",
+     "The Casablanca Group",
+     "The Monrovia Group"
+    ],
+    "question": "Which of the following groups advocated for political union of African States?"
+   },
+   "47": {
+    "options": [
+     "Alhaji Nuhu Bamalli",
+     "Prof. Ishaya Audu",
+     "Dr. Okoi Arikpo",
+     "Jaja Wachukwu"
+    ]
+   },
+   "49": {
+    "options": [
+     "Papua New Guinea",
+     "Sri Lanka",
+     "Grenada",
+     "Rwanda"
+    ],
+    "question": "Which of these countries is NOT a member of the Commonwealth of Nations?"
+   },
+   "7": {
+    "options": [
+     "First-past-the-post system",
+     "Proportional representation",
+     "Indirect election",
+     "Co-option"
+    ]
+   },
+   "8": {
+    "options": [
+     "press censorship",
+     "presidentialism",
+     "fundamental human rights",
+     "socialist ideology"
+    ]
+   },
+   "9": {
+    "options": [
+     "a judiciary dependent on the executive",
+     "genuine and truly national political parties",
+     "a free and fair electoral system",
+     "the establishment of the principle of accountability for public officers"
+    ]
+   }
+  },
+  "1991": {
+   "10": {
+    "options": [
+     "rigid, federal and written",
+     "flexible, unitary and unwritten",
+     "rigid, written and confederal",
+     "flexible, federal and unwritten"
+    ]
+   },
+   "11": {
+    "options": [
+     "the number of people who participate in it",
+     "the philosophy of the state",
+     "formal distribution of power among governmental levels",
+     "institutional structure and relationships"
+    ],
+    "question": "The terms oligarchy and democracy identify governments according to"
+   },
+   "12": {
+    "question": "Governments whose central concern is the equitable distribution of wealth are said to be"
+   },
+   "13": {
+    "options": [
+     "democratic rule more than other systems",
+     "the sharing of executive powers with the legislature",
+     "the concentration of powers in the chief executive",
+     "the decentralization of executive power"
+    ]
+   },
+   "14": {
+    "options": [
+     "the executive is able to control the legislature",
+     "the judiciary can stop all executive actions",
+     "each branch of government acts as watchdog over other branches",
+     "the legislature is subordinate to the judiciary"
+    ],
+    "question": "The notion of checks and balances guarantees that"
+   },
+   "15": {
+    "options": [
+     "the Prime Minister can dissolve the entire parliament",
+     "the Head of State can dismiss the Prime Minister",
+     "each offending minister can be reassigned",
+     "the cabinet stands or falls together"
+    ]
+   },
+   "16": {
+    "options": [
+     "securing the tenure of office of judges",
+     "insulating judges from partisan politics",
+     "employing men of proven integrity as judges",
+     "invoking emergency powers"
+    ],
+    "question": "The application of the rule of law may be constrained by"
+   },
+   "17": {
+    "options": [
+     "an adjournment",
+     "a prorogation",
+     "a dissolution",
+     "a guillotine"
+    ]
+   },
+   "18": {
+    "options": [
+     "Prime Minister dissolves parliament",
+     "entire cabinet resigns",
+     "speaker resigns",
+     "opposition immediately forms a new government"
+    ],
+    "question": "In the parliamentary system, when parliament defeats a major government bill the"
+   },
+   "19": {
+    "question": "A bill becomes an Act of Parliament after it has been"
+   },
+   "28": {
+    "options": [
+     "prevent tribal wars",
+     "supervise native courts",
+     "decide divorce cases",
+     "take charge of local administration"
+    ]
+   },
+   "29": {
+    "options": [
+     "official majority in the Legislative Council",
+     "unofficial majority in the Legislative Council",
+     "unofficial majority in the Executive Council",
+     "federal system of government"
+    ],
+    "question": "The 1946 Constitution is characterized by"
+   },
+   "3": {
+    "options": [
+     "nationalism",
+     "self-determination",
+     "nation-state",
+     "sovereignty"
+    ]
+   },
+   "31": {
+    "options": [
+     "speaker",
+     "senate leader",
+     "deputy speaker",
+     "clerk of the House"
+    ],
+    "question": "The state legislatures of the Second Republic in Nigeria had the following EXCEPT a"
+   },
+   "32": {
+    "options": [
+     "The 1946 Constitution",
+     "The 1960 Constitution",
+     "The 1963 Constitution",
+     "The 1979 Constitution"
+    ],
+    "question": "Which of these constitutions recognised local government as the third tier of government?"
+   },
+   "34": {
+    "options": [
+     "General Yakubu Gowon",
+     "General Murtala Muhammed",
+     "Major-General Johnson Aguiyi-Ironsi",
+     "Major-General Muhammadu Buhari"
+    ]
+   },
+   "35": {
+    "options": [
+     "abolition of state ministries of local government",
+     "creation of the post of supervisory councillors",
+     "creation of the post of chairmen of local government",
+     "abolition of its supervision by state governments"
+    ],
+    "question": "One of the measures taken in 1988 to grant more autonomy to the local governments in Nigeria was the"
+   },
+   "36": {
+    "options": [
+     "1966",
+     "1976",
+     "1984",
+     "1987"
+    ],
+    "question": "Traditional rulers were restricted to ceremonial roles by the Local Government Reforms of"
+   },
+   "37": {
+    "options": [
+     "Constituency",
+     "Ballot box",
+     "Electoral officer",
+     "Ward"
+    ]
+   },
+   "38": {
+    "options": [
+     "more effective than the private sector",
+     "more attractive than the private sector",
+     "professionalized",
+     "efficient and result-oriented"
+    ],
+    "question": "The Public Service Review Commission of 1974 made proposals to ensure that the public service was"
+   },
+   "40": {
+    "options": [
+     "Non-Aligned Movement",
+     "Organisation of Petroleum Exporting Countries",
+     "Organisation for Economic Co-operation and Development",
+     "International Monetary Fund"
+    ]
+   },
+   "41": {
+    "options": [
+     "the Algerian war of independence",
+     "French policy in the Congo",
+     "atomic tests in the Sahara",
+     "French involvement in Togolese politics"
+    ],
+    "question": "Nigeria broke diplomatic relations with France under the Balewa government over"
+   },
+   "42": {
+    "question": "The Obasanjo administration nationalized the assets of British Petroleum over the British government's policy in"
+   },
+   "43": {
+    "question": "Nigerian foreign policy implementation is the responsibility of the"
+   },
+   "46": {
+    "options": [
+     "politically",
+     "socially",
+     "culturally",
+     "economically"
+    ],
+    "question": "ECOWAS is aimed at uniting the West African states"
+   },
+   "48": {
+    "question": "Which of these countries was NOT a foundation member of the Organisation of African Unity?"
+   },
+   "50": {
+    "options": [
+     "German colony",
+     "South African province",
+     "United Nations trusteeship",
+     "British protectorate"
+    ]
+   },
+   "6": {
+    "options": [
+     "unitary system",
+     "federal system",
+     "confederal system",
+     "rigid system"
+    ]
+   },
+   "7": {
+    "options": [
+     "over-centralization of authority",
+     "lack of a central army",
+     "tendencies towards secession",
+     "absence of local independence"
+    ],
+    "question": "One of the weaknesses of a confederation is the"
+   },
+   "8": {
+    "options": [
+     "federal",
+     "confederal",
+     "unitary",
+     "communal"
+    ],
+    "question": "A system of government which emphasizes coordinate status of component units is referred to as"
+   },
+   "9": {
+    "options": [
+     "amended periodically",
+     "easy to amend",
+     "amendable with difficulty",
+     "easy to interpret"
+    ],
+    "question": "A flexible constitution is one that is"
+   }
+  },
+  "1992": {
+   "10": {
+    "options": [
+     "cabinet members are responsible people",
+     "the legislature and the executive work together",
+     "the executive is elected for a fixed term",
+     "the judiciary will overrule the impeachment of the cabinet"
+    ]
+   },
+   "11": {
+    "question": "Law making under a military regime is done through"
+   },
+   "12": {
+    "question": "The most critical debates on a bill and amendments to it take place during the"
+   },
+   "13": {
+    "options": [
+     "social security and free speech",
+     "religious freedom and collective aggression",
+     "immunity from libel and right to employment",
+     "right to life and liberty"
+    ]
+   },
+   "16": {
+    "question": "An election in which citizens are called upon to vote for or against a specified issue is called a"
+   },
+   "18": {
+    "options": [
+     "win and control governmental power",
+     "elect their officials",
+     "influence government policy",
+     "organise workers to confront government"
+    ]
+   },
+   "19": {
+    "question": "The biased presentation of information in order to influence public opinion is referred to as"
+   },
+   "20": {
+    "options": [
+     "The Idoma Kingdom",
+     "The Nupe Kingdom",
+     "The Kwararafa Empire",
+     "The Igala Empire"
+    ],
+    "question": "Which of the following was a great military political power before the colonization of Nigeria?"
+   },
+   "22": {
+    "options": [
+     "activities of secret societies",
+     "rulers' fear of dethronement",
+     "absence of a system of centralized authority",
+     "demands of pressure groups"
+    ],
+    "question": "During the pre-colonial period in Eastern Nigeria, autocratic rule was made difficult by the"
+   },
+   "23": {
+    "options": [
+     "Ibibio and Igala",
+     "Tiv",
+     "Hausa-Fulani",
+     "Igbo and Efik"
+    ]
+   },
+   "24": {
+    "options": [
+     "Forced labour",
+     "Low prices on exports",
+     "Taxes on the population",
+     "Education levy"
+    ]
+   },
+   "26": {
+    "options": [
+     "immediate independence for Nigeria",
+     "gradual evolution towards independence",
+     "the continuation of British rule",
+     "independence in 1956"
+    ],
+    "question": "The Northern People's Congress stand during the nationalist struggle for Nigeria's independence was for"
+   },
+   "27": {
+    "options": [
+     "indirect rule to Southern Nigeria",
+     "direct taxes",
+     "the warrant chief system",
+     "forced labour"
+    ],
+    "question": "The Aba women's riot was caused by the attempt to introduce"
+   },
+   "28": {
+    "options": [
+     "regional premiers",
+     "the office of the speaker",
+     "the office of the Prime Minister",
+     "regional executives"
+    ],
+    "question": "One of the unique innovations of the 1951 Constitution was the introduction of"
+   },
+   "29": {
+    "options": [
+     "drafting a constitution for the Second Republic",
+     "deliberating on, debating and amending the draft constitution",
+     "passing the constitution into law",
+     "conducting a referendum on the draft constitution"
+    ],
+    "question": "The Constituent Assembly of 1977-1978 had the primary responsibility of"
+   },
+   "30": {
+    "options": [
+     "be at least 40 years of age",
+     "be a Nigerian by birth",
+     "have the highest number of votes cast at the election",
+     "have not less than 1/4 of the votes cast at the election in each of at least 2/3 of all states in the federation"
+    ],
+    "question": "To qualify to be President of the Federal Republic of Nigeria under the 1979 Constitution a candidate must"
+   },
+   "32": {
+    "options": [
+     "Supreme Court",
+     "High Court",
+     "Judicial Committee of the Privy Council",
+     "Court of Appeal"
+    ]
+   },
+   "33": {
+    "question": "The highest decision-making body in Nigeria under the Buhari regime was the"
+   },
+   "34": {
+    "options": [
+     "appointment of Civil Service Commissioners",
+     "appointment, promotion and discipline of civil servants",
+     "negotiating better conditions of service for civil servants",
+     "discipline of political appointees"
+    ],
+    "question": "Under the 1979 Constitution, the functions of the Civil Service Commission include the"
+   },
+   "35": {
+    "options": [
+     "introduction of the elective principle and representative institutions",
+     "increased wealth of the indigenous elites",
+     "granting of self-government by the colonial administration",
+     "call by black people all over the world for a final assault on colonialism"
+    ]
+   },
+   "37": {
+    "options": [
+     "the figures were unacceptable to the U.N.",
+     "the figures were controversial",
+     "Nigerians were contented with the existing population figures",
+     "there were preparations for a fresh census"
+    ]
+   },
+   "39": {
+    "options": [
+     "introduction of a uniform system of local government",
+     "introduction of party politics at the local levels",
+     "subordination of local government to the Federal and State Governments",
+     "recognition of local government as autonomous and sovereign government"
+    ],
+    "question": "The most important aspect of the 1976 Local Government Reforms was the"
+   },
+   "4": {
+    "options": [
+     "subjects citizens to executive decrees",
+     "makes laws too flexible",
+     "makes laws too technical",
+     "is not useful in emergency situations"
+    ]
+   },
+   "40": {
+    "options": [
+     "realise the objective of full employment",
+     "bring government nearer to the people",
+     "prevent the creation of more states",
+     "encourage competition and rivalry amongst ethnic groups"
+    ]
+   },
+   "41": {
+    "options": [
+     "to develop all the disadvantaged states",
+     "to accelerate the development of the country",
+     "for rapid economic and social development of the country after the civil war",
+     "to further the cause of a united, strong and self-reliant nation"
+    ],
+    "question": "The Nigerian Military Government launched the Second National Development Plan in 1970 purposely"
+   },
+   "42": {
+    "options": [
+     "inclusion of civilians as members",
+     "exclusion of military governors from the council",
+     "inclusion of the Chief Justice as a member",
+     "exclusion of the Inspector-General of Police from the council"
+    ],
+    "question": "A feature unique to General Murtala Muhammed's Supreme Military Council as compared to that of General Yakubu Gowon was the"
+   },
+   "45": {
+    "options": [
+     "British imperialism",
+     "East-West ideological competition",
+     "militarism of ex-colonial powers",
+     "Third World poverty"
+    ],
+    "question": "Nigeria's foreign policy of non-alignment was a reaction to"
+   },
+   "46": {
+    "options": [
+     "The Soviet Union",
+     "Tanzania",
+     "The United States of America",
+     "South Africa"
+    ]
+   },
+   "47": {
+    "question": "In the First Republic, Nigeria was very reluctant to have meaningful interaction with"
+   },
+   "49": {
+    "options": [
+     "The European Economic Community",
+     "The Organisation of American States",
+     "The League of Nations",
+     "The North Atlantic Treaty Organisation"
+    ],
+    "question": "Which of these international organisations is the predecessor of the United Nations?"
+   },
+   "50": {
+    "options": [
+     "admission of a large number of newly independent African States",
+     "appointment of the first African as Secretary-General",
+     "break-up of the Soviet Union into independent Republics",
+     "expansion of the membership of the Security Council"
+    ],
+    "question": "The dramatic rise in the membership of the U.N. during late 1991 and early 1992 is best accounted for by the"
+   },
+   "7": {
+    "options": [
+     "Totalitarianism",
+     "Feudalism",
+     "Liberalism",
+     "Democracy"
+    ]
+   },
+   "9": {
+    "options": [
+     "only ministers can be held responsible for errors",
+     "a minister must hold his subordinates responsible for his failures",
+     "the Prime Minister can remove an erring minister",
+     "no individual can be held responsible for government decisions"
+    ],
+    "question": "In the cabinet system of government, individual responsibility of ministers means that"
+   }
+  },
+  "1993": {
+   "1": {
+    "options": [
+     "ability to effect political action",
+     "capacity to produce desired political results",
+     "capacity to reshape the political behaviour of citizens",
+     "recognized right to exercise political power"
+    ],
+    "question": "Political authority refers to the"
+   },
+   "10": {
+    "question": "Despite the doctrine of separation of powers, the legislature plays a quasi-judicial role as a result of its"
+   },
+   "12": {
+    "options": [
+     "royal proclamations",
+     "orders-in-council",
+     "acts of parliament",
+     "ministerial pronouncements"
+    ]
+   },
+   "14": {
+    "options": [
+     "only judges interpret the law",
+     "law makers are above the law",
+     "everybody is equal before the law",
+     "lawyers make laws"
+    ]
+   },
+   "16": {
+    "options": [
+     "ward",
+     "local government area",
+     "politically demarcated area",
+     "constituency"
+    ],
+    "question": "Another term for an electoral district is a"
+   },
+   "19": {
+    "options": [
+     "tends to preserve the multi-party system",
+     "is too simple to operate",
+     "ensures that each party has a minister",
+     "provides that each state is represented according to its population"
+    ]
+   },
+   "2": {
+    "options": [
+     "economic and legal aspects",
+     "social and political aspects",
+     "political and legal aspects",
+     "economic and political aspects"
+    ]
+   },
+   "20": {
+    "options": [
+     "represent the masses",
+     "do not allow misrule",
+     "represent groups who otherwise would be left out",
+     "provide a forum for confronting the government"
+    ]
+   },
+   "23": {
+    "options": [
+     "Exposure to Western education, cultural imperialism and external trade relations",
+     "Cultural imperialism, external manipulation and foreign control of domestic economy",
+     "External manipulation, civil service evolution and liberal democracy",
+     "Liberal democracy, foreign domination and cultural imperialism"
+    ]
+   },
+   "27": {
+    "options": [
+     "Denial of equal opportunities to Nigerians vis-a-vis their European counterparts",
+     "The establishment of political parties and newspapers",
+     "The influx of West Indian and American intellectuals",
+     "The development of modern education"
+    ]
+   },
+   "28": {
+    "options": [
+     "Africans were in the majority",
+     "it made laws only for the Southern Provinces",
+     "the Colony of Lagos and the Protectorate of Southern Nigeria were merged",
+     "laws governing land ownership in the north were extended to the south"
+    ]
+   },
+   "29": {
+    "options": [
+     "monarchical and parliamentary",
+     "republican and parliamentary",
+     "monarchical and presidential",
+     "federal and republican"
+    ],
+    "question": "The 1960 Independence Constitution could be described as written"
+   },
+   "3": {
+    "question": "The civil service belongs to the organ of government called the"
+   },
+   "30": {
+    "question": "The Governor-General of Nigeria at the time of political independence was"
+   },
+   "31": {
+    "question": "Before the collapse of Nigeria's First Republic in 1966, the Prime Minister was both"
+   },
+   "32": {
+    "question": "In Nigeria, the function of the Council of State is"
+   },
+   "33": {
+    "options": [
+     "Sharia Court of Appeal",
+     "no other court of law",
+     "Federal Court of Appeal",
+     "Judicial tribunal"
+    ],
+    "question": "Under military administration, Supreme Court decisions are subject to review by"
+   },
+   "34": {
+    "options": [
+     "independent of the executive",
+     "part of the executive",
+     "advisory to the executive",
+     "advisory to the legislature"
+    ]
+   },
+   "35": {
+    "options": [
+     "Ashby Commission",
+     "Adedeji Commission",
+     "Udoji Commission",
+     "Phillipson Commission"
+    ],
+    "question": "Which of the following was an ad hoc Revenue Allocation Commission?"
+   },
+   "36": {
+    "options": [
+     "1975 Constitution Drafting Committee",
+     "1979 Constitution",
+     "Murtala/Obasanjo regime",
+     "Buhari regime"
+    ],
+    "question": "The term federal character was popularised by the"
+   },
+   "37": {
+    "question": "In Nigeria, public corporations are also known as"
+   },
+   "38": {
+    "options": [
+     "concentration of power",
+     "separation of power",
+     "devolution of power",
+     "delegation of power"
+    ],
+    "question": "The local government is an example of"
+   },
+   "39": {
+    "question": "The body responsible for exercising the functions of local government in the 1976 reforms was the"
+   },
+   "4": {
+    "options": [
+     "concentrated in the central government",
+     "constitutionally divided between the centre and the units",
+     "exercised by the larger units",
+     "vested in the constituent units"
+    ]
+   },
+   "41": {
+    "options": [
+     "political culture",
+     "political socialization",
+     "national interest",
+     "national consciousness"
+    ],
+    "question": "Nigeria's relations with other nations is determined by her"
+   },
+   "42": {
+    "options": [
+     "membership of O.A.U.",
+     "membership of ECOWAS",
+     "concern for and attention to African problems",
+     "commitment to end colonization in Africa"
+    ],
+    "question": "The foreign policy of Nigeria is centred on Africa because of her"
+   },
+   "43": {
+    "question": "The major organization through which Nigeria pursues her economic, political and social interests in West Africa is"
+   },
+   "44": {
+    "options": [
+     "recommendation of the Secretary-General to the Security Council",
+     "concurrent vote of the Security Council and the General Assembly",
+     "enabling action of the General Assembly",
+     "sponsorship of any member of the organization"
+    ]
+   },
+   "45": {
+    "options": [
+     "the Economic and Social Commission",
+     "Council of Ministers",
+     "General Secretariat",
+     "Assembly of Heads of State and Government"
+    ],
+    "question": "The highest policy-making body of the O.A.U. is the"
+   },
+   "46": {
+    "options": [
+     "Casablanca group",
+     "Monrovia group",
+     "African and Malagasy Union",
+     "Pan-African Union"
+    ],
+    "question": "To which of these bodies did Nigeria belong before the formation of the O.A.U. in 1963?"
+   },
+   "47": {
+    "question": "Who was the first Nigerian to be appointed President of the International Court of Justice at The Hague?"
+   },
+   "48": {
+    "question": "An agency of the United Nations which specializes in the welfare of children is the"
+   },
+   "49": {
+    "question": "Financial contributions to the liberation movements in Southern Africa by African governments were channelled through the"
+   },
+   "50": {
+    "options": [
+     "France, Germany, the Soviet Union, Italy and Japan",
+     "Japan, the United States, Italy, Germany and France",
+     "the Soviet Union, People's Republic of China, Great Britain, France and the United States",
+     "Italy, the United States, the Soviet Union, Germany and France"
+    ]
+   },
+   "6": {
+    "options": [
+     "cannot be modified or amended",
+     "can only be amended by the highest legislative body",
+     "is contained in a single document",
+     "is drawn up by draftsmen"
+    ]
+   },
+   "7": {
+    "options": [
+     "division of powers",
+     "supremacy of the written constitution",
+     "an executive presidential system",
+     "a rigid amendment procedure"
+    ],
+    "question": "A federal system of government can exist without"
+   },
+   "8": {
+    "options": [
+     "concentrate national wealth in the hands of a few",
+     "abolish collective ownership of property",
+     "provide adequate opportunities for citizens to make profits",
+     "eliminate all forms of socio-economic inequality"
+    ]
+   }
+  },
+  "1994": {
+   "20": {
+    "options": [
+     "political evaluation",
+     "interest aggregation",
+     "political accountability",
+     "interest determination"
+    ],
+    "question": "One of the main functions of a political party is"
+   },
+   "27": {
+    "question": "A major feature which differentiated the 1963 and 1979 constitutions was that in the former,"
+   },
+   "42": {
+    "question": "Which of the following countries is closely associated with the development of Ajaokuta Steel Project?"
+   },
+   "48": {
+    "options": [
+     "assisted liberation struggles in Southern Africa",
+     "assisted ECOMOG troops in Liberia",
+     "sent troops for peace-keeping in Somalia",
+     "sent policemen to Namibia"
+    ],
+    "question": "Nigeria was regarded as a 'Frontline State' because she"
+   }
+  },
+  "1995": {
+   "23": {
+    "question": "The geographical entity in which the traditional ruler was both the religious and political head was the"
+   },
+   "28": {
+    "question": "Under the 1963 Constitution, a bill could only become law if it was assented to by the"
+   },
+   "31": {
+    "question": "Under the Civil Service Reforms of 1988, the Nigerian Civil Service became"
+   }
+  },
+  "1997": {
+   "24": {
+    "options": [
+     "military expeditions",
+     "Church missions",
+     "gunboat diplomacy",
+     "peaceful trade"
+    ],
+    "question": "The people of Southern Nigeria first came in contact with Europeans through"
+   }
+  },
+  "1998": {
+   "31": {
+    "question": "Which of the following statements is true about the 1963 and 1979 constitutions?"
+   }
+  },
+  "1999": {
+   "49": {
+    "options": [
+     "the OAU",
+     "The League of Nations",
+     "The UNO",
+     "The ECOWAS"
+    ],
+    "question": "Which of the following international organizations was in existence before the outbreak of the Second World War?"
+   },
+   "50": {
+    "options": [
+     "General Assembly",
+     "Security Council",
+     "Economic and Social Council",
+     "Trusteeship Council"
+    ],
+    "question": "The organ of the United Nations Organization responsible for the former colonies of defeated world war II powers is the"
+   }
+  },
+  "2001": {
+   "3": {
+    "question": "Where the constitution is supreme, unconstitutional acts of the executive and the legislature can be checked by the courts through"
+   },
+   "49": {
+    "options": [
+     "Co-ordinating the general policy of the organization",
+     "Directing the finances of the organization",
+     "Preparing the agenda of the meetings",
+     "Reviewing the activities of other organs"
+    ],
+    "question": "Which of the following is the function of the Council of Ministers of the O.A.U.?"
+   },
+   "50": {
+    "options": [
+     "free movement of persons and right of residence",
+     "increased trade among members",
+     "Political integration of the region",
+     "providing financial aid to its members"
+    ],
+    "question": "The Economic Community of West African States has made impressive progress in the area of"
+   }
+  },
+  "2002": {
+   "16": {
+    "question": "The absence of the rule of law in government will bring about"
+   },
+   "25": {
+    "question": "The first Nigerian constitution to provide for the fundamental objectives and directive principles of state policy was the"
+   },
+   "32": {
+    "options": [
+     "British Consul in Calabar",
+     "Royal West African Frontier Force",
+     "British Consul in Lagos",
+     "Royal Niger Company"
+    ]
+   },
+   "33": {
+    "options": [
+     "January 1966 and December 1983",
+     "July 1966 and August 1985",
+     "January 1966 and July 1975",
+     "February 1966 and December 1983"
+    ]
+   },
+   "36": {
+    "options": [
+     "are equal to the states",
+     "have more control over their funds",
+     "no longer have anything to do with state governments",
+     "are no longer subordinate to state governments"
+    ],
+    "question": "The abolition of the state ministries of local government in 1989 entails that local governments"
+   },
+   "37": {
+    "options": [
+     "Supreme Military Council",
+     "Armed Forces Ruling Council",
+     "Provisional Ruling Council",
+     "National Security Council"
+    ],
+    "question": "The main legislative body in Nigeria between 1966 and 1975 was the"
+   },
+   "41": {
+    "options": [
+     "the USSR, Italy, the UK and China",
+     "Italy, the UK, France and Japan",
+     "the USA, the USSR, the UK and China",
+     "France, the USA, Canada and Japan"
+    ],
+    "question": "The group of states that conceived the idea of the United Nations Organization included"
+   },
+   "42": {
+    "options": [
+     "diplomatic cooperation",
+     "economic cooperation",
+     "cultural cooperation",
+     "military cooperation"
+    ],
+    "question": "The action of the Commonwealth of Nations is felt most in the area of"
+   }
+  },
+  "2003": {
+   "11": {
+    "options": [
+     "public and private companies",
+     "all private corporations",
+     "public corporations",
+     "government ministries"
+    ]
+   },
+   "25": {
+    "options": [
+     "president",
+     "ministry of finance",
+     "judiciary",
+     "legislature"
+    ],
+    "question": "The expenditure of public funds by the executive in Nigeria is controlled by the"
+   },
+   "26": {
+    "options": [
+     "Federal Civil Defence Corps",
+     "National Human Rights Commission",
+     "Federal Road Safety Commission",
+     "National Population Commission"
+    ],
+    "question": "The 1979 Constitution established the"
+   },
+   "40": {
+    "options": [
+     "financial contribution",
+     "military strength",
+     "successes in UN elective offices",
+     "contribution to global peace"
+    ],
+    "question": "Nigeria's high standing in the UN General Assembly is underscored by her"
+   },
+   "41": {
+    "options": [
+     "membership of the UNO",
+     "Afrocentric posture",
+     "members of ECOWAS",
+     "strong ties with Western powers"
+    ],
+    "question": "Nigeria's Non-Alignment policy is constrained by her"
+   }
+  },
+  "2004": {
+   "17": {
+    "question": "The law of libel limits a citizen's right to freedom of"
+   },
+   "21": {
+    "question": "The highest grade in the civil service is known as the"
+   },
+   "37": {
+    "question": "The immediate cause of the January 15 1966 military coup in Nigeria was the"
+   },
+   "44": {
+    "options": [
+     "Britain, Japan, Australia, Germany and the United States",
+     "Germany, France, Poland, Hungary and China",
+     "the United States, Russia, France, Britain and China",
+     "the United States, Russia, France, Britain and Japan"
+    ],
+    "question": "The permanent members of the Security Council of the United Nations are"
+   },
+   "49": {
+    "options": [
+     "Lansana Kouyate",
+     "Alassane Ouattara",
+     "Mohammed Ibn Chambas",
+     "Abbas Bundu"
+    ]
+   },
+   "9": {
+    "options": [
+     "executive order",
+     "executive review",
+     "exercise of veto",
+     "legislative order"
+    ]
+   }
+  }
+ },
+ "images": {},
+ "rich": true,
+ "topics": {
+  "1983": {
+   "1": "systems-of-government",
+   "10": "forms-of-government",
+   "11": "organs-of-government",
+   "12": "basic-concepts-government",
+   "13": "political-parties",
+   "14": "electoral-process",
+   "15": "electoral-process",
+   "16": "systems-of-government",
+   "17": "electoral-process",
+   "18": "electoral-process",
+   "19": "political-parties",
+   "2": "forms-of-government",
+   "20": "systems-of-government",
+   "21": "political-parties",
+   "22": "organs-of-government",
+   "23": "constitution",
+   "24": "public-administration",
+   "25": "public-administration",
+   "26": "second-third-republic",
+   "27": "political-parties",
+   "28": "colonial-constitutions",
+   "29": "colonial-administration",
+   "3": "electoral-process",
+   "30": "nationalism-independence",
+   "31": "colonial-administration",
+   "32": "first-republic",
+   "33": "organs-of-government",
+   "34": "second-third-republic",
+   "35": "international-organisations",
+   "36": "second-third-republic",
+   "37": "public-administration",
+   "38": "colonial-administration",
+   "39": "nationalism-independence",
+   "4": "organs-of-government",
+   "40": "colonial-constitutions",
+   "41": "international-organisations",
+   "42": "first-republic",
+   "43": "nationalism-independence",
+   "44": "second-third-republic",
+   "45": "colonial-constitutions",
+   "46": "electoral-process",
+   "47": "second-third-republic",
+   "48": "organs-of-government",
+   "49": "colonial-constitutions",
+   "5": "organs-of-government",
+   "50": "international-organisations",
+   "6": "organs-of-government",
+   "7": "forms-of-government",
+   "8": "constitution",
+   "9": "basic-concepts-government"
+  },
+  "1984": {
+   "1": "systems-of-government",
+   "10": "systems-of-government",
+   "11": "organs-of-government",
+   "12": "constitution",
+   "13": "electoral-process",
+   "14": "basic-concepts-government",
+   "15": "public-administration",
+   "16": "basic-concepts-government",
+   "17": "organs-of-government",
+   "18": "constitution",
+   "19": "electoral-process",
+   "2": "constitution",
+   "20": "systems-of-government",
+   "21": "forms-of-government",
+   "22": "forms-of-government",
+   "23": "electoral-process",
+   "24": "electoral-process",
+   "25": "forms-of-government",
+   "26": "electoral-process",
+   "27": "constitution",
+   "28": "international-organisations",
+   "29": "nationalism-independence",
+   "3": "forms-of-government",
+   "30": "international-organisations",
+   "31": "colonial-constitutions",
+   "32": "international-organisations",
+   "33": "colonial-constitutions",
+   "34": "colonial-constitutions",
+   "35": "first-republic",
+   "36": "second-third-republic",
+   "37": "international-organisations",
+   "38": "international-organisations",
+   "39": "first-republic",
+   "4": "forms-of-government",
+   "40": "nationalism-independence",
+   "41": "colonial-administration",
+   "42": "first-republic",
+   "43": "colonial-constitutions",
+   "44": "colonial-constitutions",
+   "45": "first-republic",
+   "46": "second-third-republic",
+   "47": "international-organisations",
+   "48": "public-administration",
+   "49": "public-administration",
+   "5": "organs-of-government",
+   "50": "international-organisations",
+   "6": "constitution",
+   "7": "basic-concepts-government",
+   "8": "forms-of-government",
+   "9": "political-parties"
+  },
+  "1985": {
+   "1": "political-parties",
+   "10": "organs-of-government",
+   "11": "systems-of-government",
+   "12": "organs-of-government",
+   "13": "organs-of-government",
+   "14": "electoral-process",
+   "15": "forms-of-government",
+   "16": "systems-of-government",
+   "17": "electoral-process",
+   "18": "electoral-process",
+   "19": "constitution",
+   "2": "organs-of-government",
+   "20": "organs-of-government",
+   "21": "electoral-process",
+   "22": "systems-of-government",
+   "23": "public-administration",
+   "24": "basic-concepts-government",
+   "25": "systems-of-government",
+   "26": "second-third-republic",
+   "27": "public-administration",
+   "28": "second-third-republic",
+   "29": "international-organisations",
+   "3": "electoral-process",
+   "30": "colonial-constitutions",
+   "31": "international-organisations",
+   "32": "public-administration",
+   "33": "colonial-administration",
+   "34": "international-organisations",
+   "35": "international-organisations",
+   "36": "colonial-constitutions",
+   "37": "colonial-constitutions",
+   "38": "colonial-constitutions",
+   "39": "first-republic",
+   "4": "basic-concepts-government",
+   "40": "nationalism-independence",
+   "41": "colonial-constitutions",
+   "42": "first-republic",
+   "43": "international-organisations",
+   "44": "public-administration",
+   "45": "first-republic",
+   "46": "first-republic",
+   "47": "second-third-republic",
+   "48": "nationalism-independence",
+   "49": "international-organisations",
+   "5": "organs-of-government",
+   "50": "international-organisations",
+   "7": "constitution",
+   "8": "political-parties",
+   "9": "constitution"
+  },
+  "1986": {
+   "1": "forms-of-government",
+   "10": "systems-of-government",
+   "11": "systems-of-government",
+   "12": "organs-of-government",
+   "13": "organs-of-government",
+   "14": "forms-of-government",
+   "15": "forms-of-government",
+   "16": "basic-concepts-government",
+   "17": "forms-of-government",
+   "18": "forms-of-government",
+   "19": "forms-of-government",
+   "2": "basic-concepts-government",
+   "20": "constitution",
+   "21": "constitution",
+   "22": "electoral-process",
+   "23": "electoral-process",
+   "24": "political-parties",
+   "25": "political-parties",
+   "26": "pre-colonial-systems",
+   "27": "pre-colonial-systems",
+   "28": "pre-colonial-systems",
+   "29": "colonial-administration",
+   "3": "basic-concepts-government",
+   "30": "colonial-constitutions",
+   "31": "nationalism-independence",
+   "32": "nationalism-independence",
+   "33": "colonial-constitutions",
+   "34": "organs-of-government",
+   "35": "first-republic",
+   "36": "organs-of-government",
+   "37": "organs-of-government",
+   "38": "first-republic",
+   "39": "first-republic",
+   "4": "systems-of-government",
+   "40": "first-republic",
+   "41": "public-administration",
+   "42": "public-administration",
+   "43": "colonial-administration",
+   "44": "public-administration",
+   "45": "international-organisations",
+   "46": "nationalism-independence",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "organs-of-government",
+   "7": "systems-of-government",
+   "8": "systems-of-government",
+   "9": "systems-of-government"
+  },
+  "1987": {
+   "1": "systems-of-government",
+   "10": "electoral-process",
+   "11": "electoral-process",
+   "12": "electoral-process",
+   "13": "constitution",
+   "14": "systems-of-government",
+   "15": "public-administration",
+   "16": "basic-concepts-government",
+   "17": "systems-of-government",
+   "18": "organs-of-government",
+   "19": "forms-of-government",
+   "2": "forms-of-government",
+   "20": "electoral-process",
+   "21": "electoral-process",
+   "22": "systems-of-government",
+   "23": "organs-of-government",
+   "24": "colonial-administration",
+   "25": "pre-colonial-systems",
+   "26": "public-administration",
+   "27": "systems-of-government",
+   "28": "second-third-republic",
+   "29": "colonial-administration",
+   "3": "forms-of-government",
+   "30": "first-republic",
+   "31": "nationalism-independence",
+   "32": "nationalism-independence",
+   "33": "colonial-administration",
+   "34": "second-third-republic",
+   "35": "first-republic",
+   "36": "nationalism-independence",
+   "37": "colonial-constitutions",
+   "38": "colonial-constitutions",
+   "39": "nationalism-independence",
+   "4": "constitution",
+   "40": "nationalism-independence",
+   "41": "public-administration",
+   "42": "public-administration",
+   "43": "international-organisations",
+   "44": "international-organisations",
+   "45": "international-organisations",
+   "46": "international-organisations",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "public-administration",
+   "5": "systems-of-government",
+   "50": "organs-of-government",
+   "6": "constitution",
+   "7": "political-parties",
+   "8": "electoral-process",
+   "9": "systems-of-government"
+  },
+  "1988": {
+   "1": "basic-concepts-government",
+   "10": "organs-of-government",
+   "11": "constitution",
+   "12": "forms-of-government",
+   "13": "systems-of-government",
+   "14": "systems-of-government",
+   "15": "basic-concepts-government",
+   "16": "electoral-process",
+   "17": "organs-of-government",
+   "18": "forms-of-government",
+   "19": "forms-of-government",
+   "2": "constitution",
+   "20": "constitution",
+   "21": "organs-of-government",
+   "22": "political-parties",
+   "23": "pre-colonial-systems",
+   "24": "nationalism-independence",
+   "25": "public-administration",
+   "26": "public-administration",
+   "27": "pre-colonial-systems",
+   "28": "pre-colonial-systems",
+   "29": "nationalism-independence",
+   "3": "systems-of-government",
+   "30": "first-republic",
+   "31": "organs-of-government",
+   "32": "public-administration",
+   "33": "colonial-constitutions",
+   "34": "colonial-constitutions",
+   "35": "colonial-constitutions",
+   "36": "colonial-constitutions",
+   "37": "second-third-republic",
+   "38": "colonial-constitutions",
+   "39": "first-republic",
+   "4": "constitution",
+   "40": "first-republic",
+   "41": "first-republic",
+   "42": "international-organisations",
+   "43": "international-organisations",
+   "44": "nigerian-foreign-policy",
+   "45": "international-organisations",
+   "46": "international-organisations",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "basic-concepts-government",
+   "7": "forms-of-government",
+   "8": "forms-of-government",
+   "9": "organs-of-government"
+  },
+  "1989": {
+   "1": "electoral-process",
+   "10": "organs-of-government",
+   "11": "basic-concepts-government",
+   "12": "organs-of-government",
+   "13": "political-parties",
+   "14": "electoral-process",
+   "15": "political-parties",
+   "16": "public-administration",
+   "17": "constitution",
+   "18": "forms-of-government",
+   "19": "forms-of-government",
+   "2": "forms-of-government",
+   "20": "basic-concepts-government",
+   "21": "forms-of-government",
+   "22": "basic-concepts-government",
+   "23": "basic-concepts-government",
+   "24": "political-parties",
+   "25": "systems-of-government",
+   "26": "pre-colonial-systems",
+   "27": "nationalism-independence",
+   "28": "pre-colonial-systems",
+   "29": "nationalism-independence",
+   "3": "systems-of-government",
+   "30": "nationalism-independence",
+   "31": "colonial-constitutions",
+   "32": "nationalism-independence",
+   "33": "colonial-constitutions",
+   "34": "colonial-administration",
+   "35": "nationalism-independence",
+   "36": "nationalism-independence",
+   "37": "first-republic",
+   "38": "first-republic",
+   "39": "first-republic",
+   "4": "basic-concepts-government",
+   "40": "first-republic",
+   "41": "public-administration",
+   "42": "second-third-republic",
+   "43": "second-third-republic",
+   "44": "public-administration",
+   "45": "international-organisations",
+   "46": "second-third-republic",
+   "47": "international-organisations",
+   "48": "nigerian-foreign-policy",
+   "49": "nigerian-foreign-policy",
+   "5": "forms-of-government",
+   "50": "international-organisations",
+   "6": "organs-of-government",
+   "7": "systems-of-government",
+   "8": "organs-of-government",
+   "9": "political-parties"
+  },
+  "1990": {
+   "1": "political-parties",
+   "10": "forms-of-government",
+   "11": "systems-of-government",
+   "12": "forms-of-government",
+   "13": "forms-of-government",
+   "14": "constitution",
+   "15": "public-administration",
+   "16": "political-parties",
+   "17": "organs-of-government",
+   "18": "basic-concepts-government",
+   "19": "constitution",
+   "2": "basic-concepts-government",
+   "20": "constitution",
+   "21": "political-parties",
+   "22": "electoral-process",
+   "23": "forms-of-government",
+   "24": "second-third-republic",
+   "25": "colonial-administration",
+   "26": "public-administration",
+   "27": "colonial-administration",
+   "28": "colonial-administration",
+   "29": "first-republic",
+   "3": "basic-concepts-government",
+   "30": "organs-of-government",
+   "31": "colonial-constitutions",
+   "32": "first-republic",
+   "33": "first-republic",
+   "34": "public-administration",
+   "35": "systems-of-government",
+   "36": "colonial-constitutions",
+   "37": "colonial-constitutions",
+   "38": "colonial-constitutions",
+   "39": "nationalism-independence",
+   "4": "organs-of-government",
+   "40": "pre-colonial-systems",
+   "41": "second-third-republic",
+   "42": "international-organisations",
+   "43": "international-organisations",
+   "44": "international-organisations",
+   "45": "international-organisations",
+   "46": "international-organisations",
+   "47": "nigerian-foreign-policy",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "organs-of-government",
+   "50": "international-organisations",
+   "6": "electoral-process",
+   "7": "electoral-process",
+   "8": "constitution",
+   "9": "constitution"
+  },
+  "1991": {
+   "1": "basic-concepts-government",
+   "10": "constitution",
+   "11": "forms-of-government",
+   "12": "forms-of-government",
+   "13": "systems-of-government",
+   "14": "organs-of-government",
+   "15": "systems-of-government",
+   "16": "constitution",
+   "17": "organs-of-government",
+   "18": "systems-of-government",
+   "19": "organs-of-government",
+   "2": "basic-concepts-government",
+   "20": "basic-concepts-government",
+   "21": "constitution",
+   "22": "electoral-process",
+   "23": "electoral-process",
+   "24": "political-parties",
+   "25": "pre-colonial-systems",
+   "26": "pre-colonial-systems",
+   "27": "colonial-administration",
+   "28": "colonial-administration",
+   "29": "colonial-constitutions",
+   "3": "basic-concepts-government",
+   "30": "colonial-constitutions",
+   "31": "second-third-republic",
+   "32": "public-administration",
+   "33": "organs-of-government",
+   "34": "first-republic",
+   "35": "public-administration",
+   "36": "public-administration",
+   "37": "public-administration",
+   "38": "public-administration",
+   "39": "first-republic",
+   "4": "organs-of-government",
+   "40": "international-organisations",
+   "41": "nigerian-foreign-policy",
+   "42": "nigerian-foreign-policy",
+   "43": "nigerian-foreign-policy",
+   "44": "nigerian-foreign-policy",
+   "45": "nigerian-foreign-policy",
+   "46": "international-organisations",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "organs-of-government",
+   "50": "international-organisations",
+   "6": "systems-of-government",
+   "7": "systems-of-government",
+   "8": "systems-of-government",
+   "9": "constitution"
+  },
+  "1992": {
+   "1": "basic-concepts-government",
+   "10": "systems-of-government",
+   "11": "forms-of-government",
+   "12": "organs-of-government",
+   "13": "constitution",
+   "14": "electoral-process",
+   "15": "electoral-process",
+   "16": "electoral-process",
+   "17": "political-parties",
+   "18": "political-parties",
+   "19": "political-parties",
+   "2": "basic-concepts-government",
+   "20": "pre-colonial-systems",
+   "21": "pre-colonial-systems",
+   "22": "pre-colonial-systems",
+   "23": "pre-colonial-systems",
+   "24": "colonial-administration",
+   "25": "colonial-administration",
+   "26": "nationalism-independence",
+   "27": "colonial-administration",
+   "28": "colonial-constitutions",
+   "29": "second-third-republic",
+   "3": "systems-of-government",
+   "30": "second-third-republic",
+   "31": "organs-of-government",
+   "32": "first-republic",
+   "33": "forms-of-government",
+   "34": "public-administration",
+   "35": "colonial-constitutions",
+   "36": "public-administration",
+   "37": "first-republic",
+   "38": "public-administration",
+   "39": "public-administration",
+   "4": "organs-of-government",
+   "40": "public-administration",
+   "41": "first-republic",
+   "42": "second-third-republic",
+   "43": "forms-of-government",
+   "44": "nigerian-foreign-policy",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "nigerian-foreign-policy",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "constitution",
+   "7": "forms-of-government",
+   "8": "forms-of-government",
+   "9": "systems-of-government"
+  },
+  "1993": {
+   "1": "basic-concepts-government",
+   "10": "organs-of-government",
+   "11": "systems-of-government",
+   "12": "systems-of-government",
+   "13": "organs-of-government",
+   "14": "constitution",
+   "15": "electoral-process",
+   "16": "electoral-process",
+   "17": "electoral-process",
+   "18": "electoral-process",
+   "19": "electoral-process",
+   "2": "basic-concepts-government",
+   "20": "political-parties",
+   "21": "pre-colonial-systems",
+   "22": "pre-colonial-systems",
+   "23": "colonial-administration",
+   "24": "colonial-administration",
+   "25": "colonial-administration",
+   "26": "colonial-administration",
+   "27": "nationalism-independence",
+   "28": "colonial-constitutions",
+   "29": "colonial-constitutions",
+   "3": "public-administration",
+   "30": "nationalism-independence",
+   "31": "first-republic",
+   "32": "organs-of-government",
+   "33": "organs-of-government",
+   "34": "second-third-republic",
+   "35": "public-administration",
+   "36": "second-third-republic",
+   "37": "public-administration",
+   "38": "public-administration",
+   "39": "public-administration",
+   "4": "systems-of-government",
+   "40": "forms-of-government",
+   "41": "nigerian-foreign-policy",
+   "42": "nigerian-foreign-policy",
+   "43": "nigerian-foreign-policy",
+   "44": "international-organisations",
+   "45": "international-organisations",
+   "46": "international-organisations",
+   "47": "nigerian-foreign-policy",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "constitution",
+   "7": "systems-of-government",
+   "8": "forms-of-government",
+   "9": "forms-of-government"
+  },
+  "1994": {
+   "1": "basic-concepts-government",
+   "10": "forms-of-government",
+   "11": "organs-of-government",
+   "12": "systems-of-government",
+   "13": "public-administration",
+   "14": "organs-of-government",
+   "15": "constitution",
+   "16": "electoral-process",
+   "17": "basic-concepts-government",
+   "18": "electoral-process",
+   "19": "electoral-process",
+   "2": "basic-concepts-government",
+   "20": "political-parties",
+   "21": "pre-colonial-systems",
+   "22": "pre-colonial-systems",
+   "23": "nationalism-independence",
+   "24": "colonial-constitutions",
+   "25": "colonial-constitutions",
+   "26": "first-republic",
+   "27": "second-third-republic",
+   "28": "organs-of-government",
+   "29": "organs-of-government",
+   "3": "basic-concepts-government",
+   "30": "public-administration",
+   "31": "political-parties",
+   "32": "second-third-republic",
+   "33": "first-republic",
+   "34": "systems-of-government",
+   "35": "public-administration",
+   "36": "forms-of-government",
+   "37": "public-administration",
+   "38": "second-third-republic",
+   "39": "second-third-republic",
+   "4": "organs-of-government",
+   "40": "second-third-republic",
+   "41": "forms-of-government",
+   "42": "nigerian-foreign-policy",
+   "43": "nigerian-foreign-policy",
+   "44": "nigerian-foreign-policy",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "nigerian-foreign-policy",
+   "48": "nigerian-foreign-policy",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "constitution",
+   "7": "systems-of-government",
+   "8": "constitution",
+   "9": "forms-of-government"
+  },
+  "1995": {
+   "1": "basic-concepts-government",
+   "10": "organs-of-government",
+   "11": "public-administration",
+   "12": "basic-concepts-government",
+   "13": "basic-concepts-government",
+   "14": "basic-concepts-government",
+   "15": "organs-of-government",
+   "16": "electoral-process",
+   "17": "electoral-process",
+   "18": "electoral-process",
+   "19": "political-parties",
+   "2": "basic-concepts-government",
+   "20": "basic-concepts-government",
+   "21": "basic-concepts-government",
+   "22": "pre-colonial-systems",
+   "23": "pre-colonial-systems",
+   "24": "colonial-administration",
+   "25": "colonial-administration",
+   "26": "colonial-constitutions",
+   "27": "nationalism-independence",
+   "28": "first-republic",
+   "29": "second-third-republic",
+   "3": "organs-of-government",
+   "30": "public-administration",
+   "31": "public-administration",
+   "32": "electoral-process",
+   "33": "second-third-republic",
+   "34": "colonial-constitutions",
+   "35": "second-third-republic",
+   "36": "public-administration",
+   "37": "public-administration",
+   "38": "public-administration",
+   "39": "public-administration",
+   "4": "organs-of-government",
+   "40": "second-third-republic",
+   "41": "second-third-republic",
+   "42": "international-organisations",
+   "43": "nigerian-foreign-policy",
+   "44": "nigerian-foreign-policy",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "organs-of-government",
+   "50": "international-organisations",
+   "6": "organs-of-government",
+   "7": "forms-of-government",
+   "8": "forms-of-government",
+   "9": "organs-of-government"
+  },
+  "1997": {
+   "1": "basic-concepts-government",
+   "10": "systems-of-government",
+   "11": "systems-of-government",
+   "12": "second-third-republic",
+   "13": "organs-of-government",
+   "14": "organs-of-government",
+   "15": "basic-concepts-government",
+   "16": "basic-concepts-government",
+   "17": "electoral-process",
+   "18": "electoral-process",
+   "19": "political-parties",
+   "2": "basic-concepts-government",
+   "20": "basic-concepts-government",
+   "21": "pre-colonial-systems",
+   "22": "pre-colonial-systems",
+   "23": "pre-colonial-systems",
+   "24": "colonial-administration",
+   "25": "colonial-administration",
+   "26": "colonial-administration",
+   "27": "nationalism-independence",
+   "28": "colonial-constitutions",
+   "29": "colonial-constitutions",
+   "3": "organs-of-government",
+   "30": "second-third-republic",
+   "31": "first-republic",
+   "32": "second-third-republic",
+   "33": "public-administration",
+   "34": "public-administration",
+   "35": "second-third-republic",
+   "36": "nationalism-independence",
+   "37": "political-parties",
+   "38": "systems-of-government",
+   "39": "systems-of-government",
+   "4": "organs-of-government",
+   "40": "first-republic",
+   "41": "first-republic",
+   "42": "nigerian-foreign-policy",
+   "43": "nigerian-foreign-policy",
+   "44": "nigerian-foreign-policy",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "constitution",
+   "7": "forms-of-government",
+   "8": "systems-of-government",
+   "9": "systems-of-government"
+  },
+  "1998": {
+   "1": "basic-concepts-government",
+   "10": "systems-of-government",
+   "11": "public-administration",
+   "12": "constitution",
+   "13": "basic-concepts-government",
+   "14": "electoral-process",
+   "15": "electoral-process",
+   "16": "electoral-process",
+   "17": "political-parties",
+   "18": "political-parties",
+   "19": "basic-concepts-government",
+   "2": "basic-concepts-government",
+   "20": "basic-concepts-government",
+   "21": "pre-colonial-systems",
+   "22": "pre-colonial-systems",
+   "23": "pre-colonial-systems",
+   "24": "pre-colonial-systems",
+   "25": "colonial-administration",
+   "26": "colonial-administration",
+   "27": "colonial-administration",
+   "28": "colonial-administration",
+   "29": "nationalism-independence",
+   "3": "organs-of-government",
+   "30": "colonial-constitutions",
+   "31": "second-third-republic",
+   "32": "first-republic",
+   "33": "systems-of-government",
+   "34": "second-third-republic",
+   "35": "systems-of-government",
+   "36": "systems-of-government",
+   "37": "second-third-republic",
+   "38": "public-administration",
+   "39": "public-administration",
+   "4": "basic-concepts-government",
+   "40": "public-administration",
+   "41": "public-administration",
+   "42": "first-republic",
+   "43": "second-third-republic",
+   "44": "nigerian-foreign-policy",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "forms-of-government",
+   "7": "forms-of-government",
+   "8": "systems-of-government",
+   "9": "systems-of-government"
+  },
+  "1999": {
+   "1": "systems-of-government",
+   "10": "systems-of-government",
+   "11": "systems-of-government",
+   "12": "organs-of-government",
+   "13": "basic-concepts-government",
+   "14": "public-administration",
+   "15": "organs-of-government",
+   "16": "public-administration",
+   "17": "political-parties",
+   "18": "basic-concepts-government",
+   "19": "constitution",
+   "2": "systems-of-government",
+   "20": "forms-of-government",
+   "21": "political-parties",
+   "22": "organs-of-government",
+   "23": "basic-concepts-government",
+   "24": "forms-of-government",
+   "25": "public-administration",
+   "26": "colonial-administration",
+   "27": "colonial-constitutions",
+   "28": "first-republic",
+   "29": "first-republic",
+   "3": "systems-of-government",
+   "30": "second-third-republic",
+   "31": "colonial-administration",
+   "32": "colonial-constitutions",
+   "33": "pre-colonial-systems",
+   "34": "nationalism-independence",
+   "35": "pre-colonial-systems",
+   "36": "second-third-republic",
+   "37": "second-third-republic",
+   "38": "second-third-republic",
+   "39": "public-administration",
+   "4": "systems-of-government",
+   "40": "public-administration",
+   "41": "international-organisations",
+   "42": "nigerian-foreign-policy",
+   "43": "international-organisations",
+   "44": "international-organisations",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "nigerian-foreign-policy",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "forms-of-government",
+   "50": "international-organisations",
+   "6": "systems-of-government",
+   "7": "forms-of-government",
+   "8": "forms-of-government",
+   "9": "organs-of-government"
+  },
+  "2000": {
+   "1": "public-administration",
+   "10": "electoral-process",
+   "11": "constitution",
+   "12": "basic-concepts-government",
+   "13": "systems-of-government",
+   "14": "forms-of-government",
+   "15": "electoral-process",
+   "16": "constitution",
+   "17": "systems-of-government",
+   "18": "organs-of-government",
+   "19": "organs-of-government",
+   "2": "political-parties",
+   "20": "basic-concepts-government",
+   "21": "public-administration",
+   "22": "systems-of-government",
+   "23": "political-parties",
+   "24": "second-third-republic",
+   "25": "colonial-constitutions",
+   "26": "colonial-constitutions",
+   "27": "second-third-republic",
+   "28": "public-administration",
+   "29": "first-republic",
+   "3": "basic-concepts-government",
+   "30": "nationalism-independence",
+   "31": "public-administration",
+   "32": "nationalism-independence",
+   "33": "systems-of-government",
+   "34": "public-administration",
+   "35": "pre-colonial-systems",
+   "36": "nigerian-foreign-policy",
+   "37": "international-organisations",
+   "38": "international-organisations",
+   "39": "nigerian-foreign-policy",
+   "4": "basic-concepts-government",
+   "40": "nigerian-foreign-policy",
+   "41": "nigerian-foreign-policy",
+   "42": "nigerian-foreign-policy",
+   "43": "nigerian-foreign-policy",
+   "44": "nigerian-foreign-policy",
+   "45": "international-organisations",
+   "46": "international-organisations",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "basic-concepts-government",
+   "50": "international-organisations",
+   "6": "public-administration",
+   "7": "electoral-process",
+   "8": "systems-of-government",
+   "9": "political-parties"
+  },
+  "2001": {
+   "1": "basic-concepts-government",
+   "10": "organs-of-government",
+   "11": "organs-of-government",
+   "12": "organs-of-government",
+   "13": "basic-concepts-government",
+   "14": "electoral-process",
+   "15": "political-parties",
+   "16": "political-parties",
+   "17": "basic-concepts-government",
+   "18": "public-administration",
+   "19": "public-administration",
+   "2": "organs-of-government",
+   "20": "pre-colonial-systems",
+   "21": "pre-colonial-systems",
+   "22": "colonial-administration",
+   "23": "colonial-administration",
+   "24": "nationalism-independence",
+   "25": "colonial-constitutions",
+   "26": "colonial-constitutions",
+   "27": "second-third-republic",
+   "28": "first-republic",
+   "29": "first-republic",
+   "3": "organs-of-government",
+   "30": "public-administration",
+   "31": "electoral-process",
+   "32": "second-third-republic",
+   "33": "nationalism-independence",
+   "34": "first-republic",
+   "35": "second-third-republic",
+   "36": "public-administration",
+   "37": "public-administration",
+   "38": "second-third-republic",
+   "39": "nigerian-foreign-policy",
+   "4": "systems-of-government",
+   "40": "nigerian-foreign-policy",
+   "41": "nigerian-foreign-policy",
+   "42": "nigerian-foreign-policy",
+   "43": "nigerian-foreign-policy",
+   "44": "nigerian-foreign-policy",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "nigerian-foreign-policy",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "forms-of-government",
+   "7": "forms-of-government",
+   "8": "constitution",
+   "9": "constitution"
+  },
+  "2002": {
+   "1": "public-administration",
+   "10": "political-parties",
+   "11": "electoral-process",
+   "12": "organs-of-government",
+   "13": "systems-of-government",
+   "14": "electoral-process",
+   "15": "forms-of-government",
+   "16": "basic-concepts-government",
+   "17": "systems-of-government",
+   "18": "organs-of-government",
+   "19": "basic-concepts-government",
+   "2": "basic-concepts-government",
+   "20": "electoral-process",
+   "21": "organs-of-government",
+   "22": "public-administration",
+   "23": "colonial-constitutions",
+   "24": "public-administration",
+   "25": "second-third-republic",
+   "26": "second-third-republic",
+   "27": "second-third-republic",
+   "28": "pre-colonial-systems",
+   "29": "public-administration",
+   "3": "basic-concepts-government",
+   "30": "colonial-constitutions",
+   "31": "second-third-republic",
+   "32": "colonial-administration",
+   "33": "second-third-republic",
+   "34": "public-administration",
+   "35": "pre-colonial-systems",
+   "36": "public-administration",
+   "37": "second-third-republic",
+   "38": "colonial-constitutions",
+   "39": "international-organisations",
+   "4": "forms-of-government",
+   "40": "international-organisations",
+   "41": "international-organisations",
+   "42": "international-organisations",
+   "43": "international-organisations",
+   "44": "international-organisations",
+   "45": "nigerian-foreign-policy",
+   "46": "nigerian-foreign-policy",
+   "47": "nigerian-foreign-policy",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "electoral-process",
+   "50": "nigerian-foreign-policy",
+   "6": "public-administration",
+   "7": "political-parties",
+   "8": "public-administration",
+   "9": "organs-of-government"
+  },
+  "2003": {
+   "1": "organs-of-government",
+   "10": "organs-of-government",
+   "11": "public-administration",
+   "12": "basic-concepts-government",
+   "13": "political-parties",
+   "14": "forms-of-government",
+   "15": "forms-of-government",
+   "16": "organs-of-government",
+   "17": "electoral-process",
+   "18": "basic-concepts-government",
+   "19": "basic-concepts-government",
+   "2": "systems-of-government",
+   "20": "political-parties",
+   "21": "colonial-administration",
+   "22": "public-administration",
+   "23": "systems-of-government",
+   "24": "pre-colonial-systems",
+   "25": "organs-of-government",
+   "26": "second-third-republic",
+   "27": "colonial-constitutions",
+   "28": "colonial-constitutions",
+   "29": "public-administration",
+   "3": "systems-of-government",
+   "30": "systems-of-government",
+   "31": "second-third-republic",
+   "32": "first-republic",
+   "33": "public-administration",
+   "34": "second-third-republic",
+   "35": "second-third-republic",
+   "36": "public-administration",
+   "37": "international-organisations",
+   "38": "nigerian-foreign-policy",
+   "39": "nigerian-foreign-policy",
+   "4": "forms-of-government",
+   "40": "nigerian-foreign-policy",
+   "41": "nigerian-foreign-policy",
+   "42": "nigerian-foreign-policy",
+   "43": "nigerian-foreign-policy",
+   "44": "international-organisations",
+   "45": "international-organisations",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "organs-of-government",
+   "50": "international-organisations",
+   "6": "basic-concepts-government",
+   "7": "systems-of-government",
+   "8": "systems-of-government",
+   "9": "basic-concepts-government"
+  },
+  "2004": {
+   "1": "forms-of-government",
+   "10": "forms-of-government",
+   "11": "forms-of-government",
+   "12": "constitution",
+   "13": "basic-concepts-government",
+   "14": "organs-of-government",
+   "15": "public-administration",
+   "16": "organs-of-government",
+   "17": "basic-concepts-government",
+   "18": "electoral-process",
+   "19": "political-parties",
+   "2": "basic-concepts-government",
+   "20": "basic-concepts-government",
+   "21": "public-administration",
+   "22": "pre-colonial-systems",
+   "23": "colonial-administration",
+   "24": "colonial-administration",
+   "25": "nationalism-independence",
+   "26": "political-parties",
+   "27": "fourth-republic",
+   "28": "second-third-republic",
+   "29": "organs-of-government",
+   "3": "systems-of-government",
+   "30": "public-administration",
+   "31": "second-third-republic",
+   "32": "systems-of-government",
+   "33": "public-administration",
+   "34": "public-administration",
+   "35": "public-administration",
+   "36": "public-administration",
+   "37": "first-republic",
+   "38": "nigerian-foreign-policy",
+   "39": "nigerian-foreign-policy",
+   "4": "organs-of-government",
+   "40": "nigerian-foreign-policy",
+   "41": "nigerian-foreign-policy",
+   "42": "international-organisations",
+   "43": "nigerian-foreign-policy",
+   "44": "international-organisations",
+   "45": "international-organisations",
+   "46": "international-organisations",
+   "47": "international-organisations",
+   "48": "international-organisations",
+   "49": "international-organisations",
+   "5": "systems-of-government",
+   "50": "international-organisations",
+   "6": "systems-of-government",
+   "7": "forms-of-government",
+   "8": "systems-of-government",
+   "9": "systems-of-government"
+  }
+ }
+}

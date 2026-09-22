@@ -3,6 +3,13 @@ import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
 import { generateQuestions } from '../quizzes/quiz-generation'
 import { QUIZ_MODEL } from '../../lib/gemini'
+import {
+  drawPastQuestions,
+  recentlySeenBankIds,
+  shuffle,
+  shuffleOptions,
+} from '../../lib/question-bank'
+import { PAST_QUESTION_BANK } from '../quizzes/quiz-generation'
 import { logger } from '../../config/logger'
 import {
   jsonArray,
@@ -33,62 +40,42 @@ export async function generateMock(
   }
 
   const timeLimit = examType === 'jamb' ? JAMB_TIME_LIMIT : WAEC_NECO_TIME_LIMIT
+  const perSubject =
+    examType === 'jamb'
+      ? JAMB_QUESTIONS_PER_SUBJECT
+      : Math.ceil(WAEC_NECO_TOTAL_QUESTIONS / subjects.length)
+
+  // Questions this student met in recent quizzes and mocks go to the back of
+  // the queue, so back-to-back mocks are not the same paper.
+  const seen = await recentlySeenBankIds(userId)
 
   let allQuestions: QuizQuestion[] = []
+  let usedAi = false
 
-  if (examType === 'jamb') {
-    // 40 questions per subject
-    for (const subject of subjects) {
-      const topicsForExam = jsonArray<SubjectTopic>(subject.topics).filter((t) =>
-        t.examTypes.includes(examType),
-      )
-      if (topicsForExam.length === 0) continue
+  // Sections follow the order the student picked, not the database's.
+  const ordered = subjects
+    .slice()
+    .sort((a, b) => subjectSlugs.indexOf(a.slug) - subjectSlugs.indexOf(b.slug))
 
-      const questionsPerTopic = Math.ceil(JAMB_QUESTIONS_PER_SUBJECT / topicsForExam.length)
+  for (const subject of ordered) {
+    // Real past questions first, shuffled. A mock should be full length, so
+    // recently seen questions are allowed back in before falling back to AI.
+    const fromBank = await drawPastQuestions({
+      exam: examType,
+      subjectSlug: subject.slug,
+      count: perSubject,
+      exclude: seen,
+      allowRepeats: true,
+    })
 
-      for (const topic of topicsForExam.slice(0, Math.min(5, topicsForExam.length))) {
-        try {
-          const count = Math.min(questionsPerTopic, 10)
-          const questions = await generateQuestions({
-            examType,
-            subjectName: subject.name,
-            topicName: topic.name,
-            topicSlug: topic.slug,
-            difficulty: 'medium',
-            count,
-          })
-          allQuestions = allQuestions.concat(questions)
-        } catch (err) {
-          logger.warn({ err, topicSlug: topic.slug }, 'Failed to generate questions for topic')
-        }
-      }
-    }
-  } else {
-    // WAEC/NECO: 60 questions spread across all subjects
-    const questionsPerSubject = Math.ceil(WAEC_NECO_TOTAL_QUESTIONS / subjects.length)
+    const shortfall = perSubject - fromBank.length
+    const generated = shortfall > 0 ? await generateForMock(subject, examType, shortfall) : []
+    if (generated.length > 0) usedAi = true
 
-    for (const subject of subjects) {
-      const topicsForExam = jsonArray<SubjectTopic>(subject.topics).filter((t) =>
-        t.examTypes.includes(examType),
-      )
-      const firstTopic = topicsForExam[0]
-      if (!firstTopic) continue
-
-      try {
-        const count = Math.min(questionsPerSubject, 20)
-        const questions = await generateQuestions({
-          examType,
-          subjectName: subject.name,
-          topicName: firstTopic.name,
-          topicSlug: firstTopic.slug,
-          difficulty: 'medium',
-          count,
-        })
-        allQuestions = allQuestions.concat(questions)
-      } catch (err) {
-        logger.warn({ err, subjectSlug: subject.slug }, 'Failed to generate questions for subject')
-      }
-    }
+    // Papers are sat subject by subject, so the shuffle stays within a subject.
+    allQuestions = allQuestions.concat(
+      shuffle([...fromBank, ...generated.map((q) => shuffleOptions(q))]),
+    )
   }
 
   if (allQuestions.length === 0) {
@@ -103,9 +90,58 @@ export async function generateMock(
       questionCount: allQuestions.length,
       timeLimit,
       questions: allQuestions,
-      generatedByModel: QUIZ_MODEL,
+      generatedByModel: usedAi ? QUIZ_MODEL : PAST_QUESTION_BANK,
     },
   })
+}
+
+/**
+ * AI questions for whatever the bank could not cover, spread over the
+ * subject's topics - at most ten per topic so one topic cannot dominate.
+ */
+async function generateForMock(
+  subject: { slug: string; name: string; topics: unknown },
+  examType: ExamType,
+  count: number,
+): Promise<QuizQuestion[]> {
+  const topics = jsonArray<SubjectTopic>(subject.topics).filter((t) =>
+    t.examTypes.includes(examType),
+  )
+  if (topics.length === 0) return []
+
+  const perTopic = Math.min(10, Math.ceil(count / Math.min(5, topics.length)))
+  let out: QuizQuestion[] = []
+
+  for (const topic of shuffle(topics)) {
+    if (out.length >= count) break
+    try {
+      const questions = await generateQuestions({
+        examType,
+        subjectName: subject.name,
+        topicName: topic.name,
+        topicSlug: topic.slug,
+        difficulty: 'medium',
+        count: Math.min(perTopic, count - out.length),
+      })
+      out = out.concat(questions)
+    } catch (err) {
+      logger.warn({ err, topicSlug: topic.slug }, 'Failed to generate questions for topic')
+    }
+  }
+
+  return out.slice(0, count)
+}
+
+export async function getMock(
+  userId: string,
+  mockId: string,
+): Promise<Pick<Quiz, 'id' | 'questionCount' | 'timeLimit' | 'type' | 'createdAt'>> {
+  const mock = await prisma.quiz.findFirst({
+    where: { id: mockId, userId, type: 'mock' },
+    select: { id: true, questionCount: true, timeLimit: true, type: true, createdAt: true },
+  })
+  if (!mock) throw new NotFoundError('Mock exam not found')
+  return mock
 }
 
 export async function startMockAttempt(userId: string, mockId: string): Promise<QuizAttempt> {

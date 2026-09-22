@@ -78,6 +78,7 @@ export const SUBJECT_SLUGS = [
   'literature',
   'geography',
   'commerce',
+  'principles-of-accounts',
   'agricultural-science',
 ] as const
 export type SubjectSlug = (typeof SUBJECT_SLUGS)[number]

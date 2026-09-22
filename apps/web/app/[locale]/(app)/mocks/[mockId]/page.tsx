@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api-client'
+import { QuestionImage } from '@/components/common/question-image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -20,6 +21,8 @@ interface QuizQuestion {
   explanation: string
   topicSlug: string
   difficulty: string
+  /** Diagram the question depends on (past-question bank). */
+  imageUrl?: string
 }
 
 interface MockData {
@@ -79,13 +82,14 @@ export default function MockExamPage() {
         .catch(() => null),
   })
 
-  // Fetch full quiz data (after attempt started)
+  // Fetch full quiz data (after attempt started). The endpoint returns
+  // { attempt, quiz }; only the paper itself is needed here.
   const { data: fullData, isLoading: questionsLoading } = useQuery({
     queryKey: ['mock-questions', attempt?.attemptId],
     queryFn: () =>
       api
-        .get<{ data: FullMockData['quiz'] }>(`/mocks/attempts/${attempt!.attemptId}`)
-        .then((r) => ({ quiz: r.data })),
+        .get<{ data: FullMockData }>(`/mocks/attempts/${attempt!.attemptId}`)
+        .then((r) => ({ quiz: r.data.quiz })),
     enabled: !!attempt,
   })
 
@@ -398,6 +402,12 @@ export default function MockExamPage() {
             {currentQuestion.stem}
           </p>
         </div>
+
+        {currentQuestion.imageUrl && (
+          <div style={{ paddingLeft: 28 }}>
+            <QuestionImage url={currentQuestion.imageUrl} />
+          </div>
+        )}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingLeft: 28 }}>
           {currentQuestion.options.map((opt) => {

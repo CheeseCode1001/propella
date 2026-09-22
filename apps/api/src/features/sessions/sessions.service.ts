@@ -3,6 +3,7 @@ import { prisma } from '../../config/db'
 import { AppError, NotFoundError } from '../../middleware/error-handler'
 import { notify } from '../notifications/notification.service'
 import { jsonArray, type RoadmapNodeJson } from '../../models/types'
+import { recordStreakActivity } from '../gamification/streak'
 import { XP } from '@propella/shared'
 import { logger } from '../../config/logger'
 
@@ -95,39 +96,12 @@ export async function endSession(
     })
   }
 
-  // Update streak
-  const streak = await prisma.streak.findUnique({ where: { userId } })
-  if (streak) {
-    const todayString = new Date().toDateString()
-
-    if (streak.lastActiveDate.toDateString() !== todayString) {
-      const currentStreak = streak.currentStreak + 1
-      await prisma.streak.update({
-        where: { userId },
-        data: {
-          currentStreak,
-          longestStreak: Math.max(currentStreak, streak.longestStreak),
-          lastActiveDate: new Date(),
-        },
-      })
-
-      if (STREAK_MILESTONES.has(currentStreak)) {
-        await notify(userId, 'streak_milestone', {
-          title: `${currentStreak}-day streak`,
-          body: `You have studied ${currentStreak} days in a row. Keep it going.`,
-          deeplink: '/dashboard',
-        })
-      }
-    }
-  } else {
-    // Create streak if it doesn't exist
-    await prisma.streak.create({
-      data: {
-        userId,
-        currentStreak: 1,
-        longestStreak: 1,
-        lastActiveDate: new Date(),
-      },
+  const { currentStreak, extended } = await recordStreakActivity(userId)
+  if (extended && STREAK_MILESTONES.has(currentStreak)) {
+    await notify(userId, 'streak_milestone', {
+      title: `${currentStreak}-day streak`,
+      body: `You have studied ${currentStreak} days in a row. Keep it going.`,
+      deeplink: '/dashboard',
     })
   }
 

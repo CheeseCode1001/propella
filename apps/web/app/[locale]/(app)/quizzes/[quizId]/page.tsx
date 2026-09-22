@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { api } from '@/lib/api-client'
+import { QuestionImage } from '@/components/common/question-image'
 import { Button } from '@/components/ui/button'
 import { LoadingState } from '@/components/common/loading-state'
 import { cn } from '@/lib/utils/cn'
@@ -20,6 +21,10 @@ interface QuizQuestion {
   explanation: string
   topicSlug: string
   difficulty: string
+  /** Present on questions from the past-question bank. */
+  source?: string
+  /** Diagram the question depends on (past-question bank). */
+  imageUrl?: string
 }
 
 interface QuizData {
@@ -271,6 +276,21 @@ export default function QuizEnginePage() {
         </div>
       </div>
 
+      {/* Which paper a real past question came from, e.g. "JAMB UTME 2014" */}
+      {currentQuestion.source && (
+        <p
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 12,
+            fontWeight: 500,
+            color: 'var(--color-ink-3)',
+            marginBottom: 8,
+          }}
+        >
+          Past question · {currentQuestion.source.replace(/\s+Q\d+$/, '')}
+        </p>
+      )}
+
       {/* Question stem */}
       <h2
         style={{
@@ -284,6 +304,8 @@ export default function QuizEnginePage() {
       >
         {currentQuestion.stem}
       </h2>
+
+      {currentQuestion.imageUrl && <QuestionImage url={currentQuestion.imageUrl} />}
 
       {/* Options */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>

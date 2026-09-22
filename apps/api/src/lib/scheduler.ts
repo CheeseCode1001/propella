@@ -1,6 +1,7 @@
 import cron from 'node-cron'
 import { prisma } from '../config/db'
 import { logger } from '../config/logger'
+import { liveStreak } from '../features/gamification/streak'
 import {
   sendStudyReminderEmail,
   sendStreakWarningEmail,
@@ -74,12 +75,16 @@ cron.schedule('*/5 * * * *', async () => {
 cron.schedule('0 18 * * *', async () => {
   try {
     const today = new Date(new Date().toDateString())
+    // Older streaks have lapsed already - there is nothing left to save.
+    const twoDaysAgo = new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000)
     const atRisk = await prisma.streak.findMany({
-      where: { currentStreak: { gt: 0 }, lastActiveDate: { lt: today } },
+      where: { currentStreak: { gt: 0 }, lastActiveDate: { lt: today, gte: twoDaysAgo } },
       take: 500,
     })
 
     for (const streak of atRisk) {
+      if (liveStreak(streak, new Date()) === 0) continue
+
       // Avoid duplicate reminders for the same day
       const existing = await prisma.reminder.findFirst({
         where: {

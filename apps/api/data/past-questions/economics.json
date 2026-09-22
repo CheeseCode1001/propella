@@ -1,0 +1,6916 @@
+{
+ "questions": [
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "basic-economic-concepts",
+   "question": "Economics is the study of human behaviour as it relates to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "efficient allocation of resources"
+    },
+    {
+     "id": "B",
+     "text": "production of goods"
+    },
+    {
+     "id": "C",
+     "text": "operation of companies"
+    },
+    {
+     "id": "D",
+     "text": "generation of income"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "The standard deviation of a set of data is",
+   "options": [
+    {
+     "id": "A",
+     "text": "always measured from the mode"
+    },
+    {
+     "id": "B",
+     "text": "the most representative of averages"
+    },
+    {
+     "id": "C",
+     "text": "always measured from the median"
+    },
+    {
+     "id": "D",
+     "text": "a measure of dispersion"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "The most popular sizes of dresses and shoes are determined by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "range"
+    },
+    {
+     "id": "B",
+     "text": "mean"
+    },
+    {
+     "id": "C",
+     "text": "mode"
+    },
+    {
+     "id": "D",
+     "text": "median"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "If the demand for a good is more elastic than its supply, the tax burden is borne",
+   "options": [
+    {
+     "id": "A",
+     "text": "equally by consumers and producers"
+    },
+    {
+     "id": "B",
+     "text": "more by producers"
+    },
+    {
+     "id": "C",
+     "text": "more by consumers"
+    },
+    {
+     "id": "D",
+     "text": "more by retailers and producers"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "If the price of a commodity with elastic demand increases, the revenue accruing to the producer will",
+   "options": [
+    {
+     "id": "A",
+     "text": "double"
+    },
+    {
+     "id": "B",
+     "text": "increase"
+    },
+    {
+     "id": "C",
+     "text": "be constant"
+    },
+    {
+     "id": "D",
+     "text": "decrease"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "One of the assumptions of ordinal utility theory is that",
+   "options": [
+    {
+     "id": "A",
+     "text": "choice is not consistent"
+    },
+    {
+     "id": "B",
+     "text": "utility can be ranked"
+    },
+    {
+     "id": "C",
+     "text": "total utility is a function of price"
+    },
+    {
+     "id": "D",
+     "text": "satisfaction is measurable"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "The law of diminishing marginal utility explains why",
+   "options": [
+    {
+     "id": "A",
+     "text": "the slope of a normal demand curve is negative"
+    },
+    {
+     "id": "B",
+     "text": "an abnormal demand curve slopes upwards"
+    },
+    {
+     "id": "C",
+     "text": "the slope of a normal demand curve is positive"
+    },
+    {
+     "id": "D",
+     "text": "the consumption of inferior goods increases with income"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "If a consumer plans to spend 120k on four oranges but spent 80k, his consumer surplus is",
+   "options": [
+    {
+     "id": "A",
+     "text": "₦1.50"
+    },
+    {
+     "id": "B",
+     "text": "₦0.40"
+    },
+    {
+     "id": "C",
+     "text": "₦1.00"
+    },
+    {
+     "id": "D",
+     "text": "₦2.00"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "If the coefficient of price elasticity of supply is greater than one, the supply is said to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "perfectly elastic"
+    },
+    {
+     "id": "B",
+     "text": "fairly inelastic"
+    },
+    {
+     "id": "C",
+     "text": "infinitely inelastic"
+    },
+    {
+     "id": "D",
+     "text": "fairly elastic"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "If commodity X is a by-product of commodity Y, this implies that both commodities are",
+   "options": [
+    {
+     "id": "A",
+     "text": "in competitive supply"
+    },
+    {
+     "id": "B",
+     "text": "in composite supply"
+    },
+    {
+     "id": "C",
+     "text": "jointly supplied"
+    },
+    {
+     "id": "D",
+     "text": "in excess supply"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "In perfect competition, price is determined by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "government"
+    },
+    {
+     "id": "B",
+     "text": "sellers"
+    },
+    {
+     "id": "C",
+     "text": "buyers"
+    },
+    {
+     "id": "D",
+     "text": "market"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "A firm enjoying economies of scale is said to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "reducing average cost as production increases"
+    },
+    {
+     "id": "B",
+     "text": "benefiting from the activities of other firms"
+    },
+    {
+     "id": "C",
+     "text": "maximizing profits as production increases"
+    },
+    {
+     "id": "D",
+     "text": "having an upward-sloping average cost curve"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "The rising portion of the long-run average cost curve of a firm is an indication that it is experiencing",
+   "options": [
+    {
+     "id": "A",
+     "text": "increasing efficiency"
+    },
+    {
+     "id": "B",
+     "text": "economies of scale"
+    },
+    {
+     "id": "C",
+     "text": "diseconomies of scale"
+    },
+    {
+     "id": "D",
+     "text": "increasing marginal returns"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "An industry's supply curve is more likely to be elastic when firms are",
+   "options": [
+    {
+     "id": "A",
+     "text": "enjoying free entry and exit"
+    },
+    {
+     "id": "B",
+     "text": "operating at full capacity"
+    },
+    {
+     "id": "C",
+     "text": "operating below capacity"
+    },
+    {
+     "id": "D",
+     "text": "maximizing profits"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "One of the characteristics of monopolistic competition is that",
+   "options": [
+    {
+     "id": "A",
+     "text": "there is mobility of factors of production"
+    },
+    {
+     "id": "B",
+     "text": "no single seller dominates the market"
+    },
+    {
+     "id": "C",
+     "text": "the firms are price-takers"
+    },
+    {
+     "id": "D",
+     "text": "consumers have perfect knowledge of price"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "The demand curve for factors of production",
+   "options": [
+    {
+     "id": "A",
+     "text": "is perfect elastic"
+    },
+    {
+     "id": "B",
+     "text": "slopes upwards"
+    },
+    {
+     "id": "C",
+     "text": "slopes downwards"
+    },
+    {
+     "id": "D",
+     "text": "is perfectly inelastic"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "An agreement among firms on price and segmentation is termed",
+   "options": [
+    {
+     "id": "A",
+     "text": "cartel"
+    },
+    {
+     "id": "B",
+     "text": "collusion"
+    },
+    {
+     "id": "C",
+     "text": "haggling"
+    },
+    {
+     "id": "D",
+     "text": "specialization"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "In national income accounting, tax is determined by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "level of income"
+    },
+    {
+     "id": "B",
+     "text": "level of consumption"
+    },
+    {
+     "id": "C",
+     "text": "level of investment `"
+    },
+    {
+     "id": "D",
+     "text": "rate of savings"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "If MPC is 0.7 while government expenditure increased by ₦ 150m, the equilibrium national income is",
+   "options": [
+    {
+     "id": "A",
+     "text": "₦ 214 million"
+    },
+    {
+     "id": "B",
+     "text": "₦ 45 million"
+    },
+    {
+     "id": "C",
+     "text": "₦ 105 million"
+    },
+    {
+     "id": "D",
+     "text": "₦ 500 million"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "money",
+   "question": "The function of money which makes division of labour possible is its",
+   "options": [
+    {
+     "id": "A",
+     "text": "unit of account"
+    },
+    {
+     "id": "B",
+     "text": "store of value"
+    },
+    {
+     "id": "C",
+     "text": "medium of exchange"
+    },
+    {
+     "id": "D",
+     "text": "standard of deferred payment"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "One of the functions of commercial banks is",
+   "options": [
+    {
+     "id": "A",
+     "text": "maintaining stable price in the economy"
+    },
+    {
+     "id": "B",
+     "text": "regulating monetary policies"
+    },
+    {
+     "id": "C",
+     "text": "granting loans to customers"
+    },
+    {
+     "id": "D",
+     "text": "issuing bank notes and coins"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "A strategy for curbing unemployment is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "implement government stabilization policy"
+    },
+    {
+     "id": "B",
+     "text": "increase taxes and decrease government expenditure"
+    },
+    {
+     "id": "C",
+     "text": "increase government expenditure and decrease taxes"
+    },
+    {
+     "id": "D",
+     "text": "ensure even distribution of job opportunities"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The ultimate aim of agricultural policies in Nigeria is to achieve",
+   "options": [
+    {
+     "id": "A",
+     "text": "food sufficiency"
+    },
+    {
+     "id": "B",
+     "text": "industrialization"
+    },
+    {
+     "id": "C",
+     "text": "full employment"
+    },
+    {
+     "id": "D",
+     "text": "industrial capacity utilization"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "Localization of industries refers to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "spread of firms producing different products"
+    },
+    {
+     "id": "B",
+     "text": "siting of industries near the market"
+    },
+    {
+     "id": "C",
+     "text": "concentration of firms of an industry"
+    },
+    {
+     "id": "D",
+     "text": "siting of firms producing different products"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "In developing countries, governments influence the location of industries in order to",
+   "options": [
+    {
+     "id": "A",
+     "text": "spread development"
+    },
+    {
+     "id": "B",
+     "text": "redistribute wealth"
+    },
+    {
+     "id": "C",
+     "text": "encourage entrepreneurs"
+    },
+    {
+     "id": "D",
+     "text": "encourage industries to earn high profits"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2010 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "The maximum number of shareholders for a limited liability company is",
+   "options": [
+    {
+     "id": "A",
+     "text": "twenty"
+    },
+    {
+     "id": "B",
+     "text": "five"
+    },
+    {
+     "id": "C",
+     "text": "seven"
+    },
+    {
+     "id": "D",
+     "text": "infinite"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2010 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "If Nigeria imports vehicles from Japan the transaction will appear as a",
+   "options": [
+    {
+     "id": "A",
+     "text": "debit on Japan's balance of payments"
+    },
+    {
+     "id": "B",
+     "text": "credit on Japan's balance of payments"
+    },
+    {
+     "id": "C",
+     "text": "credit on Nigeria's balance of trade"
+    },
+    {
+     "id": "D",
+     "text": "credit on Nigeria's balance of payment"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2010 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2010,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "One of the objectives of ADB is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "provide subsidies on imported goods to member countries"
+    },
+    {
+     "id": "B",
+     "text": "mobilize short-term loans for member countries"
+    },
+    {
+     "id": "C",
+     "text": "promote economic and social development of member countries"
+    },
+    {
+     "id": "D",
+     "text": "provide technical assistance to only poor member countries"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2010 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "An effective way of controlling inflation in a mixed economy is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "increase productivity"
+    },
+    {
+     "id": "B",
+     "text": "reduce income tax"
+    },
+    {
+     "id": "C",
+     "text": "ration available output"
+    },
+    {
+     "id": "D",
+     "text": "increase imports"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "A major disadvantage of the arithmetic means is that it is",
+   "options": [
+    {
+     "id": "A",
+     "text": "not useful for large data"
+    },
+    {
+     "id": "B",
+     "text": "not suitable for further statistical analysis"
+    },
+    {
+     "id": "C",
+     "text": "cumbersome to determine the actual value"
+    },
+    {
+     "id": "D",
+     "text": "affected by extreme data"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "economic-systems",
+   "question": "Demand patterns are determined by the market on the basis of",
+   "options": [
+    {
+     "id": "A",
+     "text": "scale of preference"
+    },
+    {
+     "id": "B",
+     "text": "consumer sovereignty"
+    },
+    {
+     "id": "C",
+     "text": "consumer rationality"
+    },
+    {
+     "id": "D",
+     "text": "price of the commodity"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "A consumer surplus measures the",
+   "options": [
+    {
+     "id": "A",
+     "text": "benefits derived from consuming a cheap commodity"
+    },
+    {
+     "id": "B",
+     "text": "excess of total expenditure over total utility"
+    },
+    {
+     "id": "C",
+     "text": "difference between marginal utility and marginal cost"
+    },
+    {
+     "id": "D",
+     "text": "excess of marginal utility over price"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "If the demand for one commodity excludes another, it is said to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "complementary demand"
+    },
+    {
+     "id": "B",
+     "text": "competitive demand"
+    },
+    {
+     "id": "C",
+     "text": "composite demand"
+    },
+    {
+     "id": "D",
+     "text": "derived demand"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "The median of an odd-numbered set of scores is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Middle value in the set"
+    },
+    {
+     "id": "B",
+     "text": "Highest value in the set"
+    },
+    {
+     "id": "C",
+     "text": "Arithmetic means of the set"
+    },
+    {
+     "id": "D",
+     "text": "Most frequent occurring score"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "If demand increases without a change in supply, equilibrium price and quantity will",
+   "options": [
+    {
+     "id": "A",
+     "text": "remain unchanged"
+    },
+    {
+     "id": "B",
+     "text": "shift inward"
+    },
+    {
+     "id": "C",
+     "text": "fall"
+    },
+    {
+     "id": "D",
+     "text": "rise"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "In the process of production, total output is at maximum when",
+   "options": [
+    {
+     "id": "A",
+     "text": "MP=0"
+    },
+    {
+     "id": "B",
+     "text": "MP>0"
+    },
+    {
+     "id": "C",
+     "text": "AP=0"
+    },
+    {
+     "id": "D",
+     "text": "AP>0"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "When a consumer is at equilibrium, the MRSxy is equal to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "sum of the prices"
+    },
+    {
+     "id": "B",
+     "text": "product of the two prices"
+    },
+    {
+     "id": "C",
+     "text": "ratio of the two prices"
+    },
+    {
+     "id": "D",
+     "text": "difference of the two prices"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "Minimum price legislation by government will",
+   "options": [
+    {
+     "id": "A",
+     "text": "reduce supply"
+    },
+    {
+     "id": "B",
+     "text": "increase supply"
+    },
+    {
+     "id": "C",
+     "text": "reduce demand and create surplus"
+    },
+    {
+     "id": "D",
+     "text": "increase demand and create scarcity"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "Ranking is the method use in measuring",
+   "options": [
+    {
+     "id": "A",
+     "text": "marginal utility"
+    },
+    {
+     "id": "B",
+     "text": "ordinal utility"
+    },
+    {
+     "id": "C",
+     "text": "cardinal utility"
+    },
+    {
+     "id": "D",
+     "text": "total utility"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "A firm will experience diseconomies of scale when",
+   "options": [
+    {
+     "id": "A",
+     "text": "there are difficulties in coordinating production"
+    },
+    {
+     "id": "B",
+     "text": "there is shortage in labour supply"
+    },
+    {
+     "id": "C",
+     "text": "the size of market is small"
+    },
+    {
+     "id": "D",
+     "text": "there is an increase in the price of raw materials"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "The law of variable proportions is applicable only",
+   "options": [
+    {
+     "id": "A",
+     "text": "in the long-run period"
+    },
+    {
+     "id": "B",
+     "text": "to large-scale enterprises"
+    },
+    {
+     "id": "C",
+     "text": "to small-scale enterprises"
+    },
+    {
+     "id": "D",
+     "text": "in the short-run period"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "If real income increases while nominal income remains the same, it can be inferred that",
+   "options": [
+    {
+     "id": "A",
+     "text": "Unemployment rate has decreased"
+    },
+    {
+     "id": "B",
+     "text": "General prices have fallen"
+    },
+    {
+     "id": "C",
+     "text": "Employment rate has risen"
+    },
+    {
+     "id": "D",
+     "text": "General prices have risen"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2011 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "One of the characteristics of oligopoly is the availability of",
+   "options": [
+    {
+     "id": "A",
+     "text": "few sellers"
+    },
+    {
+     "id": "B",
+     "text": "few buyers"
+    },
+    {
+     "id": "C",
+     "text": "many sellers"
+    },
+    {
+     "id": "D",
+     "text": "a single seller"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Bank consolidation policy in Nigeria is a measure to increase",
+   "options": [
+    {
+     "id": "A",
+     "text": "the capital base of banks"
+    },
+    {
+     "id": "B",
+     "text": "employment opportunities in banks"
+    },
+    {
+     "id": "C",
+     "text": "the number of shareholders"
+    },
+    {
+     "id": "D",
+     "text": "the number of branches"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "An increase in the circulation of money without a corresponding increase in output will lead to",
+   "options": [
+    {
+     "id": "A",
+     "text": "a rise in income levels"
+    },
+    {
+     "id": "B",
+     "text": "stagflation"
+    },
+    {
+     "id": "C",
+     "text": "inflation"
+    },
+    {
+     "id": "D",
+     "text": "deflation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "In national income accounts, an item counted as part of government spending is",
+   "options": [
+    {
+     "id": "A",
+     "text": "salaries and wages"
+    },
+    {
+     "id": "B",
+     "text": "pension"
+    },
+    {
+     "id": "C",
+     "text": "scholarship"
+    },
+    {
+     "id": "D",
+     "text": "social welfare"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "If aggregate demand is lower than total output in an economy national income will",
+   "options": [
+    {
+     "id": "A",
+     "text": "be constant"
+    },
+    {
+     "id": "B",
+     "text": "be at equilibrium"
+    },
+    {
+     "id": "C",
+     "text": "increase"
+    },
+    {
+     "id": "D",
+     "text": "fall"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "money",
+   "question": "During the era of barter, money was generally in the form of",
+   "options": [
+    {
+     "id": "A",
+     "text": "notes"
+    },
+    {
+     "id": "B",
+     "text": "precious metals"
+    },
+    {
+     "id": "C",
+     "text": "coins"
+    },
+    {
+     "id": "D",
+     "text": "commodities"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "A country achieves economic development when there is",
+   "options": [
+    {
+     "id": "A",
+     "text": "an increase in military expenditure"
+    },
+    {
+     "id": "B",
+     "text": "an increase in capacity utilization"
+    },
+    {
+     "id": "C",
+     "text": "a sustained increase in per capita income"
+    },
+    {
+     "id": "D",
+     "text": "an even distribution of goods and services"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "A country embarks on deficit financing in order to",
+   "options": [
+    {
+     "id": "A",
+     "text": "increase revenue"
+    },
+    {
+     "id": "B",
+     "text": "reduce aggregate demand"
+    },
+    {
+     "id": "C",
+     "text": "curb inflation"
+    },
+    {
+     "id": "D",
+     "text": "stimulate investment"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2011 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The import-substitution strategy of industrialization is to encourage",
+   "options": [
+    {
+     "id": "A",
+     "text": "domestic production"
+    },
+    {
+     "id": "B",
+     "text": "large-scale production"
+    },
+    {
+     "id": "C",
+     "text": "importation"
+    },
+    {
+     "id": "D",
+     "text": "exportation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "Upstream oil activities involve the",
+   "options": [
+    {
+     "id": "A",
+     "text": "management of pollution"
+    },
+    {
+     "id": "B",
+     "text": "marketing of refined products"
+    },
+    {
+     "id": "C",
+     "text": "exploration of crude oil"
+    },
+    {
+     "id": "D",
+     "text": "refining of crude oil"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "Agricultural production in Nigeria is constrained by",
+   "options": [
+    {
+     "id": "A",
+     "text": "ineffective use of stabilization measures"
+    },
+    {
+     "id": "B",
+     "text": "inadequate demand"
+    },
+    {
+     "id": "C",
+     "text": "poor implementation of policies"
+    },
+    {
+     "id": "D",
+     "text": "balance of payments deficits"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2011 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2011,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The main function of NNPC is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "oversee the development of the oil sector"
+    },
+    {
+     "id": "B",
+     "text": "develop the oil producing area"
+    },
+    {
+     "id": "C",
+     "text": "fix the price of products"
+    },
+    {
+     "id": "D",
+     "text": "ensure regular supply of products"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2011 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "economic-systems",
+   "question": "A major disadvantage of a socialist economy is that",
+   "options": [
+    {
+     "id": "A",
+     "text": "corruption is rampant"
+    },
+    {
+     "id": "B",
+     "text": "consumer's sovereignty is lost"
+    },
+    {
+     "id": "C",
+     "text": "income inequality is entrenched"
+    },
+    {
+     "id": "D",
+     "text": "there is high level of unemployment"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "If the quantity of rice bought decreases from 250 tonnes to 200 tonnes owing to a 2% rise in price, it shows that there is a change in",
+   "options": [
+    {
+     "id": "A",
+     "text": "consumers' income"
+    },
+    {
+     "id": "B",
+     "text": "demand"
+    },
+    {
+     "id": "C",
+     "text": "consumers' tastes"
+    },
+    {
+     "id": "D",
+     "text": "quantity demanded"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "A rise in income will, ceteris paribus, bring about",
+   "options": [
+    {
+     "id": "A",
+     "text": "a movement along the demand curve"
+    },
+    {
+     "id": "B",
+     "text": "a leftward shift of the demand curve"
+    },
+    {
+     "id": "C",
+     "text": "a rightward shift of the demand curve"
+    },
+    {
+     "id": "D",
+     "text": "no effect on the demand curve"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "If the price of an item increases by 8% while the quantity demanded falls from 1500 units to 1492 units, the demand is said to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "perfectly elastic"
+    },
+    {
+     "id": "B",
+     "text": "inelastic"
+    },
+    {
+     "id": "C",
+     "text": "elastic"
+    },
+    {
+     "id": "D",
+     "text": "perfectly inelastic"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "Comparison of interpersonal utility is impossible because",
+   "options": [
+    {
+     "id": "A",
+     "text": "utility is measured in utils"
+    },
+    {
+     "id": "B",
+     "text": "marginal utility is not observable"
+    },
+    {
+     "id": "C",
+     "text": "utility is subjectively determined"
+    },
+    {
+     "id": "D",
+     "text": "individual income differ"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "The supply of cocoa is influenced by",
+   "options": [
+    {
+     "id": "A",
+     "text": "seasonal conditions"
+    },
+    {
+     "id": "B",
+     "text": "the efficacy of fertilizer used"
+    },
+    {
+     "id": "C",
+     "text": "the demand for beverages"
+    },
+    {
+     "id": "D",
+     "text": "the availability of close substitutes"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2012 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "If quantity supplied is constant irrespective of price changes, the supply elasticity is",
+   "options": [
+    {
+     "id": "A",
+     "text": "unitary"
+    },
+    {
+     "id": "B",
+     "text": "infinity"
+    },
+    {
+     "id": "C",
+     "text": "fairly elastic"
+    },
+    {
+     "id": "D",
+     "text": "perfectly inelastic"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "Fixing price above equilibrium will cause",
+   "options": [
+    {
+     "id": "A",
+     "text": "demand and supply to remain constant"
+    },
+    {
+     "id": "B",
+     "text": "an increase in quantity supplied"
+    },
+    {
+     "id": "C",
+     "text": "an increase in supply"
+    },
+    {
+     "id": "D",
+     "text": "a decrease in quantity supplied"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "An important function of the price system is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "ensure that producers' profits remain high"
+    },
+    {
+     "id": "B",
+     "text": "guarantee full employment of resources"
+    },
+    {
+     "id": "C",
+     "text": "allocate resources to most productive uses"
+    },
+    {
+     "id": "D",
+     "text": "protect the economic interests of government"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "The equilibrium point of a firm is attained at the point where the isoquant is",
+   "options": [
+    {
+     "id": "A",
+     "text": "greater than the isocost"
+    },
+    {
+     "id": "B",
+     "text": "less than the isocost"
+    },
+    {
+     "id": "C",
+     "text": "tangent to the isocost"
+    },
+    {
+     "id": "D",
+     "text": "greater than the output"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "If a firm doubles all inputs in the long run and the total output is less than doubled, this results in",
+   "options": [
+    {
+     "id": "A",
+     "text": "diminishing returns"
+    },
+    {
+     "id": "B",
+     "text": "constant returns to scale"
+    },
+    {
+     "id": "C",
+     "text": "increasing returns to scale"
+    },
+    {
+     "id": "D",
+     "text": "decreasing returns to scale"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q24"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "Patents and copyrights enable monopolists to",
+   "options": [
+    {
+     "id": "A",
+     "text": "determine the quality of their products"
+    },
+    {
+     "id": "B",
+     "text": "determine the scale of their products"
+    },
+    {
+     "id": "C",
+     "text": "restrict information flow to new firms"
+    },
+    {
+     "id": "D",
+     "text": "restrict entry of new firms"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "A discriminatory monopoly is characterized by",
+   "options": [
+    {
+     "id": "A",
+     "text": "a common elasticity in different markets"
+    },
+    {
+     "id": "B",
+     "text": "different elasticities in different markets"
+    },
+    {
+     "id": "C",
+     "text": "a finite elasticity in all markets"
+    },
+    {
+     "id": "D",
+     "text": "zero elasticity in all markets"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "Net National Product is derived by deducting",
+   "options": [
+    {
+     "id": "A",
+     "text": "net exports from GNP"
+    },
+    {
+     "id": "B",
+     "text": "subsidies from GDP"
+    },
+    {
+     "id": "C",
+     "text": "taxes from GDP"
+    },
+    {
+     "id": "D",
+     "text": "depreciation from GNP"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "If a basket of commodities cost N120 in the base year and N240 in the current year, calculate the price index",
+   "options": [
+    {
+     "id": "A",
+     "text": "100"
+    },
+    {
+     "id": "B",
+     "text": "200"
+    },
+    {
+     "id": "C",
+     "text": "240"
+    },
+    {
+     "id": "D",
+     "text": "300"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "The minimum amount which banks are required to deposit with the central bank is determined by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "liquidity ratio"
+    },
+    {
+     "id": "B",
+     "text": "cash reserve ratio"
+    },
+    {
+     "id": "C",
+     "text": "minimum lending rate"
+    },
+    {
+     "id": "D",
+     "text": "aggregate credit ceiling"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "The major function of money market is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "provide funds for long-term financing"
+    },
+    {
+     "id": "B",
+     "text": "provide funds short-term financing"
+    },
+    {
+     "id": "C",
+     "text": "stabilize the value of the local currency"
+    },
+    {
+     "id": "D",
+     "text": "stabilize domestic prices"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "An ad valorem tax is imposed on",
+   "options": [
+    {
+     "id": "A",
+     "text": "special commodities"
+    },
+    {
+     "id": "B",
+     "text": "exports"
+    },
+    {
+     "id": "C",
+     "text": "imports"
+    },
+    {
+     "id": "D",
+     "text": "the value of a commodity"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "Rapid economic development in Nigeria is realizable by",
+   "options": [
+    {
+     "id": "A",
+     "text": "continuous dependence on oil"
+    },
+    {
+     "id": "B",
+     "text": "concentrating more on agriculture"
+    },
+    {
+     "id": "C",
+     "text": "developing the tourism industry"
+    },
+    {
+     "id": "D",
+     "text": "diversifying the economy"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "The primary reason for desiring economic growth is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "control inflation"
+    },
+    {
+     "id": "B",
+     "text": "reduce poverty"
+    },
+    {
+     "id": "C",
+     "text": "redistribute income"
+    },
+    {
+     "id": "D",
+     "text": "raise standard of living"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "A sugar industry is best located near the source of",
+   "options": [
+    {
+     "id": "A",
+     "text": "labour"
+    },
+    {
+     "id": "B",
+     "text": "raw materials"
+    },
+    {
+     "id": "C",
+     "text": "power"
+    },
+    {
+     "id": "D",
+     "text": "capital"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2012 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "An important contribution of small-scale industries to the Nigerian economy is in the area of",
+   "options": [
+    {
+     "id": "A",
+     "text": "technological development"
+    },
+    {
+     "id": "B",
+     "text": "foregin exchange earnings"
+    },
+    {
+     "id": "C",
+     "text": "raw materials processing"
+    },
+    {
+     "id": "D",
+     "text": "labour employment"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "A change in the pump price of petrol in Nigeria has a direct effect on the",
+   "options": [
+    {
+     "id": "A",
+     "text": "prices of consumer goods"
+    },
+    {
+     "id": "B",
+     "text": "prices of essential goods"
+    },
+    {
+     "id": "C",
+     "text": "cost of raw materials"
+    },
+    {
+     "id": "D",
+     "text": "cost of transportation"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Long-term funds for investment projects are sourced from the",
+   "options": [
+    {
+     "id": "A",
+     "text": "money market"
+    },
+    {
+     "id": "B",
+     "text": "commodity market"
+    },
+    {
+     "id": "C",
+     "text": "foreign exchange market"
+    },
+    {
+     "id": "D",
+     "text": "capital market"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2012 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The Malthusian theory was concerned about the relationship between",
+   "options": [
+    {
+     "id": "A",
+     "text": "population growth rates of the rich and the poor nations"
+    },
+    {
+     "id": "B",
+     "text": "population density and national income"
+    },
+    {
+     "id": "C",
+     "text": "population growth rate and natural resources"
+    },
+    {
+     "id": "D",
+     "text": "age distribution of population"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2012,
+   "subject": "economics",
+   "topic": "population",
+   "question": "In a village of 50 persons, 10 immigrated, 25 died and 5 emigrated in year. Determine the total population",
+   "options": [
+    {
+     "id": "A",
+     "text": "10"
+    },
+    {
+     "id": "B",
+     "text": "20"
+    },
+    {
+     "id": "C",
+     "text": "30"
+    },
+    {
+     "id": "D",
+     "text": "50"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2012 Q46"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "economic-systems",
+   "question": "An economy in which both the public and private sectors contribute to economic growth is as",
+   "options": [
+    {
+     "id": "A",
+     "text": "feudal economy"
+    },
+    {
+     "id": "B",
+     "text": "capitalist economy"
+    },
+    {
+     "id": "C",
+     "text": "socialist economy"
+    },
+    {
+     "id": "D",
+     "text": "mixed economy"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "If the standard deviation of a given data is 53, what is the variance?",
+   "options": [
+    {
+     "id": "A",
+     "text": "2,082"
+    },
+    {
+     "id": "B",
+     "text": "2,809"
+    },
+    {
+     "id": "C",
+     "text": "2,808"
+    },
+    {
+     "id": "D",
+     "text": "2,209"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "Which of the following set of statistical tools is used for further economic analysis?",
+   "options": [
+    {
+     "id": "A",
+     "text": "the median and standard deviation"
+    },
+    {
+     "id": "B",
+     "text": "the mean and mode"
+    },
+    {
+     "id": "C",
+     "text": "the mean and standard deviation"
+    },
+    {
+     "id": "D",
+     "text": "the mode and median"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "An increase in demand without a corresponding change in supply will lead to",
+   "options": [
+    {
+     "id": "A",
+     "text": "a decrease in equilibrium price and increase in equilibrium quantity"
+    },
+    {
+     "id": "B",
+     "text": "an increase in equilibrium price and quantity"
+    },
+    {
+     "id": "C",
+     "text": "a decrease in equilibrium price and quantity"
+    },
+    {
+     "id": "D",
+     "text": "an increase in equilibrium price and a decrease in equilibrium quantity"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "An increase in the price of a commodity will result in",
+   "options": [
+    {
+     "id": "A",
+     "text": "a decrease in the quantity demanded"
+    },
+    {
+     "id": "B",
+     "text": "an increase in demand"
+    },
+    {
+     "id": "C",
+     "text": "an increase in quantity demanded"
+    },
+    {
+     "id": "D",
+     "text": "a decrease in demand"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "If the price of a bicycle changes from N120 to N80 and quantity bought changes from 300 to 500 units, the elasticity of demand for bicycle is",
+   "options": [
+    {
+     "id": "A",
+     "text": "66.7"
+    },
+    {
+     "id": "B",
+     "text": "0.5"
+    },
+    {
+     "id": "C",
+     "text": "1.5"
+    },
+    {
+     "id": "D",
+     "text": "2.0"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "One of the assumptions of the cardinalist approach is",
+   "options": [
+    {
+     "id": "A",
+     "text": "diminishing marginal rate of substitution"
+    },
+    {
+     "id": "B",
+     "text": "the consistency and transitivity of choice"
+    },
+    {
+     "id": "C",
+     "text": "that total utility depends on the quantity of the commodities consumed"
+    },
+    {
+     "id": "D",
+     "text": "unstable marginal utility of money"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "Utility is the satisfaction derived from the",
+   "options": [
+    {
+     "id": "A",
+     "text": "distribution of goods and services"
+    },
+    {
+     "id": "B",
+     "text": "use of goods and services"
+    },
+    {
+     "id": "C",
+     "text": "demand of goods and services"
+    },
+    {
+     "id": "D",
+     "text": "production of goods and services"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "If the supply of a product is elastic, a small reduction in price will",
+   "options": [
+    {
+     "id": "A",
+     "text": "reduce the cost of production"
+    },
+    {
+     "id": "B",
+     "text": "reduce the quantity supplied"
+    },
+    {
+     "id": "C",
+     "text": "increase the quantity supplied"
+    },
+    {
+     "id": "D",
+     "text": "lead to no change in the quantity supplied"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "If the price of a commodity is fixed below equilibrium, this will lead to",
+   "options": [
+    {
+     "id": "A",
+     "text": "excess demand"
+    },
+    {
+     "id": "B",
+     "text": "a decrease in price"
+    },
+    {
+     "id": "C",
+     "text": "an increase in price"
+    },
+    {
+     "id": "D",
+     "text": "excess supply"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "In Nigeria, government can reduce the cost of accommodation by fixing rent",
+   "options": [
+    {
+     "id": "A",
+     "text": "at the prevailing rate"
+    },
+    {
+     "id": "B",
+     "text": "at the equilibrium price"
+    },
+    {
+     "id": "C",
+     "text": "above the equilibrium price"
+    },
+    {
+     "id": "D",
+     "text": "below the equilibrium price"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "If a refinery achieves a reduction in cost by purchasing and transporting crude oil in large quantities, it enjoys",
+   "options": [
+    {
+     "id": "A",
+     "text": "economies of scale"
+    },
+    {
+     "id": "B",
+     "text": "specialization"
+    },
+    {
+     "id": "C",
+     "text": "division of labour"
+    },
+    {
+     "id": "D",
+     "text": "diseconomies of scale"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "An isoquant lying above to the right of another represents",
+   "options": [
+    {
+     "id": "A",
+     "text": "a higher output level"
+    },
+    {
+     "id": "B",
+     "text": "constant returns to scale"
+    },
+    {
+     "id": "C",
+     "text": "over-capacity utilization"
+    },
+    {
+     "id": "D",
+     "text": "a lower output level"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "A measure of national income used as comparison of standard of living among nations is",
+   "options": [
+    {
+     "id": "A",
+     "text": "net national product"
+    },
+    {
+     "id": "B",
+     "text": "gross domestic product"
+    },
+    {
+     "id": "C",
+     "text": "gross national product"
+    },
+    {
+     "id": "D",
+     "text": "per capita income"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "money",
+   "question": "The speculative demand for money is inversely related to the",
+   "options": [
+    {
+     "id": "A",
+     "text": "interest rate"
+    },
+    {
+     "id": "B",
+     "text": "level of income"
+    },
+    {
+     "id": "C",
+     "text": "exchange rate"
+    },
+    {
+     "id": "D",
+     "text": "inflation rate"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Which of the following is used by the Central Bank of Nigeria to control inflation?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Tariff on imports"
+    },
+    {
+     "id": "B",
+     "text": "Tax rate"
+    },
+    {
+     "id": "C",
+     "text": "Exchange rate"
+    },
+    {
+     "id": "D",
+     "text": "Discount rate"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "If CBN reduces money supply, the interest rate will",
+   "options": [
+    {
+     "id": "A",
+     "text": "fluctuate"
+    },
+    {
+     "id": "B",
+     "text": "rise"
+    },
+    {
+     "id": "C",
+     "text": "fall"
+    },
+    {
+     "id": "D",
+     "text": "remain unchanged"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "An example of an expansionary fiscal policy action is",
+   "options": [
+    {
+     "id": "A",
+     "text": "decrease in the corporate profit tax rates"
+    },
+    {
+     "id": "B",
+     "text": "decrease in welfare payments"
+    },
+    {
+     "id": "C",
+     "text": "purchase of government securities"
+    },
+    {
+     "id": "D",
+     "text": "decrease in the bank rate"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "One of the goals of development plans in Nigeria is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "increase the profitability of multinational businesses"
+    },
+    {
+     "id": "B",
+     "text": "improve the country's GDP"
+    },
+    {
+     "id": "C",
+     "text": "achieve higher standard of living for the citizens"
+    },
+    {
+     "id": "D",
+     "text": "deregulate the economy"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Life insurance companies contribute to economic development by holding a part of their assets in",
+   "options": [
+    {
+     "id": "A",
+     "text": "long-term financial instruments"
+    },
+    {
+     "id": "B",
+     "text": "money market instruments"
+    },
+    {
+     "id": "C",
+     "text": "cash and near money"
+    },
+    {
+     "id": "D",
+     "text": "short-term financial instruments"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "In order to add value to Nigeria agricultural produce, there is need to",
+   "options": [
+    {
+     "id": "A",
+     "text": "cultivate high breed crops"
+    },
+    {
+     "id": "B",
+     "text": "process them into finished goods"
+    },
+    {
+     "id": "C",
+     "text": "adopt modern storage methods"
+    },
+    {
+     "id": "D",
+     "text": "advertise them in European markets"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The main reason for low agricultural output in West Africa is",
+   "options": [
+    {
+     "id": "A",
+     "text": "the presence of large-scale agro- allied industries"
+    },
+    {
+     "id": "B",
+     "text": "high dependency ratio"
+    },
+    {
+     "id": "C",
+     "text": "over dependence on agriculture for subsistence"
+    },
+    {
+     "id": "D",
+     "text": "the use of crude implements in farming process"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The most important determinant for the location of a brick industry is the availability of",
+   "options": [
+    {
+     "id": "A",
+     "text": "market"
+    },
+    {
+     "id": "B",
+     "text": "power supply"
+    },
+    {
+     "id": "C",
+     "text": "water"
+    },
+    {
+     "id": "D",
+     "text": "raw materials"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "In Nigeria, efficiency in public corporations can be achieved through",
+   "options": [
+    {
+     "id": "A",
+     "text": "public offer"
+    },
+    {
+     "id": "B",
+     "text": "indigenization"
+    },
+    {
+     "id": "C",
+     "text": "privatization"
+    },
+    {
+     "id": "D",
+     "text": "nationalization"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The deregulation of the petroleum sector in Nigeria will bring about",
+   "options": [
+    {
+     "id": "A",
+     "text": "efficiency in pricing and distribution of the products"
+    },
+    {
+     "id": "B",
+     "text": "an end to the importation of fuel"
+    },
+    {
+     "id": "C",
+     "text": "an end to foreign firms' dominance"
+    },
+    {
+     "id": "D",
+     "text": "fixing appropriate production quotas"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q40"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "A distinguishing characteristic of consumer co-operative society is that the",
+   "options": [
+    {
+     "id": "A",
+     "text": "the maximum number of shareholders is 20"
+    },
+    {
+     "id": "B",
+     "text": "members are the owners"
+    },
+    {
+     "id": "C",
+     "text": "members are the workers"
+    },
+    {
+     "id": "D",
+     "text": "the minimum number of shareholders is 5"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "A major disadvantage of partnership business is",
+   "options": [
+    {
+     "id": "A",
+     "text": "difficulty in the transfer of shares"
+    },
+    {
+     "id": "B",
+     "text": "distrust among members"
+    },
+    {
+     "id": "C",
+     "text": "limited liability"
+    },
+    {
+     "id": "D",
+     "text": "large capital outlay"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q42"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The quality of labour force in Nigeria can be improved by",
+   "options": [
+    {
+     "id": "A",
+     "text": "establishing more tertiary institutions"
+    },
+    {
+     "id": "B",
+     "text": "creating sufficient job opportunities"
+    },
+    {
+     "id": "C",
+     "text": "encouraging the study of science and technology"
+    },
+    {
+     "id": "D",
+     "text": "establishing more skills acquisition centres"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The effect of emigration on a country's population is",
+   "options": [
+    {
+     "id": "A",
+     "text": "decrease in the population"
+    },
+    {
+     "id": "B",
+     "text": "decrease in job opportunities"
+    },
+    {
+     "id": "C",
+     "text": "increase in population"
+    },
+    {
+     "id": "D",
+     "text": "increase in dependency ratio"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q44"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "A measure for preventing the external value of the naira from falling is for the government to",
+   "options": [
+    {
+     "id": "A",
+     "text": "increase its spending with foreign Reserve"
+    },
+    {
+     "id": "B",
+     "text": "sell its own currency"
+    },
+    {
+     "id": "C",
+     "text": "reduce interest rate"
+    },
+    {
+     "id": "D",
+     "text": "buy its currency with foreign reserve"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2013 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "The rate of interest charged on loans depends largely on",
+   "options": [
+    {
+     "id": "A",
+     "text": "the prevailing exchange rate"
+    },
+    {
+     "id": "B",
+     "text": "marginal efficiency of capital"
+    },
+    {
+     "id": "C",
+     "text": "the risk associated with the loan"
+    },
+    {
+     "id": "D",
+     "text": "the prevailing tax rate"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2013 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "A valid explanation for real wage growth Is",
+   "options": [
+    {
+     "id": "A",
+     "text": "an increase in the rate of productivity"
+    },
+    {
+     "id": "B",
+     "text": "the rising cost of capital accumulation"
+    },
+    {
+     "id": "C",
+     "text": "a contraction of employment in service industries"
+    },
+    {
+     "id": "D",
+     "text": "an increase in the quantity of labour"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2013 Q49"
+  },
+  {
+   "exam": "jamb",
+   "year": 2013,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "If Mr. X lost his clerical job at a store and searched for a similar job for ten months before finding one this implies that Mr. X was",
+   "options": [
+    {
+     "id": "A",
+     "text": "structurally unemployed"
+    },
+    {
+     "id": "B",
+     "text": "frictionally unemployed"
+    },
+    {
+     "id": "C",
+     "text": "seasonally unemployed"
+    },
+    {
+     "id": "D",
+     "text": "cyclically unemployed"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2013 Q50"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "economic-systems",
+   "question": "The choice of how to produce in a command economy is determined by",
+   "options": [
+    {
+     "id": "A",
+     "text": "government"
+    },
+    {
+     "id": "B",
+     "text": "consumer"
+    },
+    {
+     "id": "C",
+     "text": "industrialists"
+    },
+    {
+     "id": "D",
+     "text": "labour unions"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "The best measure of dispersion to determine the tallest tree in a forest is",
+   "options": [
+    {
+     "id": "A",
+     "text": "range"
+    },
+    {
+     "id": "B",
+     "text": "variance"
+    },
+    {
+     "id": "C",
+     "text": "standard deviation"
+    },
+    {
+     "id": "D",
+     "text": "mean deviation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "A change in demand for a normal goods implies that, there is a",
+   "options": [
+    {
+     "id": "A",
+     "text": "change in the quantity demanded as price changes"
+    },
+    {
+     "id": "B",
+     "text": "shift in the demand curve"
+    },
+    {
+     "id": "C",
+     "text": "movement along a given demand curve"
+    },
+    {
+     "id": "D",
+     "text": "change in the price elasticity of demand"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "Given the supply function P = 1/4(Qs+10) when P = N10, what is Qs?",
+   "options": [
+    {
+     "id": "A",
+     "text": "20"
+    },
+    {
+     "id": "B",
+     "text": "15"
+    },
+    {
+     "id": "C",
+     "text": "50"
+    },
+    {
+     "id": "D",
+     "text": "30"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "If the production of a large firm is higher than that of a small firm, it is experiencing.",
+   "options": [
+    {
+     "id": "A",
+     "text": "external economies of scale"
+    },
+    {
+     "id": "B",
+     "text": "external diseconomies of scale"
+    },
+    {
+     "id": "C",
+     "text": "internal economies of scale"
+    },
+    {
+     "id": "D",
+     "text": "internal diseconomies of scale"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "Division of labour requires that, the tasks in a production line be performed",
+   "options": [
+    {
+     "id": "A",
+     "text": "by specialists"
+    },
+    {
+     "id": "B",
+     "text": "in stages"
+    },
+    {
+     "id": "C",
+     "text": "by all workers"
+    },
+    {
+     "id": "D",
+     "text": "by unskilled labourers"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "Given that FC = ₦500, VC = ₦1,500, and Q = 50 units. Find the average cost of the product.",
+   "options": [
+    {
+     "id": "A",
+     "text": "₦30"
+    },
+    {
+     "id": "B",
+     "text": "₦40"
+    },
+    {
+     "id": "C",
+     "text": "₦10"
+    },
+    {
+     "id": "D",
+     "text": "₦20"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "Rent and administrative expenses are examples of",
+   "options": [
+    {
+     "id": "A",
+     "text": "average fixed costs"
+    },
+    {
+     "id": "B",
+     "text": "average variable costs"
+    },
+    {
+     "id": "C",
+     "text": "fixed costs"
+    },
+    {
+     "id": "D",
+     "text": "variable costs"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "A perfect competitor will continue to expand output up to the point where",
+   "options": [
+    {
+     "id": "A",
+     "text": "TC>TR"
+    },
+    {
+     "id": "B",
+     "text": "MR=AR"
+    },
+    {
+     "id": "C",
+     "text": "MC<MR"
+    },
+    {
+     "id": "D",
+     "text": "MC>MR"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "One of the characteristics of a monopolist is that, he can influence",
+   "options": [
+    {
+     "id": "A",
+     "text": "quantity produced by other producers"
+    },
+    {
+     "id": "B",
+     "text": "prices charged by other producers"
+    },
+    {
+     "id": "C",
+     "text": "both price and quantity"
+    },
+    {
+     "id": "D",
+     "text": "price or quantity"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "Which of the following can be used to measure the Gross National product in an open economy?",
+   "options": [
+    {
+     "id": "A",
+     "text": "C+I+G+(X+M)"
+    },
+    {
+     "id": "B",
+     "text": "C+I+G+X"
+    },
+    {
+     "id": "C",
+     "text": "C+I+G"
+    },
+    {
+     "id": "D",
+     "text": "C+I+G+(X-M)"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "If MPC = 2/3 and investment is ₦100 million, the level of national income is",
+   "options": [
+    {
+     "id": "A",
+     "text": "₦100 million"
+    },
+    {
+     "id": "B",
+     "text": "₦10 million"
+    },
+    {
+     "id": "C",
+     "text": "₦303 million"
+    },
+    {
+     "id": "D",
+     "text": "₦300 million"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "money",
+   "question": "The precautionary demand for money is determined by",
+   "options": [
+    {
+     "id": "A",
+     "text": "the rate of interest"
+    },
+    {
+     "id": "B",
+     "text": "the level of savings"
+    },
+    {
+     "id": "C",
+     "text": "the level of income"
+    },
+    {
+     "id": "D",
+     "text": "general price level"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "An inflation that co-exists with high rate of unemployment is",
+   "options": [
+    {
+     "id": "A",
+     "text": "hyperinflation"
+    },
+    {
+     "id": "B",
+     "text": "stagflation"
+    },
+    {
+     "id": "C",
+     "text": "demand-pull inflation"
+    },
+    {
+     "id": "D",
+     "text": "cost-push inflation"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Short-term loans for investment are usually obtained through the",
+   "options": [
+    {
+     "id": "A",
+     "text": "stock market"
+    },
+    {
+     "id": "B",
+     "text": "development banks"
+    },
+    {
+     "id": "C",
+     "text": "money market"
+    },
+    {
+     "id": "D",
+     "text": "capital market"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "Wage freeze is a policy measure aimed at",
+   "options": [
+    {
+     "id": "A",
+     "text": "encouraging investors"
+    },
+    {
+     "id": "B",
+     "text": "curbing inflation"
+    },
+    {
+     "id": "C",
+     "text": "regulating standard of living"
+    },
+    {
+     "id": "D",
+     "text": "curbing deflation"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "A major obstacle to the development of Nigeria economy is",
+   "options": [
+    {
+     "id": "A",
+     "text": "low capital formation"
+    },
+    {
+     "id": "B",
+     "text": "rural-urban migration"
+    },
+    {
+     "id": "C",
+     "text": "over dependence on oil"
+    },
+    {
+     "id": "D",
+     "text": "poor developmental policies"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "A major feature of an underdeveloped economy is",
+   "options": [
+    {
+     "id": "A",
+     "text": "excess capacity utilization"
+    },
+    {
+     "id": "B",
+     "text": "low rate of population growth"
+    },
+    {
+     "id": "C",
+     "text": "low level of standard of living"
+    },
+    {
+     "id": "D",
+     "text": "low level of unemployment"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "An important role of agriculture in Nigeria's economic development is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "processing of raw materials for industries"
+    },
+    {
+     "id": "B",
+     "text": "regulation of price system"
+    },
+    {
+     "id": "C",
+     "text": "provision of infrastructure"
+    },
+    {
+     "id": "D",
+     "text": "provision of employment"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "An advantage of large-scale farming over peasant farming is in the area of",
+   "options": [
+    {
+     "id": "A",
+     "text": "providing research and massive employment of labour"
+    },
+    {
+     "id": "B",
+     "text": "redistributing national income to various regions of the country"
+    },
+    {
+     "id": "C",
+     "text": "encouraging the use of traditional implements"
+    },
+    {
+     "id": "D",
+     "text": "encouraging urban-rural migration"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "A major disadvantage of localization of industry is",
+   "options": [
+    {
+     "id": "A",
+     "text": "the risk of structural unemployment"
+    },
+    {
+     "id": "B",
+     "text": "over-utilization of installed industrial capacity"
+    },
+    {
+     "id": "C",
+     "text": "the risk of seasonal unemployment"
+    },
+    {
+     "id": "D",
+     "text": "under-utilization of installed industrial capacity"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "One major factor that determines the location of an industry is",
+   "options": [
+    {
+     "id": "A",
+     "text": "tax exemption grant"
+    },
+    {
+     "id": "B",
+     "text": "its proximity to the market"
+    },
+    {
+     "id": "C",
+     "text": "the capital base"
+    },
+    {
+     "id": "D",
+     "text": "the social responsibility of the firm"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "The major contribution of OPEC to the Nigerian economy is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "provision of social infrastructures"
+    },
+    {
+     "id": "B",
+     "text": "granting of subsidies on petroleum products"
+    },
+    {
+     "id": "C",
+     "text": "stabilization of oil prices"
+    },
+    {
+     "id": "D",
+     "text": "building of refineries"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "The short-run average variable cost of a firm will rise owing to",
+   "options": [
+    {
+     "id": "A",
+     "text": "the expansion of factory space"
+    },
+    {
+     "id": "B",
+     "text": "the building of new warehouse"
+    },
+    {
+     "id": "C",
+     "text": "an increase in the cost of labour"
+    },
+    {
+     "id": "D",
+     "text": "an increase in the salaries of directors"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "A major determinant of floating exchange rate is",
+   "options": [
+    {
+     "id": "A",
+     "text": "the highest denomination of the currency"
+    },
+    {
+     "id": "B",
+     "text": "an Act of the parliament"
+    },
+    {
+     "id": "C",
+     "text": "the system of government"
+    },
+    {
+     "id": "D",
+     "text": "the forces of demand and supply"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q46"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "If the importation of a commodity is limited to a definite quantity, the trade control measure imposed is",
+   "options": [
+    {
+     "id": "A",
+     "text": "excise duties"
+    },
+    {
+     "id": "B",
+     "text": "import duties"
+    },
+    {
+     "id": "C",
+     "text": "quotas"
+    },
+    {
+     "id": "D",
+     "text": "tariff"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2014 Q47"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "The main objective of WTO is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "ensure adequate protection of infant industries"
+    },
+    {
+     "id": "B",
+     "text": "provide a mechanism for tariff reduction"
+    },
+    {
+     "id": "C",
+     "text": "assist countries with chronic balance of payments problem"
+    },
+    {
+     "id": "D",
+     "text": "assist developing countries to execute developmental projects"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2014 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "The major determinant of the total volume of output in an economy is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "level of total expenditure"
+    },
+    {
+     "id": "B",
+     "text": "composition of consumer spending"
+    },
+    {
+     "id": "C",
+     "text": "number of farmers"
+    },
+    {
+     "id": "D",
+     "text": "size of the labour force"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2014 Q49"
+  },
+  {
+   "exam": "jamb",
+   "year": 2014,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The labour force of a country is determined by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "age structure of the population"
+    },
+    {
+     "id": "B",
+     "text": "geographical distribution of the population"
+    },
+    {
+     "id": "C",
+     "text": "sex distribution of the population"
+    },
+    {
+     "id": "D",
+     "text": "number of people available for work"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2014 Q50"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The major implication of high dependency ratio on an economy is",
+   "options": [
+    {
+     "id": "A",
+     "text": "high capital formation"
+    },
+    {
+     "id": "B",
+     "text": "vicious cycle of poverty"
+    },
+    {
+     "id": "C",
+     "text": "low cost of living"
+    },
+    {
+     "id": "D",
+     "text": "high standard of living"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q1"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "One of the major problems of agricultural sector in Nigeria is",
+   "options": [
+    {
+     "id": "A",
+     "text": "low literacy level of farmers"
+    },
+    {
+     "id": "B",
+     "text": "small size of farms"
+    },
+    {
+     "id": "C",
+     "text": "pest attack on crops"
+    },
+    {
+     "id": "D",
+     "text": "inadequate modern farm implements"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "Structural unemployment is mainly caused by",
+   "options": [
+    {
+     "id": "A",
+     "text": "a change in the consumption pattern"
+    },
+    {
+     "id": "B",
+     "text": "a change in the business cycle"
+    },
+    {
+     "id": "C",
+     "text": "decrease in the output level"
+    },
+    {
+     "id": "D",
+     "text": "Seasonal variation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "A decrease in government expenditure in an economy will cause general price level to",
+   "options": [
+    {
+     "id": "A",
+     "text": "remain constant"
+    },
+    {
+     "id": "B",
+     "text": "fluctuate"
+    },
+    {
+     "id": "C",
+     "text": "fall"
+    },
+    {
+     "id": "D",
+     "text": "Rise"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "In the theory of consumer behaviour, the sum of all marginal utilities is",
+   "options": [
+    {
+     "id": "A",
+     "text": "average marginal utility"
+    },
+    {
+     "id": "B",
+     "text": "the initial marginal utility"
+    },
+    {
+     "id": "C",
+     "text": "total utility"
+    },
+    {
+     "id": "D",
+     "text": "diminishing marginal utility"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "economic-systems",
+   "question": "In a pure capitalist economy, the means and forces of production are owned and controlled by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "public and private sectors"
+    },
+    {
+     "id": "B",
+     "text": "feudal lords"
+    },
+    {
+     "id": "C",
+     "text": "public sector"
+    },
+    {
+     "id": "D",
+     "text": "private sector"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "money",
+   "question": "The demand for money is referred to as the",
+   "options": [
+    {
+     "id": "A",
+     "text": "amount of money in fixed deposit"
+    },
+    {
+     "id": "B",
+     "text": "desire to hold money intangible assets"
+    },
+    {
+     "id": "C",
+     "text": "need for money to invest"
+    },
+    {
+     "id": "D",
+     "text": "Desire to hold money in liquid form rather than investing it"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "In the theory of production, a producer is at equilibrium at a point where",
+   "options": [
+    {
+     "id": "A",
+     "text": "isocost is above the isoquant curve"
+    },
+    {
+     "id": "B",
+     "text": "isoquant is below the isocost curve"
+    },
+    {
+     "id": "C",
+     "text": "isocost is tangent to the marginal revenue"
+    },
+    {
+     "id": "D",
+     "text": "isoquant is tangent to the isocost curve"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "Balance of trade shows the relationship between the",
+   "options": [
+    {
+     "id": "A",
+     "text": "internal and external trade"
+    },
+    {
+     "id": "B",
+     "text": "total value visible import and Export"
+    },
+    {
+     "id": "C",
+     "text": "deficit and surplus balance of payments"
+    },
+    {
+     "id": "D",
+     "text": "total value of invisible import and export"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "If the cash reserve ratio is 30%, a new deposit of ₦20 million will increase supply by",
+   "options": [
+    {
+     "id": "A",
+     "text": "₦57.8m"
+    },
+    {
+     "id": "B",
+     "text": "₦47.9m"
+    },
+    {
+     "id": "C",
+     "text": "₦69.78m"
+    },
+    {
+     "id": "D",
+     "text": "₦66.7m"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "A fall in the price of ostentatious goods will",
+   "options": [
+    {
+     "id": "A",
+     "text": "increase the quantity demanded"
+    },
+    {
+     "id": "B",
+     "text": "decrease the quantity demanded"
+    },
+    {
+     "id": "C",
+     "text": "decrease demand"
+    },
+    {
+     "id": "D",
+     "text": "increase demand"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "Payment of interests on loans and the repayment of capital sum at a future date is",
+   "options": [
+    {
+     "id": "A",
+     "text": "balance debt"
+    },
+    {
+     "id": "B",
+     "text": "debt servicing"
+    },
+    {
+     "id": "C",
+     "text": "debt relief"
+    },
+    {
+     "id": "D",
+     "text": "debt retaking"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "Localization of industry is mainly determined by",
+   "options": [
+    {
+     "id": "A",
+     "text": "diseconomies of scale"
+    },
+    {
+     "id": "B",
+     "text": "population growth"
+    },
+    {
+     "id": "C",
+     "text": "division of labour"
+    },
+    {
+     "id": "D",
+     "text": "access to raw materials"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "A tax burden on a commodity will be shared equally if the demand is",
+   "options": [
+    {
+     "id": "A",
+     "text": "fairly elastic"
+    },
+    {
+     "id": "B",
+     "text": "perfectly inelastic"
+    },
+    {
+     "id": "C",
+     "text": "fairly inelastic"
+    },
+    {
+     "id": "D",
+     "text": "unitary elastic"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "Higher income taxes can be used to control",
+   "options": [
+    {
+     "id": "A",
+     "text": "demand-pull inflation"
+    },
+    {
+     "id": "B",
+     "text": "high interest rates"
+    },
+    {
+     "id": "C",
+     "text": "cost- push inflation"
+    },
+    {
+     "id": "D",
+     "text": "hyperinflation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "An indifference map is made up of a set of",
+   "options": [
+    {
+     "id": "A",
+     "text": "consumers' total utility"
+    },
+    {
+     "id": "B",
+     "text": "consumer surplus"
+    },
+    {
+     "id": "C",
+     "text": "budget lines"
+    },
+    {
+     "id": "D",
+     "text": "indifference curves"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Recapitalization policy will enable commercial banks to",
+   "options": [
+    {
+     "id": "A",
+     "text": "employ more qualified workers"
+    },
+    {
+     "id": "B",
+     "text": "open more branches"
+    },
+    {
+     "id": "C",
+     "text": "reduce interest rate"
+    },
+    {
+     "id": "D",
+     "text": "have a very strong capital base"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "The number of persons required to form a private company ranges from",
+   "options": [
+    {
+     "id": "A",
+     "text": "ten to twenty"
+    },
+    {
+     "id": "B",
+     "text": "two to fifty"
+    },
+    {
+     "id": "C",
+     "text": "two to seven"
+    },
+    {
+     "id": "D",
+     "text": "seven to ten"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "The major function of international monetary funds is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "provision of short-run loans to medium scale industries"
+    },
+    {
+     "id": "B",
+     "text": "provision of long-term loans for infrastructure"
+    },
+    {
+     "id": "C",
+     "text": "development of agriculture in member countries"
+    },
+    {
+     "id": "D",
+     "text": "maintenance of stable exchange rates"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "One of the major activities in the upstream sector of the Nigeria petroleum industry includes",
+   "options": [
+    {
+     "id": "A",
+     "text": "transportation of finished products"
+    },
+    {
+     "id": "B",
+     "text": "refining of crude oil"
+    },
+    {
+     "id": "C",
+     "text": "marketing of refined petrol"
+    },
+    {
+     "id": "D",
+     "text": "exploration of crude oil"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "The law of supply states that the",
+   "options": [
+    {
+     "id": "A",
+     "text": "higher the price the higher the quantity supplied"
+    },
+    {
+     "id": "B",
+     "text": "quantity supplied is always equal to the quantity demanded"
+    },
+    {
+     "id": "C",
+     "text": "lower the price the higher the quantity supplied"
+    },
+    {
+     "id": "D",
+     "text": "higher the price the lower the quantity supplied"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "One of the features of a perfect competitive firm is",
+   "options": [
+    {
+     "id": "A",
+     "text": "restrictions to entry and exit"
+    },
+    {
+     "id": "B",
+     "text": "price discrimination"
+    },
+    {
+     "id": "C",
+     "text": "absence of transportation cost"
+    },
+    {
+     "id": "D",
+     "text": "product differentiation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q31"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "The basis for international trade is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "differences in natural resources endowment"
+    },
+    {
+     "id": "B",
+     "text": "differences in the population size"
+    },
+    {
+     "id": "C",
+     "text": "prevailing interest rate on multilateral loans"
+    },
+    {
+     "id": "D",
+     "text": "economic system in practice"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "Training farmers on the improved farming techniques is the major activity of",
+   "options": [
+    {
+     "id": "A",
+     "text": "intermediate workers"
+    },
+    {
+     "id": "B",
+     "text": "middlemen"
+    },
+    {
+     "id": "C",
+     "text": "extension workers"
+    },
+    {
+     "id": "D",
+     "text": "creditors"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "In a free market economy, prices are determined by",
+   "options": [
+    {
+     "id": "A",
+     "text": "consumers"
+    },
+    {
+     "id": "B",
+     "text": "producers"
+    },
+    {
+     "id": "C",
+     "text": "the central government"
+    },
+    {
+     "id": "D",
+     "text": "the forces of demand and supply"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "In Nigeria, a fall in the supply of petrol would generally affect the",
+   "options": [
+    {
+     "id": "A",
+     "text": "import of goods and services"
+    },
+    {
+     "id": "B",
+     "text": "export of goods and services"
+    },
+    {
+     "id": "C",
+     "text": "general price level in the country"
+    },
+    {
+     "id": "D",
+     "text": "exchange rate of the Naira"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q36"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "The short-run equilibrium point of a perfectly competitive firm is attained at a point where",
+   "options": [
+    {
+     "id": "A",
+     "text": "is equal to total cost"
+    },
+    {
+     "id": "B",
+     "text": "the demand curve is tangential to the marginal cost"
+    },
+    {
+     "id": "C",
+     "text": "the marginal cost curve is equal to the marginal revenue curve"
+    },
+    {
+     "id": "D",
+     "text": "the marginal cost is equal to the price of the firm"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "Government can protect consumers from exploitative prices by introducing",
+   "options": [
+    {
+     "id": "A",
+     "text": "minimum price"
+    },
+    {
+     "id": "B",
+     "text": "price differentiation"
+    },
+    {
+     "id": "C",
+     "text": "price floor"
+    },
+    {
+     "id": "D",
+     "text": "maximum price"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2015 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "The overall economic performance of a country can be assessed through",
+   "options": [
+    {
+     "id": "A",
+     "text": "overlooking of its agricultural sector"
+    },
+    {
+     "id": "B",
+     "text": "employment estimates"
+    },
+    {
+     "id": "C",
+     "text": "national income estimates"
+    },
+    {
+     "id": "D",
+     "text": "balance of payment"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "Determine the median of 6, 10, 5, 12, 20, 18, 20 and 4",
+   "options": [
+    {
+     "id": "A",
+     "text": "11"
+    },
+    {
+     "id": "B",
+     "text": "9.67"
+    },
+    {
+     "id": "C",
+     "text": "12.56"
+    },
+    {
+     "id": "D",
+     "text": "12"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2015 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "If Qd = 40-4P and P = N4, what is the quantity demanded?",
+   "options": [
+    {
+     "id": "A",
+     "text": "30"
+    },
+    {
+     "id": "B",
+     "text": "32"
+    },
+    {
+     "id": "C",
+     "text": "24"
+    },
+    {
+     "id": "D",
+     "text": "26"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "The long-run total cost curve shows the cost of",
+   "options": [
+    {
+     "id": "A",
+     "text": "all fixed factors of production"
+    },
+    {
+     "id": "B",
+     "text": "the average fixed cost"
+    },
+    {
+     "id": "C",
+     "text": "all factor inputs that are employed"
+    },
+    {
+     "id": "D",
+     "text": "variable factors of production"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2015 Q49"
+  },
+  {
+   "exam": "jamb",
+   "year": 2015,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "The supply of farm produce is mainly determined by",
+   "options": [
+    {
+     "id": "A",
+     "text": "consumers' income"
+    },
+    {
+     "id": "B",
+     "text": "weather condition"
+    },
+    {
+     "id": "C",
+     "text": "population"
+    },
+    {
+     "id": "D",
+     "text": "consumers' taste"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2015 Q50"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "The money market provides business firms with the avenue to",
+   "options": [
+    {
+     "id": "A",
+     "text": "purchase goods and services"
+    },
+    {
+     "id": "B",
+     "text": "purchase capital equipment's"
+    },
+    {
+     "id": "C",
+     "text": "obtain short- term funds"
+    },
+    {
+     "id": "D",
+     "text": "obtain long-term funds"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "The optimum level of output for pure monopolist occurs where",
+   "options": [
+    {
+     "id": "A",
+     "text": "P is highest"
+    },
+    {
+     "id": "B",
+     "text": "P=AC"
+    },
+    {
+     "id": "C",
+     "text": "P=MC"
+    },
+    {
+     "id": "D",
+     "text": "MR=MC"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "The Economic Community of West African States (ECOWAS) is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "globalization"
+    },
+    {
+     "id": "B",
+     "text": "regional marketing board"
+    },
+    {
+     "id": "C",
+     "text": "economic integration"
+    },
+    {
+     "id": "D",
+     "text": "economic union"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "Given: 32, 18, 24, 17, 16, 32, 28, 68, 71 and 15, the mode of the distribution is",
+   "options": [
+    {
+     "id": "A",
+     "text": "71"
+    },
+    {
+     "id": "B",
+     "text": "56"
+    },
+    {
+     "id": "C",
+     "text": "32"
+    },
+    {
+     "id": "D",
+     "text": "15"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "elasticity",
+   "question": "The major determinant of income elasticity of demand is",
+   "options": [
+    {
+     "id": "A",
+     "text": "government policy"
+    },
+    {
+     "id": "B",
+     "text": "the availability of substitutes"
+    },
+    {
+     "id": "C",
+     "text": "the price of the good"
+    },
+    {
+     "id": "D",
+     "text": "the level of consumer's income"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "Given: 2, 4, 6, 8, 4 and 6, the absolute mean deviation is",
+   "options": [
+    {
+     "id": "A",
+     "text": "6.00"
+    },
+    {
+     "id": "B",
+     "text": "1.67"
+    },
+    {
+     "id": "C",
+     "text": "30.00"
+    },
+    {
+     "id": "D",
+     "text": "0.60"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "If the output of a firm experiencing economies of scale increases, the average cost would",
+   "options": [
+    {
+     "id": "A",
+     "text": "be at minimum"
+    },
+    {
+     "id": "B",
+     "text": "rise"
+    },
+    {
+     "id": "C",
+     "text": "be at maximum"
+    },
+    {
+     "id": "D",
+     "text": "fall"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "The demand curve for a normal good is negatively sloped because",
+   "options": [
+    {
+     "id": "A",
+     "text": "price is an incentive to producers"
+    },
+    {
+     "id": "B",
+     "text": "price is an incentive to consumers"
+    },
+    {
+     "id": "C",
+     "text": "demand always exceeds supply"
+    },
+    {
+     "id": "D",
+     "text": "price and quantity move in the same direction"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The major role of multinational companies in the Nigerian petroleum industry is",
+   "options": [
+    {
+     "id": "A",
+     "text": "oil marketing only"
+    },
+    {
+     "id": "B",
+     "text": "oil marketing and prospecting"
+    },
+    {
+     "id": "C",
+     "text": "establishment of refineries"
+    },
+    {
+     "id": "D",
+     "text": "oil prospecting only"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q13"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "The wage rate is mostly related to",
+   "options": [
+    {
+     "id": "A",
+     "text": "marginal productivity of labour"
+    },
+    {
+     "id": "B",
+     "text": "average productivity of labour"
+    },
+    {
+     "id": "C",
+     "text": "marginal efficiency of investment"
+    },
+    {
+     "id": "D",
+     "text": "total productivity of Labour"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "A change in supply of a commodity is due to a change in the",
+   "options": [
+    {
+     "id": "A",
+     "text": "price of the commodity"
+    },
+    {
+     "id": "B",
+     "text": "cost of production"
+    },
+    {
+     "id": "C",
+     "text": "price of substitute"
+    },
+    {
+     "id": "D",
+     "text": "population growth rate"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "In a limited liability company, the greatest risk is borne by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "preference shareholders"
+    },
+    {
+     "id": "B",
+     "text": "debentures shareholders"
+    },
+    {
+     "id": "C",
+     "text": "ordinary shareholders"
+    },
+    {
+     "id": "D",
+     "text": "board of directors"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "A market characterized by absence of close substitutes of goods and services is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "a monopoly"
+    },
+    {
+     "id": "B",
+     "text": "an oligopoly"
+    },
+    {
+     "id": "C",
+     "text": "a perfect competition"
+    },
+    {
+     "id": "D",
+     "text": "a monopolistic competition"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The growth and development of small and medium scale enterprises in Nigeria is hampered by",
+   "options": [
+    {
+     "id": "A",
+     "text": "poor regulatory framework"
+    },
+    {
+     "id": "B",
+     "text": "poor access to credit facilities"
+    },
+    {
+     "id": "C",
+     "text": "poor management"
+    },
+    {
+     "id": "D",
+     "text": "the small size of the market"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q22"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "A major determinant of demand is",
+   "options": [
+    {
+     "id": "A",
+     "text": "incentives to workers"
+    },
+    {
+     "id": "B",
+     "text": "level of technology"
+    },
+    {
+     "id": "C",
+     "text": "population"
+    },
+    {
+     "id": "D",
+     "text": "cost of production"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "A tax on land will ultimately fall",
+   "options": [
+    {
+     "id": "A",
+     "text": "partly on agents and users"
+    },
+    {
+     "id": "B",
+     "text": "partly on users and owners"
+    },
+    {
+     "id": "C",
+     "text": "entirely on owners"
+    },
+    {
+     "id": "D",
+     "text": "entirely on users"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "One of the ways of correcting a deficit balance of payments is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "devalue a country's currency"
+    },
+    {
+     "id": "B",
+     "text": "predenominate a country's currency"
+    },
+    {
+     "id": "C",
+     "text": "reduce imports"
+    },
+    {
+     "id": "D",
+     "text": "reduce exports"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "A nation's net export is negative when her",
+   "options": [
+    {
+     "id": "A",
+     "text": "export is adjusted upwards"
+    },
+    {
+     "id": "B",
+     "text": "external reserves deplete"
+    },
+    {
+     "id": "C",
+     "text": "depreciation exceeds investments"
+    },
+    {
+     "id": "D",
+     "text": "imports exceeds exports"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "The problem of economic development in Nigeria is that of",
+   "options": [
+    {
+     "id": "A",
+     "text": "poor weather conditions"
+    },
+    {
+     "id": "B",
+     "text": "overpopulation"
+    },
+    {
+     "id": "C",
+     "text": "surplus skilled manpower"
+    },
+    {
+     "id": "D",
+     "text": "inadequate infrastructure"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "The demand for inferior goods is inversely related to change in",
+   "options": [
+    {
+     "id": "A",
+     "text": "income"
+    },
+    {
+     "id": "B",
+     "text": "price"
+    },
+    {
+     "id": "C",
+     "text": "supply"
+    },
+    {
+     "id": "D",
+     "text": "taste"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "The minimum number of shareholders for partnership is",
+   "options": [
+    {
+     "id": "A",
+     "text": "7"
+    },
+    {
+     "id": "B",
+     "text": "4"
+    },
+    {
+     "id": "C",
+     "text": "2"
+    },
+    {
+     "id": "D",
+     "text": "3"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "Given: 32, 18, 24, 17, 16, 32, 28, 68, 71 and 15, what is the range?",
+   "options": [
+    {
+     "id": "A",
+     "text": "26"
+    },
+    {
+     "id": "B",
+     "text": "32"
+    },
+    {
+     "id": "C",
+     "text": "56"
+    },
+    {
+     "id": "D",
+     "text": "68"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q41"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "If P = 1/4 (Qs + 30), what is the quantity supplied at ₦18?",
+   "options": [
+    {
+     "id": "A",
+     "text": "64.5"
+    },
+    {
+     "id": "B",
+     "text": "42.0"
+    },
+    {
+     "id": "C",
+     "text": "2.4"
+    },
+    {
+     "id": "D",
+     "text": "30.0"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2016 Q43"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "One of the major factors militating against industrialization in Nigeria is",
+   "options": [
+    {
+     "id": "A",
+     "text": "low level of foreign investment"
+    },
+    {
+     "id": "B",
+     "text": "frequent break-down of equipment"
+    },
+    {
+     "id": "C",
+     "text": "inadequacy of infrastructural facilities"
+    },
+    {
+     "id": "D",
+     "text": "government participation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2016 Q45"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "At full employment level, a contractionary monetary policy will Lead to a",
+   "options": [
+    {
+     "id": "A",
+     "text": "rise in aggregate supply"
+    },
+    {
+     "id": "B",
+     "text": "rise in aggregate demand"
+    },
+    {
+     "id": "C",
+     "text": "rise in level of inflation rate"
+    },
+    {
+     "id": "D",
+     "text": "fall in the level of inflation"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2016 Q48"
+  },
+  {
+   "exam": "jamb",
+   "year": 2016,
+   "subject": "economics",
+   "topic": "population",
+   "question": "A country where the available population is unable to guarantee efficient utilization of available resources is experiencing",
+   "options": [
+    {
+     "id": "A",
+     "text": "under population"
+    },
+    {
+     "id": "B",
+     "text": "over-population"
+    },
+    {
+     "id": "C",
+     "text": "high population density"
+    },
+    {
+     "id": "D",
+     "text": "optimum population"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2016 Q49"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "economic-tools",
+   "question": "If the arithmetic mean of 2, 3, 5, 8, Z, 10 and 12 is 7, what is the value of Z?",
+   "options": [
+    {
+     "id": "A",
+     "text": "8"
+    },
+    {
+     "id": "B",
+     "text": "9"
+    },
+    {
+     "id": "C",
+     "text": "10"
+    },
+    {
+     "id": "D",
+     "text": "7"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q1"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The most important function of agriculture to the Nigerian economy is",
+   "options": [
+    {
+     "id": "A",
+     "text": "the guarantee of food security"
+    },
+    {
+     "id": "B",
+     "text": "technical skill development"
+    },
+    {
+     "id": "C",
+     "text": "technological development"
+    },
+    {
+     "id": "D",
+     "text": "industrial development"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "price-determination",
+   "question": "Given that Qd=15-2P and Qs=5+3P, determine the equilibrium price.",
+   "options": [
+    {
+     "id": "A",
+     "text": "N3.00"
+    },
+    {
+     "id": "B",
+     "text": "N5.00"
+    },
+    {
+     "id": "C",
+     "text": "N2.00"
+    },
+    {
+     "id": "D",
+     "text": "N6.00"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "basic-economic-concepts",
+   "question": "Scale of preference is referred to as the",
+   "options": [
+    {
+     "id": "A",
+     "text": "choices consumers make"
+    },
+    {
+     "id": "B",
+     "text": "array of consumer's needs"
+    },
+    {
+     "id": "C",
+     "text": "consumer preference for luxurious goods"
+    },
+    {
+     "id": "D",
+     "text": "consumer wants in order of priority"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "One of the basic assumptions of monopoly is",
+   "options": [
+    {
+     "id": "A",
+     "text": "perfect information of the market condition"
+    },
+    {
+     "id": "B",
+     "text": "the ability to either control price or output"
+    },
+    {
+     "id": "C",
+     "text": "perfect mobility of factors of production"
+    },
+    {
+     "id": "D",
+     "text": "large number of buyers and sellers"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q5"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "The major advantage of a public limited liability company over a private limited liability company's",
+   "options": [
+    {
+     "id": "A",
+     "text": "limited liability enjoyed by owner"
+    },
+    {
+     "id": "B",
+     "text": "separate legal entity"
+    },
+    {
+     "id": "C",
+     "text": "easy transferability of shares"
+    },
+    {
+     "id": "D",
+     "text": "perpetual existence"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The main activity in the upstream oil sector in Nigeria is",
+   "options": [
+    {
+     "id": "A",
+     "text": "marketing of petroleum products"
+    },
+    {
+     "id": "B",
+     "text": "distribution of petroleum products"
+    },
+    {
+     "id": "C",
+     "text": "extraction of crude oil"
+    },
+    {
+     "id": "D",
+     "text": "refining of crude oil"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The natural growth of population is calculated as",
+   "options": [
+    {
+     "id": "A",
+     "text": "birth rate + death rate"
+    },
+    {
+     "id": "B",
+     "text": "labour force + dependant"
+    },
+    {
+     "id": "C",
+     "text": "death rate - birth rate"
+    },
+    {
+     "id": "D",
+     "text": "birth rate - death rate"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The study of age structure of a population is important because it",
+   "options": [
+    {
+     "id": "A",
+     "text": "determine the exchange rate"
+    },
+    {
+     "id": "B",
+     "text": "provide the government with statistics on the prevailing interest rate"
+    },
+    {
+     "id": "C",
+     "text": "reveals the cost of living"
+    },
+    {
+     "id": "D",
+     "text": "provides the government with statistics on present size of the labour force"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "If the demand for palm oil is for the purpose of soap production and cooking, the demand is said to be",
+   "options": [
+    {
+     "id": "A",
+     "text": "competitive"
+    },
+    {
+     "id": "B",
+     "text": "complementary"
+    },
+    {
+     "id": "C",
+     "text": "composite"
+    },
+    {
+     "id": "D",
+     "text": "derived"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "The institution established to enhance the activities of Nigeria's exports is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Nigerian Export and Import Bank"
+    },
+    {
+     "id": "B",
+     "text": "Import-substitution strategy"
+    },
+    {
+     "id": "C",
+     "text": "Nigeria Export Promotion Council"
+    },
+    {
+     "id": "D",
+     "text": "Bank of Industry"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "The reward for capital as a factor of production is",
+   "options": [
+    {
+     "id": "A",
+     "text": "interest"
+    },
+    {
+     "id": "B",
+     "text": "rent"
+    },
+    {
+     "id": "C",
+     "text": "profit"
+    },
+    {
+     "id": "D",
+     "text": "wage"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q14"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "inflation-deflation",
+   "question": "The type of inflation that emanates from excess demand over supply is",
+   "options": [
+    {
+     "id": "A",
+     "text": "galloping inflation"
+    },
+    {
+     "id": "B",
+     "text": "cost-push inflation"
+    },
+    {
+     "id": "C",
+     "text": "demand-pull inflation"
+    },
+    {
+     "id": "D",
+     "text": "imported inflation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q15"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "national-income",
+   "question": "Which of the following problems is associated with national income measurement?",
+   "options": [
+    {
+     "id": "A",
+     "text": "High interest rate"
+    },
+    {
+     "id": "B",
+     "text": "Inflation and deflation"
+    },
+    {
+     "id": "C",
+     "text": "Overpopulation"
+    },
+    {
+     "id": "D",
+     "text": "population growth"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "economic-systems",
+   "question": "Freedom of consumption and production are characteristics of",
+   "options": [
+    {
+     "id": "A",
+     "text": "socialism"
+    },
+    {
+     "id": "B",
+     "text": "feudalism"
+    },
+    {
+     "id": "C",
+     "text": "capitalism"
+    },
+    {
+     "id": "D",
+     "text": "communism"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "Cost of raw materials in production is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "marginal cost"
+    },
+    {
+     "id": "B",
+     "text": "variable cost"
+    },
+    {
+     "id": "C",
+     "text": "total cost"
+    },
+    {
+     "id": "D",
+     "text": "fixed cost"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Foreign exchange control in Nigeria is administered by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "Money deposit banks"
+    },
+    {
+     "id": "B",
+     "text": "Central Bank of Nigeria"
+    },
+    {
+     "id": "C",
+     "text": "Discount houses"
+    },
+    {
+     "id": "D",
+     "text": "Security and Exchange Commission"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "The volume of output in an economy is determined by",
+   "options": [
+    {
+     "id": "A",
+     "text": "the foreign exchange rate"
+    },
+    {
+     "id": "B",
+     "text": "the standard of living of citizens"
+    },
+    {
+     "id": "C",
+     "text": "population density of a country"
+    },
+    {
+     "id": "D",
+     "text": "efficiency in the use of factors of production"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q21"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "In Nigeria, industrial development can be enhanced by",
+   "options": [
+    {
+     "id": "A",
+     "text": "ensuring stable prices for manufactured goods"
+    },
+    {
+     "id": "B",
+     "text": "reducing government expenditure on imported goods"
+    },
+    {
+     "id": "C",
+     "text": "providing efficient infrastructure"
+    },
+    {
+     "id": "D",
+     "text": "increasing the rate of interest"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q23"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "Capital gains tax is an example of",
+   "options": [
+    {
+     "id": "A",
+     "text": "Value Added Tax"
+    },
+    {
+     "id": "B",
+     "text": "purchase tax"
+    },
+    {
+     "id": "C",
+     "text": "sales tax"
+    },
+    {
+     "id": "D",
+     "text": "income tax"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2017 Q25"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "Which of the following is NOT a source of government revenue?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Taxes, fees, licenses and fines"
+    },
+    {
+     "id": "B",
+     "text": "Interest, dividends, profits and earnings"
+    },
+    {
+     "id": "C",
+     "text": "Personal income, disposable income and transfer earnings"
+    },
+    {
+     "id": "D",
+     "text": "Grants, aids and borrowing"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q26"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "supply",
+   "question": "A change in the quantity supplied of a commodity is influenced by",
+   "options": [
+    {
+     "id": "A",
+     "text": "the price of substitutes"
+    },
+    {
+     "id": "B",
+     "text": "the price of the commodity"
+    },
+    {
+     "id": "C",
+     "text": "consumer's tastes"
+    },
+    {
+     "id": "D",
+     "text": "technological know-how"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "One of the functions of money deposit banks in economic development is",
+   "options": [
+    {
+     "id": "A",
+     "text": "that it is banker to the government"
+    },
+    {
+     "id": "B",
+     "text": "the provision of credits facilities"
+    },
+    {
+     "id": "C",
+     "text": "the formulation of monetary policies"
+    },
+    {
+     "id": "D",
+     "text": "issuing of currency notes"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2017 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "market-structures",
+   "question": "One of the arguments against the practice of monopoly is",
+   "options": [
+    {
+     "id": "A",
+     "text": "merging of producers"
+    },
+    {
+     "id": "B",
+     "text": "competition"
+    },
+    {
+     "id": "C",
+     "text": "exploitation"
+    },
+    {
+     "id": "D",
+     "text": "non-government ownership"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "The main reason why countries engaged in international trade is the",
+   "options": [
+    {
+     "id": "A",
+     "text": "opportunity to earn high profit in trading"
+    },
+    {
+     "id": "B",
+     "text": "use of capital-intensive method of productions"
+    },
+    {
+     "id": "C",
+     "text": "difference in their endowment of economic resources"
+    },
+    {
+     "id": "D",
+     "text": "difference in the population structure"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2017 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "population",
+   "question": "A well conducted census is important for",
+   "options": [
+    {
+     "id": "A",
+     "text": "economic planning"
+    },
+    {
+     "id": "B",
+     "text": "providing economic opportunities in the rural areas"
+    },
+    {
+     "id": "C",
+     "text": "distribution of educational materials in the cities"
+    },
+    {
+     "id": "D",
+     "text": "revenue generation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q37"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "costs-revenue",
+   "question": "The cost-saving advantages which a large firm can achieve on its own is called",
+   "options": [
+    {
+     "id": "A",
+     "text": "internal economies of scale"
+    },
+    {
+     "id": "B",
+     "text": "diseconomies of large scale"
+    },
+    {
+     "id": "C",
+     "text": "externa diseconomies of scale"
+    },
+    {
+     "id": "D",
+     "text": "external economies of scale"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2017,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "A country uses the foreign exchange control measure to eliminate balance of payments deficit by",
+   "options": [
+    {
+     "id": "A",
+     "text": "limiting her imports to its currency value of exports"
+    },
+    {
+     "id": "B",
+     "text": "limiting her exports to its currency value of imports"
+    },
+    {
+     "id": "C",
+     "text": "overvaluing the country's currency"
+    },
+    {
+     "id": "D",
+     "text": "reducing the nation's domestic price level"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2017 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "population",
+   "question": "Occupational distribution of population is mainly influenced by",
+   "options": [
+    {
+     "id": "A",
+     "text": "economic factors"
+    },
+    {
+     "id": "B",
+     "text": "religious factors"
+    },
+    {
+     "id": "C",
+     "text": "geographical factors"
+    },
+    {
+     "id": "D",
+     "text": "social factors"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q1"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "The reward for capital is",
+   "options": [
+    {
+     "id": "A",
+     "text": "interest"
+    },
+    {
+     "id": "B",
+     "text": "rent"
+    },
+    {
+     "id": "C",
+     "text": "risk"
+    },
+    {
+     "id": "D",
+     "text": "premium"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q2"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "The reduction in the value of a country's currency in relation to the value of the currencies of other nations is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "deflation"
+    },
+    {
+     "id": "B",
+     "text": "inflation"
+    },
+    {
+     "id": "C",
+     "text": "devaluation"
+    },
+    {
+     "id": "D",
+     "text": "revaluation"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q3"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "financial-institutions",
+   "question": "Mortgage banks give loans to investors on a long- term basis to",
+   "options": [
+    {
+     "id": "A",
+     "text": "finance agriculture"
+    },
+    {
+     "id": "B",
+     "text": "establish banks"
+    },
+    {
+     "id": "C",
+     "text": "acquire machinery"
+    },
+    {
+     "id": "D",
+     "text": "build houses"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q4"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "The establishment of industries in rural areas will help to reduce",
+   "options": [
+    {
+     "id": "A",
+     "text": "urban-rural migration"
+    },
+    {
+     "id": "B",
+     "text": "rural-urban migration"
+    },
+    {
+     "id": "C",
+     "text": "rural-rural migration"
+    },
+    {
+     "id": "D",
+     "text": "urban-urban migration"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q6"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "International trade is an application of the principle of",
+   "options": [
+    {
+     "id": "A",
+     "text": "industrial production"
+    },
+    {
+     "id": "B",
+     "text": "mass production"
+    },
+    {
+     "id": "C",
+     "text": "regional production"
+    },
+    {
+     "id": "D",
+     "text": "comparative cost advantage"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q7"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "population",
+   "question": "The number of people who are qualified to work and who offer themselves for employment is called",
+   "options": [
+    {
+     "id": "A",
+     "text": "migrant labour"
+    },
+    {
+     "id": "B",
+     "text": "working population"
+    },
+    {
+     "id": "C",
+     "text": "labour turnover"
+    },
+    {
+     "id": "D",
+     "text": "mobility of labour"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q8"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "agriculture-industry-nigeria",
+   "question": "Which of the following is an advantage of localisation of industry?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Development of subsidiary firms"
+    },
+    {
+     "id": "B",
+     "text": "creation of parallel markets"
+    },
+    {
+     "id": "C",
+     "text": "Development of slums"
+    },
+    {
+     "id": "D",
+     "text": "Attraction of foreign capital"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q9"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "The Economic Community of West African States (ECOWAS) has been slow in achieving its objectives because of",
+   "options": [
+    {
+     "id": "A",
+     "text": "the activities of multinationals"
+    },
+    {
+     "id": "B",
+     "text": "inadequate personnel at the secretariat"
+    },
+    {
+     "id": "C",
+     "text": "political instability"
+    },
+    {
+     "id": "D",
+     "text": "inadequate international support"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q10"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "Joint ventures are partnership involving",
+   "options": [
+    {
+     "id": "A",
+     "text": "the poor and the rich"
+    },
+    {
+     "id": "B",
+     "text": "employers and workers"
+    },
+    {
+     "id": "C",
+     "text": "government and private investors"
+    },
+    {
+     "id": "D",
+     "text": "multinationals and individuals"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q11"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "business-organisations",
+   "question": "In which of the following business units are the owners mostly the customers?",
+   "options": [
+    {
+     "id": "A",
+     "text": "co-operatives"
+    },
+    {
+     "id": "B",
+     "text": "limited liability companies"
+    },
+    {
+     "id": "C",
+     "text": "partnership"
+    },
+    {
+     "id": "D",
+     "text": "public corporations"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q12"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "The full meaning of OPEC is",
+   "options": [
+    {
+     "id": "A",
+     "text": "Oil and Petroleum Exporting Countries"
+    },
+    {
+     "id": "B",
+     "text": "Original Petroleum Exporting Countries"
+    },
+    {
+     "id": "C",
+     "text": "Organisation of Petrol Exporting Countries"
+    },
+    {
+     "id": "D",
+     "text": "Organisation of Petroleum Exporting Countries"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q16"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "basic-economic-concepts",
+   "question": "The main concern of economists is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "control the growth of population"
+    },
+    {
+     "id": "B",
+     "text": "redistribute income between the rich and the poor"
+    },
+    {
+     "id": "C",
+     "text": "satisfy all human wants"
+    },
+    {
+     "id": "D",
+     "text": "allocate scarce resources to satisfy human wants"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q17"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "Productive resources can also be called",
+   "options": [
+    {
+     "id": "A",
+     "text": "principles of production"
+    },
+    {
+     "id": "B",
+     "text": "factors of production"
+    },
+    {
+     "id": "C",
+     "text": "items of production"
+    },
+    {
+     "id": "D",
+     "text": "labour and materials resources"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q18"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "basic-economic-concepts",
+   "question": "The study of Economics becomes necessary because of the",
+   "options": [
+    {
+     "id": "A",
+     "text": "large population size of the world"
+    },
+    {
+     "id": "B",
+     "text": "scarcity of resources"
+    },
+    {
+     "id": "C",
+     "text": "opportunity cost of goods and services"
+    },
+    {
+     "id": "D",
+     "text": "need to satisfy every desire of man"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q19"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "The type of demand that exists between torchlight and battery is",
+   "options": [
+    {
+     "id": "A",
+     "text": "competitive demand"
+    },
+    {
+     "id": "B",
+     "text": "complementary demand"
+    },
+    {
+     "id": "C",
+     "text": "composite demand"
+    },
+    {
+     "id": "D",
+     "text": "independent demand"
+    }
+   ],
+   "answer": "B",
+   "source": "JAMB UTME 2018 Q20"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "Which of the following items is not an example of circulating capital?",
+   "options": [
+    {
+     "id": "A",
+     "text": "Raw material"
+    },
+    {
+     "id": "B",
+     "text": "Money"
+    },
+    {
+     "id": "C",
+     "text": "Fuel"
+    },
+    {
+     "id": "D",
+     "text": "Machinery"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q27"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "The principle of comparative cost advantage was propounded by",
+   "options": [
+    {
+     "id": "A",
+     "text": "David Ricardo"
+    },
+    {
+     "id": "B",
+     "text": "Alfred Marshal"
+    },
+    {
+     "id": "C",
+     "text": "J.S. Mill"
+    },
+    {
+     "id": "D",
+     "text": "Adam Smith"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q28"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "The rate at which a country's exports is exchanged for her imports is",
+   "options": [
+    {
+     "id": "A",
+     "text": "trade balance"
+    },
+    {
+     "id": "B",
+     "text": "balance of payments"
+    },
+    {
+     "id": "C",
+     "text": "terms of trade"
+    },
+    {
+     "id": "D",
+     "text": "balance of currency account"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q29"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "Efficiency of labour in a country is determined by the following except the",
+   "options": [
+    {
+     "id": "A",
+     "text": "social attitude to work"
+    },
+    {
+     "id": "B",
+     "text": "education and training"
+    },
+    {
+     "id": "C",
+     "text": "total population"
+    },
+    {
+     "id": "D",
+     "text": "working conditions of workers"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q30"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "Taxes and government expenditures are instruments of",
+   "options": [
+    {
+     "id": "A",
+     "text": "monetary policy"
+    },
+    {
+     "id": "B",
+     "text": "tax policy"
+    },
+    {
+     "id": "C",
+     "text": "economic policy"
+    },
+    {
+     "id": "D",
+     "text": "fiscal policy"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q32"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "international-trade",
+   "question": "A situation in which a commodity is sold abroad below its cost of production in the home country is known as",
+   "options": [
+    {
+     "id": "A",
+     "text": "dumping"
+    },
+    {
+     "id": "B",
+     "text": "counter trade"
+    },
+    {
+     "id": "C",
+     "text": "bilateral trade"
+    },
+    {
+     "id": "D",
+     "text": "trade liberalisation"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q33"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "economic-development",
+   "question": "The Family Support Programme in Nigeria essentially focuses on",
+   "options": [
+    {
+     "id": "A",
+     "text": "the generation of employment"
+    },
+    {
+     "id": "B",
+     "text": "the alleviation of poverty"
+    },
+    {
+     "id": "C",
+     "text": "agricultural and industrial development"
+    },
+    {
+     "id": "D",
+     "text": "economic emancipation of women"
+    }
+   ],
+   "answer": "D",
+   "source": "JAMB UTME 2018 Q34"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "economic-institutions-africa",
+   "question": "The Economic Commission for Africa was set up by the",
+   "options": [
+    {
+     "id": "A",
+     "text": "UNO"
+    },
+    {
+     "id": "B",
+     "text": "ECOWAS"
+    },
+    {
+     "id": "C",
+     "text": "OAU"
+    },
+    {
+     "id": "D",
+     "text": "IMF"
+    }
+   ],
+   "answer": "A",
+   "source": "JAMB UTME 2018 Q35"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "demand",
+   "question": "Utility is the satisfaction derived from",
+   "options": [
+    {
+     "id": "A",
+     "text": "production"
+    },
+    {
+     "id": "B",
+     "text": "distribution"
+    },
+    {
+     "id": "C",
+     "text": "consumption"
+    },
+    {
+     "id": "D",
+     "text": "demand"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q38"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "theory-of-production",
+   "question": "When a union is composed of workers with the same skill it is called",
+   "options": [
+    {
+     "id": "A",
+     "text": "an industrial union"
+    },
+    {
+     "id": "B",
+     "text": "a workers' union"
+    },
+    {
+     "id": "C",
+     "text": "a craft union"
+    },
+    {
+     "id": "D",
+     "text": "a technical union"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q39"
+  },
+  {
+   "exam": "jamb",
+   "year": 2018,
+   "subject": "economics",
+   "topic": "public-finance",
+   "question": "The major objective, of a revenue allocation formula in a country is to",
+   "options": [
+    {
+     "id": "A",
+     "text": "share revenue between the public and private sectors"
+    },
+    {
+     "id": "B",
+     "text": "ensure the financial viability of the country"
+    },
+    {
+     "id": "C",
+     "text": "share revenue between the different tiers of government"
+    },
+    {
+     "id": "D",
+     "text": "divert revenue from areas of surplus to areas of needs"
+    }
+   ],
+   "answer": "C",
+   "source": "JAMB UTME 2018 Q40"
+  }
+ ]
+}

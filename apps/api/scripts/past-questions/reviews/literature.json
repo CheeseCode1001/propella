@@ -1,0 +1,516 @@
+{
+ "_note": "Editorial review. Set-text questions are kept only where the answer could be verified; questions whose set-text heading was lost or attached to the wrong book, quotes referred to but not reproduced, and options carrying extraction junk are dropped.",
+ "replace": [
+  [
+   "William Shakes ear's",
+   "William Shakespeare's"
+  ],
+  [
+   "Williams's Shakespeare's",
+   "William Shakespeare's"
+  ],
+  [
+   "Richard Writer's",
+   "Richard Wright's"
+  ],
+  [
+   "Ferdinand Oyano's",
+   "Ferdinand Oyono's"
+  ],
+  [
+   "The Joy of Motherhood",
+   "The Joys of Motherhood"
+  ],
+  [
+   "General Literacy Principles",
+   "General Literary Principles"
+  ],
+  [
+   "General literacy Principles",
+   "General Literary Principles"
+  ],
+  [
+   "general Literary Principles",
+   "General Literary Principles"
+  ],
+  [
+   "literary Appreciation",
+   "Literary Appreciation"
+  ],
+  [
+   "Nineteen Eighty- four",
+   "Nineteen Eighty-Four"
+  ],
+  [
+   "Nineteen Eighty-four",
+   "Nineteen Eighty-Four"
+  ],
+  [
+   "the pay can be",
+   "the play can be"
+  ],
+  [
+   "From it's resolution",
+   "From its resolution"
+  ],
+  [
+   "point of denouncement",
+   "point of denouement"
+  ],
+  [
+   "Rubadiris's",
+   "Rubadiri's"
+  ],
+  [
+   "Chimamanda Adiechie's",
+   "Chimamanda Adichie's"
+  ],
+  [
+   "In literacy work",
+   "In literary work"
+  ],
+  [
+   "A literacy genre",
+   "A literary genre"
+  ],
+  [
+   "the post attempts",
+   "the poet attempts"
+  ],
+  [
+   "murder of TybaIt",
+   "murder of Tybalt"
+  ],
+  [
+   "'0' deadly sin!O",
+   "'O deadly sin! O"
+  ],
+  [
+   "Elliot's",
+   "Eliot's"
+  ],
+  [
+   "that Leaders easily identify",
+   "that readers easily identify"
+  ],
+  [
+   "he prefers Lago",
+   "he prefers Iago"
+  ],
+  [
+   "Rodgerigo",
+   "Roderigo"
+  ],
+  [
+   "Crossing the Bar is that",
+   "Crossing the Bar is one of"
+  ]
+ ],
+ "correct": {
+  "2010": {
+   "7": "A",
+   "12": "B",
+   "17": "C",
+   "18": "A",
+   "19": "B",
+   "28": "B"
+  },
+  "2011": {
+   "19": "C",
+   "22": "D",
+   "31": "D",
+   "38": "C"
+  },
+  "2012": {
+   "10": "B",
+   "32": "B",
+   "35": "C"
+  },
+  "2013": {
+   "7": "A",
+   "8": "A",
+   "17": "B",
+   "18": "B",
+   "20": "B"
+  },
+  "2014": {
+   "7": "B",
+   "8": "C",
+   "10": "B",
+   "19": "D",
+   "25": "B",
+   "29": "B"
+  },
+  "2015": {
+   "2": "D",
+   "12": "A",
+   "13": "B",
+   "15": "C",
+   "16": "A",
+   "17": "C",
+   "18": "B",
+   "20": "D",
+   "23": "B"
+  },
+  "2016": {
+   "31": "C",
+   "32": "D"
+  },
+  "2017": {
+   "2": "D"
+  },
+  "2018": {
+   "20": "D"
+  }
+ },
+ "drop": {
+  "2010": [
+   2,
+   3,
+   4,
+   5,
+   14,
+   15,
+   21,
+   24,
+   25,
+   26,
+   30,
+   36,
+   40,
+   48,
+   49
+  ],
+  "2011": [
+   3,
+   4,
+   6,
+   11,
+   13,
+   14,
+   15,
+   21,
+   23,
+   25,
+   27,
+   28,
+   33,
+   46,
+   48
+  ],
+  "2012": [
+   3,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   26,
+   29,
+   42
+  ],
+  "2013": [
+   2,
+   3,
+   11,
+   12,
+   14,
+   15,
+   16,
+   21,
+   22,
+   30,
+   38
+  ],
+  "2014": [
+   2,
+   3,
+   4,
+   5,
+   11,
+   13,
+   14,
+   20,
+   21,
+   22,
+   23,
+   24,
+   26,
+   28,
+   30,
+   40,
+   46,
+   47,
+   49
+  ],
+  "2015": [
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37
+  ],
+  "2016": [
+   2,
+   3,
+   6,
+   8,
+   9,
+   11,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   20,
+   21,
+   24,
+   26,
+   27,
+   30,
+   34,
+   36,
+   38,
+   47,
+   48
+  ],
+  "2017": [
+   1,
+   5,
+   7,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   19,
+   20,
+   23,
+   25,
+   26,
+   27,
+   29,
+   39,
+   40
+  ],
+  "2018": [
+   2,
+   4,
+   7,
+   12,
+   13,
+   14,
+   15,
+   16,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   31,
+   32,
+   34,
+   37
+  ]
+ },
+ "topics": {
+  "2010": {
+   "6": "non-african-drama",
+   "7": "non-african-drama",
+   "9": "non-african-drama",
+   "10": "non-african-drama",
+   "11": "african-prose",
+   "12": "african-prose",
+   "13": "african-prose",
+   "16": "african-prose",
+   "17": "non-african-prose",
+   "18": "non-african-prose",
+   "19": "non-african-prose",
+   "20": "non-african-prose",
+   "22": "african-poetry",
+   "27": "non-african-poetry",
+   "28": "non-african-poetry",
+   "32": "genres-overview",
+   "33": "literary-terms",
+   "34": "prose-analysis",
+   "35": "literary-terms",
+   "37": "figures-of-speech",
+   "38": "poetry-analysis",
+   "39": "genres-overview",
+   "41": "unseen-passages"
+  },
+  "2011": {
+   "2": "african-drama",
+   "5": "african-drama",
+   "7": "non-african-drama",
+   "8": "non-african-drama",
+   "9": "non-african-drama",
+   "10": "non-african-drama",
+   "18": "non-african-prose",
+   "19": "non-african-prose",
+   "22": "african-poetry",
+   "30": "non-african-poetry",
+   "31": "drama-analysis",
+   "34": "poetry-analysis",
+   "35": "drama-analysis",
+   "36": "genres-overview",
+   "37": "drama-analysis",
+   "38": "literary-terms",
+   "39": "literary-terms",
+   "45": "unseen-passages",
+   "47": "unseen-passages",
+   "50": "unseen-passages"
+  },
+  "2012": {
+   "2": "african-drama",
+   "6": "non-african-drama",
+   "8": "non-african-drama",
+   "9": "non-african-drama",
+   "10": "non-african-drama",
+   "11": "african-prose",
+   "12": "african-prose",
+   "27": "non-african-poetry",
+   "30": "non-african-poetry",
+   "31": "literary-terms",
+   "32": "prose-analysis",
+   "33": "figures-of-speech",
+   "34": "drama-analysis",
+   "35": "genres-overview",
+   "36": "poetry-analysis",
+   "37": "genres-overview",
+   "38": "genres-overview",
+   "39": "figures-of-speech",
+   "40": "literary-terms",
+   "47": "unseen-passages"
+  },
+  "2013": {
+   "5": "african-drama",
+   "7": "non-african-drama",
+   "8": "non-african-drama",
+   "10": "non-african-drama",
+   "13": "african-prose",
+   "17": "non-african-prose",
+   "18": "non-african-prose",
+   "19": "non-african-prose",
+   "20": "non-african-prose",
+   "23": "african-poetry",
+   "24": "african-poetry",
+   "25": "non-african-poetry",
+   "31": "literary-terms",
+   "32": "poetry-analysis",
+   "34": "poetry-analysis",
+   "35": "genres-overview",
+   "37": "drama-analysis"
+  },
+  "2014": {
+   "7": "non-african-drama",
+   "8": "non-african-drama",
+   "9": "non-african-drama",
+   "10": "non-african-drama",
+   "12": "african-prose",
+   "15": "african-prose",
+   "16": "african-prose",
+   "17": "non-african-prose",
+   "18": "non-african-prose",
+   "19": "non-african-prose",
+   "25": "african-poetry",
+   "27": "non-african-poetry",
+   "29": "non-african-poetry",
+   "31": "drama-analysis",
+   "32": "drama-analysis",
+   "33": "drama-analysis",
+   "34": "literary-terms",
+   "35": "poetry-analysis",
+   "36": "drama-analysis",
+   "37": "literary-terms",
+   "38": "drama-analysis",
+   "39": "drama-analysis",
+   "44": "unseen-passages"
+  },
+  "2015": {
+   "2": "non-african-poetry",
+   "11": "figures-of-speech",
+   "12": "drama-analysis",
+   "13": "literary-terms",
+   "14": "literary-terms",
+   "15": "drama-analysis",
+   "16": "drama-analysis",
+   "17": "literary-terms",
+   "18": "poetry-analysis",
+   "19": "literary-terms",
+   "20": "genres-overview",
+   "21": "unseen-passages",
+   "22": "unseen-passages",
+   "23": "unseen-passages",
+   "28": "unseen-passages"
+  },
+  "2016": {
+   "23": "african-poetry",
+   "31": "genres-overview",
+   "32": "drama-analysis",
+   "33": "literary-terms",
+   "34": "poetry-analysis",
+   "35": "poetry-analysis",
+   "36": "literary-terms",
+   "37": "literary-terms",
+   "39": "literary-terms",
+   "40": "literary-terms",
+   "41": "unseen-passages",
+   "46": "african-drama",
+   "47": "unseen-passages",
+   "49": "unseen-passages"
+  },
+  "2017": {
+   "2": "african-drama",
+   "3": "african-drama",
+   "17": "non-african-prose",
+   "18": "non-african-prose",
+   "21": "non-african-poetry",
+   "24": "non-african-poetry",
+   "31": "literary-terms",
+   "32": "drama-analysis",
+   "33": "literary-terms",
+   "34": "literary-terms",
+   "35": "drama-analysis",
+   "36": "unseen-passages",
+   "38": "unseen-passages",
+   "39": "unseen-passages"
+  },
+  "2018": {
+   "1": "literary-terms",
+   "2": "prose-analysis",
+   "3": "figures-of-speech",
+   "4": "drama-analysis",
+   "7": "genres-overview",
+   "8": "genres-overview",
+   "9": "figures-of-speech",
+   "10": "literary-terms",
+   "11": "non-african-prose",
+   "18": "non-african-prose",
+   "19": "non-african-prose",
+   "20": "non-african-prose",
+   "27": "non-african-drama",
+   "28": "non-african-drama",
+   "29": "non-african-drama",
+   "37": "unseen-passages"
+  }
+ }
+}

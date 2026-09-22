@@ -60,6 +60,13 @@ const CSV = [
   'jamb,2020,biology,cell,"Missing an option here","Only one",,,,A,"",""',
 ].join('\n')
 
+// Every stem this suite imports; cleanup deletes exactly these.
+const SMOKE_STEMS = [
+  'A body starts from rest and accelerates at 2 m/s2. Velocity after 5 s?',
+  'How many moles in 44 g of CO2?',
+  'What is 7 x 8?',
+]
+
 async function main() {
   console.log('Admin smoke test against ' + BASE + '\n')
 
@@ -205,26 +212,26 @@ async function main() {
     'status=' + selfDemote.status)
 
   // ── Deletion ───────────────────────────────────────────────────────
-  const toDelete = list.json?.data?.questions?.[0]
+  // Delete one of this run's own rows - never a real bank question.
+  const toDelete = (list.json?.data?.questions ?? []).find((q) => SMOKE_STEMS.includes(q.stem))
   const del = await call('DELETE', `/api/admin/past-questions/${toDelete?.id}`,
     undefined, adminToken)
-  check('a question can be deleted', del.status === 200, 'status=' + del.status)
+  check('a question can be deleted', !!toDelete && del.status === 200, 'status=' + del.status)
 
   // ── Cleanup ────────────────────────────────────────────────────────
+  // The bank is shared with real, seeded questions, so only the rows this run
+  // imported are removed - matched by their exact stems.
   const db = new Client({
     connectionString: process.env.DIRECT_URL || process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
   })
   await db.connect()
-  await db.query(
-    'DELETE FROM past_questions WHERE "subjectSlug" = ANY($1::text[])',
-    [['physics', 'chemistry', 'biology', 'mathematics']],
-  )
+  await db.query('DELETE FROM past_questions WHERE stem = ANY($1::text[])', [SMOKE_STEMS])
   await db.query('DELETE FROM import_batches WHERE filename IN ($1, $2)', ['smoke.csv', 'smoke.json'])
   await db.query('DELETE FROM users WHERE email = ANY($1::text[])', [[studentEmail, adminEmail]])
   const remaining = await db.query('SELECT count(*)::int n FROM past_questions')
-  check('test questions cleaned up', remaining.rows[0].n === 0,
-    'remaining=' + remaining.rows[0].n)
+  check('test questions cleaned up', remaining.rows[0].n === before,
+    'before=' + before + ' remaining=' + remaining.rows[0].n)
   await db.end()
 
   console.log('\n' + passed + ' passed, ' + failed + ' failed')

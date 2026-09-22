@@ -1,6 +1,7 @@
 import { prisma, connectDB, disconnectDB } from '../config/db'
 import { subjects, validateSyllabus } from './syllabus'
 import { seedSuperAdmin } from './super-admin'
+import { seedPastQuestions } from './past-questions'
 
 /**
  * Loads the JAMB/WAEC/NECO syllabus. Safe to re-run: each subject is upserted
@@ -39,6 +40,8 @@ async function seed(): Promise<void> {
   const total = await prisma.subject.count()
   const topicCount = subjects.reduce((sum, s) => sum + s.topics.length, 0)
   console.log(`Seeded ${subjects.length} subjects (${topicCount} topics). ${total} in database.`)
+
+  await seedPastQuestions()
 
   await seedSuperAdmin()
 }

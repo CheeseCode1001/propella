@@ -11,6 +11,7 @@ import { EmptyState } from '@/components/common/empty-state'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Badge } from '@/components/ui/badge'
 import { useAuthStore } from '@/lib/stores/auth-store'
+import { useSubjects } from '@/lib/hooks/use-subjects'
 
 interface MockHistoryItem {
   mockId: string
@@ -27,7 +28,8 @@ interface ExamProfileData {
   subjects: Array<{ slug: string; name: string }>
 }
 
-const SUBJECT_SLUGS = [
+/** Shown until the live subject list loads. */
+const FALLBACK_SUBJECTS = [
   { slug: 'english', name: 'English' },
   { slug: 'mathematics', name: 'Mathematics' },
   { slug: 'physics', name: 'Physics' },
@@ -65,6 +67,15 @@ export default function MocksPage() {
   })
 
   const examType = examProfile?.examType ?? 'jamb'
+
+  // Every subject the platform teaches for this exam, so a newly added one
+  // (e.g. Principles of Accounts) can be sat as a mock without a code change.
+  const { data: allSubjects } = useSubjects()
+  const subjectOptions = allSubjects
+    ? allSubjects
+        .filter((s) => s.examTypes.includes(examType))
+        .map((s) => ({ slug: s.slug, name: s.name }))
+    : FALLBACK_SUBJECTS
 
   const { data: history, isLoading } = useQuery({
     queryKey: ['mock-history'],
@@ -185,7 +196,7 @@ export default function MocksPage() {
                   Subjects
                 </p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {SUBJECT_SLUGS.map((s) => (
+                  {subjectOptions.map((s) => (
                     <button
                       key={s.slug}
                       onClick={() => toggleSubject(s.slug)}

@@ -24,6 +24,9 @@ const QUIZ_MODE_OPTIONS: {
   { value: 'exam', labelKey: 'examMode', descKey: 'examModeDesc' },
 ]
 
+/** Topic-select value for a quiz drawn from the whole subject's past questions. */
+const ALL_TOPICS = '__all__'
+
 interface QuizListItem {
   quizId: string
   attemptId: string | null
@@ -65,11 +68,13 @@ export default function QuizzesPage() {
     setError(null)
     setGenerating(true)
 
+    const wholeSubject = selectedTopic === ALL_TOPICS
+
     try {
       const result = await api.post<{ data: { quizId: string } }>('/quizzes/generate', {
         subjectSlug: selectedSubject.slug,
-        topicSlug: selectedTopic,
-        type: 'topic',
+        ...(wholeSubject ? {} : { topicSlug: selectedTopic }),
+        type: wholeSubject ? 'subject' : 'topic',
         // Difficulty is no longer a user-facing choice - the engine adapts it.
         difficulty: 'adaptive',
         mode,
@@ -199,6 +204,7 @@ export default function QuizzesPage() {
                 }}
               >
                 <option value="">Select a topic...</option>
+                <option value={ALL_TOPICS}>All topics (past questions)</option>
                 {topics.map((t) => (
                   <option key={t.slug} value={t.slug}>
                     {t.name}
@@ -348,7 +354,9 @@ export default function QuizzesPage() {
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    {quiz.topicSlug.replace(/-/g, ' ')}
+                    {quiz.topicSlug
+                      ? quiz.topicSlug.replace(/-/g, ' ')
+                      : `${quiz.subjectSlug.replace(/-/g, ' ')} - all topics`}
                   </p>
                   <p
                     style={{

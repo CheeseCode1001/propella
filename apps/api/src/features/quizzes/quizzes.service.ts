@@ -1,8 +1,16 @@
-import type { Quiz, QuizAttempt, QuizMode } from '../../config/db'
+import type { ExamType, Quiz, QuizAttempt, QuizMode } from '../../config/db'
 import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
-import { generateQuestions } from './quiz-generation'
+import { generateQuestions, PAST_QUESTION_BANK } from './quiz-generation'
+import {
+  bankIdsIn,
+  drawPastQuestions,
+  recentlySeenBankIds,
+  shuffle,
+  shuffleOptions,
+} from '../../lib/question-bank'
 import { calculateSM2, gradeFromPercentage } from '../../lib/spaced-repetition'
+import { recordStreakActivity } from '../gamification/streak'
 import { QUIZ_MODEL } from '../../lib/gemini'
 import { notify } from '../notifications/notification.service'
 import { logger } from '../../config/logger'
@@ -18,7 +26,8 @@ import {
 
 export interface GenerateQuizInput {
   subjectSlug: string
-  topicSlug: string
+  /** Required for every type except 'subject', which draws from the whole subject. */
+  topicSlug?: string | undefined
   type: 'topic' | 'subject' | 'mixed' | 'weakness' | 'mock'
   difficulty: 'easy' | 'medium' | 'hard' | 'adaptive'
   mode: QuizMode
@@ -45,12 +54,88 @@ export async function generateQuiz(
     throw new NotFoundError(`Subject not found: ${input.subjectSlug}`)
   }
 
-  const topic = jsonArray<SubjectTopic>(subject.topics).find((t) => t.slug === input.topicSlug)
-  if (!topic) {
-    throw new NotFoundError(`Topic not found: ${input.topicSlug}`)
+  const topics = jsonArray<SubjectTopic>(subject.topics)
+  const wholeSubject = input.type === 'subject' && !input.topicSlug
+  const topic = wholeSubject ? undefined : topics.find((t) => t.slug === input.topicSlug)
+  if (!wholeSubject && !topic) {
+    throw new NotFoundError(`Topic not found: ${input.topicSlug ?? ''}`)
   }
 
-  // Fetch recent attempt stems to avoid repetition
+  // The student's own exam first; the bank tops up from other exams' papers.
+  const profile = await prisma.examProfile.findUnique({
+    where: { userId },
+    select: { examType: true },
+  })
+  const examType: ExamType =
+    profile && subject.examTypes.includes(profile.examType)
+      ? profile.examType
+      : (subject.examTypes[0] ?? 'jamb')
+
+  // Real past questions come first, drawn fresh and shuffled on every quiz.
+  const seen = await recentlySeenBankIds(userId)
+  const fromBank = await drawPastQuestions({
+    exam: examType,
+    subjectSlug: subject.slug,
+    topicSlug: topic?.slug,
+    count: input.questionCount,
+    exclude: seen,
+  })
+
+  let questions: QuizQuestion[] = fromBank
+  let usedAi = false
+  const shortfall = input.questionCount - fromBank.length
+
+  if (shortfall > 0) {
+    // AI fills whatever the bank could not. A whole-subject quiz picks a topic
+    // at random so the gap does not always come from the same one.
+    const aiTopic = topic ?? shuffle(topics.filter((t) => t.examTypes.includes(examType)))[0]
+    try {
+      if (!aiTopic) throw new AppError(404, `No topics available for ${subject.name}`)
+      const generated = await generateQuestions({
+        examType,
+        subjectName: subject.name,
+        topicName: aiTopic.name,
+        topicSlug: aiTopic.slug,
+        difficulty: input.difficulty === 'adaptive' ? 'medium' : input.difficulty,
+        count: shortfall,
+        recentStems: await recentStemsFor(userId, aiTopic.slug),
+      })
+      questions = questions.concat(generated.map((q) => shuffleOptions(q)))
+      usedAi = true
+    } catch (err) {
+      // Without the AI the quiz can still run on past questions - repeats
+      // included - as long as the bank has any for this topic at all.
+      const repeats = await drawPastQuestions({
+        exam: examType,
+        subjectSlug: subject.slug,
+        topicSlug: topic?.slug,
+        count: shortfall,
+        exclude: new Set(bankIdsIn(fromBank)),
+      })
+      questions = questions.concat(repeats)
+      if (questions.length === 0) throw err
+      logger.warn({ err, subjectSlug: subject.slug }, 'AI top-up failed; serving past questions only')
+    }
+  }
+
+  return prisma.quiz.create({
+    data: {
+      userId,
+      type: input.type,
+      topicSubjectSlug: input.subjectSlug,
+      topicTopicSlug: topic?.slug ?? null,
+      subjectSlug: input.subjectSlug,
+      difficulty: input.difficulty,
+      mode: input.mode,
+      questionCount: questions.length,
+      questions: shuffle(questions),
+      generatedByModel: usedAi ? QUIZ_MODEL : PAST_QUESTION_BANK,
+    },
+  })
+}
+
+/** Stems from the student's recent quizzes on a topic, so the AI avoids them. */
+async function recentStemsFor(userId: string, topicSlug: string): Promise<string[]> {
   const recentAttempts = await prisma.quizAttempt.findMany({
     where: { userId },
     orderBy: { createdAt: 'desc' },
@@ -61,47 +146,14 @@ export async function generateQuiz(
   const recentQuizzes = await prisma.quiz.findMany({
     where: {
       id: { in: recentAttempts.map((a) => a.quizId) },
-      topicTopicSlug: input.topicSlug,
+      topicTopicSlug: topicSlug,
     },
     select: { questions: true },
   })
 
-  const recentStems = recentQuizzes
+  return recentQuizzes
     .flatMap((q) => jsonArray<QuizQuestion>(q.questions).map((qu) => qu.stem))
     .slice(0, 10)
-
-  // Determine effective difficulty
-  const effectiveDifficulty = input.difficulty === 'adaptive' ? 'medium' : input.difficulty
-
-  // Get exam type from subject
-  const examType = subject.examTypes[0] ?? 'jamb'
-
-  // Generate questions via AI
-  const questions = await generateQuestions({
-    examType,
-    subjectName: subject.name,
-    topicName: topic.name,
-    topicSlug: topic.slug,
-    difficulty: effectiveDifficulty,
-    count: input.questionCount,
-    recentStems,
-  })
-
-  // Save quiz
-  return prisma.quiz.create({
-    data: {
-      userId,
-      type: input.type,
-      topicSubjectSlug: input.subjectSlug,
-      topicTopicSlug: input.topicSlug,
-      subjectSlug: input.subjectSlug,
-      difficulty: input.difficulty,
-      mode: input.mode,
-      questionCount: questions.length,
-      questions,
-      generatedByModel: QUIZ_MODEL,
-    },
-  })
 }
 
 export async function startAttempt(userId: string, quizId: string): Promise<QuizAttempt> {
@@ -209,25 +261,7 @@ export async function submitAttempt(
 
   // Update streak if score >= 50%
   if (score >= 50) {
-    const streak = await prisma.streak.findUnique({ where: { userId } })
-    if (streak) {
-      const todayString = new Date().toDateString()
-      if (streak.lastActiveDate.toDateString() !== todayString) {
-        const currentStreak = streak.currentStreak + 1
-        await prisma.streak.update({
-          where: { userId },
-          data: {
-            currentStreak,
-            longestStreak: Math.max(currentStreak, streak.longestStreak),
-            lastActiveDate: new Date(),
-          },
-        })
-      }
-    } else {
-      await prisma.streak.create({
-        data: { userId, currentStreak: 1, longestStreak: 1, lastActiveDate: new Date() },
-      })
-    }
+    await recordStreakActivity(userId)
   }
 
   // Update mastery and SM-2 for every affected node, then write the roadmap once.
