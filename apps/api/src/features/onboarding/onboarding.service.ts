@@ -84,7 +84,14 @@ export async function saveStep1(userId: string, data: OnboardingStep1Input): Pro
     },
   })
 
-  await setStep(userId, 1)
+  const isUndergrad = data.examTypes.includes('undergraduate') || primaryExamType === 'undergraduate'
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      onboardingStep: 1,
+      ...(isUndergrad ? { undergraduateMode: true } : {}),
+    },
+  })
 }
 
 export async function saveStep2Jamb(
@@ -204,6 +211,7 @@ interface CompletedUser {
   timezone: string
   avatarUrl: string | null
   emailVerified: boolean
+  undergraduateMode: boolean
 }
 
 export async function completeOnboarding(userId: string): Promise<{
@@ -217,9 +225,16 @@ export async function completeOnboarding(userId: string): Promise<{
   // leave the account marked complete with no plan.
   await generateInitialRoadmap(userId, profile)
 
+  const isUndergrad =
+    profile.examType === 'undergraduate' || profile.examTypes.includes('undergraduate')
+
   const user = await prisma.user.update({
     where: { id: userId },
-    data: { onboardingCompleted: true, onboardingStep: 6 },
+    data: {
+      onboardingCompleted: true,
+      onboardingStep: 6,
+      ...(isUndergrad ? { undergraduateMode: true } : {}),
+    },
   })
 
   const roadmap = await prisma.roadmap.findUnique({
@@ -239,6 +254,7 @@ export async function completeOnboarding(userId: string): Promise<{
       timezone: user.timezone,
       avatarUrl: user.avatarUrl,
       emailVerified: user.emailVerifiedAt !== null,
+      undergraduateMode: user.undergraduateMode,
     },
     roadmap: roadmap ? { id: roadmap.id } : null,
   }

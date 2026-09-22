@@ -129,9 +129,10 @@ export async function sendMessage(
   next: NextFunction,
 ): Promise<void> {
   const userId = requireUser(req)
-  const { content, attachedTopic } = req.body as {
+  const { content, attachedTopic, attachedFileId } = req.body as {
     content: string
     attachedTopic?: { subjectSlug: string; topicSlug: string }
+    attachedFileId?: string
   }
 
   // Set SSE headers
@@ -149,6 +150,7 @@ export async function sendMessage(
       (chunk: string) => {
         res.write(`data: ${chunk}\n\n`)
       },
+      attachedFileId,
     )
 
     res.write('data: [DONE]\n\n')

@@ -11,6 +11,8 @@ import {
   VolumeHigh,
   VolumeCross,
   Messages2,
+  Folder2,
+  DocumentText1,
 } from 'iconsax-reactjs'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -329,6 +331,8 @@ export default function AssistantPage() {
   const router = useRouter()
   /** When on, replies are read out as they finish — hands-free revision. */
   const [voiceMode, setVoiceMode] = useState(false)
+  const [selectedFileId, setSelectedFileId] = useState<string | null>(searchParams.get('fileId') ?? null)
+  const [showFilePicker, setShowFilePicker] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   // Guards the ?ask= handoff so a re-render cannot send the question twice.
   const handoffSentRef = useRef(false)
@@ -351,6 +355,24 @@ export default function AssistantPage() {
     },
     [speaking, speak, stopSpeaking],
   )
+
+  const { data: coursesData } = useQuery({
+    queryKey: ['courses-with-files'],
+    queryFn: () =>
+      api
+        .get<{ data: Array<{ id: string; code: string; title: string; files: Array<{ id: string; name: string; fileType: string }> }> }>('/courses')
+        .then((r) => r.data)
+        .catch(() => []),
+  })
+
+  const allFiles = (coursesData ?? []).flatMap((c) =>
+    (c.files ?? []).map((f) => ({
+      ...f,
+      courseCode: c.code,
+    }))
+  )
+
+  const activeFile = allFiles.find((f) => f.id === selectedFileId)
 
   const { data: threadsData, isLoading: threadsLoading } = useQuery({
     queryKey: ['chat-threads'],
@@ -439,7 +461,10 @@ export default function AssistantPage() {
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
           },
           credentials: 'include',
-          body: JSON.stringify({ content }),
+          body: JSON.stringify({
+            content,
+            attachedFileId: selectedFileId || undefined,
+          }),
         })
 
         const reader = response.body?.getReader()
@@ -467,7 +492,7 @@ export default function AssistantPage() {
         await queryClient.invalidateQueries({ queryKey: ['chat-threads'] })
       }
     },
-    [activeThreadId, isStreaming, queryClient, dictation, voiceMode, speak],
+    [activeThreadId, isStreaming, queryClient, dictation, voiceMode, speak, selectedFileId],
   )
 
   /**
@@ -485,6 +510,13 @@ export default function AssistantPage() {
     void handleSend(question)
     // handleSend is stable enough for a one-shot that guards itself with a ref.
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
+
+  useEffect(() => {
+    const fileId = searchParams.get('fileId')
+    if (fileId) {
+      setSelectedFileId(fileId)
+    }
   }, [searchParams])
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -686,6 +718,22 @@ export default function AssistantPage() {
             </p>
           )}
 
+          {activeFile && (
+            <div className="mb-2 flex items-center gap-2 rounded-lg bg-[var(--color-accent-tint)] px-3 py-1.5 text-xs text-[var(--color-ink)] w-fit border border-[var(--color-accent)]/30">
+              <Folder2 size={15} color="var(--color-accent)" variant="Bold" />
+              <span className="font-semibold text-[var(--color-accent)]">{activeFile.courseCode}:</span>
+              <span className="truncate max-w-[240px]">{activeFile.name}</span>
+              <button
+                type="button"
+                onClick={() => setSelectedFileId(null)}
+                aria-label="Remove attached file"
+                className="ml-1 rounded px-1 hover:bg-black/10 transition-colors text-[var(--color-ink-3)] hover:text-rose-500 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           <div className="flex items-end gap-2">
             <textarea
               ref={textareaRef}
@@ -698,6 +746,57 @@ export default function AssistantPage() {
               className="min-w-0 flex-1 resize-none rounded-[var(--radius-sm)] border border-[var(--color-rule-2)] bg-[var(--color-paper)] px-3.5 py-2.5 text-[14px] leading-normal text-[var(--color-ink)] outline-none"
               style={{ fontFamily: 'var(--font-sans)', maxHeight: 120, overflow: 'hidden' }}
             />
+
+            {allFiles.length > 0 && (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setShowFilePicker((v) => !v)}
+                  aria-label="Reference Course File"
+                  title="Reference a course file from your library"
+                  className={cn(
+                    'shrink-0 cursor-pointer rounded-[var(--radius-sm)] border p-2.5 transition-colors',
+                    activeFile
+                      ? 'border-[var(--color-accent)] bg-[var(--color-accent-tint)] text-[var(--color-accent)]'
+                      : 'border-[var(--color-rule-2)] bg-[var(--color-paper)] text-[var(--color-ink-2)] hover:text-[var(--color-accent)]',
+                  )}
+                >
+                  <Folder2 size={16} color="currentColor" variant={activeFile ? 'Bold' : 'Linear'} />
+                </button>
+
+                {showFilePicker && (
+                  <div className="absolute bottom-full right-0 mb-2 w-72 max-h-60 overflow-y-auto rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-2)] p-2 shadow-xl z-50">
+                    <p className="px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--color-ink-3)]">
+                      Reference Course File
+                    </p>
+                    <div className="flex flex-col gap-1 mt-1">
+                      {allFiles.map((file) => (
+                        <button
+                          key={file.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedFileId(file.id)
+                            setShowFilePicker(false)
+                          }}
+                          className={cn(
+                            'flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-xs transition-colors',
+                            selectedFileId === file.id
+                              ? 'bg-[var(--color-accent)] text-white font-medium'
+                              : 'text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]',
+                          )}
+                        >
+                          <DocumentText1 size={14} color="currentColor" variant="Linear" />
+                          <div className="min-w-0 flex-1 truncate">
+                            <span className="font-semibold opacity-85 mr-1">[{file.courseCode}]</span>
+                            <span>{file.name}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {dictation.supported && (
               <button

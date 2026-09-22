@@ -30,6 +30,8 @@ function BroadcastForm() {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [deeplink, setDeeplink] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [sendEmail, setSendEmail] = useState(false)
   const [audience, setAudience] = useState<Audience>('all')
   const [confirming, setConfirming] = useState(false)
   const [sending, setSending] = useState(false)
@@ -48,11 +50,15 @@ function BroadcastForm() {
         body: body.trim(),
         audience,
         deeplink: deeplink.trim() || null,
+        imageUrl: imageUrl.trim() || null,
+        sendEmail,
       })
       setResult(res.data)
       setTitle('')
       setBody('')
       setDeeplink('')
+      setImageUrl('')
+      setSendEmail(false)
       setConfirming(false)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not send that announcement')
@@ -109,9 +115,40 @@ function BroadcastForm() {
             style={{ width: '100%', marginTop: 4 }}
           />
         </label>
-        <p style={{ fontSize: 11, color: 'var(--ink-3)' }}>
+        <p style={{ fontSize: 11, color: 'var(--ink-3)', marginBottom: 12 }}>
           Where tapping the notification takes them. Defaults to the dashboard.
         </p>
+
+        <label style={{ display: 'block', fontSize: 13, marginBottom: 6 }}>
+          Attach Image URL (optional)
+          <input
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="https://images.unsplash.com/... or image link"
+            style={{ width: '100%', marginTop: 4 }}
+          />
+        </label>
+        <p style={{ fontSize: 11, color: 'var(--ink-3)', marginBottom: 10 }}>
+          Optional banner image attached to the announcement and broadcast email.
+        </p>
+
+        {imageUrl.trim() && (
+          <div style={{ marginBottom: 14, borderRadius: 6, overflow: 'hidden', border: '1px solid var(--rule)', maxHeight: 180 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={imageUrl.trim()} alt="Attachment preview" style={{ width: '100%', maxHeight: 180, objectFit: 'cover' }} />
+          </div>
+        )}
+
+        <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, marginTop: 10, cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            checked={sendEmail}
+            onChange={(e) => setSendEmail(e.target.checked)}
+          />
+          <span style={{ fontWeight: 500, color: 'var(--ink)' }}>
+            Also send as email broadcast to recipients with notifications enabled
+          </span>
+        </label>
       </div>
 
       <div className="card" style={{ padding: 16 }}>

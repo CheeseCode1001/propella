@@ -98,6 +98,7 @@ export async function streamMessage(
   content: string,
   attachedTopic?: { subjectSlug: string; topicSlug: string },
   onChunk?: (chunk: string) => void,
+  attachedFileId?: string,
 ): Promise<string> {
   const thread = await prisma.chatThread.findFirst({
     where: { id: threadId, userId },
@@ -105,22 +106,43 @@ export async function streamMessage(
 
   if (!thread) throw new NotFoundError('Thread not found')
 
+  let fileContext = ''
+  let referencedFileName = ''
+  if (attachedFileId) {
+    const file = await prisma.courseFile.findFirst({
+      where: { id: attachedFileId, userId },
+      include: { course: true },
+    })
+    if (file) {
+      referencedFileName = file.name
+      fileContext = `\n\n[Referenced Course File: ${file.course.code} (${file.course.title}) - ${file.name}]\n`
+      if (file.textContent) {
+        fileContext += `File Content / Notes:\n${file.textContent.slice(0, 6000)}\n`
+      }
+    }
+  }
+
   const messages = jsonArray<ChatMessage>(thread.messages)
+
+  const effectiveContent = fileContext ? `${fileContext}\nStudent question: ${content}` : content
 
   const userMessage: ChatMessage = {
     id: nanoid(),
     role: 'user',
-    content,
+    content: referencedFileName ? `[Referenced: ${referencedFileName}] ${content}` : content,
     createdAt: new Date().toISOString(),
     ...(attachedTopic ? { attachedTopic } : {}),
   }
 
   // Gemini names the assistant turn "model"; prior turns become the history and
   // the new message is appended last.
-  const contents = [...messages, userMessage].map((m) => ({
+  const contents = [...messages.map((m) => ({
     role: m.role === 'assistant' ? ('model' as const) : ('user' as const),
     parts: [{ text: m.content }],
-  }))
+  })), {
+    role: 'user' as const,
+    parts: [{ text: effectiveContent }],
+  }]
 
   const ai = getGemini()
 

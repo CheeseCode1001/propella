@@ -36,3 +36,31 @@ export async function getCredits(
     next(err)
   }
 }
+
+export async function requestWithdrawal(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const withdrawal = await referralsService.requestWithdrawal(userId, req.body)
+    res.status(201).json({ data: withdrawal })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function getWithdrawals(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const withdrawals = await referralsService.getUserWithdrawals(userId)
+    res.status(200).json({ data: withdrawals })
+  } catch (err) {
+    next(err)
+  }
+}

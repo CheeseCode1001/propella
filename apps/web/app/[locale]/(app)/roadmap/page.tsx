@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { Link } from '@/lib/i18n/navigation'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -13,7 +13,8 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { EmptyState } from '@/components/common/empty-state'
 import { FilterPills } from '@/components/common/filter-pills'
-import { BookSquare } from 'iconsax-reactjs'
+import { BookSquare, Folder2 } from 'iconsax-reactjs'
+import { useAuthStore } from '@/lib/stores/auth-store'
 import type { ExamType, RoadmapNode } from '@propella/shared'
 
 // Exams are shown in the order candidates normally sit them.
@@ -320,9 +321,38 @@ function SkeletonNode({ isLast }: { isLast: boolean }) {
 }
 
 export default function RoadmapPage() {
+  const user = useAuthStore((s) => s.user)
+  const router = useRouter()
   const { data, isLoading } = useRoadmap()
   const { data: subjectsData } = useSubjects()
   const t = useTranslations('roadmap')
+
+  useEffect(() => {
+    if (user?.undergraduateMode) {
+      router.replace('/files')
+    }
+  }, [user?.undergraduateMode, router])
+
+  if (user?.undergraduateMode) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-[var(--color-accent-tint)] flex items-center justify-center text-[var(--color-accent)] mb-4">
+          <Folder2 size={32} variant="Bulk" />
+        </div>
+        <h2 className="text-xl font-bold text-[var(--color-ink)] mb-2">Undergraduate Track Active</h2>
+        <p className="text-[var(--color-ink-2)] text-sm max-w-md mb-6 leading-relaxed">
+          Undergraduate students manage courses and study materials inside Course Files rather than secondary school syllabi.
+        </p>
+        <Link
+          href="/files"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--color-accent)] text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+        >
+          <Folder2 size={18} />
+          Go to Course Files
+        </Link>
+      </div>
+    )
+  }
 
   // Null means "whatever the first available board is". Deriving the effective
   // value instead of storing it keeps the selection correct when the student's

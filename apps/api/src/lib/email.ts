@@ -47,7 +47,7 @@ function base(body: string): string {
   <div class="wrap">
     <span class="logo">Propella</span>
     <div class="card">${body}</div>
-    <p class="footer">Propella &mdash; Exam preparation for JAMB, WAEC &amp; NECO candidates.<br />You are receiving this because you have an active Propella account.</p>
+    <p class="footer">Propella &mdash; Exam preparation for JAMB, WAEC, NECO &amp; Undergraduate study.<br />You are receiving this because you have an active Propella account.</p>
   </div>
 </body>
 </html>`
@@ -195,5 +195,98 @@ export async function sendWeeklyDigestEmail(
     logger.info({ to }, 'Weekly digest email sent')
   } catch (err) {
     logger.error({ err, to }, 'Failed to send weekly digest email')
+  }
+}
+
+export async function sendWelcomeEmail(to: string, name: string): Promise<void> {
+  if (!canSend()) return
+  const firstName = name.split(' ')[0] || 'Scholar'
+  // Curated banner of African students studying together (reliable Unsplash direct photo)
+  const bannerUrl = 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80'
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to,
+      subject: `Welcome to Propella, ${firstName}!`,
+      html: base(`
+        <img src="${bannerUrl}" alt="Students studying together" style="width:100%;max-height:220px;object-fit:cover;border-radius:6px;margin-bottom:24px;display:block;" />
+        <h1>Welcome to Propella, ${firstName}! 🎓</h1>
+        <p>You've taken the first step towards academic excellence. Whether you're mastering high school exams (JAMB, WAEC, NECO) or managing your university courses, Propella provides the structure, past question mastery, and AI guidance you need.</p>
+        <p>Here is what you can do right now:</p>
+        <ul style="color:#4A463E;font-size:14px;line-height:1.8;margin:0 0 20px 20px;padding:0;">
+          <li>Explore your personalized study plan or university courses</li>
+          <li>Practice with real past questions and interactive quizzes</li>
+          <li>Ask our AI tutor questions directly from your materials</li>
+          <li>Build daily streaks and track your progress</li>
+        </ul>
+        <a class="btn" href="${env.FRONTEND_URL}/dashboard">Start Studying Now</a>
+        <hr class="divider" />
+        <p style="font-size:13px;color:#7C766B;">Need help or have questions? Simply reply to this email &mdash; we're here to help you succeed.</p>
+      `),
+    })
+    logger.info({ to }, 'Welcome email sent')
+  } catch (err) {
+    logger.error({ err, to }, 'Failed to send welcome email')
+  }
+}
+
+export async function sendBroadcastEmail(
+  to: string,
+  params: { title: string; body: string; imageUrl?: string | null | undefined; deeplink?: string | null | undefined },
+): Promise<void> {
+  if (!canSend()) return
+  const link = params.deeplink ? `${env.FRONTEND_URL}${params.deeplink}` : `${env.FRONTEND_URL}/dashboard`
+  const imageHtml = params.imageUrl
+    ? `<img src="${params.imageUrl}" alt="" style="width:100%;max-height:240px;object-fit:cover;border-radius:6px;margin-bottom:20px;display:block;" />`
+    : ''
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to,
+      subject: params.title,
+      html: base(`
+        ${imageHtml}
+        <h1>${params.title}</h1>
+        <p style="white-space:pre-wrap;">${params.body}</p>
+        <a class="btn" href="${link}">Open Propella</a>
+      `),
+    })
+  } catch (err) {
+    logger.error({ err, to }, 'Failed to send broadcast email')
+  }
+}
+
+export async function sendWithdrawalApprovedEmail(
+  to: string,
+  params: { name: string; amount: number; bankName: string; accountNumber: string },
+): Promise<void> {
+  if (!canSend()) return
+  const firstName = params.name.split(' ')[0] || 'Scholar'
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to,
+      subject: 'Your Propella Withdrawal Request Has Been Approved! 🎉',
+      html: base(`
+        <h1>Withdrawal Approved! 💰</h1>
+        <p>Hello ${firstName},</p>
+        <p>Great news! Your referral earnings withdrawal request of <strong>₦${params.amount.toLocaleString()}</strong> has been approved by the admin.</p>
+        <div style="background:#F4F1EA;border-radius:6px;padding:16px;margin:20px 0;">
+          <p style="margin:0 0 8px;font-size:14px;color:#1A1814;"><strong>Withdrawal Details:</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Amount: <strong>₦${params.amount.toLocaleString()}</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Bank: <strong>${params.bankName}</strong></p>
+          <p style="margin:0;font-size:13px;color:#4A463E;">Account Number: <strong>${params.accountNumber}</strong></p>
+        </div>
+        <p style="font-weight:500;color:#1A1814;">Your payment is being disbursed and you will receive your money under 24 hours.</p>
+        <p>Thank you for introducing other students to Propella. Keep sharing your referral link to earn even more rewards!</p>
+        <a class="btn" href="${env.FRONTEND_URL}/settings?tab=referrals">View Referral Wallet</a>
+      `),
+    })
+    logger.info({ to, amount: params.amount }, 'Withdrawal approved email sent')
+  } catch (err) {
+    logger.error({ err, to }, 'Failed to send withdrawal approved email')
   }
 }

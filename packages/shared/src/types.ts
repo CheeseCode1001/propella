@@ -24,6 +24,8 @@ export interface AuthUser {
   locale?: 'en' | 'yo' | 'ha' | 'ig'
   avatarUrl?: string
   emailVerified: boolean
+  undergraduateMode?: boolean
+  referralBalance?: number
 }
 
 export interface AuthTokens {

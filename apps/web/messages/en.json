@@ -35,7 +35,8 @@
     "tools": "Tools",
     "profile": "Profile",
     "study": "Study",
-    "notes": "Notes"
+    "notes": "Notes",
+    "files": "Files"
   },
   "auth": {
     "login": "Sign in",

@@ -5,7 +5,7 @@ import { Link, usePathname } from '@/lib/i18n/navigation'
 import {
   Home2, BookSquare, Calendar, TaskSquare, DocumentText,
   Timer1, Magicpen, Chart2, Cup, Profile, Card, Notification,
-  MessageQuestion, LogoutCurve, Lock1, Note1,
+  MessageQuestion, LogoutCurve, Lock1, Note1, Folder2,
 } from 'iconsax-reactjs'
 import { NavIcon } from '@/components/common/nav-icon'
 import { useTranslations } from 'next-intl'
@@ -25,12 +25,15 @@ export function Sidebar() {
   const tAuth = useTranslations('auth')
 
   const marathonActive = useMarathonActive()
+  const isUndergrad = !!user?.undergraduateMode
 
   // While a marathon is running the destinations that pull attention away from
   // studying are locked. Study surfaces stay reachable.
   const navItems = [
     { href: '/dashboard', icon: Home2, label: tNav('dashboard'), lockable: false },
-    { href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false },
+    isUndergrad
+      ? { href: '/files', icon: Folder2, label: tNav('files'), lockable: false }
+      : { href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false },
     { href: '/notes', icon: Note1, label: tNav('notes'), lockable: false },
     { href: '/planner', icon: Calendar, label: tNav('planner'), lockable: false },
     { href: '/quizzes', icon: TaskSquare, label: tNav('quizzes'), lockable: false },

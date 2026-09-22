@@ -227,7 +227,12 @@ function ProfileTab() {
 
 function ExamTab() {
   const t = useTranslations('settings')
+  const user = useAuthStore((s) => s.user)
+  const setUser = useAuthStore((s) => s.setUser)
+  const [undergradMode, setUndergradMode] = useState(user?.undergraduateMode ?? false)
+  const [undergradSaving, setUndergradSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+
   const { data: profile } = useQuery({
     queryKey: ['exam-profile-settings'],
     queryFn: () =>
@@ -244,6 +249,23 @@ function ExamTab() {
     },
   })
 
+  async function handleUndergradToggle(val: boolean) {
+    setUndergradSaving(true)
+    try {
+      const res = await api.patch<{ data: AuthUser }>('/users/profile', { undergraduateMode: val })
+      if (res?.data) {
+        setUser(res.data)
+      } else if (user) {
+        setUser({ ...user, undergraduateMode: val })
+      }
+      setUndergradMode(val)
+    } catch (err) {
+      console.error('Failed to update undergraduate mode', err)
+    } finally {
+      setUndergradSaving(false)
+    }
+  }
+
   async function onSubmit(data: ExamForm) {
     try {
       await api.patch('/onboarding/profile', data)
@@ -255,38 +277,65 @@ function ExamTab() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Exam settings</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div>
-            <Label htmlFor="examDate" style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', display: 'block', marginBottom: 6 }}>
-              Exam date
-            </Label>
-            <Input id="examDate" type="date" {...register('examDate')} />
-          </div>
-          <div>
-            <Label htmlFor="dailyStudy" style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', display: 'block', marginBottom: 6 }}>
-              Daily study commitment (minutes)
-            </Label>
-            <Input
-              id="dailyStudy"
-              type="number"
-              min={15}
-              max={480}
-              {...register('dailyStudyMinutes', { valueAsNumber: true })}
-            />
-          </div>
-          <div>
-            <Button variant="accent" type="submit">
-              {saved ? 'Saved' : t('saveChanges')}
-            </Button>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+    <div className="flex flex-col gap-6">
+      {/* Undergraduate Mode Switch */}
+      <Card>
+        <CardHeader>
+          <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>
+            Academic Track & Mode
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ToggleRow
+            label="Undergraduate Mode"
+            description="Organize your studies by university courses and year levels (100L–500L), upload course materials, and query your notes directly with AI. All your JAMB, WAEC, and NECO records remain safely preserved in one account."
+            checked={undergradMode}
+            onChange={handleUndergradToggle}
+          />
+          {undergradSaving && (
+            <p className="text-xs text-[var(--color-ink-3)] mt-2">Updating your academic track...</p>
+          )}
+          {undergradMode && (
+            <div className="mt-4 p-3 rounded-lg bg-[var(--color-accent-tint)] border border-[var(--color-accent)]/20 text-xs text-[var(--color-ink)] leading-relaxed">
+              🎓 <strong>Undergraduate Mode is Active:</strong> Your navigation now features <strong>Course Files</strong> where you can upload and classify past questions, lecture slides, and notes by academic year. The highschool syllabus is hidden while you are in this mode.
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Exam Settings</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div>
+              <Label htmlFor="examDate" style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', display: 'block', marginBottom: 6 }}>
+                Target exam date
+              </Label>
+              <Input id="examDate" type="date" {...register('examDate')} />
+            </div>
+            <div>
+              <Label htmlFor="dailyStudy" style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', display: 'block', marginBottom: 6 }}>
+                Daily study commitment (minutes)
+              </Label>
+              <Input
+                id="dailyStudy"
+                type="number"
+                min={15}
+                max={480}
+                {...register('dailyStudyMinutes', { valueAsNumber: true })}
+              />
+            </div>
+            <div>
+              <Button variant="accent" type="submit">
+                {saved ? 'Saved' : t('saveChanges')}
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 

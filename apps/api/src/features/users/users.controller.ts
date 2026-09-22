@@ -34,6 +34,7 @@ export async function updateMe(
       timezone?: string
       locale?: 'en' | 'yo' | 'ha' | 'ig'
       avatarUrl?: string | null
+      undergraduateMode?: boolean
       notifications?: {
         email?: boolean
         push?: boolean

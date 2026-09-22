@@ -208,6 +208,13 @@ model User {
   referralReceived Referral?     @relation("ReferralReceived")
   creditEvents     CreditEvent[]
 
+  undergraduateMode Boolean @default(false)
+  referralBalance   Int     @default(0)
+
+  courses     Course[]
+  courseFiles CourseFile[]
+  withdrawals WithdrawalRequest[]
+
   @@index([createdAt])
   @@map("users")
 }
@@ -778,4 +785,65 @@ model Reminder {
   @@index([status, scheduledFor])
   @@index([userId, type, scheduledFor])
   @@map("reminders")
+}
+
+enum WithdrawalStatus {
+  pending
+  approved
+  rejected
+}
+
+model WithdrawalRequest {
+  id              String           @id @default(cuid())
+  userId          String
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount          Int
+  bankName        String
+  accountName     String
+  accountNumber   String
+  status          WithdrawalStatus @default(pending)
+  rejectionReason String?
+  approvedAt      DateTime?
+  reviewedById    String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@map("withdrawal_requests")
+}
+
+model Course {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code      String
+  title     String
+  year      Int
+  semester  Int?
+  files     CourseFile[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([userId, year])
+  @@map("courses")
+}
+
+model CourseFile {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  name        String
+  fileUrl     String
+  fileType    String
+  fileSize    Int
+  textContent String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([courseId])
+  @@index([userId])
+  @@map("course_files")
 }

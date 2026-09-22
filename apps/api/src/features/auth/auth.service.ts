@@ -12,7 +12,7 @@ import {
 } from '../referrals/referrals.service'
 import { logger } from '../../config/logger'
 import { AppError } from '../../middleware/error-handler'
-import { sendPasswordResetEmail, sendVerificationCodeEmail } from '../../lib/email'
+import { sendPasswordResetEmail, sendVerificationCodeEmail, sendWelcomeEmail } from '../../lib/email'
 
 const BCRYPT_ROUNDS = 12
 // A signed-in session lasts a day before the access token is renewed. The
@@ -199,6 +199,13 @@ export async function signup(data: SignupInput): Promise<User> {
   // must not cost somebody their account.
   if (data.referralCode) {
     await attachReferral(user.id, data.referralCode)
+  }
+
+  // Send welcome email with African students study banner
+  try {
+    await sendWelcomeEmail(user.email, user.name)
+  } catch (err) {
+    logger.warn({ err, userId: user.id }, 'Could not send welcome email')
   }
 
   // Fire the verification code immediately; a failure here must not roll back a

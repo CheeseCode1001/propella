@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import { Link, usePathname } from '@/lib/i18n/navigation'
-import { Home2, BookSquare, Element3, Note1, Profile } from 'iconsax-reactjs'
+import { Home2, BookSquare, Element3, Note1, Profile, Folder2 } from 'iconsax-reactjs'
 import type { Icon as IconsaxIcon } from 'iconsax-reactjs'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils/cn'
 import { NavIcon } from '@/components/common/nav-icon'
+import { useAuthStore } from '@/lib/stores/auth-store'
 import { ToolsSheet } from './tools-sheet'
 
 // Everything reachable from the Tools sheet, so the centre button can show as
@@ -28,10 +29,12 @@ function isToolsRoute(pathname: string) {
 
 export function MobileNav() {
   const pathname = usePathname()
+  const user = useAuthStore((s) => s.user)
   const [sheetOpen, setSheetOpen] = useState(false)
   const t = useTranslations('nav')
 
   const toolsActive = isToolsRoute(pathname) || sheetOpen
+  const isUndergrad = !!user?.undergraduateMode
 
   return (
     <>
@@ -45,7 +48,11 @@ export function MobileNav() {
         }}
       >
         <NavTab href="/dashboard" icon={Home2} label={t('dashboard')} pathname={pathname} />
-        <NavTab href="/roadmap" icon={BookSquare} label={t('roadmap')} pathname={pathname} />
+        {isUndergrad ? (
+          <NavTab href="/files" icon={Folder2} label={t('files')} pathname={pathname} />
+        ) : (
+          <NavTab href="/roadmap" icon={BookSquare} label={t('roadmap')} pathname={pathname} />
+        )}
 
         {/* Tools — raised primary button in the centre */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -17,6 +17,11 @@ router.patch('/users/:id/role', adminController.setUserRole)
 // Announcements to students.
 router.post('/broadcast', adminController.broadcast)
 
+// Referral withdrawals
+router.get('/withdrawals', adminController.listWithdrawals)
+router.post('/withdrawals/:id/approve', adminController.approveWithdrawal)
+router.post('/withdrawals/:id/reject', adminController.rejectWithdrawal)
+
 // Administrator management, kept separate from the general user list.
 router.get('/admins', adminController.listAdmins)
 router.post('/admins', adminController.grantAdmin)

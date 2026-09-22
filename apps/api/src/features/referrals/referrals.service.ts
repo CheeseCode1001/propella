@@ -172,6 +172,12 @@ export async function qualifyReferral(inviteeId: string): Promise<void> {
       referral.id,
     )
 
+    // Grant digital cash balance (₦1,000 per converted referral)
+    await prisma.user.update({
+      where: { id: referral.referrerId },
+      data: { referralBalance: { increment: REFERRAL_CASH_REWARD } },
+    })
+
     await grantCredits(
       inviteeId,
       CREDITS_FOR_JOINING,
@@ -181,14 +187,89 @@ export async function qualifyReferral(inviteeId: string): Promise<void> {
     )
 
     await notify(referral.referrerId, 'system', {
-      title: `You earned ${CREDITS_PER_REFERRAL} AI credits`,
-      body: 'Someone you invited just joined Propella. Thank you for sharing.',
+      title: `You earned ₦${REFERRAL_CASH_REWARD} & ${CREDITS_PER_REFERRAL} AI credits!`,
+      body: 'Someone you invited joined Propella. Digital cash has been credited to your referral wallet.',
       deeplink: '/settings?tab=referrals',
       metadata: { referralId: referral.id },
     })
   } catch (err) {
     logger.warn({ err, inviteeId }, 'Could not qualify referral')
   }
+}
+
+export const REFERRAL_CASH_REWARD = 1000
+export const MIN_WITHDRAWAL_REFERRALS = 5
+
+export interface WithdrawalRequestInput {
+  bankName: string
+  accountName: string
+  accountNumber: string
+  amount: number
+}
+
+export async function requestWithdrawal(userId: string, input: WithdrawalRequestInput) {
+  const amount = Number(input.amount)
+  const bankName = input.bankName?.trim()
+  const accountName = input.accountName?.trim()
+  const accountNumber = input.accountNumber?.trim()
+
+  if (!bankName) throw new AppError(400, 'Bank name is required')
+  if (!accountName) throw new AppError(400, 'Account name is required')
+  if (!accountNumber || accountNumber.length < 9) {
+    throw new AppError(400, 'A valid bank account number is required')
+  }
+  if (isNaN(amount) || amount <= 0) {
+    throw new AppError(400, 'A valid withdrawal amount is required')
+  }
+
+  // 1. Check user has at least 5 qualified referrals
+  const qualifiedCount = await prisma.referral.count({
+    where: { referrerId: userId, qualifiedAt: { not: null } },
+  })
+
+  if (qualifiedCount < MIN_WITHDRAWAL_REFERRALS) {
+    throw new AppError(
+      400,
+      `You need at least ${MIN_WITHDRAWAL_REFERRALS} successful referrals before requesting a withdrawal. You currently have ${qualifiedCount}.`,
+    )
+  }
+
+  // 2. Check balance
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { referralBalance: true },
+  })
+
+  if (!user || user.referralBalance < amount) {
+    throw new AppError(400, `Insufficient referral balance. Available: ₦${user?.referralBalance ?? 0}`)
+  }
+
+  // 3. Atomically create withdrawal and decrement balance
+  const [withdrawal] = await prisma.$transaction([
+    prisma.withdrawalRequest.create({
+      data: {
+        userId,
+        amount,
+        bankName,
+        accountName,
+        accountNumber,
+        status: 'pending',
+      },
+    }),
+    prisma.user.update({
+      where: { id: userId },
+      data: { referralBalance: { decrement: amount } },
+    }),
+  ])
+
+  return withdrawal
+}
+
+export async function getUserWithdrawals(userId: string) {
+  return prisma.withdrawalRequest.findMany({
+    where: { userId },
+    orderBy: { createdAt: 'desc' },
+  })
 }
 
 /* -------------------------------------------------------------------------- */
@@ -200,8 +281,12 @@ export interface ReferralSummary {
   /** Ready-to-share link. */
   shareUrl: string
   creditBalance: number
+  referralBalance: number
   creditsPerReferral: number
   creditsForJoining: number
+  cashRewardPerReferral: number
+  minReferralsForWithdrawal: number
+  canWithdraw: boolean
   totalInvited: number
   totalQualified: number
   pending: number
@@ -211,6 +296,17 @@ export interface ReferralSummary {
     joinedAt: string
     qualified: boolean
   }[]
+  withdrawals: {
+    id: string
+    amount: number
+    bankName: string
+    accountName: string
+    accountNumber: string
+    status: 'pending' | 'approved' | 'rejected'
+    rejectionReason: string | null
+    approvedAt: string | null
+    createdAt: string
+  }[]
 }
 
 export async function getReferralSummary(
@@ -219,7 +315,7 @@ export async function getReferralSummary(
 ): Promise<ReferralSummary> {
   const code = await ensureReferralCode(userId)
 
-  const [referrals, balance, earned] = await Promise.all([
+  const [referrals, balance, earned, user, userWithdrawals] = await Promise.all([
     prisma.referral.findMany({
       where: { referrerId: userId },
       orderBy: { createdAt: 'desc' },
@@ -235,17 +331,30 @@ export async function getReferralSummary(
       where: { userId, source: 'referral_bonus' },
       _sum: { amount: true },
     }),
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { referralBalance: true },
+    }),
+    prisma.withdrawalRequest.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+    }),
   ])
 
   const qualified = referrals.filter((r) => r.qualifiedAt !== null).length
+  const refBalance = user?.referralBalance ?? 0
 
   return {
     code,
     // Trailing slash would produce a double slash in the shared link.
     shareUrl: `${frontendUrl.replace(/\/$/, '')}/signup?ref=${code}`,
     creditBalance: balance,
+    referralBalance: refBalance,
     creditsPerReferral: CREDITS_PER_REFERRAL,
     creditsForJoining: CREDITS_FOR_JOINING,
+    cashRewardPerReferral: REFERRAL_CASH_REWARD,
+    minReferralsForWithdrawal: MIN_WITHDRAWAL_REFERRALS,
+    canWithdraw: qualified >= MIN_WITHDRAWAL_REFERRALS && refBalance > 0,
     totalInvited: referrals.length,
     totalQualified: qualified,
     pending: referrals.length - qualified,
@@ -255,6 +364,17 @@ export async function getReferralSummary(
       name: r.invitee.name.split(' ')[0] ?? 'Student',
       joinedAt: r.createdAt.toISOString(),
       qualified: r.qualifiedAt !== null,
+    })),
+    withdrawals: userWithdrawals.map((w) => ({
+      id: w.id,
+      amount: w.amount,
+      bankName: w.bankName,
+      accountName: w.accountName,
+      accountNumber: w.accountNumber,
+      status: w.status,
+      rejectionReason: w.rejectionReason,
+      approvedAt: w.approvedAt ? w.approvedAt.toISOString() : null,
+      createdAt: w.createdAt.toISOString(),
     })),
   }
 }

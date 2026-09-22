@@ -4,6 +4,8 @@ import { AppError, NotFoundError } from '../../middleware/error-handler'
 import { parsePastQuestions, type RowError } from '../../lib/past-question-import'
 import { logger } from '../../config/logger'
 import { sendPushToUsers } from '../../lib/push'
+import { sendBroadcastEmail, sendWithdrawalApprovedEmail } from '../../lib/email'
+import { notify } from '../notifications/notification.service'
 
 // ─── Platform metrics ────────────────────────────────────────────────
 
@@ -222,7 +224,9 @@ export async function broadcast(params: {
   body: string
   audience: BroadcastAudience
   deeplink?: string | null
-}): Promise<BroadcastResult> {
+  imageUrl?: string | null
+  sendEmail?: boolean
+}): Promise<BroadcastResult & { emailsDelivered: number }> {
   const title = params.title.trim().slice(0, 80)
   const body = params.body.trim().slice(0, 200)
 
@@ -241,9 +245,9 @@ export async function broadcast(params: {
     where.emailVerifiedAt = null
   }
 
-  const recipients = await prisma.user.findMany({ where, select: { id: true } })
+  const recipients = await prisma.user.findMany({ where, select: { id: true, email: true, notifyEmail: true } })
   if (recipients.length === 0) {
-    return { recipients: 0, pushesDelivered: 0 }
+    return { recipients: 0, pushesDelivered: 0, emailsDelivered: 0 }
   }
 
   await prisma.notification.createMany({
@@ -253,6 +257,7 @@ export async function broadcast(params: {
       title,
       body,
       deeplink: params.deeplink?.trim() || null,
+      metadata: params.imageUrl ? { imageUrl: params.imageUrl } : {},
     })),
   })
 
@@ -275,12 +280,118 @@ export async function broadcast(params: {
     return 0
   })
 
+  // Optionally send broadcast email with the attached image
+  let emailsDelivered = 0
+  if (params.sendEmail) {
+    const emailRecipients = recipients.filter((r) => r.notifyEmail)
+    for (const r of emailRecipients) {
+      sendBroadcastEmail(r.email, {
+        title,
+        body,
+        imageUrl: params.imageUrl,
+        deeplink: params.deeplink,
+      }).catch((err) => logger.warn({ err, email: r.email }, 'Broadcast email failed'))
+    }
+    emailsDelivered = emailRecipients.length
+  }
+
   logger.info(
-    { recipients: recipients.length, pushesDelivered, audience: params.audience },
+    { recipients: recipients.length, pushesDelivered, emailsDelivered, audience: params.audience },
     'Broadcast sent',
   )
 
-  return { recipients: recipients.length, pushesDelivered }
+  return { recipients: recipients.length, pushesDelivered, emailsDelivered }
+}
+
+// ─── Withdrawal requests ─────────────────────────────────────────────
+
+export async function listWithdrawalRequests(status?: string) {
+  const where: Prisma.WithdrawalRequestWhereInput = {}
+  if (status && ['pending', 'approved', 'rejected'].includes(status)) {
+    where.status = status as 'pending' | 'approved' | 'rejected'
+  }
+  return prisma.withdrawalRequest.findMany({
+    where,
+    orderBy: { createdAt: 'desc' },
+    include: {
+      user: {
+        select: { id: true, name: true, email: true, referralCode: true, referralBalance: true },
+      },
+    },
+  })
+}
+
+export async function approveWithdrawal(adminId: string, withdrawalId: string) {
+  const req = await prisma.withdrawalRequest.findUnique({
+    where: { id: withdrawalId },
+    include: { user: true },
+  })
+  if (!req) throw new NotFoundError('Withdrawal request not found')
+  if (req.status !== 'pending') {
+    throw new AppError(400, `This withdrawal request is already ${req.status}`)
+  }
+
+  const updated = await prisma.withdrawalRequest.update({
+    where: { id: withdrawalId },
+    data: {
+      status: 'approved',
+      approvedAt: new Date(),
+      reviewedById: adminId,
+    },
+  })
+
+  // Notify student in-app
+  await notify(req.userId, 'system', {
+    title: 'Withdrawal Approved! 💰',
+    body: `Your withdrawal of ₦${req.amount.toLocaleString()} has been approved. Funds will arrive within 24 hours.`,
+    deeplink: '/settings?tab=referrals',
+    metadata: { withdrawalId: req.id, status: 'approved' },
+  }).catch((err) => logger.warn({ err }, 'Withdrawal approval notification failed'))
+
+  // Send approval email informing user funds arrive within 24 hours
+  await sendWithdrawalApprovedEmail(req.user.email, {
+    name: req.user.name,
+    amount: req.amount,
+    bankName: req.bankName,
+    accountNumber: req.accountNumber,
+  }).catch((err) => logger.warn({ err }, 'Withdrawal approval email failed'))
+
+  return updated
+}
+
+export async function rejectWithdrawal(adminId: string, withdrawalId: string, reason?: string) {
+  const req = await prisma.withdrawalRequest.findUnique({
+    where: { id: withdrawalId },
+  })
+  if (!req) throw new NotFoundError('Withdrawal request not found')
+  if (req.status !== 'pending') {
+    throw new AppError(400, `This withdrawal request is already ${req.status}`)
+  }
+
+  const [updated] = await prisma.$transaction([
+    prisma.withdrawalRequest.update({
+      where: { id: withdrawalId },
+      data: {
+        status: 'rejected',
+        rejectionReason: reason?.trim() || 'Declined by admin',
+        reviewedById: adminId,
+      },
+    }),
+    // Refund the amount back to user's referral balance
+    prisma.user.update({
+      where: { id: req.userId },
+      data: { referralBalance: { increment: req.amount } },
+    }),
+  ])
+
+  await notify(req.userId, 'system', {
+    title: 'Withdrawal Request Declined',
+    body: `Your withdrawal request of ₦${req.amount.toLocaleString()} was declined: ${reason || 'Details could not be verified'}. Your balance has been restored.`,
+    deeplink: '/settings?tab=referrals',
+    metadata: { withdrawalId: req.id, status: 'rejected' },
+  }).catch((err) => logger.warn({ err }, 'Withdrawal rejection notification failed'))
+
+  return updated
 }
 
 // ─── Past questions ──────────────────────────────────────────────────

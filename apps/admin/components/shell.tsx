@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { BarChart3, Users, FileQuestion, History, LogOut, ShieldCheck, Megaphone } from 'lucide-react'
+import { BarChart3, Users, FileQuestion, History, LogOut, ShieldCheck, Megaphone, Banknote } from 'lucide-react'
 import { api, ApiError, getToken, setToken } from '@/lib/api'
 
 const NAV = [
@@ -11,6 +11,7 @@ const NAV = [
   { href: '/past-questions', label: 'Past questions', icon: FileQuestion },
   { href: '/imports', label: 'Import history', icon: History },
   { href: '/users', label: 'Users', icon: Users },
+  { href: '/withdrawals', label: 'Withdrawals', icon: Banknote },
   { href: '/broadcast', label: 'Announcements', icon: Megaphone },
   { href: '/administrators', label: 'Administrators', icon: ShieldCheck },
 ]

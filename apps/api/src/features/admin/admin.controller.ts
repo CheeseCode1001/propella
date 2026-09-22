@@ -195,11 +195,13 @@ export async function broadcast(
 ): Promise<void> {
   try {
     requireAdminId(req)
-    const { title, body, audience, deeplink } = req.body as {
+    const { title, body, audience, deeplink, imageUrl, sendEmail } = req.body as {
       title?: unknown
       body?: unknown
       audience?: unknown
       deeplink?: unknown
+      imageUrl?: unknown
+      sendEmail?: unknown
     }
 
     if (typeof title !== 'string' || typeof body !== 'string') {
@@ -214,8 +216,54 @@ export async function broadcast(
       body,
       audience: target,
       deeplink: typeof deeplink === 'string' ? deeplink : null,
+      imageUrl: typeof imageUrl === 'string' && imageUrl.trim() ? imageUrl.trim() : null,
+      sendEmail: Boolean(sendEmail),
     })
 
+    res.status(200).json({ data: result })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function listWithdrawals(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    requireAdminId(req)
+    const status = req.query.status as string | undefined
+    const withdrawals = await adminService.listWithdrawalRequests(status)
+    res.status(200).json({ data: withdrawals })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function approveWithdrawal(
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const adminId = requireAdminId(req)
+    const result = await adminService.approveWithdrawal(adminId, req.params.id)
+    res.status(200).json({ data: result })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function rejectWithdrawal(
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const adminId = requireAdminId(req)
+    const { reason } = req.body as { reason?: string }
+    const result = await adminService.rejectWithdrawal(adminId, req.params.id, reason)
     res.status(200).json({ data: result })
   } catch (err) {
     next(err)

@@ -696,6 +696,15 @@ export default function HomePage() {
               </Button>
             </div>
           </div>
+
+          <div className="mt-8 text-center max-w-[840px]">
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent)] hover:underline"
+            >
+              Explore Full Exam Package (₦15,000) &amp; Sponsor a Friend &rarr;
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -54,6 +54,8 @@ export function buildAuthUser(user: User): AuthUser {
     timezone: user.timezone,
     locale: user.locale,
     emailVerified: user.emailVerifiedAt !== null,
+    undergraduateMode: user.undergraduateMode,
+    referralBalance: user.referralBalance,
   }
   if (user.avatarUrl !== null) result.avatarUrl = user.avatarUrl
   return result
@@ -120,6 +122,7 @@ interface UpdateProfileData {
   locale?: 'en' | 'yo' | 'ha' | 'ig'
   /** A resized data URL, or null to go back to initials. */
   avatarUrl?: string | null
+  undergraduateMode?: boolean
   notifications?: {
     email?: boolean
     push?: boolean
@@ -180,6 +183,7 @@ export async function updateProfile(
       ...(data.theme !== undefined ? { theme: data.theme } : {}),
       ...(data.timezone !== undefined ? { timezone: data.timezone } : {}),
       ...(data.locale !== undefined ? { locale: data.locale } : {}),
+      ...(data.undergraduateMode !== undefined ? { undergraduateMode: data.undergraduateMode } : {}),
       ...(data.avatarUrl !== undefined
         ? { avatarUrl: data.avatarUrl === null ? null : validateAvatar(data.avatarUrl) }
         : {}),

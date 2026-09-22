@@ -28,6 +28,7 @@ import plannerRouter from './features/planner/planner.routes'
 import topicsRouter from './features/topics/topics.routes'
 import badgesRouter from './features/badges/badges.routes'
 import referralsRouter from './features/referrals/referrals.routes'
+import coursesRouter from './features/courses/courses.routes'
 
 const app: Express = express()
 
@@ -112,8 +113,8 @@ app.use(
 )
 
 // Body parsing
-app.use(express.json({ limit: '1mb' }))
-app.use(express.urlencoded({ extended: false }))
+app.use(express.json({ limit: '25mb' }))
+app.use(express.urlencoded({ extended: false, limit: '25mb' }))
 app.use(cookieParser())
 
 // NoSQL-injection sanitisation is gone with MongoDB — Prisma parameterises
@@ -146,6 +147,7 @@ app.use('/api/planner', authenticate, plannerRouter)
 app.use('/api/topics', authenticate, topicsRouter)
 app.use('/api/badges', authenticate, badgesRouter)
 app.use('/api/referrals', authenticate, referralsRouter)
+app.use('/api/courses', authenticate, coursesRouter)
 app.use('/api/admin', authenticate, adminRouter)
 
 // Global error handler — must be last
