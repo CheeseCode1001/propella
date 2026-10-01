@@ -1698,6 +1698,7 @@ export default function OnboardingPage() {
   /** Set when we pre-ticked a combination, so the subjects step can explain it. */
   const [suggestedFor, setSuggestedFor] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [initialLoading, setInitialLoading] = useState(true)
 
   const [state, setState] = useState<WizardState>({
     examTypes: [],
@@ -1721,6 +1722,75 @@ export default function OnboardingPage() {
       router.replace('/verify-email')
     }
   }, [authUser, router])
+
+  // Resume onboarding from saved progress
+  useEffect(() => {
+    let cancelled = false
+    api
+      .get<{
+        data: {
+          step: number
+          completed: boolean
+          profile: {
+            examTypes: ExamType[]
+            intendedCourse: string
+            institutionType: 'university' | 'polytechnic' | 'college' | null
+            learningStyle: LearningStyle | null
+            subjectSlugs: string[]
+            strengths: SubjectStrength[]
+            examDate: string
+            dailyStudyMinutes: number
+            studyWindowStart: string
+            studyWindowEnd: string
+          } | null
+        }
+      }>('/onboarding/status')
+      .then((res) => {
+        if (cancelled) return
+        const { step, completed, profile } = res.data
+        if (completed) {
+          router.replace('/dashboard')
+          return
+        }
+
+        if (profile) {
+          const profileExamTypes = (profile.examTypes && profile.examTypes.length > 0)
+            ? profile.examTypes
+            : []
+
+          setState((prev) => ({
+            ...prev,
+            examTypes: profileExamTypes.length > 0 ? profileExamTypes : prev.examTypes,
+            intendedCourse: profile.intendedCourse || prev.intendedCourse,
+            institutionType: profile.institutionType || prev.institutionType,
+            learningStyle: profile.learningStyle || prev.learningStyle,
+            subjectSlugs: profile.subjectSlugs?.length ? profile.subjectSlugs : prev.subjectSlugs,
+            strengths: profile.strengths?.length ? profile.strengths : prev.strengths,
+            examDate: profile.examDate || prev.examDate,
+            dailyStudyMinutes: profile.dailyStudyMinutes || prev.dailyStudyMinutes,
+            autoStudyWindows: !profile.studyWindowStart,
+          }))
+
+          if (step > 0) {
+            const list: StepKey[] = ['exams']
+            if (profileExamTypes.includes('jamb')) list.push('jambCourse')
+            if (profileExamTypes.includes('waec') || profileExamTypes.includes('neco')) {
+              list.push('learningStyle')
+            }
+            list.push('subjects', 'strengths', 'examDate', 'studyTimes')
+            setStepIndex(Math.min(step, list.length - 1))
+          }
+        }
+        setInitialLoading(false)
+      })
+      .catch(() => {
+        if (!cancelled) setInitialLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [router])
 
   const { data: subjectsData, isLoading: subjectsLoading } = useSubjects()
   const subjects = subjectsData ?? []
@@ -1947,6 +2017,16 @@ export default function OnboardingPage() {
     if (safeIndex <= 0) return
     // From the clamped position, so a shortened list cannot strand the wizard.
     setStepIndex(safeIndex - 1)
+  }
+
+  if (initialLoading) {
+    return (
+      <div style={{ width: '100%', maxWidth: 540, padding: '60px 0', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'var(--font-display)', fontSize: 18, color: 'var(--color-ink-2)' }}>
+          Loading your study plan...
+        </p>
+      </div>
+    )
   }
 
   // Render

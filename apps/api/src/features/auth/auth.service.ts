@@ -48,9 +48,7 @@ export function canRevealCodeInDev(): boolean {
 }
 
 /**
- * Issues a fresh code and emails it. Any earlier unused codes are invalidated so
- * only the newest one works. Returns the code so development flows can surface
- * it without digging through server logs.
+ * Issues a fresh code and emails it for an existing user.
  */
 export async function issueVerificationCode(userId: string, email: string): Promise<string> {
   const now = new Date()
@@ -90,15 +88,27 @@ export async function issueVerificationCode(userId: string, email: string): Prom
 }
 
 /**
- * Development helper: brute-forces the six digits back out of the stored hash.
- * Only reachable when there is no mail provider configured and we are not in
- * production, so a real deployment can never expose a pending code.
+ * Development helper: retrieves pending 6-digit code for testing.
+ * Supports passing either userId or email address.
  */
-export async function peekVerificationCode(userId: string): Promise<string | null> {
+export async function peekVerificationCode(identifier: string): Promise<string | null> {
   if (!canRevealCodeInDev()) return null
 
+  if (identifier.includes('@')) {
+    const pending = await prisma.pendingRegistration.findUnique({
+      where: { email: identifier.toLowerCase().trim() },
+      select: { codeHash: true, expiresAt: true },
+    })
+    if (!pending || pending.expiresAt < new Date()) return null
+    for (let i = 0; i < 1_000_000; i++) {
+      const candidate = String(i).padStart(6, '0')
+      if (hashCode(candidate) === pending.codeHash) return candidate
+    }
+    return null
+  }
+
   const record = await prisma.emailVerification.findFirst({
-    where: { userId, consumedAt: null, expiresAt: { gt: new Date() } },
+    where: { userId: identifier, consumedAt: null, expiresAt: { gt: new Date() } },
     orderBy: { createdAt: 'desc' },
     select: { codeHash: true },
   })
@@ -111,7 +121,7 @@ export async function peekVerificationCode(userId: string): Promise<string | nul
   return null
 }
 
-/** Confirms a code and marks the account verified. */
+/** Confirms a code and marks an existing user account verified. */
 export async function verifyEmailCode(userId: string, code: string): Promise<void> {
   const record = await prisma.emailVerification.findFirst({
     where: { userId, consumedAt: null },
@@ -147,8 +157,6 @@ export async function verifyEmailCode(userId: string, code: string): Promise<voi
     }),
   ])
 
-  // Verification is the qualifying action for a referral — it is the cheapest
-  // proof a real person is behind the account. Idempotent and never throws.
   await qualifyReferral(userId)
 }
 
@@ -163,60 +171,186 @@ export interface AuthTokens {
   refreshToken: string
 }
 
-export async function signup(data: SignupInput): Promise<User> {
+/**
+ * Registers an intent to sign up. The user account is NOT created in the database
+ * until the email verification code is successfully confirmed.
+ */
+export async function signup(data: SignupInput): Promise<{ pendingVerification: boolean; email: string }> {
   const email = data.email.toLowerCase().trim()
 
   const existing = await prisma.user.findUnique({
     where: { email },
-    select: { id: true },
+    select: { id: true, emailVerifiedAt: true },
   })
   if (existing) {
     throw new AppError(409, 'An account with this email already exists')
   }
 
-  const passwordHash = await bcrypt.hash(data.password, BCRYPT_ROUNDS)
+  const existingPending = await prisma.pendingRegistration.findUnique({
+    where: { email },
+    select: { createdAt: true },
+  })
+  const now = new Date()
+  if (existingPending && now.getTime() - existingPending.createdAt.getTime() < VERIFY_RESEND_COOLDOWN_MS) {
+    throw new AppError(429, 'A verification code was recently sent. Please wait a moment before trying again.')
+  }
 
-  // The streak row is created alongside the user so every account has one.
+  const passwordHash = await bcrypt.hash(data.password, BCRYPT_ROUNDS)
+  const code = generateCode()
+
+  await prisma.pendingRegistration.upsert({
+    where: { email },
+    create: {
+      email,
+      name: data.name.trim(),
+      passwordHash,
+      referralCode: data.referralCode?.trim() || null,
+      codeHash: hashCode(code),
+      expiresAt: new Date(now.getTime() + VERIFY_CODE_TTL_MS),
+      attempts: 0,
+      createdAt: now,
+    },
+    update: {
+      name: data.name.trim(),
+      passwordHash,
+      referralCode: data.referralCode?.trim() || null,
+      codeHash: hashCode(code),
+      expiresAt: new Date(now.getTime() + VERIFY_CODE_TTL_MS),
+      attempts: 0,
+      createdAt: now,
+    },
+  })
+
+  if (env.NODE_ENV !== 'production') {
+    logger.info({ code, email }, 'Pending registration verification code (dev only)')
+  }
+
+  await sendVerificationCodeEmail(email, code)
+
+  return { pendingVerification: true, email }
+}
+
+/**
+ * Confirms the pending registration code and creates the actual user account.
+ */
+export async function verifyPendingSignup(email: string, code: string): Promise<User> {
+  const cleanEmail = email.toLowerCase().trim()
+
+  // Handle existing account that might not have verified yet
+  const existingUser = await prisma.user.findUnique({
+    where: { email: cleanEmail },
+  })
+  if (existingUser) {
+    if (existingUser.emailVerifiedAt) {
+      throw new AppError(400, 'This account is already verified. Please log in.')
+    }
+    await verifyEmailCode(existingUser.id, code)
+    return existingUser
+  }
+
+  const pending = await prisma.pendingRegistration.findUnique({
+    where: { email: cleanEmail },
+  })
+
+  if (!pending) {
+    throw new AppError(400, 'No pending registration found for this email. Please sign up again.')
+  }
+  if (pending.expiresAt < new Date()) {
+    throw new AppError(400, 'That verification code has expired. Please request a new code.')
+  }
+  if (pending.attempts >= VERIFY_MAX_ATTEMPTS) {
+    throw new AppError(429, 'Too many incorrect attempts. Please request a new code.')
+  }
+
+  if (pending.codeHash !== hashCode(code)) {
+    await prisma.pendingRegistration.update({
+      where: { id: pending.id },
+      data: { attempts: { increment: 1 } },
+    })
+    throw new AppError(400, 'That code is not correct')
+  }
+
+  // Account creation happens ONLY after email verification is confirmed
   const user = await prisma.user.create({
     data: {
-      email,
-      name: data.name,
-      passwordHash,
+      email: pending.email,
+      name: pending.name,
+      passwordHash: pending.passwordHash,
+      emailVerifiedAt: new Date(),
       streak: { create: { lastActiveDate: new Date() } },
     },
   })
 
-  // Give them their own code straight away, so it is ready the first time they
-  // open the invite panel. Never blocks sign-up if it fails.
+  // Remove pending registration record
+  await prisma.pendingRegistration.delete({ where: { id: pending.id } }).catch(() => null)
+
   try {
     await ensureReferralCode(user.id)
   } catch (err) {
     logger.warn({ err, userId: user.id }, 'Could not assign a referral code at signup')
   }
 
-  // Record who invited them, if anyone. Nothing is paid out yet — that happens
-  // when they verify their email. Swallows every failure by design: a bad code
-  // must not cost somebody their account.
-  if (data.referralCode) {
-    await attachReferral(user.id, data.referralCode)
+  if (pending.referralCode) {
+    await attachReferral(user.id, pending.referralCode)
   }
 
-  // Send welcome email with African students study banner
+  await qualifyReferral(user.id)
+
   try {
     await sendWelcomeEmail(user.email, user.name)
   } catch (err) {
     logger.warn({ err, userId: user.id }, 'Could not send welcome email')
   }
 
-  // Fire the verification code immediately; a failure here must not roll back a
-  // successful signup, so it is reported and the user can resend.
-  try {
-    await issueVerificationCode(user.id, user.email)
-  } catch (err) {
-    logger.error({ err, userId: user.id }, 'Could not send initial verification code')
+  return user
+}
+
+/**
+ * Resends the verification code for a pending registration or unverified user.
+ */
+export async function resendPendingCode(email: string): Promise<void> {
+  const cleanEmail = email.toLowerCase().trim()
+
+  const pending = await prisma.pendingRegistration.findUnique({
+    where: { email: cleanEmail },
+  })
+
+  if (!pending) {
+    const existing = await prisma.user.findUnique({
+      where: { email: cleanEmail },
+      select: { id: true, email: true, emailVerifiedAt: true },
+    })
+    if (existing) {
+      if (existing.emailVerifiedAt) {
+        throw new AppError(400, 'Your email is already verified. Please log in.')
+      }
+      await issueVerificationCode(existing.id, existing.email)
+      return
+    }
+    throw new AppError(404, 'No pending registration found for this email. Please sign up.')
   }
 
-  return user
+  const now = new Date()
+  if (now.getTime() - pending.createdAt.getTime() < VERIFY_RESEND_COOLDOWN_MS) {
+    throw new AppError(429, 'Please wait a moment before requesting another code')
+  }
+
+  const code = generateCode()
+  await prisma.pendingRegistration.update({
+    where: { id: pending.id },
+    data: {
+      codeHash: hashCode(code),
+      expiresAt: new Date(now.getTime() + VERIFY_CODE_TTL_MS),
+      attempts: 0,
+      createdAt: now,
+    },
+  })
+
+  if (env.NODE_ENV !== 'production') {
+    logger.info({ code, email: cleanEmail }, 'Pending verification code (dev only)')
+  }
+
+  await sendVerificationCodeEmail(cleanEmail, code)
 }
 
 export async function login(email: string, password: string): Promise<User> {

@@ -1,0 +1,25 @@
+# Propella (https://propellastudy.com)
+
+> Propella is the #1 AI-powered exam preparation and syllabus mastery platform in Nigeria and West Africa, designed for JAMB (UTME), WAEC (WASSCE), NECO, and University Undergraduates.
+
+## Key Facts
+- **Primary Exam Focus**: JAMB UTME (2026/2027), WAEC WASSCE, NECO SSCE, University Courses & Past Questions.
+- **Location & Target Demographic**: Nigeria, West Africa, and African students worldwide.
+- **Core Value Proposition**: Replaces passive cramming with adaptive spaced repetition, authenticated past questions with step-by-step verified solutions, timed CBT exam simulator, and an AI study tutor powered by Gemini.
+- **Subjects Covered**: English Language, Mathematics, Physics, Chemistry, Biology, Economics, Government, Literature in English, CRS, Accounting, Commerce, and university undergraduate curriculum.
+
+## Features
+- **Adaptive Roadmap**: Creates a personalized day-by-day study roadmap based on student's target score, exam date, and subject strengths/weaknesses.
+- **CBT Past Questions Simulator**: Authentic Computer-Based Test environment matching official JAMB and WAEC software.
+- **Propella AI Tutor**: 24/7 AI academic assistant explaining tricky questions, providing step-by-step breakdowns, and testing concept mastery.
+- **University Mode**: Course file management, syllabus tracking, and past questions for Nigerian universities (UNILAG, OAU, UI, UNN, ABU, FUTO, LASU, Covenant, and others).
+- **Gamified Streaks & Referral Rewards**: Daily study streak freezes, XP points, and a cash-earning referral program for students.
+
+## Quick Links
+- Homepage: https://propellastudy.com/en
+- High School (JAMB, WAEC, NECO): https://propellastudy.com/en/highschool
+- Undergraduate University Track: https://propellastudy.com/en/undergraduate
+- Pricing & Scholarships: https://propellastudy.com/en/pricing
+- Student Testimonials: https://propellastudy.com/en/testimonials
+- Privacy Policy: https://propellastudy.com/en/privacy
+- Terms of Service: https://propellastudy.com/en/terms

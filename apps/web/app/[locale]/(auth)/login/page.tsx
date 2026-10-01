@@ -44,12 +44,19 @@ export default function LoginPage() {
       })
       setToken(res.data.accessToken)
       setUser(res.data.user)
+
+      const targetPath = !res.data.user.emailVerified
+        ? `/verify-email?email=${encodeURIComponent(data.email)}`
+        : !res.data.user.onboardingCompleted
+        ? '/onboarding'
+        : '/dashboard'
+
       const userLocale = res.data.user.locale ?? 'en'
       if (userLocale !== currentLocale) {
         Cookies.set('NEXT_LOCALE', userLocale, { expires: 365, path: '/', sameSite: 'lax' })
-        router.replace('/dashboard', { locale: userLocale })
+        router.replace(targetPath, { locale: userLocale })
       } else {
-        router.push('/dashboard')
+        router.push(targetPath)
       }
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Something went wrong')

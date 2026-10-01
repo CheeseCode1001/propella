@@ -7,6 +7,8 @@ import {
   ForgotPasswordSchema,
   ResetPasswordSchema,
   VerifyEmailSchema,
+  VerifySignupSchema,
+  ResendSignupCodeSchema,
 } from '@propella/shared'
 import { authenticate } from '../../middleware/auth'
 import * as authController from './auth.controller'
@@ -14,9 +16,23 @@ import * as authController from './auth.controller'
 const router: IRouter = Router()
 
 router.post('/signup', signupLimiter, validate(SignupSchema), authController.signup)
+router.post(
+  '/verify-signup',
+  signupLimiter,
+  validate(VerifySignupSchema),
+  authController.verifySignup,
+)
+router.post(
+  '/resend-signup-code',
+  signupLimiter,
+  validate(ResendSignupCodeSchema),
+  authController.resendSignupCode,
+)
+
 router.post('/login', loginLimiter, validate(LoginSchema), authController.login)
 router.post('/logout', authController.logout)
 router.post('/refresh', authController.refresh)
+
 router.post(
   '/verify-email',
   authenticate,
@@ -24,7 +40,8 @@ router.post(
   authController.verifyEmail,
 )
 router.post('/resend-verification', authenticate, authController.resendVerification)
-router.get('/dev-verification-code', authenticate, authController.devVerificationCode)
+router.get('/dev-verification-code', authController.devVerificationCode)
+
 router.post('/forgot-password', validate(ForgotPasswordSchema), authController.forgotPassword)
 router.post('/reset-password', validate(ResetPasswordSchema), authController.resetPassword)
 

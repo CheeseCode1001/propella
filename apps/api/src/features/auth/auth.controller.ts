@@ -1,5 +1,12 @@
 import type { Request, Response, NextFunction } from 'express'
-import type { SignupInput, LoginInput, ForgotPasswordInput, ResetPasswordInput } from '@propella/shared'
+import type {
+  SignupInput,
+  LoginInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
+  VerifySignupInput,
+  ResendSignupCodeInput,
+} from '@propella/shared'
 import * as authService from './auth.service'
 import { env } from '../../config/env'
 import { AppError } from '../../middleware/error-handler'
@@ -11,15 +18,6 @@ const isProduction = env.NODE_ENV === 'production'
 
 /**
  * Cookie flags for the refresh token.
- *
- * In production the web app (Vercel) and the API (Render) are on different
- * registrable domains, which makes every API call cross-site. A SameSite=Lax
- * cookie is not sent on those, so the silent refresh would fail and students
- * would be asked to sign in on every page load. SameSite=None fixes that, and
- * browsers only accept it together with Secure.
- *
- * Locally both run on localhost, which is same-site, so Lax is kept — Secure
- * would otherwise stop the cookie being set over plain http.
  */
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
@@ -37,17 +35,43 @@ function setRefreshCookie(res: Response, token: string): void {
 }
 
 function clearRefreshCookie(res: Response): void {
-  // Must match the flags the cookie was set with, or the browser keeps it.
   res.clearCookie(REFRESH_COOKIE_NAME, REFRESH_COOKIE_OPTIONS)
 }
 
+/**
+ * Step 1 of registration: validates signup input, hashes password, saves pending
+ * registration and sends 6-digit verification email. The account is NOT created
+ * in the database yet.
+ */
 export async function signup(
   req: Request<object, object, SignupInput>,
   res: Response,
   next: NextFunction,
 ): Promise<void> {
   try {
-    const user = await authService.signup(req.body)
+    const result = await authService.signup(req.body)
+    res.status(200).json({
+      data: {
+        pendingVerification: true,
+        email: result.email,
+      },
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+/**
+ * Step 2 of registration: confirms 6-digit code, creates the User record in database,
+ * issues JWT tokens, sets refresh cookie, and qualifies referrals.
+ */
+export async function verifySignup(
+  req: Request<object, object, VerifySignupInput>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const user = await authService.verifyPendingSignup(req.body.email, req.body.code)
     const tokens = authService.generateTokens(
       user.id,
       user.email,
@@ -73,6 +97,19 @@ export async function signup(
         accessToken: tokens.accessToken,
       },
     })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function resendSignupCode(
+  req: Request<object, object, ResendSignupCodeInput>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    await authService.resendPendingCode(req.body.email)
+    res.status(200).json({ data: { sent: true } })
   } catch (err) {
     next(err)
   }
@@ -173,7 +210,7 @@ export async function refresh(
 /**
  * Development-only: returns the pending verification code so the sign-up flow is
  * usable without a mail provider. Responds 404 in production or whenever
- * RESEND_API_KEY is configured.
+ * RESEND_API_KEY is configured. Accepts ?email=... or requires authenticated user.
  */
 export async function devVerificationCode(
   req: Request,
@@ -181,18 +218,20 @@ export async function devVerificationCode(
   next: NextFunction,
 ): Promise<void> {
   try {
-    if (!req.user?.id) throw new AppError(401, 'Not authenticated')
     if (!authService.canRevealCodeInDev()) {
       res.status(404).json({ error: 'Not available' })
       return
     }
-    const code = await authService.peekVerificationCode(req.user.id)
+    const identifier = (req.query.email as string) || req.user?.id
+    if (!identifier) throw new AppError(400, 'Email or authentication required')
+    const code = await authService.peekVerificationCode(identifier)
     res.status(200).json({ data: { code } })
   } catch (err) {
     next(err)
   }
 }
 
+/** Confirms email for an already-authenticated user account */
 export async function verifyEmail(
   req: Request<object, object, { code: string }>,
   res: Response,
@@ -228,7 +267,6 @@ export async function forgotPassword(
 ): Promise<void> {
   try {
     await authService.forgotPassword(req.body.email)
-    // Always return 200 — do not reveal whether the email exists
     res.status(200).json({
       data: { message: 'If that email is registered, a reset link has been sent' },
     })

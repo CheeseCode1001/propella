@@ -82,17 +82,15 @@ export default function SignupPage() {
   async function onSubmit(data: SignupFormValues) {
     setServerError(null)
     try {
-      const res = await api.post<{ data: { user: AuthUser; accessToken: string } }>('/auth/signup', {
+      await api.post<{ data: { pendingVerification: boolean; email: string } }>('/auth/signup', {
         name: data.name,
         email: data.email,
         password: data.password,
         // An unknown code is ignored server-side rather than failing sign-up.
         ...(referralCode ? { referralCode } : {}),
       })
-      setToken(res.data.accessToken)
-      setUser(res.data.user)
-      // A six-digit code was emailed on signup; confirm it before onboarding.
-      router.push(res.data.user.emailVerified ? '/onboarding' : '/verify-email')
+      // Account is not created until email verification code is confirmed
+      router.push(`/verify-email?email=${encodeURIComponent(data.email)}`)
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Something went wrong')
     }

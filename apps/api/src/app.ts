@@ -32,6 +32,9 @@ import coursesRouter from './features/courses/courses.routes'
 
 const app: Express = express()
 
+// Behind reverse proxies like Render / Cloudflare
+app.set('trust proxy', 1)
+
 // Security middleware
 app.use(helmet())
 

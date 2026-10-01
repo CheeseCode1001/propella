@@ -18,6 +18,15 @@ export const VerifyEmailSchema = z.object({
   code: z.string().regex(/^\d{6}$/, 'Enter the 6-digit code'),
 })
 
+export const VerifySignupSchema = z.object({
+  email: z.string().email().toLowerCase(),
+  code: z.string().regex(/^\d{6}$/, 'Enter the 6-digit code'),
+})
+
+export const ResendSignupCodeSchema = z.object({
+  email: z.string().email().toLowerCase(),
+})
+
 export const ForgotPasswordSchema = z.object({
   email: z.string().email().toLowerCase(),
 })
@@ -29,5 +38,8 @@ export const ResetPasswordSchema = z.object({
 
 export type SignupInput = z.infer<typeof SignupSchema>
 export type LoginInput = z.infer<typeof LoginSchema>
+export type VerifyEmailInput = z.infer<typeof VerifyEmailSchema>
+export type VerifySignupInput = z.infer<typeof VerifySignupSchema>
+export type ResendSignupCodeInput = z.infer<typeof ResendSignupCodeSchema>
 export type ForgotPasswordInput = z.infer<typeof ForgotPasswordSchema>
 export type ResetPasswordInput = z.infer<typeof ResetPasswordSchema>

@@ -847,3 +847,19 @@ model CourseFile {
   @@index([userId])
   @@map("course_files")
 }
+
+model PendingRegistration {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  referralCode String?
+  codeHash     String
+  attempts     Int       @default(0)
+  expiresAt    DateTime
+  createdAt    DateTime  @default(now())
+
+  @@index([email])
+  @@index([expiresAt])
+  @@map("pending_registrations")
+}

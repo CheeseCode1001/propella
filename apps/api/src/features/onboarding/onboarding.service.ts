@@ -51,9 +51,38 @@ async function setStep(userId: string, step: number): Promise<void> {
 
 export async function getStatus(userId: string) {
   const user = await getUser(userId)
+  const profile = await prisma.examProfile.findUnique({
+    where: { userId },
+  })
+
+  let strengths: { subjectSlug: string; level: 'weak' | 'average' | 'strong' }[] = []
+  let subjectSlugs: string[] = []
+  if (profile?.subjects) {
+    const list = jsonArray<ExamProfileSubject>(profile.subjects)
+    subjectSlugs = list.map((s) => s.slug)
+    strengths = list.map((s) => ({
+      subjectSlug: s.slug,
+      level: s.isWeak ? 'weak' : s.isStrong ? 'strong' : 'average',
+    }))
+  }
+
   return {
     step: user.onboardingStep,
     completed: user.onboardingCompleted,
+    profile: profile
+      ? {
+          examTypes: profile.examTypes.length > 0 ? profile.examTypes : [profile.examType],
+          intendedCourse: profile.intendedCourse || '',
+          institutionType: profile.institutionType || null,
+          learningStyle: profile.learningStyle || null,
+          subjectSlugs,
+          strengths,
+          examDate: profile.examDate ? profile.examDate.toISOString().slice(0, 10) : '',
+          dailyStudyMinutes: profile.dailyStudyMinutes || 120,
+          studyWindowStart: profile.studyWindowStart,
+          studyWindowEnd: profile.studyWindowEnd,
+        }
+      : null,
   }
 }
 

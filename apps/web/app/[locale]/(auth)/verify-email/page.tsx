@@ -2,20 +2,25 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from '@/lib/i18n/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/api-client'
 import { useAuthStore } from '@/lib/stores/auth-store'
+import type { AuthUser } from '@propella/shared'
 
 const CODE_LENGTH = 6
 const RESEND_COOLDOWN_SEC = 60
 
 export default function VerifyEmailPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const emailParam = searchParams.get('email')?.trim() ?? ''
   const t = useTranslations('auth')
   const user = useAuthStore((s) => s.user)
   const setUser = useAuthStore((s) => s.setUser)
+  const setToken = useAuthStore((s) => s.setAccessToken)
 
   const [digits, setDigits] = useState<string[]>(Array(CODE_LENGTH).fill(''))
   const [submitting, setSubmitting] = useState(false)
@@ -28,6 +33,8 @@ export default function VerifyEmailPage() {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([])
   const code = digits.join('')
   const isComplete = code.length === CODE_LENGTH
+
+  const activeEmail = emailParam || user?.email || ''
 
   // Already verified — nothing to do here.
   useEffect(() => {
@@ -44,20 +51,23 @@ export default function VerifyEmailPage() {
   // pending code back so sign-up is testable. Returns 404 in production.
   const loadDevCode = useCallback(async () => {
     try {
-      const res = await api.get<{ data: { code: string | null } }>('/auth/dev-verification-code')
+      const url = activeEmail
+        ? `/auth/dev-verification-code?email=${encodeURIComponent(activeEmail)}`
+        : '/auth/dev-verification-code'
+      const res = await api.get<{ data: { code: string | null } }>(url)
       setDevCode(res.data.code)
     } catch {
       setDevCode(null)
     }
-  }, [])
+  }, [activeEmail])
 
   useEffect(() => {
-    // Fetched in a promise callback rather than awaited in the effect body, so
-    // state is never set synchronously during the effect, and the result is
-    // dropped if the screen unmounts first.
     let cancelled = false
+    const url = activeEmail
+      ? `/auth/dev-verification-code?email=${encodeURIComponent(activeEmail)}`
+      : '/auth/dev-verification-code'
     api
-      .get<{ data: { code: string | null } }>('/auth/dev-verification-code')
+      .get<{ data: { code: string | null } }>(url)
       .then((res) => {
         if (!cancelled) setDevCode(res.data.code)
       })
@@ -67,7 +77,7 @@ export default function VerifyEmailPage() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [activeEmail])
 
   const submit = useCallback(
     async (value: string) => {
@@ -76,9 +86,21 @@ export default function VerifyEmailPage() {
       setError(null)
       setNotice(null)
       try {
-        await api.post('/auth/verify-email', { code: value })
-        if (user) setUser({ ...user, emailVerified: true })
-        router.replace('/onboarding')
+        if (emailParam) {
+          // Confirming registration creates the user account and signs them in
+          const res = await api.post<{ data: { user: AuthUser; accessToken: string } }>(
+            '/auth/verify-signup',
+            { email: emailParam, code: value },
+          )
+          setToken(res.data.accessToken)
+          setUser(res.data.user)
+          router.replace('/onboarding')
+        } else {
+          // Logged in user confirming their email
+          await api.post('/auth/verify-email', { code: value })
+          if (user) setUser({ ...user, emailVerified: true })
+          router.replace('/onboarding')
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Could not verify that code')
         setDigits(Array(CODE_LENGTH).fill(''))
@@ -86,7 +108,7 @@ export default function VerifyEmailPage() {
         setSubmitting(false)
       }
     },
-    [router, setUser, submitting, user],
+    [emailParam, router, setToken, setUser, submitting, user],
   )
 
   function fill(value: string) {
@@ -106,9 +128,6 @@ export default function VerifyEmailPage() {
       return
     }
 
-    // Build the next array up front so the auto-submit decision happens here
-    // rather than inside the state updater (updaters must stay pure — React
-    // runs them twice in development).
     const next = [...digits]
     for (let i = 0; i < value.length && index + i < CODE_LENGTH; i++) {
       next[index + i] = value[i]!
@@ -116,9 +135,6 @@ export default function VerifyEmailPage() {
     setDigits(next)
     inputsRef.current[Math.min(index + value.length, CODE_LENGTH - 1)]?.focus()
 
-    // join('') collapses empty slots, so a full six characters means every box
-    // is filled. (An earlier `!filled.includes('')` check was always false —
-    // every string "includes" the empty string — so this never fired.)
     const filled = next.join('')
     if (filled.length === CODE_LENGTH) void submit(filled)
   }
@@ -134,11 +150,14 @@ export default function VerifyEmailPage() {
     setError(null)
     setNotice(null)
     try {
-      await api.post('/auth/resend-verification', {})
+      if (emailParam) {
+        await api.post('/auth/resend-signup-code', { email: emailParam })
+      } else {
+        await api.post('/auth/resend-verification', {})
+      }
       setNotice('A new code is on its way.')
       setCooldown(RESEND_COOLDOWN_SEC)
       setDigits(Array(CODE_LENGTH).fill(''))
-      // The previous code is now void — pick up the replacement.
       await loadDevCode()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not resend the code')
@@ -159,7 +178,7 @@ export default function VerifyEmailPage() {
           </h1>
           <p className="text-[13px] text-[var(--color-ink-2)]">
             {t('verifyEmailSent')}{' '}
-            <strong className="text-[var(--color-ink)]">{user?.email ?? 'your inbox'}</strong>.
+            <strong className="text-[var(--color-ink)]">{activeEmail || 'your inbox'}</strong>.
           </p>
         </div>
 

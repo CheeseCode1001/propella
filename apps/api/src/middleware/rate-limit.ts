@@ -6,14 +6,16 @@ export const loginLimiter = rateLimit({
   max: 5,
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: { error: 'Too many login attempts, please try again after 15 minutes' },
 })
 
 export const signupLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3,
+  max: 10,
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: { error: 'Too many signup attempts, please try again after an hour' },
 })
 
@@ -40,6 +42,7 @@ function aiLimit(windowMs: number, max: number, message: string) {
     max,
     standardHeaders: true,
     legacyHeaders: false,
+    validate: { xForwardedForHeader: false },
     keyGenerator: byUser,
     // A blocked request never reached the model, so it should not count
     // towards the next window as if it had.
