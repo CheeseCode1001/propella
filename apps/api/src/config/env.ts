@@ -105,7 +105,15 @@ const EnvSchema = z.object({
   // Seeded super-admin. Both are required to seed one in production.
   SUPER_ADMIN_EMAIL: z.string().optional().default(''),
   SUPER_ADMIN_PASSWORD: z.string().optional().default(''),
-  COOKIE_DOMAIN: z.string().optional(),
+  COOKIE_DOMAIN: z
+    .string()
+    .optional()
+    .transform((val) => {
+      if (!val) return undefined
+      let d = val.trim().replace(/^https?:\/\//i, '').split('/')[0]!.split(':')[0]!.trim()
+      if (d.startsWith('.')) d = d.slice(1)
+      return /^[a-z0-9.-]+$/i.test(d) ? d : undefined
+    }),
 })
 
 // `prisma migrate` reads DIRECT_URL straight from .env, but the schema declares

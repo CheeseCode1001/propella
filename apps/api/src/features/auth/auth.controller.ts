@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from 'express'
+import type { Request, Response, NextFunction, CookieOptions } from 'express'
 import type {
   SignupInput,
   LoginInput,
@@ -19,24 +19,68 @@ const isProduction = env.NODE_ENV === 'production'
 
 /**
  * Cookie flags for the refresh token.
+ * Validates domain and only sets it if the current request host matches.
+ * Defaults to a safe host-only cookie.
  */
-const REFRESH_COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: isProduction,
-  sameSite: isProduction ? ('none' as const) : ('lax' as const),
-  path: '/',
-  ...(env.COOKIE_DOMAIN ? { domain: env.COOKIE_DOMAIN } : {}),
+function getRefreshCookieOptions(req?: { hostname?: string }): CookieOptions {
+  const options: CookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? ('none' as const) : ('lax' as const),
+    path: '/',
+  }
+
+  if (env.COOKIE_DOMAIN) {
+    let domain = env.COOKIE_DOMAIN.trim().replace(/^https?:\/\//i, '').split('/')[0]!.split(':')[0]!.trim()
+    if (domain.startsWith('.')) domain = domain.slice(1)
+
+    // Only apply domain if it's a valid hostname and current request host is on it or a subdomain
+    if (/^[a-z0-9.-]+$/i.test(domain)) {
+      const hostname = req?.hostname || ''
+      if (!hostname || hostname === domain || hostname.endsWith(`.${domain}`)) {
+        options.domain = domain
+      }
+    }
+  }
+
+  return options
 }
 
-function setRefreshCookie(res: Response, token: string): void {
-  res.cookie(REFRESH_COOKIE_NAME, token, {
-    ...REFRESH_COOKIE_OPTIONS,
-    maxAge: THIRTY_DAYS_MS,
-  })
+function setRefreshCookie(res: Response, token: string, req?: { hostname?: string }): void {
+  try {
+    const opts = getRefreshCookieOptions(req)
+    res.cookie(REFRESH_COOKIE_NAME, token, {
+      ...opts,
+      maxAge: THIRTY_DAYS_MS,
+    })
+  } catch (err) {
+    logger.warn({ err }, 'Failed to set refresh cookie with custom options, falling back to host-only cookie')
+    try {
+      res.cookie(REFRESH_COOKIE_NAME, token, {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax',
+        path: '/',
+        maxAge: THIRTY_DAYS_MS,
+      })
+    } catch (fallbackErr) {
+      logger.error({ err: fallbackErr }, 'Failed to set refresh cookie fallback')
+    }
+  }
 }
 
-function clearRefreshCookie(res: Response): void {
-  res.clearCookie(REFRESH_COOKIE_NAME, REFRESH_COOKIE_OPTIONS)
+function clearRefreshCookie(res: Response, req?: { hostname?: string }): void {
+  try {
+    const opts = getRefreshCookieOptions(req)
+    res.clearCookie(REFRESH_COOKIE_NAME, opts)
+  } catch {
+    res.clearCookie(REFRESH_COOKIE_NAME, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
+    })
+  }
 }
 
 /**
@@ -79,7 +123,7 @@ export async function verifySignup(
       user.plan,
     )
 
-    setRefreshCookie(res, tokens.refreshToken)
+    setRefreshCookie(res, tokens.refreshToken, req)
 
     res.status(201).json({
       data: {
@@ -131,7 +175,7 @@ export async function login(
       user.plan,
     )
 
-    setRefreshCookie(res, tokens.refreshToken)
+    setRefreshCookie(res, tokens.refreshToken, req)
 
     res.status(200).json({
       data: {
@@ -162,7 +206,7 @@ export async function logout(
   next: NextFunction,
 ): Promise<void> {
   try {
-    clearRefreshCookie(res)
+    clearRefreshCookie(res, _req)
     res.status(204).end()
   } catch (err) {
     next(err)
@@ -185,7 +229,7 @@ export async function refresh(
     const tokens = authService.generateTokens(payload.id, payload.email, payload.plan)
     const user = await authService.getUserForRefresh(payload.id)
 
-    setRefreshCookie(res, tokens.refreshToken)
+    setRefreshCookie(res, tokens.refreshToken, req)
 
     res.status(200).json({
       data: {
