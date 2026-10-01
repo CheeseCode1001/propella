@@ -38,7 +38,8 @@ function base(body: string): string {
     h1 { font-size: 22px; font-weight: 500; color: #1A1814; margin: 0 0 8px; line-height: 1.3; }
     p { font-size: 15px; color: #4A463E; line-height: 1.6; margin: 0 0 16px; }
     p:last-child { margin-bottom: 0; }
-    .btn { display: inline-block; background: #B23A2E; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 6px; margin: 8px 0 16px; }
+    .btn, a.btn, a.btn:visited, a.btn:hover, a.btn:active { display: inline-block; background-color: #B23A2E; color: #ffffff !important; text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 6px; margin: 8px 0 16px; -webkit-text-size-adjust: none; }
+    .btn span { color: #ffffff !important; text-decoration: none; }
     .divider { border: none; border-top: 1px solid #E5DFD2; margin: 24px 0; }
     .footer { font-size: 12px; color: #7C766B; margin-top: 24px; line-height: 1.5; }
   </style>
@@ -51,6 +52,10 @@ function base(body: string): string {
   </div>
 </body>
 </html>`
+}
+
+function renderButton(label: string, href: string): string {
+  return `<a class="btn" href="${href}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #B23A2E; color: #ffffff !important; text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 6px; margin: 8px 0 16px; -webkit-text-size-adjust: none;"><span style="color: #ffffff !important; text-decoration: none; font-weight: 600;">${label}</span></a>`
 }
 
 function canSend(): boolean {
@@ -72,7 +77,7 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string): Prom
       html: base(`
         <h1>Reset your password</h1>
         <p>We received a request to reset the password for your Propella account. Click the button below to choose a new one. This link expires in one hour.</p>
-        <a class="btn" href="${resetUrl}">Reset password</a>
+        ${renderButton('Reset password', resetUrl)}
         <hr class="divider" />
         <p>If you did not request a password reset, you can ignore this email. Your password will not change.</p>
       `),
@@ -115,7 +120,7 @@ export async function sendStreakWarningEmail(to: string, streak: number): Promis
       html: base(`
         <h1>Study today to keep your streak</h1>
         <p>You have a ${streak}-day streak. Study anything today &mdash; even one topic or a short quiz &mdash; to keep it going.</p>
-        <a class="btn" href="${env.FRONTEND_URL}/dashboard">Open Propella</a>
+        ${renderButton('Open Propella', `${env.FRONTEND_URL}/dashboard`)}
         <hr class="divider" />
         <p>Your streak resets at midnight. A streak freeze will be applied automatically if you have one available on your plan.</p>
       `),
@@ -141,7 +146,7 @@ export async function sendStudyReminderEmail(
       html: base(`
         <h1>${payload.title}</h1>
         <p>${payload.body}</p>
-        <a class="btn" href="${link}">Open Propella</a>
+        ${renderButton('Open Propella', link)}
       `),
     })
     logger.info({ to, type: 'study_reminder' }, 'Study reminder email sent')
@@ -189,7 +194,7 @@ export async function sendWeeklyDigestEmail(
         </table>
         <hr class="divider" />
         ${weakList}
-        <a class="btn" href="${env.FRONTEND_URL}/roadmap">View your roadmap</a>
+        ${renderButton('View your roadmap', `${env.FRONTEND_URL}/roadmap`)}
       `),
     })
     logger.info({ to }, 'Weekly digest email sent')
@@ -220,7 +225,7 @@ export async function sendWelcomeEmail(to: string, name: string): Promise<void> 
           <li>Ask our AI tutor questions directly from your materials</li>
           <li>Build daily streaks and track your progress</li>
         </ul>
-        <a class="btn" href="${env.FRONTEND_URL}/dashboard">Start Studying Now</a>
+        ${renderButton('Start Studying Now', `${env.FRONTEND_URL}/dashboard`)}
         <hr class="divider" />
         <p style="font-size:13px;color:#7C766B;">Need help or have questions? Simply reply to this email &mdash; we're here to help you succeed.</p>
       `),
@@ -250,7 +255,7 @@ export async function sendBroadcastEmail(
         ${imageHtml}
         <h1>${params.title}</h1>
         <p style="white-space:pre-wrap;">${params.body}</p>
-        <a class="btn" href="${link}">Open Propella</a>
+        ${renderButton('Open Propella', link)}
       `),
     })
   } catch (err) {
@@ -282,7 +287,7 @@ export async function sendWithdrawalApprovedEmail(
         </div>
         <p style="font-weight:500;color:#1A1814;">Your payment is being disbursed and you will receive your money under 24 hours.</p>
         <p>Thank you for introducing other students to Propella. Keep sharing your referral link to earn even more rewards!</p>
-        <a class="btn" href="${env.FRONTEND_URL}/settings?tab=referrals">View Referral Wallet</a>
+        ${renderButton('View Referral Wallet', `${env.FRONTEND_URL}/settings?tab=referrals`)}
       `),
     })
     logger.info({ to, amount: params.amount }, 'Withdrawal approved email sent')
