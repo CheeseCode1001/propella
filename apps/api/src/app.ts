@@ -5,7 +5,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import 'express-async-errors'
 import { env } from './config/env'
-import { errorHandler } from './middleware/error-handler'
+import { errorHandler, AppError } from './middleware/error-handler'
 import { authenticate } from './middleware/auth'
 import authRoutes from './features/auth/auth.routes'
 import subjectsRouter from './features/subjects/subjects.routes'
@@ -77,6 +77,9 @@ app.use(
  */
 const allowedOrigins = [
   env.FRONTEND_URL,
+  'https://propellastudy.com',
+  'https://www.propellastudy.com',
+  'https://admin.propellastudy.com',
   env.ADMIN_URL,
   ...env.CORS_EXTRA_ORIGINS.split(',')
     .map((o) => o.trim())
@@ -95,7 +98,7 @@ const VERCEL_PREVIEW = /^https:\/\/[a-z0-9-]+\.vercel\.app$/i
 
 function isAllowedOrigin(origin: string): boolean {
   if (allowedOrigins.includes(origin)) return true
-  if (env.NODE_ENV !== 'production' && VERCEL_PREVIEW.test(origin)) return true
+  if (VERCEL_PREVIEW.test(origin)) return true
   return false
 }
 
@@ -106,7 +109,7 @@ app.use(
       if (!origin || isAllowedOrigin(origin)) {
         callback(null, true)
       } else {
-        callback(new Error(`CORS blocked for origin: ${origin}`))
+        callback(new AppError(403, `CORS blocked for origin: ${origin}`))
       }
     },
     credentials: true,

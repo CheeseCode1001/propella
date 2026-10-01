@@ -69,6 +69,7 @@ export function errorHandler(
 
   res.status(500).json({
     error: 'Internal server error',
-    ...(isProduction ? {} : { detail: err.message }),
+    detail: err.message || String(err),
   })
 }
+

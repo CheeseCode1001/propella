@@ -12,7 +12,7 @@
  *   API + auth    never cached, never intercepted
  */
 
-const VERSION = 'v1'
+const VERSION = 'v2'
 const SHELL_CACHE = `propella-shell-${VERSION}`
 const ASSET_CACHE = `propella-assets-${VERSION}`
 const OFFLINE_URL = '/offline.html'
@@ -46,12 +46,19 @@ self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting()
 })
 
-/** Anything user-specific or authenticated must bypass the cache entirely. */
+/** Anything user-specific, authenticated, or dynamic must bypass the cache entirely. */
 function isPrivate(url) {
   return (
     url.pathname.startsWith('/api/') ||
-    url.pathname.includes('/auth/') ||
-    url.pathname.startsWith('/_next/image')
+    url.pathname.includes('/auth') ||
+    url.pathname.includes('/login') ||
+    url.pathname.includes('/signup') ||
+    url.pathname.includes('/verify-email') ||
+    url.pathname.includes('/onboarding') ||
+    url.pathname.includes('/dashboard') ||
+    url.pathname.includes('/settings') ||
+    url.pathname.startsWith('/_next/image') ||
+    url.pathname.startsWith('/_next/data')
   )
 }
 
@@ -106,20 +113,25 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  // Everything else: serve what we have, refresh in the background.
+  // Assets and media: serve network, fallback to cache if available
   event.respondWith(
-    caches.match(request).then((hit) => {
-      const network = fetch(request)
-        .then((res) => {
-          if (res.ok) {
-            const copy = res.clone()
-            void caches.open(ASSET_CACHE).then((c) => c.put(request, copy))
-          }
-          return res
-        })
-        .catch(() => hit)
-      return hit || network
-    }),
+    fetch(request)
+      .then((res) => {
+        if (res.ok && url.pathname.match(/\.(png|jpg|jpeg|svg|ico|webp|woff2?|css|js)$/)) {
+          const copy = res.clone()
+          void caches.open(ASSET_CACHE).then((c) => c.put(request, copy))
+        }
+        return res
+      })
+      .catch(async () => {
+        const hit = await caches.match(request)
+        if (hit) return hit
+        if (request.mode === 'navigate') {
+          const fallback = await caches.match(OFFLINE_URL)
+          if (fallback) return fallback
+        }
+        return Response.error()
+      }),
   )
 })
 

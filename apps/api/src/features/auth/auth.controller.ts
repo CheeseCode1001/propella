@@ -10,6 +10,7 @@ import type {
 import * as authService from './auth.service'
 import { env } from '../../config/env'
 import { AppError } from '../../middleware/error-handler'
+import { logger } from '../../config/logger'
 
 const REFRESH_COOKIE_NAME = 'refresh_token'
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000
@@ -87,8 +88,8 @@ export async function verifySignup(
           name: user.name,
           email: user.email,
           plan: user.plan,
-          onboardingCompleted: user.onboardingCompleted,
-          onboardingStep: user.onboardingStep,
+          onboardingCompleted: Boolean(user.onboardingCompleted),
+          onboardingStep: user.onboardingStep ?? 0,
           theme: user.theme,
           timezone: user.timezone,
           avatarUrl: user.avatarUrl,
@@ -97,7 +98,8 @@ export async function verifySignup(
         accessToken: tokens.accessToken,
       },
     })
-  } catch (err) {
+  } catch (err: any) {
+    logger.error({ err, email: req.body.email, msg: err?.message }, 'verifySignup failed')
     next(err)
   }
 }
@@ -110,7 +112,8 @@ export async function resendSignupCode(
   try {
     await authService.resendPendingCode(req.body.email)
     res.status(200).json({ data: { sent: true } })
-  } catch (err) {
+  } catch (err: any) {
+    logger.error({ err, email: req.body.email, msg: err?.message }, 'resendSignupCode failed')
     next(err)
   }
 }
@@ -137,8 +140,8 @@ export async function login(
           name: user.name,
           email: user.email,
           plan: user.plan,
-          onboardingCompleted: user.onboardingCompleted,
-          onboardingStep: user.onboardingStep,
+          onboardingCompleted: Boolean(user.onboardingCompleted),
+          onboardingStep: user.onboardingStep ?? 0,
           theme: user.theme,
           timezone: user.timezone,
           avatarUrl: user.avatarUrl,
@@ -147,7 +150,8 @@ export async function login(
         accessToken: tokens.accessToken,
       },
     })
-  } catch (err) {
+  } catch (err: any) {
+    logger.error({ err, email: req.body.email, msg: err?.message }, 'login failed')
     next(err)
   }
 }
