@@ -16,7 +16,18 @@ type StepKey =
   | 'studyTimes'
 import { useRouter } from '@/lib/i18n/navigation'
 import { differenceInDays, differenceInWeeks, format } from 'date-fns'
-import { Check, Trophy } from 'lucide-react'
+import {
+  Check,
+  Trophy,
+  Sparkles,
+  Flame,
+  Target,
+  BookOpen,
+  Clock,
+  ArrowRight,
+  Zap,
+  Award,
+} from 'lucide-react'
 import { Lamp } from 'iconsax-reactjs'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -1581,105 +1592,490 @@ function Step6({
   )
 }
 
-// ─── Step 7: Generating ───────────────────────────────────────────────────────
+// ─── Step 7: Generating & Gamified Celebration ───────────────────────────────
 
 const GENERATING_STEPS = [
-  'Analysing your subjects and strength profile',
-  'Calculating your timeline and daily targets',
-  'Ordering topics by exam weight and prerequisites',
-  'Scheduling your spaced repetition calendar',
+  {
+    title: 'Analysing subjects & strength profile',
+    subtitle: 'Calibrating baseline scores and topic difficulty distribution',
+    icon: Target,
+  },
+  {
+    title: 'Calculating timeline & daily targets',
+    subtitle: 'Configuring daily focus windows and balanced repetition blocks',
+    icon: Clock,
+  },
+  {
+    title: 'Ordering topics by exam frequency',
+    subtitle: 'Prioritizing high-yield questions from JAMB & WAEC question bank',
+    icon: BookOpen,
+  },
+  {
+    title: 'Activating spaced repetition engine',
+    subtitle: 'Scheduling dynamic recall triggers to guarantee 90%+ retention',
+    icon: Zap,
+  },
 ]
 
 function Step7Generating({
   subjectCount,
   topicCount,
   weekCount,
+  dailyMinutes = 120,
+  examTypes = [],
+  onComplete,
 }: {
   subjectCount: number
   topicCount: number
   weekCount: number
+  dailyMinutes?: number
+  examTypes?: string[]
+  onComplete: () => void
 }) {
   const [ticked, setTicked] = useState(0)
+  const [countdown, setCountdown] = useState(6)
+  const isFinished = ticked >= GENERATING_STEPS.length
 
+  const triggerConfetti = useCallback(async () => {
+    try {
+      const confettiModule = await import('canvas-confetti')
+      const confetti = confettiModule.default
+      // Big center burst
+      confetti({
+        particleCount: 85,
+        spread: 80,
+        origin: { y: 0.55 },
+        colors: ['#6E3A5F', '#E0A838', '#10B981', '#3B82F6', '#EC4899'],
+        ticks: 250,
+      })
+      // Left cannon
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 65,
+          origin: { x: 0.05, y: 0.65 },
+          colors: ['#E0A838', '#6E3A5F', '#10B981'],
+        })
+      }, 200)
+      // Right cannon
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 65,
+          origin: { x: 0.95, y: 0.65 },
+          colors: ['#3B82F6', '#E0A838', '#6E3A5F'],
+        })
+      }, 350)
+    } catch {
+      // safe fallback if canvas is not supported
+    }
+  }, [])
+
+  // Step ticking progression
   useEffect(() => {
     if (ticked >= GENERATING_STEPS.length) return
-    const t = setTimeout(() => setTicked((n) => n + 1), 600)
-    return () => clearTimeout(t)
+    const timer = setTimeout(() => {
+      setTicked((n) => n + 1)
+    }, 650)
+    return () => clearTimeout(timer)
   }, [ticked])
 
-  return (
-    <div style={{ paddingTop: 24 }}>
-      <h1
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 28,
-          lineHeight: 1.15,
-          letterSpacing: '-0.02em',
-          color: 'var(--color-ink)',
-          marginBottom: 10,
-        }}
-      >
-        Building your roadmap...
-      </h1>
-      <p style={{ fontSize: 14, color: 'var(--color-ink-2)', marginBottom: 32, lineHeight: 1.5 }}>
-        Mapping {topicCount} topics across {subjectCount} subjects over {weekCount} weeks.
-      </p>
+  // Confetti trigger once complete
+  useEffect(() => {
+    if (isFinished) {
+      void triggerConfetti()
+    }
+  }, [isFinished, triggerConfetti])
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {GENERATING_STEPS.map((label, i) => {
+  // Countdown timer once finished
+  useEffect(() => {
+    if (!isFinished) return
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval)
+          onComplete()
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [isFinished, onComplete])
+
+  const progressPercent = Math.round((ticked / GENERATING_STEPS.length) * 100)
+  const examLabel = examTypes.length > 0 ? examTypes.map((e) => e.toUpperCase()).join(' & ') : 'JAMB'
+
+  return (
+    <div style={{ paddingTop: 16 }}>
+      {/* Header */}
+      <div style={{ textAlign: 'center', marginBottom: 28 }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '4px 12px',
+            borderRadius: 'var(--radius-full)',
+            backgroundColor: isFinished ? 'rgba(16, 185, 129, 0.12)' : 'rgba(110, 58, 95, 0.08)',
+            border: `1px solid ${isFinished ? 'rgba(16, 185, 129, 0.3)' : 'rgba(110, 58, 95, 0.2)'}`,
+            color: isFinished ? 'var(--color-success)' : 'var(--color-accent)',
+            fontSize: 12,
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: 12,
+          }}
+        >
+          {isFinished ? (
+            <>
+              <Sparkles size={14} /> Roadmap Activated
+            </>
+          ) : (
+            <>
+              <Zap size={14} /> Propella AI Engine
+            </>
+          )}
+        </div>
+
+        <h1
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 26,
+            lineHeight: 1.2,
+            letterSpacing: '-0.02em',
+            color: 'var(--color-ink)',
+            marginBottom: 8,
+          }}
+        >
+          {isFinished ? 'Your Study Roadmap is Ready!' : 'Building Your Master Study Roadmap...'}
+        </h1>
+        <p style={{ fontSize: 14, color: 'var(--color-ink-2)', lineHeight: 1.5, maxWidth: 440, margin: '0 auto' }}>
+          {isFinished
+            ? 'Your custom syllabus is calibrated for maximum retention and top exam scores.'
+            : `Structuring ${topicCount} high-yield topics across ${subjectCount} subjects over ${weekCount} weeks.`}
+        </p>
+      </div>
+
+      {/* Visual Progress Bar */}
+      <div style={{ marginBottom: 24 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-ink-2)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            {isFinished ? 'Calibration Complete' : 'AI Analysis & Scheduling'}
+          </span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: isFinished ? 'var(--color-success)' : 'var(--color-accent)' }}>
+            {progressPercent}%
+          </span>
+        </div>
+        <div
+          style={{
+            width: '100%',
+            height: 8,
+            backgroundColor: 'var(--color-rule-2)',
+            borderRadius: 'var(--radius-full)',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${progressPercent}%`,
+              background: isFinished
+                ? 'linear-gradient(90deg, #10B981, #059669)'
+                : 'linear-gradient(90deg, #6E3A5F, #E0A838, #10B981)',
+              borderRadius: 'var(--radius-full)',
+              transition: 'width 500ms cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Gamified Checklist Cards */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28 }}>
+        {GENERATING_STEPS.map((step, i) => {
           const done = i < ticked
           const active = i === ticked
+          const StepIcon = step.icon
+
           return (
             <div
               key={i}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 12,
-                opacity: done || active ? 1 : 0.3,
-                transition: 'opacity 400ms ease',
+                justifyContent: 'space-between',
+                padding: '12px 16px',
+                borderRadius: 'var(--radius-lg)',
+                border: `1px solid ${
+                  done
+                    ? 'rgba(16, 185, 129, 0.25)'
+                    : active
+                      ? 'rgba(110, 58, 95, 0.3)'
+                      : 'var(--color-rule-2)'
+                }`,
+                backgroundColor: done
+                  ? 'rgba(16, 185, 129, 0.04)'
+                  : active
+                    ? 'rgba(110, 58, 95, 0.03)'
+                    : 'var(--color-surface)',
+                opacity: done || active ? 1 : 0.45,
+                transform: active ? 'scale(1.01)' : 'scale(1)',
+                transition: 'all 350ms cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             >
-              <div
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: 'var(--radius-full)',
-                  border: `2px solid ${done ? 'var(--color-success)' : active ? 'var(--color-accent)' : 'var(--color-rule-2)'}`,
-                  backgroundColor: done ? 'var(--color-success)' : 'transparent',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  transition: 'all 300ms',
-                }}
-              >
-                {done && <Check size={13} color="white" strokeWidth={2.5} />}
-                {active && (
-                  <div
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <div
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: done
+                      ? 'var(--color-success)'
+                      : active
+                        ? 'var(--color-accent)'
+                        : 'var(--color-rule-2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    color: 'white',
+                    transition: 'all 300ms ease',
+                    boxShadow: done ? '0 2px 8px rgba(16, 185, 129, 0.3)' : undefined,
+                  }}
+                >
+                  {done ? <Check size={18} strokeWidth={3} /> : <StepIcon size={18} />}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <span
                     style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: 'var(--radius-full)',
-                      backgroundColor: 'var(--color-accent)',
-                      animation: 'pulse 1s ease-in-out infinite',
+                      fontSize: 14,
+                      fontWeight: done ? 600 : active ? 500 : 400,
+                      color: done ? 'var(--color-ink)' : 'var(--color-ink-2)',
                     }}
-                  />
+                  >
+                    {step.title}
+                  </span>
+                  <span style={{ fontSize: 12, color: 'var(--color-ink-2)', opacity: 0.85 }}>
+                    {step.subtitle}
+                  </span>
+                </div>
+              </div>
+
+              {/* Status Pill */}
+              <div style={{ flexShrink: 0, marginLeft: 12 }}>
+                {done ? (
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 600,
+                      color: 'var(--color-success)',
+                      backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                      padding: '3px 8px',
+                      borderRadius: 'var(--radius-full)',
+                    }}
+                  >
+                    Done ✓
+                  </span>
+                ) : active ? (
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 600,
+                      color: 'var(--color-accent)',
+                      backgroundColor: 'rgba(110, 58, 95, 0.1)',
+                      padding: '3px 8px',
+                      borderRadius: 'var(--radius-full)',
+                    }}
+                  >
+                    Active...
+                  </span>
+                ) : (
+                  <span style={{ fontSize: 11, color: 'var(--color-ink-2)', opacity: 0.5 }}>
+                    Queued
+                  </span>
                 )}
               </div>
-              <span
-                style={{
-                  fontSize: 14,
-                  color: done ? 'var(--color-ink)' : 'var(--color-ink-2)',
-                  fontWeight: done ? 500 : 400,
-                }}
-              >
-                {label}
-              </span>
             </div>
           )
         })}
       </div>
+
+      {/* Gamification Celebration Rewards (shown when finished) */}
+      {isFinished && (
+        <div
+          style={{
+            marginBottom: 28,
+            padding: 20,
+            borderRadius: 'var(--radius-lg)',
+            background: 'linear-gradient(135deg, rgba(224, 168, 56, 0.08) 0%, rgba(110, 58, 95, 0.06) 100%)',
+            border: '1.5px solid rgba(224, 168, 56, 0.35)',
+            boxShadow: '0 8px 24px rgba(224, 168, 56, 0.1)',
+          }}
+        >
+          {/* Trophy & Badge Heading */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'rgba(224, 168, 56, 0.18)',
+                border: '1.5px solid #E0A838',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#D97706',
+                boxShadow: '0 0 16px rgba(224, 168, 56, 0.4)',
+              }}
+            >
+              <Trophy size={22} />
+            </div>
+
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-ink)' }}>
+                  Achievement Unlocked!
+                </h3>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#B45309',
+                    backgroundColor: 'rgba(224, 168, 56, 0.2)',
+                    padding: '2px 8px',
+                    borderRadius: 'var(--radius-full)',
+                  }}
+                >
+                  Pacesetter
+                </span>
+              </div>
+              <p style={{ fontSize: 13, color: 'var(--color-ink-2)', marginTop: 2 }}>
+                You have completed setup and earned your initial study momentum rewards!
+              </p>
+            </div>
+          </div>
+
+          {/* Gamified Rewards Badges */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 16 }}>
+            <div
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                padding: '10px 12px',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--color-rule-2)',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, color: '#D97706', fontWeight: 700, fontSize: 15 }}>
+                <Sparkles size={15} /> +100 XP
+              </div>
+              <span style={{ fontSize: 11, color: 'var(--color-ink-2)' }}>Novice Scholar</span>
+            </div>
+
+            <div
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                padding: '10px 12px',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--color-rule-2)',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, color: '#EA580C', fontWeight: 700, fontSize: 15 }}>
+                <Flame size={15} /> Day 1
+              </div>
+              <span style={{ fontSize: 11, color: 'var(--color-ink-2)' }}>Streak Started</span>
+            </div>
+
+            <div
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                padding: '10px 12px',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--color-rule-2)',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, color: 'var(--color-success)', fontWeight: 700, fontSize: 15 }}>
+                <Award size={15} /> Ready
+              </div>
+              <span style={{ fontSize: 11, color: 'var(--color-ink-2)' }}>Top 5% Setup</span>
+            </div>
+          </div>
+
+          {/* Plan Highlights Summary */}
+          <div
+            style={{
+              padding: '10px 12px',
+              backgroundColor: 'rgba(255, 255, 255, 0.6)',
+              borderRadius: 'var(--radius-md)',
+              fontSize: 12,
+              color: 'var(--color-ink-2)',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 8,
+              justifyContent: 'space-between',
+            }}
+          >
+            <span>🎯 <strong>Exam:</strong> {examLabel}</span>
+            <span>📚 <strong>Syllabus:</strong> {subjectCount} Subjects ({topicCount} Topics)</span>
+            <span>⏱️ <strong>Target:</strong> {dailyMinutes}m/day</span>
+          </div>
+        </div>
+      )}
+
+      {/* Action Buttons & Countdown */}
+      {isFinished && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center' }}>
+          <Button
+            variant="accent"
+            size="lg"
+            onClick={onComplete}
+            style={{
+              width: '100%',
+              fontSize: 16,
+              fontWeight: 600,
+              padding: '14px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              boxShadow: '0 4px 16px rgba(110, 58, 95, 0.25)',
+            }}
+          >
+            <span>Launch My Study Dashboard</span>
+            <ArrowRight size={18} />
+          </Button>
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '0 4px' }}>
+            <span style={{ fontSize: 12, color: 'var(--color-ink-2)' }}>
+              Entering in <strong>{countdown}s</strong>...
+            </span>
+
+            <button
+              type="button"
+              onClick={triggerConfetti}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--color-accent)',
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+                padding: '4px 6px',
+              }}
+            >
+              <span>More Confetti</span> 🎊
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -2003,10 +2399,7 @@ export default function OnboardingPage() {
           variant: 'danger',
         })
       }
-      // Wait for all the checklist ticks (4 * 600ms + buffer) then redirect
-      setTimeout(() => {
-        router.push('/dashboard')
-      }, 3200)
+      // Step7Generating manages the celebration confetti, rewards showcase, and dashboard redirect
       return
     }
 
@@ -2104,6 +2497,9 @@ export default function OnboardingPage() {
           subjectCount={state.subjectSlugs.length}
           topicCount={totalTopics}
           weekCount={totalWeeks}
+          dailyMinutes={state.dailyStudyMinutes}
+          examTypes={state.examTypes}
+          onComplete={() => router.push('/dashboard')}
         />
       )}
 
