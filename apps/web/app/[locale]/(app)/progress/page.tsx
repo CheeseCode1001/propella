@@ -686,9 +686,9 @@ export default function ProgressPage() {
                   >
                     <Button variant="link" size="sm" asChild>
                       <Link
-                        href={`/quizzes/new?subject=${t.subjectSlug}&topic=${t.topicSlug}`}
+                        href={`/topics/${t.subjectSlug}/${t.topicSlug}`}
                       >
-                        Practice
+                        Visit topic
                       </Link>
                     </Button>
                   </div>

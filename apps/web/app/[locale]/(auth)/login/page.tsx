@@ -51,13 +51,12 @@ export default function LoginPage() {
         ? '/onboarding'
         : '/dashboard'
 
-      const userLocale = res.data.user.locale ?? 'en'
-      if (userLocale !== currentLocale) {
-        Cookies.set('NEXT_LOCALE', userLocale, { expires: 365, path: '/', sameSite: 'lax' })
-        router.replace(targetPath, { locale: userLocale })
-      } else {
-        router.push(targetPath)
+      const activeLocale = currentLocale || res.data.user.locale || 'en'
+      Cookies.set('NEXT_LOCALE', activeLocale, { expires: 365, path: '/', sameSite: 'lax' })
+      if (res.data.user.locale !== activeLocale) {
+        api.patch('/users/me', { locale: activeLocale }).catch(() => null)
       }
+      router.push(targetPath)
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Something went wrong')
     }

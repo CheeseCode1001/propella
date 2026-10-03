@@ -67,30 +67,38 @@ export default function SignupPage() {
   const [passwordValue, setPasswordValue] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
+  const searchParamsRef = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('ref')?.trim() : ''
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(SignupFormSchema),
+    defaultValues: {
+      referralCode: searchParamsRef || '',
+    },
   })
+  const activeReferralCode = watch('referralCode') || searchParamsRef
 
   // Set when they arrived through an invite link (/signup?ref=CODE).
   const searchParams = useSearchParams()
-  const referralCode = searchParams.get('ref')?.trim() ?? null
+  const initialRef = searchParams.get('ref')?.trim() ?? ''
 
   async function onSubmit(data: SignupFormValues) {
     setServerError(null)
+    const code = (data.referralCode || initialRef || '').trim()
     try {
       await api.post<{ data: { pendingVerification: boolean; email: string } }>('/auth/signup', {
         name: data.name,
         email: data.email,
         password: data.password,
         // An unknown code is ignored server-side rather than failing sign-up.
-        ...(referralCode ? { referralCode } : {}),
+        ...(code ? { referralCode: code } : {}),
       })
       // Account is not created until email verification code is confirmed
-      router.push(`/verify-email?email=${encodeURIComponent(data.email)}`)
+      router.push('/verify-email?email=' + encodeURIComponent(data.email))
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Something went wrong')
     }
@@ -112,7 +120,7 @@ export default function SignupPage() {
         </div>
 
         {/* Confirms the invite was picked up, so it does not apply silently. */}
-        {referralCode && (
+        {activeReferralCode && (
           <div
             className="mb-5 flex items-start gap-2.5 rounded-[var(--radius-md)] px-3.5 py-3"
             style={{ backgroundColor: 'var(--color-accent-tint)' }}
@@ -125,7 +133,7 @@ export default function SignupPage() {
             />
             <p className="text-[12.5px] leading-[1.55] text-[var(--color-ink-2)]">
               You were invited with code{' '}
-              <strong className="text-[var(--color-ink)]">{referralCode.toUpperCase()}</strong>.
+              <strong className="text-[var(--color-ink)]">{activeReferralCode.toUpperCase()}</strong>.
               Confirm your email after signing up and you both get AI credits.
             </p>
           </div>
@@ -201,6 +209,24 @@ export default function SignupPage() {
             <PasswordStrengthBar password={passwordValue} />
             {errors.password && (
               <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.password.message}</p>
+            )}
+          </div>
+
+          <div>
+            <Label htmlFor="referralCode" className="flex items-center gap-1.5">
+              <Gift size={14} color="var(--color-accent)" variant="Linear" />
+              Referral code <span className="text-[12px] font-normal text-[var(--color-ink-3)]">(Optional)</span>
+            </Label>
+            <Input
+              id="referralCode"
+              type="text"
+              autoCapitalize="characters"
+              placeholder="e.g. PROP-AB12"
+              error={errors.referralCode?.message}
+              {...register('referralCode')}
+            />
+            {errors.referralCode && (
+              <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.referralCode.message}</p>
             )}
           </div>
 

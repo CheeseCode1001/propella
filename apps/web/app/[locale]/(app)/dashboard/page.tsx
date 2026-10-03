@@ -427,8 +427,8 @@ function WeakestTopicsCard({ topics }: { topics: WeakTopic[] }) {
                   {topic.mastery}%
                 </span>
                 <Button variant="link" size="sm" asChild>
-                  <Link href={`/quizzes/new?subject=${topic.subjectSlug}&topic=${topic.topicSlug}`}>
-                    Practice
+                  <Link href={`/topics/${topic.subjectSlug}/${topic.topicSlug}`}>
+                    Visit topic
                   </Link>
                 </Button>
               </div>

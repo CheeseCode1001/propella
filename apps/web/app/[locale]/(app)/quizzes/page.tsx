@@ -1,9 +1,10 @@
 'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useMemo, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { format } from 'date-fns'
 import { useSubjects } from '@/lib/hooks/use-subjects'
+import { useRoadmap } from '@/lib/hooks/use-roadmap'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api-client'
 import { Button } from '@/components/ui/button'
@@ -48,8 +49,25 @@ function useRecentQuizzes() {
 export default function QuizzesPage() {
   const router = useRouter()
   const t = useTranslations('quiz')
+  const searchParams = useSearchParams()
+  const initialSubjectParam = searchParams.get('subject')
+  const initialTopicParam = searchParams.get('topic')
+
   const { data: subjects, isLoading: subjectsLoading } = useSubjects()
+  const { data: roadmap, isLoading: roadmapLoading } = useRoadmap()
   const { data: recentQuizzes, isLoading: quizzesLoading } = useRecentQuizzes()
+
+  // Filter subjects to only those the student selected in onboarding / roadmap
+  const enrolledSubjectSlugs = useMemo(() => {
+    if (!roadmap?.nodes || roadmap.nodes.length === 0) return null
+    return new Set(roadmap.nodes.map((n) => n.subjectSlug))
+  }, [roadmap])
+
+  const availableSubjects = useMemo(() => {
+    if (!subjects) return []
+    if (!enrolledSubjectSlugs || enrolledSubjectSlugs.size === 0) return subjects
+    return subjects.filter((s) => enrolledSubjectSlugs.has(s.slug))
+  }, [subjects, enrolledSubjectSlugs])
 
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [selectedTopic, setSelectedTopic] = useState<string>('')
@@ -57,7 +75,38 @@ export default function QuizzesPage() {
   const [generating, setGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const topics = selectedSubject?.topics ?? []
+  // Filter topics for the chosen subject strictly to the student's enrolled syllabus topics
+  const availableTopics = useMemo(() => {
+    if (!selectedSubject) return []
+    if (!roadmap?.nodes || roadmap.nodes.length === 0) {
+      return (selectedSubject.topics ?? []).map((t) => ({ slug: t.slug, name: t.name }))
+    }
+    const topicMap = new Map<string, string>()
+    for (const node of roadmap.nodes) {
+      if (node.subjectSlug === selectedSubject.slug) {
+        topicMap.set(node.topicSlug, node.topicName)
+      }
+    }
+    if (topicMap.size === 0) {
+      return (selectedSubject.topics ?? []).map((t) => ({ slug: t.slug, name: t.name }))
+    }
+    return Array.from(topicMap.entries()).map(([slug, name]) => ({ slug, name }))
+  }, [selectedSubject, roadmap])
+
+  // Pre-select subject/topic from URL query parameters if available
+  useEffect(() => {
+    if (availableSubjects.length > 0 && initialSubjectParam && !selectedSubject) {
+      const match = availableSubjects.find((s) => s.slug === initialSubjectParam)
+      if (match) {
+        setSelectedSubject(match)
+        if (initialTopicParam) {
+          setSelectedTopic(initialTopicParam)
+        }
+      }
+    }
+  }, [availableSubjects, initialSubjectParam, initialTopicParam, selectedSubject])
+
+
 
   async function handleGenerate() {
     if (!selectedSubject || !selectedTopic) {
@@ -142,7 +191,7 @@ export default function QuizzesPage() {
                 <select
                   value={selectedSubject?.slug ?? ''}
                   onChange={(e) => {
-                    const subj = subjects?.find((s) => s.slug === e.target.value) ?? null
+                    const subj = availableSubjects.find((s) => s.slug === e.target.value) ?? null
                     setSelectedSubject(subj)
                     setSelectedTopic('')
                   }}
@@ -161,7 +210,7 @@ export default function QuizzesPage() {
                   }}
                 >
                   <option value="">Select a subject...</option>
-                  {subjects?.map((s) => (
+                  {availableSubjects.map((s) => (
                     <option key={s.slug} value={s.slug}>
                       {s.name}
                     </option>
@@ -205,7 +254,7 @@ export default function QuizzesPage() {
               >
                 <option value="">Select a topic...</option>
                 <option value={ALL_TOPICS}>All topics (past questions)</option>
-                {topics.map((t) => (
+                {availableTopics.map((t) => (
                   <option key={t.slug} value={t.slug}>
                     {t.name}
                   </option>

@@ -188,7 +188,7 @@ export function MarathonWidget() {
         boxShadow: '0 12px 32px rgba(0,0,0,0.18)',
         overflow: 'hidden',
       }}
-      className="max-md:right-3 max-md:bottom-[calc(72px+env(safe-area-inset-bottom))] max-md:w-[calc(100vw-24px)] max-md:max-w-[300px]"
+      className="max-md:top-[calc(56px+env(safe-area-inset-top))] max-md:bottom-auto max-md:right-2.5 max-md:w-[220px] max-md:scale-[0.88] max-md:origin-top-right transition-all duration-300"
     >
       {/* Celebration is reserved for a marathon actually seen through. */}
       {isDone && <Confetti />}

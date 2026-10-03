@@ -153,10 +153,10 @@ self.addEventListener('push', (event) => {
   const title = payload.title || 'Propella'
   const options = {
     body: payload.body || '',
-    icon: '/icon-192.png',
-    badge: '/icon-192.png',
-    // Same tag replaces the previous notification instead of stacking.
-    tag: payload.tag || 'propella',
+    icon: '/logo.png',
+    badge: '/logo.png',
+    vibrate: [100, 50, 100],
+    tag: payload.tag || ('propella-' + Date.now()),
     renotify: true,
     data: { url: payload.url || '/dashboard' },
   }

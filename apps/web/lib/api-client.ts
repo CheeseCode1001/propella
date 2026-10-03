@@ -1,13 +1,57 @@
 import { API_URL } from './constants'
 
-let _accessToken: string | null = null
+const TOKEN_KEY = 'propella_access_token'
+
+let _accessToken: string | null =
+  typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null
 
 export function setAccessToken(token: string | null) {
   _accessToken = token
+  if (typeof window !== 'undefined') {
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token)
+    } else {
+      localStorage.removeItem(TOKEN_KEY)
+    }
+  }
 }
 
 export function getAccessToken() {
+  if (!_accessToken && typeof window !== 'undefined') {
+    _accessToken = localStorage.getItem(TOKEN_KEY)
+  }
   return _accessToken
+}
+
+let refreshPromise: Promise<string | null> | null = null
+
+async function doRefreshToken(): Promise<string | null> {
+  if (refreshPromise) return refreshPromise
+
+  refreshPromise = (async () => {
+    try {
+      const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
+        method: 'POST',
+        credentials: 'include',
+      })
+      if (refreshRes.ok) {
+        const data = (await refreshRes.json()) as { data: { accessToken: string } }
+        setAccessToken(data.data.accessToken)
+        return data.data.accessToken
+      }
+      if (refreshRes.status === 401 || refreshRes.status === 403) {
+        setAccessToken(null)
+        window.dispatchEvent(new CustomEvent('propella:logout'))
+      }
+      return null
+    } catch {
+      return null
+    } finally {
+      refreshPromise = null
+    }
+  })()
+
+  return refreshPromise
 }
 
 async function request<T>(
@@ -15,8 +59,9 @@ async function request<T>(
   path: string,
   body?: unknown,
 ): Promise<T> {
+  const token = getAccessToken()
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }
-  if (_accessToken) headers['Authorization'] = `Bearer ${_accessToken}`
+  if (token) headers['Authorization'] = `Bearer ${token}`
 
   const res = await fetch(`${API_URL}/api${path}`, {
     method,
@@ -26,15 +71,9 @@ async function request<T>(
   })
 
   if (res.status === 401 && path !== '/auth/login' && path !== '/auth/refresh') {
-    // Try refresh
-    const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-    })
-    if (refreshRes.ok) {
-      const data = await refreshRes.json() as { data: { accessToken: string } }
-      _accessToken = data.data.accessToken
-      headers['Authorization'] = `Bearer ${_accessToken}`
+    const newToken = await doRefreshToken()
+    if (newToken) {
+      headers['Authorization'] = `Bearer ${newToken}`
       const retry = await fetch(`${API_URL}/api${path}`, {
         method,
         headers,
@@ -42,20 +81,22 @@ async function request<T>(
         body: body ? JSON.stringify(body) : undefined,
       })
       if (!retry.ok) {
-        const err = await retry.json() as { error: string }
+        const err = (await retry.json().catch(() => ({ error: 'Request failed' }))) as {
+          error?: string
+        }
         throw new Error(err.error ?? 'Request failed')
       }
+      if (retry.status === 204) return undefined as T
       return retry.json() as Promise<T>
     } else {
-      _accessToken = null
-      // Signal logout to auth store
-      window.dispatchEvent(new CustomEvent('propella:logout'))
       throw new Error('Session expired')
     }
   }
 
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: 'Request failed' })) as { error: string }
+    const err = (await res.json().catch(() => ({ error: 'Request failed' }))) as {
+      error?: string
+    }
     throw new Error(err.error ?? 'Request failed')
   }
 

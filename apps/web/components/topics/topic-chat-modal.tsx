@@ -10,6 +10,7 @@ import { Link } from '@/lib/i18n/navigation'
 import { api, getAccessToken } from '@/lib/api-client'
 import { API_URL } from '@/lib/constants'
 import { Modal } from '@/components/ui/modal'
+import { AiThinkingBubble, AiStreamingBubble } from '@/components/ai/ai-chat-bubble-status'
 import { Button } from '@/components/ui/button'
 
 interface Message {
@@ -245,13 +246,11 @@ export function TopicChatModal({
         ))}
 
         {streaming && (
-          <div className="max-w-[85%] text-[14px] leading-[1.6] text-[var(--color-ink)]">
+          <div className="w-full">
             {streamingText ? (
-              <div className="prose-sm">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{streamingText}</ReactMarkdown>
-              </div>
+              <AiStreamingBubble text={streamingText} />
             ) : (
-              <p className="text-[13px] text-[var(--color-ink-3)]">Thinking…</p>
+              <AiThinkingBubble label="Propella is thinking" />
             )}
           </div>
         )}

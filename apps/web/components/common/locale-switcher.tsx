@@ -6,6 +6,7 @@ import { usePathname, useRouter } from '@/lib/i18n/navigation'
 import { useParams } from 'next/navigation'
 import { locales, localeMetadata, type Locale } from '@/lib/i18n/locales'
 import { api } from '@/lib/api-client'
+import { useAuthStore } from '@/lib/stores/auth-store'
 
 interface LocaleSwitcherProps {
   variant?: 'popover' | 'inline'
@@ -28,11 +29,14 @@ export function LocaleSwitcher({ variant = 'popover', onSelect }: LocaleSwitcher
       return
     }
 
-    // Persist preference to backend (best-effort)
-    api.patch('/users/me', { locale }).catch(() => null)
-
     // Persist in cookie so middleware preserves it on refresh
     Cookies.set('NEXT_LOCALE', locale, { expires: 365, path: '/', sameSite: 'lax' })
+
+    const currentUser = useAuthStore.getState().user
+    if (currentUser) {
+      useAuthStore.getState().setUser({ ...currentUser, locale })
+      api.patch('/users/me', { locale }).catch(() => null)
+    }
 
     setOpen(false)
     onSelect?.()

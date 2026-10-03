@@ -28,6 +28,7 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useDictation, useSpeech } from '@/lib/hooks/use-speech'
 import { API_URL } from '@/lib/constants'
 import { cn } from '@/lib/utils/cn'
+import { AiThinkingBubble, AiStreamingBubble } from '@/components/ai/ai-chat-bubble-status'
 
 /** "5 minutes ago" for recent items, a plain date once that stops being useful. */
 function relativeTime(iso: string): string {
@@ -453,8 +454,8 @@ export default function AssistantPage() {
       let fullText = ''
 
       try {
-        const token = getAccessToken()
-        const response = await fetch(`${API_URL}/api/assistant/threads/${threadId}/messages`, {
+        let token = getAccessToken()
+        let response = await fetch(`${API_URL}/api/assistant/threads/${threadId}/messages`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -466,6 +467,32 @@ export default function AssistantPage() {
             attachedFileId: selectedFileId || undefined,
           }),
         })
+
+        if (response.status === 401) {
+          try {
+            const refreshRes = await api.post<{ data: { accessToken: string } }>('/auth/refresh')
+            token = refreshRes.data.accessToken
+            response = await fetch(`${API_URL}/api/assistant/threads/${threadId}/messages`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+              },
+              credentials: 'include',
+              body: JSON.stringify({
+                content,
+                attachedFileId: selectedFileId || undefined,
+              }),
+            })
+          } catch {
+            // silent fallback
+          }
+        }
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}))
+          throw new Error(errData?.message || 'Could not send message. Please try again.')
+        }
 
         const reader = response.body?.getReader()
         const decoder = new TextDecoder()
@@ -484,6 +511,8 @@ export default function AssistantPage() {
             }
           }
         }
+      } catch (err: any) {
+        console.error('Assistant streaming error:', err)
       } finally {
         setIsStreaming(false)
         setStreamingText('')
@@ -690,7 +719,8 @@ export default function AssistantPage() {
                   canSpeak={canSpeak}
                 />
               ))}
-              {isStreaming && streamingText && <StreamingBubble text={streamingText} />}
+              {isStreaming && !streamingText && <AiThinkingBubble label="Propella is thinking" />}
+              {isStreaming && streamingText && <AiStreamingBubble text={streamingText} />}
             </>
           )}
           <div ref={messagesEndRef} />

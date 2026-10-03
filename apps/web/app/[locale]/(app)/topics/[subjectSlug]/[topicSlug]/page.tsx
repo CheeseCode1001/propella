@@ -1,6 +1,7 @@
 'use client'
 
-import { useParams } from 'next/navigation'
+import { useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare } from 'iconsax-reactjs'
 import { Link } from '@/lib/i18n/navigation'
@@ -67,6 +68,28 @@ export default function TopicReaderPage() {
   const subjectSlug = params.subjectSlug as string
   const topicSlug = params.topicSlug as string
   const online = useOnlineStatus()
+  const router = useRouter()
+  const [practicing, setPracticing] = useState(false)
+
+  async function handleStartPractice() {
+    if (!data) return
+    setPracticing(true)
+    try {
+      const res = await api.post<{ data: { quizId: string } }>('/quizzes/generate', {
+        subjectSlug: data.subjectSlug,
+        topicSlug: data.topicSlug,
+        type: 'topic',
+        difficulty: 'adaptive',
+        mode: 'study',
+        questionCount: 10,
+      })
+      router.push('/quizzes/' + res.data.quizId)
+    } catch {
+      router.push('/quizzes/new?subject=' + data.subjectSlug + '&topic=' + data.topicSlug)
+    } finally {
+      setPracticing(false)
+    }
+  }
 
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['topic-reader', subjectSlug, topicSlug],
@@ -233,11 +256,9 @@ export default function TopicReaderPage() {
 
       {/* Practise what you just read */}
       <div className="mb-8">
-        <Button variant="accent" asChild>
-          <Link href={`/quizzes/new?subject=${data.subjectSlug}&topic=${data.topicSlug}`}>
-            <TaskSquare size={15} color="currentColor" variant="Linear" />
-            Practise this topic
-          </Link>
+        <Button variant="accent" disabled={practicing} onClick={handleStartPractice}>
+          <TaskSquare size={15} color="currentColor" variant="Linear" />
+          {practicing ? 'Starting quiz...' : 'Practise this topic'}
         </Button>
       </div>
 

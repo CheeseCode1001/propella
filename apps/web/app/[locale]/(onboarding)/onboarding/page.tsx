@@ -120,16 +120,16 @@ const COURSE_CATALOGUE: CourseOption[] = [
   { name: 'Banking and Finance', field: 'Business & Commercial', subjects: ['Mathematics', 'Economics', 'Government'] },
   { name: 'Marketing', field: 'Business & Commercial', subjects: ['Mathematics', 'Economics', 'Government'] },
 
-  { name: 'Law', field: 'Law, Arts & Social Science', subjects: ['Literature in English', 'Government', 'History'] },
+  { name: 'Law', field: 'Law, Arts & Social Science', subjects: ['Literature in English', 'Government', 'Economics'] },
   { name: 'Mass Communication', field: 'Law, Arts & Social Science', subjects: ['Literature in English', 'Government', 'Economics'] },
   { name: 'Political Science', field: 'Law, Arts & Social Science', subjects: ['Government', 'Literature in English', 'Economics'] },
   { name: 'International Relations', field: 'Law, Arts & Social Science', subjects: ['Government', 'Literature in English', 'Economics'] },
   { name: 'Public Administration', field: 'Law, Arts & Social Science', subjects: ['Government', 'Economics', 'Literature in English'] },
   { name: 'Psychology', field: 'Law, Arts & Social Science', subjects: ['Biology', 'Government', 'Economics'] },
   { name: 'Sociology', field: 'Law, Arts & Social Science', subjects: ['Government', 'Economics', 'Literature in English'] },
-  { name: 'English Language', field: 'Law, Arts & Social Science', subjects: ['Literature in English', 'Government', 'History'] },
-  { name: 'History', field: 'Law, Arts & Social Science', subjects: ['History', 'Government', 'Literature in English'] },
-  { name: 'Theatre Arts', field: 'Law, Arts & Social Science', subjects: ['Literature in English', 'Government', 'History'] },
+  { name: 'English Language', field: 'Law, Arts & Social Science', subjects: ['Literature in English', 'Government', 'Economics'] },
+  { name: 'History', field: 'Law, Arts & Social Science', subjects: ['Government', 'Literature in English', 'Economics'] },
+  { name: 'Theatre Arts', field: 'Law, Arts & Social Science', subjects: ['Literature in English', 'Government', 'Economics'] },
 ]
 
 const COURSE_FIELDS: CourseField[] = [
@@ -1015,6 +1015,114 @@ function Step2Waec({
 
 // ─── Step 3: Subjects ─────────────────────────────────────────────────────────
 
+type StudentTrack = 'science' | 'social_science' | 'art' | null
+
+const ART_AND_COMMERCIAL_SLUGS = ['literature', 'government', 'commerce', 'principles-of-accounts']
+const LAB_SCIENCE_SLUGS = ['physics', 'chemistry']
+const PURE_SCIENCE_SLUGS = ['physics', 'chemistry', 'biology']
+
+function getStudentTrack(courseObj: CourseOption | null, intendedCourse?: string): StudentTrack {
+  if (courseObj) {
+    if (
+      courseObj.field === 'Health & Medicine' ||
+      courseObj.field === 'Engineering & Tech' ||
+      courseObj.field === 'Pure Sciences'
+    ) {
+      return 'science'
+    }
+    if (courseObj.field === 'Business & Commercial') {
+      return 'social_science'
+    }
+    if (courseObj.field === 'Law, Arts & Social Science') {
+      const artKeywords = [
+        'law',
+        'theatre',
+        'history',
+        'english language',
+        'literature',
+        'music',
+        'linguistics',
+        'philosophy',
+        'french',
+        'arts',
+        'fine art',
+      ]
+      const name = courseObj.name.toLowerCase()
+      if (artKeywords.some((k) => name.includes(k))) {
+        return 'art'
+      }
+      return 'social_science'
+    }
+  }
+
+  if (!intendedCourse) return null
+  const c = intendedCourse.toLowerCase()
+
+  if (/science|medicine|surgery|pharm|dentist|nurs|engin|tech|comput|phys|chem|bio|math|biochem|agric/i.test(c)) {
+    return 'science'
+  }
+  if (/account|econ|business|bank|financ|market|public admin|sociolog|polit|admin|estate/i.test(c)) {
+    return 'social_science'
+  }
+  if (/law|art|history|theatre|english|literat|linguist|french|religio|philosop|dram|mass comm/i.test(c)) {
+    return 'art'
+  }
+
+  return null
+}
+
+const TRACK_CONFIG: Record<
+  'science' | 'social_science' | 'art',
+  {
+    name: string
+    subtext: string
+    color: string
+    bgColor: string
+    borderColor: string
+    restrictedSlugs: string[]
+    restrictionTitle: string
+    restrictionMsg: (name: string) => string
+    badgeText: string
+  }
+> = {
+  science: {
+    name: 'Science Discipline Track',
+    subtext: 'Art & Commercial courses restricted for science degrees',
+    color: '#2563EB',
+    bgColor: 'rgba(59, 130, 246, 0.1)',
+    borderColor: 'rgba(59, 130, 246, 0.25)',
+    restrictedSlugs: ART_AND_COMMERCIAL_SLUGS,
+    restrictionTitle: 'Subject Restricted for Science Track',
+    restrictionMsg: (name) =>
+      name + ' is an Art/Commercial subject. Science university admissions require core science and mathematics subjects.',
+    badgeText: '(Restricted for Science)',
+  },
+  social_science: {
+    name: 'Social Science & Commercial Track',
+    subtext: 'Physical laboratory sciences restricted for commercial degrees',
+    color: '#0D9488',
+    bgColor: 'rgba(13, 148, 136, 0.1)',
+    borderColor: 'rgba(13, 148, 136, 0.25)',
+    restrictedSlugs: LAB_SCIENCE_SLUGS,
+    restrictionTitle: 'Subject Restricted for Social Science Track',
+    restrictionMsg: (name) =>
+      name + ' is a physical laboratory science. Social Science & Commercial degrees require subjects like Economics, Mathematics, Commerce, and Government.',
+    badgeText: '(Restricted for Social Science)',
+  },
+  art: {
+    name: 'Art & Humanities Track',
+    subtext: 'Pure laboratory sciences restricted for arts & humanities degrees',
+    color: '#D97706',
+    bgColor: 'rgba(217, 119, 6, 0.1)',
+    borderColor: 'rgba(217, 119, 6, 0.25)',
+    restrictedSlugs: PURE_SCIENCE_SLUGS,
+    restrictionTitle: 'Subject Restricted for Art & Humanities Track',
+    restrictionMsg: (name) =>
+      name + ' is a pure science subject. Art and Humanities degrees require Literature in English, Government, and Arts subjects.',
+    badgeText: '(Restricted for Arts)',
+  },
+}
+
 function Step3({
   subjects,
   loading,
@@ -1022,22 +1130,68 @@ function Step3({
   selected,
   onChange,
   suggestedFor,
+  intendedCourse,
+  toast,
 }: {
   subjects: Subject[]
   loading: boolean
   examTypes: ExamType[]
   selected: string[]
   onChange: (slugs: string[]) => void
-  /** Course whose combination was pre-ticked, so we can say why. */
   suggestedFor: string | null
+  intendedCourse?: string
+  toast: (opts: { title: string; description: string; variant?: 'default' | 'danger' }) => void
 }) {
   const isJamb = examTypes.includes('jamb')
   const { min: minRequired, max: maxAllowed } = getSubjectLimits(examTypes)
 
-  const toggle = (slug: string) => {
+  const courseObj = useMemo(() => {
+    if (!intendedCourse) return null
+    return (
+      COURSE_CATALOGUE.find(
+        (c) => c.name.toLowerCase() === intendedCourse.trim().toLowerCase(),
+      ) ?? null
+    )
+  }, [intendedCourse])
+
+  const studentTrack = useMemo(() => {
+    return getStudentTrack(courseObj, intendedCourse)
+  }, [courseObj, intendedCourse])
+
+  const trackConfig = studentTrack ? TRACK_CONFIG[studentTrack] : null
+
+  const majorSubjectSlugs = useMemo(() => {
+    const bySlug = new Map(subjects.map((s) => [s.name.trim().toLowerCase(), s.slug]))
+    if (courseObj) {
+      const wanted = ['English', ...courseObj.subjects]
+      return wanted.map((w) => bySlug.get(w.trim().toLowerCase())).filter(Boolean) as string[]
+    }
+    if (studentTrack === 'science') {
+      return ['english', 'mathematics', 'physics', 'chemistry', 'biology']
+    }
+    if (studentTrack === 'social_science') {
+      return ['english', 'mathematics', 'economics', 'government', 'commerce']
+    }
+    if (studentTrack === 'art') {
+      return ['english', 'literature', 'government', 'economics']
+    }
+    return []
+  }, [courseObj, studentTrack, subjects])
+
+  const toggle = (slug: string, subjectName: string) => {
     if (isJamb && slug === 'english') return // locked
+
+    // Discipline restrictions for Science, Social Science, and Art
+    if (trackConfig && trackConfig.restrictedSlugs.includes(slug)) {
+      toast({
+        title: trackConfig.restrictionTitle,
+        description: trackConfig.restrictionMsg(subjectName),
+        variant: 'danger',
+      })
+      return
+    }
+
     if (selected.includes(slug)) {
-      // For JAMB English is always included so can't deselect
       onChange(selected.filter((s) => s !== slug))
     } else {
       if (selected.length >= maxAllowed) return
@@ -1058,6 +1212,34 @@ function Step3({
         }
       />
 
+      {trackConfig && (
+        <div
+          className="mb-3 flex items-center justify-between rounded-[var(--radius-md)] px-3.5 py-2.5"
+          style={{
+            backgroundColor: trackConfig.bgColor,
+            border: '1px solid ' + trackConfig.borderColor,
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: trackConfig.color,
+              }}
+            >
+              {trackConfig.name}
+            </span>
+          </div>
+          <span className="text-[12px] text-[var(--color-ink-2)]">
+            {trackConfig.subtext}
+          </span>
+        </div>
+      )}
+
       {suggestedFor && (
         <div
           className="mb-4 flex items-start gap-2.5 rounded-[var(--radius-md)] px-3.5 py-3"
@@ -1065,9 +1247,8 @@ function Step3({
         >
           <Lamp size={17} color="var(--color-accent)" variant="Bold" style={{ flexShrink: 0, marginTop: 1 }} />
           <p className="text-[13px] leading-[1.55] text-[var(--color-ink-2)]">
-            We have ticked the usual combination for{' '}
-            <strong className="text-[var(--color-ink)]">{suggestedFor}</strong>. Change anything
-            you like — these are only a starting point.
+            We have preselected your major required subjects for{' '}
+            <strong className="text-[var(--color-ink)]">{suggestedFor}</strong> based on university requirements.
           </p>
         </div>
       )}
@@ -1091,7 +1272,10 @@ function Step3({
           {subjects.map((subject) => {
             const isSelected = selected.includes(subject.slug)
             const isLocked = isJamb && subject.slug === 'english'
-            const isDisabled = !isSelected && selected.length >= maxAllowed && !isLocked
+            const isMajor = majorSubjectSlugs.includes(subject.slug)
+            const isRestrictedForUser = Boolean(trackConfig && trackConfig.restrictedSlugs.includes(subject.slug))
+            const isDisabled =
+              (!isSelected && selected.length >= maxAllowed && !isLocked) || isRestrictedForUser
             const topicCount = subject.topics.length
             const hue = getSubjectColor(subject)
 
@@ -1099,7 +1283,7 @@ function Step3({
               <button
                 key={subject.slug}
                 type="button"
-                onClick={() => toggle(subject.slug)}
+                onClick={() => toggle(subject.slug, subject.name)}
                 disabled={isDisabled}
                 style={{
                   display: 'flex',
@@ -1107,14 +1291,21 @@ function Step3({
                   gap: 10,
                   padding: '11px 14px',
                   borderRadius: 'var(--radius-md)',
-                  border: `1.5px solid ${isSelected ? hue : 'var(--color-rule-2)'}`,
-                  backgroundColor: isSelected ? `${hue}14` : 'var(--color-card)',
+                  border: isRestrictedForUser
+                    ? '1.5px dashed rgba(239, 68, 68, 0.4)'
+                    : `1.5px solid ${isSelected ? hue : 'var(--color-rule-2)'}`,
+                  backgroundColor: isRestrictedForUser
+                    ? 'rgba(239, 68, 68, 0.04)'
+                    : isSelected
+                      ? `${hue}14`
+                      : 'var(--color-card)',
                   cursor: isDisabled ? 'not-allowed' : 'pointer',
-                  opacity: isDisabled ? 0.45 : 1,
+                  opacity: isRestrictedForUser ? 0.45 : isDisabled ? 0.5 : 1,
                   textAlign: 'left',
                   transition: 'all 150ms',
                   width: '100%',
                   minWidth: 0,
+                  position: 'relative',
                 }}
               >
                 <div
@@ -1122,11 +1313,11 @@ function Step3({
                     width: 4,
                     height: 32,
                     borderRadius: 'var(--radius-full)',
-                    backgroundColor: hue,
+                    backgroundColor: isRestrictedForUser ? '#EF4444' : hue,
                     flexShrink: 0,
                   }}
                 />
-                <div style={{ minWidth: 0 }}>
+                <div style={{ minWidth: 0, flex: 1 }}>
                   <div
                     style={{
                       fontSize: 13,
@@ -1151,6 +1342,30 @@ function Step3({
                         (required)
                       </span>
                     )}
+                    {isMajor && !isLocked && (
+                      <span
+                        style={{
+                          fontSize: 10,
+                          color: 'var(--color-accent)',
+                          fontWeight: 600,
+                          marginLeft: 4,
+                        }}
+                      >
+                        (major)
+                      </span>
+                    )}
+                    {isRestrictedForUser && (
+                      <span
+                        style={{
+                          fontSize: 10,
+                          color: '#EF4444',
+                          fontWeight: 600,
+                          marginLeft: 4,
+                        }}
+                      >
+                        {trackConfig?.badgeText || '(Restricted)'}
+                      </span>
+                    )}
                   </div>
                   <div
                     style={{
@@ -1159,7 +1374,7 @@ function Step3({
                       marginTop: 1,
                     }}
                   >
-                    {topicCount} topics
+                    {isRestrictedForUser ? 'Restricted for Science' : `${topicCount} topics`}
                   </div>
                 </div>
               </button>
@@ -2332,20 +2547,35 @@ export default function OnboardingPage() {
    * moment the student can see.
    */
   const seedSubjectsFromCourse = useCallback(() => {
-    if (state.subjectSlugs.length > 0) return
-    if (subjects.length === 0) return
+    if (subjects.length === 0 || !state.intendedCourse) return
 
-    const course = COURSE_CATALOGUE.find((c) => c.name === state.intendedCourse)
-    if (!course) return
+    const searchName = state.intendedCourse.trim().toLowerCase()
+    let course = COURSE_CATALOGUE.find(
+      (c) => c.name.toLowerCase() === searchName,
+    )
+    if (!course) {
+      course = COURSE_CATALOGUE.find(
+        (c) => searchName.includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(searchName),
+      )
+    }
 
-    // The catalogue names subjects the way the JAMB brochure does; the API
-    // keys them by slug, so match on name and keep only what we actually offer.
     const bySlug = new Map(subjects.map((s) => [s.name.trim().toLowerCase(), s.slug]))
 
-    // Use of English is compulsory for every UTME candidate.
-    const wanted = ['English', ...course.subjects]
-    const slugs: string[] = []
+    let wanted: string[] = []
+    if (course) {
+      wanted = ['English', ...course.subjects]
+    } else {
+      const track = getStudentTrack(null, state.intendedCourse)
+      if (track === 'social_science') {
+        wanted = ['English', 'Mathematics', 'Economics', 'Government']
+      } else if (track === 'art') {
+        wanted = ['English', 'Literature in English', 'Government', 'Economics']
+      } else if (track === 'science') {
+        wanted = ['English', 'Mathematics', 'Physics', 'Chemistry']
+      }
+    }
 
+    const slugs: string[] = []
     for (const name of wanted) {
       const slug = bySlug.get(name.trim().toLowerCase())
       if (slug && !slugs.includes(slug)) slugs.push(slug)
@@ -2354,9 +2584,16 @@ export default function OnboardingPage() {
     if (slugs.length === 0) return
 
     const { max } = getSubjectLimits(state.examTypes)
-    setState((s) => ({ ...s, subjectSlugs: slugs.slice(0, max) }))
-    setSuggestedFor(course.name)
-  }, [state.subjectSlugs.length, state.intendedCourse, state.examTypes, subjects])
+    const merged = Array.from(new Set([...slugs, ...state.subjectSlugs])).slice(0, max)
+    setState((s) => ({ ...s, subjectSlugs: merged }))
+    setSuggestedFor(course ? course.name : state.intendedCourse.trim())
+  }, [state.intendedCourse, state.subjectSlugs, state.examTypes, subjects])
+
+  useEffect(() => {
+    if (state.intendedCourse && currentKey === 'subjects' && !suggestedFor) {
+      seedSubjectsFromCourse()
+    }
+  }, [state.intendedCourse, currentKey, suggestedFor, seedSubjectsFromCourse])
 
   const handleContinue = async () => {
     if (!canProceed()) return
@@ -2460,6 +2697,8 @@ export default function OnboardingPage() {
           examTypes={state.examTypes}
           selected={state.subjectSlugs}
           suggestedFor={suggestedFor}
+          intendedCourse={state.intendedCourse}
+          toast={toast}
           onChange={(slugs) => setState((s) => ({ ...s, subjectSlugs: slugs }))}
         />
       )}

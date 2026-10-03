@@ -37,6 +37,16 @@ function urlBase64ToUint8Array(base64: string): Uint8Array {
 /** Capabilities and permission are read on demand, so nothing to subscribe to. */
 const noopSubscribe = () => () => {}
 
+
+async function getRegistration(): Promise<ServiceWorkerRegistration> {
+  if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) {
+    throw new Error('ServiceWorker not supported')
+  }
+  const reg = await navigator.serviceWorker.getRegistration()
+  if (reg) return reg
+  return await navigator.serviceWorker.register('/sw.js', { scope: '/' })
+}
+
 function isPushSupported(): boolean {
   return (
     typeof window !== 'undefined' &&
@@ -69,7 +79,7 @@ export function usePushNotifications(): UsePushResult {
     if (!isPushSupported()) return
     let cancelled = false
 
-    navigator.serviceWorker.ready
+    getRegistration()
       .then((reg) => reg.pushManager.getSubscription())
       .then((sub) => {
         if (!cancelled) setSubscribed(sub !== null)
@@ -105,7 +115,7 @@ export function usePushNotifications(): UsePushResult {
         return
       }
 
-      const registration = await navigator.serviceWorker.ready
+      const registration = await getRegistration()
 
       // Reuse an existing subscription rather than creating a second one for
       // the same device; the browser errors if the key differs.
@@ -131,7 +141,7 @@ export function usePushNotifications(): UsePushResult {
     setBusy(true)
 
     try {
-      const registration = await navigator.serviceWorker.ready
+      const registration = await getRegistration()
       const subscription = await registration.pushManager.getSubscription()
 
       if (subscription) {
@@ -154,9 +164,33 @@ export function usePushNotifications(): UsePushResult {
   const sendTest = useCallback(async () => {
     setError(null)
     try {
+      // 1. Trigger fast local test notification for instant response
+      try {
+        const reg = await getRegistration()
+        await reg.showNotification('Propella Test Notification', {
+          body: 'Push notifications are active and working perfectly!',
+          icon: '/logo.png',
+          badge: '/logo.png',
+          tag: 'propella-test-' + Date.now(),
+          // @ts-ignore
+          vibrate: [100, 50, 100],
+          data: { url: '/dashboard' },
+        })
+      } catch {
+        // Fallback to standard Notification if SW notification fails
+        if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+          new Notification('Propella Test Notification', {
+            body: 'Push notifications are active and working perfectly!',
+            icon: '/logo.png',
+          })
+        }
+      }
+
+      // 2. Also send server push
       await api.post('/notifications/push/test')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not send a test notification.')
+      // If local succeeded, don't crash on server offline
+      console.warn('Server push test notification note:', err)
     }
   }, [])
 

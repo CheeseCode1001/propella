@@ -46,10 +46,13 @@ export function useRestoreSession() {
         }
       })
       .catch(() => {
-        // No usable refresh cookie: genuinely signed out.
         if (cancelled) return
-        setAccessToken(null)
-        useAuthStore.setState({ user: null, isAuthenticated: false })
+        const existingToken = typeof window !== 'undefined' ? localStorage.getItem('propella_access_token') : null
+        const currentUser = useAuthStore.getState().user
+        if (!existingToken && !currentUser) {
+          setAccessToken(null)
+          useAuthStore.setState({ user: null, isAuthenticated: false })
+        }
       })
       .finally(() => {
         if (!cancelled) setSessionChecked(true)
