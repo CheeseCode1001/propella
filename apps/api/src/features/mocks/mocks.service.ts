@@ -236,6 +236,41 @@ export async function submitMock(
     },
   })
 
+  // In-app notification
+  const { notify } = await import('../notifications/notification.service')
+  await notify(userId, 'quiz_result', {
+    title: `Mock Exam Complete — ${score}%! 🎯`,
+    body: `You scored ${score}% on your mock exam and earned ${xpAwarded} XP. Check your breakdown.`,
+    deeplink: `/mocks`,
+    metadata: { quizId: attempt.quizId, attemptId: attempt.id, score, xpAwarded },
+  })
+
+  // Email notification
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { email: true, name: true, notifyEmail: true, examProfile: { select: { examType: true } } },
+  })
+  if (user?.notifyEmail) {
+    const { sendMockCompletedEmail } = await import('../../lib/email')
+    const examType = user.examProfile?.examType ?? 'JAMB'
+
+    await sendMockCompletedEmail(user.email, {
+      name: user.name,
+      examType,
+      score,
+      totalQuestions: totalCount,
+      correctCount,
+      xpAwarded,
+      attemptId: attempt.id,
+    })
+  }
+
+  // Check achievements and leaderboard standing
+  const { checkAndAwardBadges } = await import('../badges/badges.service')
+  const { checkLeaderboardTop5 } = await import('../leaderboard/leaderboard.service')
+  await checkAndAwardBadges(userId)
+  await checkLeaderboardTop5(userId)
+
   return { attempt, xpAwarded }
 }
 

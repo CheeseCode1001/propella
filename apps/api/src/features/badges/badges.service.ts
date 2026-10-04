@@ -92,6 +92,23 @@ export async function checkAndAwardBadges(userId: string): Promise<EarnedBadge[]
           deeplink: '/progress?tab=badges',
           metadata: { badgeId: badge.id, earnedValue: value },
         })
+
+        // Celebratory email notification
+        const user = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { email: true, name: true, notifyEmail: true },
+        })
+        if (user?.notifyEmail) {
+          const { sendMilestoneBadgeEmail } = await import('../../lib/email')
+          await sendMilestoneBadgeEmail(user.email, {
+            name: user.name,
+            badgeName: badge.name,
+            badgeDescription: badge.description,
+            badgeCategory: badge.category,
+            earnedValue: value,
+            totalXP: metrics.totalXP,
+          })
+        }
       } catch (err) {
         // Most likely two requests raced to award the same badge.
         logger.debug({ err, userId, badgeId: badge.id }, 'Badge award skipped')

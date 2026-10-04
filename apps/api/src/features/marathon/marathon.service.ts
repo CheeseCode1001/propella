@@ -114,6 +114,37 @@ export async function endMarathon(
     },
   })
 
+  // In-app notification
+  const { notify } = await import('../notifications/notification.service')
+  await notify(userId, 'streak_milestone', {
+    title: 'Marathon Crushed! 🏃💨',
+    body: `You completed a ${pomodorosCompleted}-pomodoro marathon (${Math.round(actualDurationSec / 60)} mins) and earned ${xpAwarded} XP!`,
+    deeplink: '/marathon',
+    metadata: { marathonId: run.id, pomodorosCompleted, xpAwarded },
+  })
+
+  // Email notification
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { email: true, name: true, notifyEmail: true },
+  })
+  if (user?.notifyEmail) {
+    const { sendMarathonCompletedEmail } = await import('../../lib/email')
+    await sendMarathonCompletedEmail(user.email, {
+      name: user.name,
+      pomodorosCompleted,
+      durationMinutes: Math.round(actualDurationSec / 60),
+      xpAwarded,
+      topicsCovered: topicsCovered.map((t) => t.topicSlug.replace(/-/g, ' ')),
+    })
+  }
+
+  // Check achievements and leaderboard standings
+  const { checkAndAwardBadges } = await import('../badges/badges.service')
+  const { checkLeaderboardTop5 } = await import('../leaderboard/leaderboard.service')
+  await checkAndAwardBadges(userId)
+  await checkLeaderboardTop5(userId)
+
   return { run, xpAwarded }
 }
 

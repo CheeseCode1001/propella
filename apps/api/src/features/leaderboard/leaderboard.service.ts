@@ -103,3 +103,58 @@ export async function getLeaderboard(
 
   return { entries, myEntry }
 }
+
+/**
+ * Checks if a student is currently ranked in the weekly Top 5.
+ * If so and not already alerted this week, triggers in-app notification
+ * and a celebratory email.
+ */
+export async function checkLeaderboardTop5(userId: string): Promise<void> {
+  try {
+    const { myEntry } = await getLeaderboard(userId, 'week')
+    if (!myEntry || myEntry.rank > 5 || myEntry.xp <= 0) return
+
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    const recentNotifs = await prisma.notification.findMany({
+      where: {
+        userId,
+        type: 'rank_up',
+        createdAt: { gte: weekAgo },
+      },
+      select: { metadata: true },
+    })
+
+    const alreadyNotified = recentNotifs.some(
+      (n) => (n.metadata as Record<string, unknown> | null)?.isTop5 === true,
+    )
+    if (alreadyNotified) return
+
+    const { notify } = await import('../notifications/notification.service')
+    const { sendLeaderboardTop5Email } = await import('../../lib/email')
+
+    await notify(userId, 'rank_up', {
+      title: `You're in the Top 5! 🌟 Rank #${myEntry.rank}`,
+      body: `Phenomenal work! You are now ranked #${myEntry.rank} on the weekly leaderboard with ${myEntry.xp} XP.`,
+      deeplink: '/leaderboard',
+      metadata: { isTop5: true, rank: myEntry.rank, xp: myEntry.xp },
+    })
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, name: true, notifyEmail: true },
+    })
+
+    if (user?.notifyEmail) {
+      await sendLeaderboardTop5Email(user.email, {
+        name: user.name,
+        rank: myEntry.rank,
+        xp: myEntry.xp,
+      })
+    }
+  } catch (err) {
+    // Non-blocking: leaderboard alert failure must never disrupt learning flow
+    const { logger } = await import('../../config/logger')
+    logger.warn({ err, userId }, 'Failed to check/notify leaderboard top 5')
+  }
+}
+

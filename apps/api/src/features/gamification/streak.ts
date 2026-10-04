@@ -105,5 +105,48 @@ export async function recordStreakActivity(
   }
   // Upsert: two requests finishing at once must not both try to create the row.
   await prisma.streak.upsert({ where: { userId }, create: { userId, ...data }, update: data })
+
+  // Trigger streak notifications and emails
+  try {
+    const STREAK_MILESTONES = [3, 7, 14, 21, 30, 50, 100]
+    const isMilestone = STREAK_MILESTONES.includes(state.currentStreak)
+
+    const { notify } = await import('../notifications/notification.service')
+
+    if (isMilestone) {
+      await notify(userId, 'streak_milestone', {
+        title: `${state.currentStreak}-Day Streak Milestone! 🔥`,
+        body: `You have studied ${state.currentStreak} days in a row! Your consistency is inspiring.`,
+        deeplink: '/dashboard',
+        metadata: { streak: state.currentStreak, isMilestone: true },
+      })
+
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { email: true, name: true, notifyEmail: true, notifyStreakReminders: true },
+      })
+
+      if (user?.notifyEmail && user.notifyStreakReminders) {
+        const { sendStreakMilestoneEmail } = await import('../../lib/email')
+        await sendStreakMilestoneEmail(user.email, {
+          name: user.name,
+          streakDays: state.currentStreak,
+        })
+      }
+    } else if (state.currentStreak > 1) {
+      // Daily streak continuation notification
+      await notify(userId, 'streak_milestone', {
+        title: `Streak Extended! 🔥 ${state.currentStreak} Days`,
+        body: `You checked in and studied today! You are on a ${state.currentStreak}-day roll.`,
+        deeplink: '/dashboard',
+        metadata: { streak: state.currentStreak },
+      })
+    }
+  } catch (err) {
+    // Non-blocking
+    const { logger } = await import('../../config/logger')
+    logger.warn({ err, userId }, 'Failed to dispatch streak notification')
+  }
+
   return { currentStreak: state.currentStreak, extended: true }
 }

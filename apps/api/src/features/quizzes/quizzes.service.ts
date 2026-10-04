@@ -319,19 +319,47 @@ export async function submitAttempt(
     },
   })
 
-  // Notify for mocks and high-stakes quizzes (score 80%+) — not every casual topic quiz
+  // In-app notification for quiz completion
   const isMock = quiz.type === 'mock'
-  const isHighScore = score >= 80
-  if (isMock || isHighScore) {
-    await notify(userId, 'quiz_result', {
-      title: isMock ? `Mock exam complete — ${score}%` : `Quiz result — ${score}%`,
-      body: isMock
-        ? `You scored ${score}% on your mock exam. Check your results.`
-        : `Great result. You scored ${score}% and earned ${xpAwarded} XP.`,
-      deeplink: `/quizzes/${attempt.quizId}/results/${attempt.id}`,
-      metadata: { quizId: attempt.quizId, attemptId: attempt.id },
+  await notify(userId, 'quiz_result', {
+    title: isMock ? `Mock Exam Complete — ${score}%! 🎯` : `Quiz Complete — ${score}%! 📝`,
+    body: isMock
+      ? `You scored ${score}% on your mock exam and earned ${xpAwarded} XP. Check your breakdown.`
+      : `You completed your quiz with ${score}% and earned ${xpAwarded} XP. Keep up the momentum!`,
+    deeplink: `/quizzes/${attempt.quizId}/results/${attempt.id}`,
+    metadata: { quizId: attempt.quizId, attemptId: attempt.id, score, xpAwarded },
+  })
+
+  // Email notification
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { email: true, name: true, notifyEmail: true },
+  })
+  if (user?.notifyEmail) {
+    const { sendQuizCompletedEmail } = await import('../../lib/email')
+    const quizTitle = quiz.topicTopicSlug
+      ? quiz.topicTopicSlug.replace(/-/g, ' ')
+      : quiz.subjectSlug
+        ? quiz.subjectSlug.replace(/-/g, ' ')
+        : `${quiz.type} practice`
+
+    await sendQuizCompletedEmail(user.email, {
+      name: user.name,
+      quizTitle,
+      score,
+      totalQuestions: totalCount,
+      correctCount,
+      xpAwarded,
+      quizId: attempt.quizId,
+      attemptId: attempt.id,
     })
   }
+
+  // Check achievements and leaderboard standing
+  const { checkAndAwardBadges } = await import('../badges/badges.service')
+  const { checkLeaderboardTop5 } = await import('../leaderboard/leaderboard.service')
+  await checkAndAwardBadges(userId)
+  await checkLeaderboardTop5(userId)
 
   return { attempt, xpAwarded, masteryUpdates }
 }

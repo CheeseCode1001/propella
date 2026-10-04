@@ -96,14 +96,7 @@ export async function endSession(
     })
   }
 
-  const { currentStreak, extended } = await recordStreakActivity(userId)
-  if (extended && STREAK_MILESTONES.has(currentStreak)) {
-    await notify(userId, 'streak_milestone', {
-      title: `${currentStreak}-day streak`,
-      body: `You have studied ${currentStreak} days in a row. Keep it going.`,
-      deeplink: '/dashboard',
-    })
-  }
+  await recordStreakActivity(userId)
 
   // Update roadmap node
   const roadmap = await prisma.roadmap.findUnique({ where: { userId } })
@@ -125,6 +118,12 @@ export async function endSession(
       logger.warn({ userId, sessionId }, 'No matching roadmap node found for session')
     }
   }
+
+  // Check achievements and leaderboard standing
+  const { checkAndAwardBadges } = await import('../badges/badges.service')
+  const { checkLeaderboardTop5 } = await import('../leaderboard/leaderboard.service')
+  await checkAndAwardBadges(userId)
+  await checkLeaderboardTop5(userId)
 
   return { session, xpAwarded }
 }

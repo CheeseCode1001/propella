@@ -85,5 +85,9 @@ export async function awardXP(
   // throws, so a badge check cannot fail the action that earned the XP.
   await checkAndAwardBadges(userId)
 
+  // Check if this XP event elevated the student into the Top 5 on the leaderboard
+  const { checkLeaderboardTop5 } = await import('../leaderboard/leaderboard.service')
+  await checkLeaderboardTop5(userId)
+
   return xpAfter
 }
