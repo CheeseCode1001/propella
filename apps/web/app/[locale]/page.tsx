@@ -150,9 +150,27 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Right col — topic card */}
+            {/* Right col — hero student image with floating topic card */}
             <div className="hidden lg:flex lg:col-span-5 lg:justify-center lg:items-center mt-12 lg:mt-0">
-              <HeroTopicCard />
+              <div className="relative w-full max-w-[420px] pb-8">
+                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[var(--color-rule)] shadow-2xl bg-[var(--color-paper-2)]">
+                  <Image
+                    src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&w=1000&q=80"
+                    alt="African student studying with laptop preparing for JAMB exam"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-mono text-emerald-400 border border-white/10 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Live CBT Session
+                  </div>
+                </div>
+                <div className="absolute -bottom-4 -left-4 right-4 z-10">
+                  <HeroTopicCard />
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Link } from '@/lib/i18n/navigation'
 import { Check, Gift, Sparkles, ShieldCheck, HelpCircle, ArrowRight, X, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -202,6 +203,52 @@ export default function PricingPage() {
             <Button variant="secondary" className="w-full font-semibold border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30" asChild>
               <Link href="/signup">Get Full Package (₦15,000)</Link>
             </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Student Success Showcase */}
+      <div className="max-w-[1240px] mx-auto px-6 lg:px-8 mb-20">
+        <div className="rounded-3xl border border-[var(--color-rule)] bg-[var(--color-paper-2)] overflow-hidden shadow-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center p-8 sm:p-12">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[var(--color-rule)] shadow-xl">
+              <Image
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80"
+                alt="Nigerian and African students studying together for JAMB and university exams"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-md p-3.5 rounded-xl border border-white/20 text-xs">
+                <div className="font-semibold text-[var(--color-ink)] flex items-center justify-between">
+                  <span>Average JAMB Score</span>
+                  <span className="text-emerald-600 font-mono font-bold">296 / 400</span>
+                </div>
+                <p className="text-[11px] text-[var(--color-ink-3)] mt-0.5">Based on 14,000+ active candidates on Propella</p>
+              </div>
+            </div>
+
+            <div className="space-y-5">
+              <Badge variant="accent" className="px-3 py-1 text-xs">
+                Guaranteed Value
+              </Badge>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-ink)] tracking-tight">
+                Everything You Need to Ace Your Exams, All in One Place.
+              </h3>
+              <p className="text-sm text-[var(--color-ink-2)] leading-relaxed">
+                Whether you choose the 1-Month Scholar or Full Exam Package, you get access to Nigeria&apos;s largest verified CBT past question bank, AI tutor explanations, and syllabus-mapped practice designed to save you hundreds of hours of trial and error.
+              </p>
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="p-3.5 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper)]">
+                  <span className="block text-xl font-extrabold text-[var(--color-ink)]">6,994+</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">CBT Past Questions</span>
+                </div>
+                <div className="p-3.5 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper)]">
+                  <span className="block text-xl font-extrabold text-[var(--color-ink)]">94.6%</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">Exam Pass Rate</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
