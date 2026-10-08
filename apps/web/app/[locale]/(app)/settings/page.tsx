@@ -2,8 +2,20 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { useQuery } from '@tanstack/react-query'
-import { LogOut } from 'lucide-react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  LogOut,
+  Check,
+  Sparkles,
+  ShieldCheck,
+  AlertCircle,
+  Loader2,
+  Calendar,
+  CreditCard,
+  RefreshCw,
+  X,
+} from 'lucide-react'
+import confetti from 'canvas-confetti'
 import { useTranslations } from 'next-intl'
 import { api } from '@/lib/api-client'
 import { useAuthStore } from '@/lib/stores/auth-store'
@@ -11,10 +23,13 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Badge } from '@/components/ui/badge'
 import { SignOutDialog } from '@/components/auth/sign-out-dialog'
 import { AvatarUpload } from '@/components/settings/avatar-upload'
 import { PushDeviceRow } from '@/components/settings/push-device-row'
 import { ReferralPanel } from '@/components/settings/referral-panel'
+import { startPaystackCheckout } from '@/lib/paystack'
+import { SUBSCRIPTION_PLANS, type SubscriptionPlanId } from '@propella/shared'
 import type { AuthUser } from '@propella/shared'
 
 type TabId = 'profile' | 'exam' | 'referrals' | 'notifications' | 'plan' | 'privacy'
@@ -417,100 +432,659 @@ function NotificationsTab() {
   )
 }
 
+interface SubscriptionData {
+  plan: 'free' | 'scholar'
+  planExpiresAt: string | null
+  isActive: boolean
+  daysRemaining: number
+  activeSubscription: {
+    id: string
+    plan: SubscriptionPlanId
+    planName: string
+    amount: number
+    status: string
+    startDate: string
+    expiresAt: string
+    reference: string
+    isGift: boolean
+    isShared?: boolean
+    sharedWithEmail?: string | null
+  } | null
+  history: Array<{
+    id: string
+    reference: string
+    amount: number
+    currency: string
+    status: string
+    channel: string | null
+    paidAt: string | null
+    createdAt: string
+  }>
+}
+
 function PlanTab() {
   const t = useTranslations('settings')
+  const searchParams = useSearchParams()
+  const queryClient = useQueryClient()
   const user = useAuthStore((s) => s.user)
-  const plan = user?.plan ?? 'free'
+  const setUser = useAuthStore((s) => s.setUser)
+
+  const [verifying, setVerifying] = useState(false)
+  const [verificationAlert, setVerificationAlert] = useState<{
+    type: 'success' | 'error'
+    message: string
+  } | null>(null)
+  const [upgradingPlan, setUpgradingPlan] = useState<SubscriptionPlanId | null>(null)
+  const [cancelModalOpen, setCancelModalOpen] = useState(false)
+  const [cancelling, setCancelling] = useState(false)
+  const [showPlans, setShowPlans] = useState(false)
+
+  // Fetch current subscription status & history
+  const { data: subData, isLoading, refetch } = useQuery({
+    queryKey: ['user-subscription'],
+    queryFn: () =>
+      api.get<{ data: SubscriptionData }>('/subscriptions/current').then((r) => r.data),
+  })
+
+  // Check for Paystack payment callback in URL (?payment=callback&ref=...)
+  useEffect(() => {
+    const isPaymentCallback = searchParams.get('payment') === 'callback'
+    const ref = searchParams.get('ref') || searchParams.get('reference')
+
+    if (isPaymentCallback && ref && !verifying && !verificationAlert) {
+      setVerifying(true)
+      api
+        .get<{ data: { success: boolean; message: string; planExpiresAt?: string } }>(
+          `/subscriptions/verify/${encodeURIComponent(ref)}`,
+        )
+        .then(async (res) => {
+          setVerificationAlert({
+            type: 'success',
+            message:
+              res.data?.message || 'Payment confirmed! Your Scholar plan has been activated.',
+          })
+          try {
+            confetti({
+              particleCount: 120,
+              spread: 70,
+              origin: { y: 0.6 },
+            })
+          } catch {
+            // ignore confetti error
+          }
+          // Refresh user profile
+          const updatedMe = await api.get<{ data: { user: AuthUser } }>('/users/me')
+          if (updatedMe?.data?.user) {
+            setUser(updatedMe.data.user)
+          }
+          await refetch()
+          queryClient.invalidateQueries({ queryKey: ['user-subscription'] })
+        })
+        .catch((err) => {
+          setVerificationAlert({
+            type: 'error',
+            message: err.message || 'Could not verify payment. Please check your transaction reference.',
+          })
+        })
+        .finally(() => {
+          setVerifying(false)
+        })
+    }
+  }, [searchParams, setUser, refetch, queryClient, verifying, verificationAlert])
+
+  async function handleUpgrade(planId: SubscriptionPlanId) {
+    setUpgradingPlan(planId)
+    try {
+      await startPaystackCheckout({
+        plan: planId,
+        onSuccess: async (reference) => {
+          setVerifying(true)
+          try {
+            await api.get(`/subscriptions/verify/${encodeURIComponent(reference)}`)
+            const updated = await api.get<{ data: { user: AuthUser } }>('/users/me')
+            if (updated?.data?.user) setUser(updated.data.user)
+            await refetch()
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } })
+            setVerificationAlert({
+              type: 'success',
+              message: 'Payment confirmed! Welcome to Scholar.',
+            })
+          } catch {
+            // ignore
+          } finally {
+            setVerifying(false)
+            setUpgradingPlan(null)
+          }
+        },
+        onCancel: () => {
+          setUpgradingPlan(null)
+        },
+      })
+    } catch (err: any) {
+      setVerificationAlert({
+        type: 'error',
+        message: err.message || 'Failed to initialize Paystack checkout. Please try again.',
+      })
+      setUpgradingPlan(null)
+    }
+  }
+
+  async function handleCancelSubscription() {
+    setCancelling(true)
+    try {
+      await api.post('/subscriptions/cancel')
+      await refetch()
+      setCancelModalOpen(false)
+      setVerificationAlert({
+        type: 'success',
+        message: 'Your subscription has been cancelled. You retain full Scholar access until your current billing cycle ends.',
+      })
+    } catch (err: any) {
+      setVerificationAlert({
+        type: 'error',
+        message: err.message || 'Could not cancel subscription. Please contact support.',
+      })
+    } finally {
+      setCancelling(false)
+    }
+  }
+
+  const [partnerEmail, setPartnerEmail] = useState('')
+  const [linkingPartner, setLinkingPartner] = useState(false)
+  const [partnerAlert, setPartnerAlert] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  async function handleLinkPartner(e: React.FormEvent) {
+    e.preventDefault()
+    if (!partnerEmail.trim()) return
+    setLinkingPartner(true)
+    setPartnerAlert(null)
+    try {
+      const res = await api.post<{ data: { message: string } }>('/subscriptions/link-shared', {
+        partnerEmail: partnerEmail.trim(),
+      })
+      setPartnerAlert({
+        type: 'success',
+        message: res.data?.message || 'Partner linked successfully! They now have Scholar access.',
+      })
+      setPartnerEmail('')
+      await refetch()
+    } catch (err: any) {
+      setPartnerAlert({
+        type: 'error',
+        message: err.message || 'Could not link partner account.',
+      })
+    } finally {
+      setLinkingPartner(false)
+    }
+  }
+
+  const isScholar = (user?.plan === 'scholar' || subData?.plan === 'scholar') && (subData?.isActive ?? true)
+  const expiresAt = user?.planExpiresAt || subData?.planExpiresAt
+  const daysLeft = subData?.daysRemaining ?? 0
+  const isSharedPlan =
+    subData?.activeSubscription?.plan === 'scholar_shared' ||
+    Boolean(subData?.activeSubscription?.isShared)
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Your plan</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div style={{ marginBottom: 24 }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 11,
-              color: 'var(--color-ink-3)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              marginBottom: 6,
-            }}
-          >
-            {t('currentPlan')}
-          </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 28,
-              fontWeight: 500,
-              color: 'var(--color-ink)',
-              textTransform: 'capitalize',
-            }}
-          >
-            {plan === 'scholar' ? t('scholarPlan') : t('freePlan')}
-          </p>
-        </div>
-
-        {plan === 'free' && (
-          <div
-            style={{
-              padding: 20,
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--color-accent)',
-              backgroundColor: 'var(--color-accent-tint)',
-              marginBottom: 20,
-            }}
-          >
-            <p
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontWeight: 600,
-                fontSize: 15,
-                color: 'var(--color-ink)',
-                marginBottom: 8,
-              }}
-            >
-              {t('upgradePlan')}
-            </p>
-            <ul style={{ padding: '0 0 0 16px', margin: 0 }}>
-              {[
-                '50-minute pomodoro sessions',
-                'Unlimited AI assistant messages',
-                'Advanced analytics',
-                'Priority quiz generation',
-              ].map((feature) => (
-                <li
-                  key={feature}
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: 14,
-                    color: 'var(--color-ink-2)',
-                    marginBottom: 6,
-                  }}
-                >
-                  {feature}
-                </li>
-              ))}
-            </ul>
+    <div className="space-y-6">
+      {/* Verification State Banner */}
+      {verifying && (
+        <Card className="border-[var(--color-accent)] bg-[var(--color-accent-tint)] p-4 flex items-center gap-3">
+          <Loader2 className="h-5 w-5 animate-spin text-[var(--color-accent)]" />
+          <div className="text-sm font-medium text-[var(--color-ink)]">
+            Confirming your Paystack payment and unlocking Scholar access…
           </div>
-        )}
+        </Card>
+      )}
 
-        {plan === 'free' && (
-          <Button variant="accent" disabled>
-            Upgrade — coming soon
-          </Button>
-        )}
+      {verificationAlert && (
+        <div
+          className={`p-4 rounded-xl text-sm flex items-start gap-3 border ${
+            verificationAlert.type === 'success'
+              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400'
+              : 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-400'
+          }`}
+        >
+          {verificationAlert.type === 'success' ? (
+            <Check className="h-5 w-5 shrink-0 mt-0.5 text-emerald-500" />
+          ) : (
+            <AlertCircle className="h-5 w-5 shrink-0 mt-0.5 text-rose-500" />
+          )}
+          <div className="flex-1">
+            <p className="font-semibold">{verificationAlert.message}</p>
+          </div>
+          <button
+            onClick={() => setVerificationAlert(null)}
+            className="text-xs opacity-70 hover:opacity-100"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
 
-        {plan === 'scholar' && (
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-ink-3)' }}>
-            You have full access to all Scholar features.
-          </p>
-        )}
-      </CardContent>
-    </Card>
+      {/* Current Plan Overview Card */}
+      <Card className="overflow-hidden border border-[var(--color-rule)]">
+        <CardHeader className="bg-[var(--color-paper-2)] pb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-ink-3)]">
+                {t('currentPlan')}
+              </p>
+              <div className="flex items-center gap-2.5 mt-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-ink)] flex items-center gap-2">
+                  {isScholar ? (
+                    <>
+                      <Sparkles className="h-6 w-6 text-amber-500 shrink-0" />
+                      Scholar Member
+                    </>
+                  ) : (
+                    'Free Starter Plan'
+                  )}
+                </h3>
+                {isScholar ? (
+                  <Badge variant="accent" className="font-semibold text-xs py-0.5">
+                    Active
+                  </Badge>
+                ) : (
+                  <Badge variant="default" className="text-xs py-0.5">
+                    Free Tier
+                  </Badge>
+                )}
+              </div>
+            </div>
+
+            {isScholar && (
+              <div className="text-right">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-xs">
+                  <Calendar size={13} />
+                  {daysLeft > 0 ? `${daysLeft} days remaining` : 'Active'}
+                </span>
+                {expiresAt && (
+                  <p className="text-[11px] text-[var(--color-ink-3)] mt-1">
+                    Renews / Expires: {new Date(expiresAt).toLocaleDateString(undefined, { dateStyle: 'medium' })}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </CardHeader>
+
+        <CardContent className="pt-6">
+          {isScholar ? (
+            <div className="space-y-5">
+              <p className="text-sm text-[var(--color-ink-2)]">
+                You have full, unrestricted access to all verified past question papers, realistic timed CBT simulations, unlimited AI tutor questions, and undergraduate university course files.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Button
+                  variant="accent"
+                  onClick={() => setShowPlans(!showPlans)}
+                  className="font-semibold text-xs"
+                >
+                  <RefreshCw size={14} className="mr-1.5" />
+                  {showPlans ? 'Hide Subscription Options' : 'Extend / Change Plan'}
+                </Button>
+
+                {subData?.activeSubscription && subData.activeSubscription.status !== 'cancelled' && (
+                  <Button
+                    variant="ghost"
+                    onClick={() => setCancelModalOpen(true)}
+                    className="text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-500/10"
+                  >
+                    Cancel Auto-Renewal
+                  </Button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <p className="text-sm text-[var(--color-ink-2)]">
+                You are currently on the Free tier. Upgrade to Scholar to unlock 6,994+ CBT past questions, step-by-step verified solutions, timed UTME/WAEC exam simulators, and unlimited AI tutor support.
+              </p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Shared Plan Partner Card (if on a Shared Plan) */}
+      {isScholar && isSharedPlan && (
+        <Card className="border border-[var(--color-accent)]/30 bg-[var(--color-accent-tint)]/20">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-[var(--color-accent)] text-white flex items-center justify-center">
+                👥
+              </div>
+              <div>
+                <CardTitle className="text-sm font-bold">Shared Plan (Two Accounts)</CardTitle>
+                <p className="text-xs text-[var(--color-ink-3)]">
+                  Your plan includes full Scholar access for two separate student accounts.
+                </p>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {subData?.activeSubscription?.sharedWithEmail ? (
+              <div className="flex items-center justify-between p-3 rounded-xl bg-[var(--color-paper)] border border-[var(--color-rule)] text-xs">
+                <div>
+                  <span className="text-[var(--color-ink-3)] block text-[11px]">Linked Partner Account:</span>
+                  <span className="font-bold text-[var(--color-ink)]">{subData.activeSubscription.sharedWithEmail}</span>
+                </div>
+                <Badge variant="success" className="text-[10px]">Active Scholar</Badge>
+              </div>
+            ) : (
+              <form onSubmit={handleLinkPartner} className="space-y-2">
+                <p className="text-xs text-[var(--color-ink-2)]">
+                  Enter your friend or sibling&apos;s email address to give them full Scholar access immediately:
+                </p>
+                <div className="flex gap-2">
+                  <Input
+                    type="email"
+                    placeholder="friend@gmail.com"
+                    value={partnerEmail}
+                    onChange={(e) => setPartnerEmail(e.target.value)}
+                    className="text-xs"
+                    required
+                  />
+                  <Button type="submit" variant="accent" size="sm" disabled={linkingPartner} className="shrink-0 text-xs font-semibold">
+                    {linkingPartner ? 'Linking…' : 'Link Partner'}
+                  </Button>
+                </div>
+              </form>
+            )}
+
+            {partnerAlert && (
+              <p className={`text-xs font-medium ${partnerAlert.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>
+                {partnerAlert.message}
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Plan Selection Grid (shown if Free or when Scholar clicks Extend) */}
+      {(!isScholar || showPlans) && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h4 className="text-base font-bold text-[var(--color-ink)]">
+              Choose Your Subscription Package
+            </h4>
+            <span className="text-xs text-[var(--color-ink-3)] font-mono">
+              Instant Nigerian Bank & Card Checkout
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Basic Plan */}
+            <div className="relative rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm flex flex-col justify-between hover:border-[var(--color-accent)]/50 transition-colors">
+              <div>
+                <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-1">
+                  Basic Plan
+                </p>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦1,999</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
+                </div>
+                <p className="text-xs text-[var(--color-ink-3)] mb-4">
+                  Full Scholar access for 1 student account for an intense 30-day prep sprint.
+                </p>
+
+                <ul className="space-y-2 mb-6 text-xs text-[var(--color-ink)]">
+                  {[
+                    '6,994+ past questions with step-by-step solutions',
+                    'Realistic timed CBT simulator (JAMB, WAEC, NECO)',
+                    'Unlimited AI Assistant explanations',
+                    '50-minute Pomodoro focus in Marathon mode',
+                    '1 Student account full access',
+                  ].map((feat, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Button
+                variant="secondary"
+                className="w-full font-semibold border-[var(--color-accent)]/30 hover:bg-[var(--color-accent)]/10"
+                disabled={upgradingPlan !== null}
+                onClick={() => handleUpgrade('scholar_basic')}
+              >
+                {upgradingPlan === 'scholar_basic' ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Connecting Paystack…
+                  </>
+                ) : (
+                  <>
+                    <CreditCard size={15} className="mr-2" />
+                    Choose Basic (₦1,999)
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* Shared Plan (Two Accounts) */}
+            <div className="relative rounded-2xl border-2 border-[var(--color-accent)] bg-[var(--color-paper)] p-6 shadow-md flex flex-col justify-between">
+              <Badge variant="accent" className="absolute -top-2.5 right-6 text-[10px]">
+                👥 Two Accounts
+              </Badge>
+
+              <div>
+                <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-1">
+                  Shared Plan
+                </p>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦2,999</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
+                </div>
+                <p className="text-xs text-[var(--color-ink-3)] mb-4">
+                  Buy one plan and share with your friend or family. 2 accounts get full Scholar access!
+                </p>
+
+                <ul className="space-y-2 mb-6 text-xs text-[var(--color-ink)] font-medium">
+                  {[
+                    'Full Scholar access for 2 separate accounts',
+                    'Save 25% (costs only ₦1,500/student)',
+                    '6,994+ past questions & timed CBT mocks for both',
+                    'Independent progress, XP, and revision trackers',
+                    'Unlimited AI tutor messages on every device',
+                  ].map((feat, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Button
+                variant="accent"
+                className="w-full font-semibold shadow-md"
+                disabled={upgradingPlan !== null}
+                onClick={() => handleUpgrade('scholar_shared')}
+              >
+                {upgradingPlan === 'scholar_shared' ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Connecting Paystack…
+                  </>
+                ) : (
+                  <>
+                    <Sparkles size={15} className="mr-2" />
+                    Get Shared Plan (₦2,999)
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* Pay Once Till Exam */}
+            <div className="relative rounded-2xl border border-emerald-500/40 bg-gradient-to-b from-[var(--color-paper)] to-emerald-500/5 p-6 shadow-sm flex flex-col justify-between">
+              <Badge className="absolute -top-2.5 right-6 bg-emerald-600 text-white text-[10px]">
+                ⭐ Best Value Pass
+              </Badge>
+
+              <div>
+                <p className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-600 dark:text-emerald-400 mb-1">
+                  Pay Once Till Exam
+                </p>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦9,999</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">/ full pass</span>
+                </div>
+                <p className="text-xs text-[var(--color-ink-3)] mb-4">
+                  One-time payment covering your entire exam season and varsity year. Zero renewal worries.
+                </p>
+
+                <ul className="space-y-2 mb-6 text-xs text-[var(--color-ink)]">
+                  {[
+                    'Full access right up until your exam day',
+                    'All 3 major exam tracks (JAMB, WAEC & NECO)',
+                    'Undergraduate Course Files (100L–500L) access',
+                    'Unlimited mock exams & timed simulator',
+                    'Priority AI tutor responses & exam prediction engine',
+                  ].map((feat, i) => (
+                    <li key={i} className="flex items-start gap-2 font-medium">
+                      <Check size={14} className="text-emerald-500 shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Button
+                variant="secondary"
+                className="w-full font-semibold border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+                disabled={upgradingPlan !== null}
+                onClick={() => handleUpgrade('scholar_full')}
+              >
+                {upgradingPlan === 'scholar_full' ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Connecting Paystack…
+                  </>
+                ) : (
+                  <>
+                    <CreditCard size={15} className="mr-2 text-emerald-600" />
+                    Get Pass (₦9,999)
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+
+          {/* Payment Gateway Trust Indicators */}
+          <div className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-2)] p-4 text-xs text-[var(--color-ink-2)] flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={18} className="text-emerald-600 shrink-0" />
+              <span>
+                Processed securely via <strong>Paystack</strong>. Accepts Debit Cards, USSD, Bank Transfer &amp; OPay.
+              </span>
+            </div>
+            <span className="text-[11px] text-[var(--color-ink-3)] font-mono">
+              256-Bit SSL Encryption
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Payment History Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base font-bold text-[var(--color-ink)]">
+            Billing &amp; Payment History
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <p className="text-xs text-[var(--color-ink-3)] py-4">Loading transaction history…</p>
+          ) : !subData?.history || subData.history.length === 0 ? (
+            <div className="py-6 text-center text-xs text-[var(--color-ink-3)]">
+              No previous billing records found.
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left">
+                <thead>
+                  <tr className="border-b border-[var(--color-rule)] text-[var(--color-ink-3)] font-mono uppercase text-[10px]">
+                    <th className="py-2.5 px-3">Date</th>
+                    <th className="py-2.5 px-3">Reference</th>
+                    <th className="py-2.5 px-3">Amount</th>
+                    <th className="py-2.5 px-3">Channel</th>
+                    <th className="py-2.5 px-3 text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[var(--color-rule)] text-[var(--color-ink)]">
+                  {subData.history.map((tx) => (
+                    <tr key={tx.id} className="hover:bg-[var(--color-paper-2)] transition-colors">
+                      <td className="py-2.5 px-3 whitespace-nowrap">
+                        {new Date(tx.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-[11px] text-[var(--color-ink-2)]">
+                        {tx.reference}
+                      </td>
+                      <td className="py-2.5 px-3 font-semibold">
+                        ₦{tx.amount.toLocaleString()}
+                      </td>
+                      <td className="py-2.5 px-3 capitalize text-[var(--color-ink-2)]">
+                        {tx.channel || 'Paystack'}
+                      </td>
+                      <td className="py-2.5 px-3 text-right">
+                        <span
+                          className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                            tx.status === 'success'
+                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                              : tx.status === 'pending'
+                              ? 'bg-amber-500/10 text-amber-600'
+                              : 'bg-rose-500/10 text-rose-600'
+                          }`}
+                        >
+                          {tx.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Cancel Auto-Renewal Confirmation Dialog */}
+      {cancelModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-[var(--color-paper)] border border-[var(--color-rule)] rounded-2xl w-full max-w-md shadow-2xl p-6">
+            <h3 className="text-lg font-bold text-[var(--color-ink)] mb-2">
+              Cancel Scholar Auto-Renewal?
+            </h3>
+            <p className="text-xs text-[var(--color-ink-2)] leading-relaxed mb-6">
+              You will not be billed again. Your Scholar benefits will remain active until the end of your current billing period (
+              {expiresAt ? new Date(expiresAt).toLocaleDateString() : 'cycle end'}
+              ), after which your account will return to the Free plan. None of your notes or study progress will be lost.
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="secondary"
+                disabled={cancelling}
+                onClick={() => setCancelModalOpen(false)}
+              >
+                Keep Subscription
+              </Button>
+              <Button
+                variant="danger"
+                disabled={cancelling}
+                onClick={handleCancelSubscription}
+              >
+                {cancelling ? 'Cancelling…' : 'Confirm Cancellation'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -29,6 +29,7 @@ import topicsRouter from './features/topics/topics.routes'
 import badgesRouter from './features/badges/badges.routes'
 import referralsRouter from './features/referrals/referrals.routes'
 import coursesRouter from './features/courses/courses.routes'
+import subscriptionsRouter from './features/subscriptions/subscriptions.routes'
 
 const app: Express = express()
 
@@ -118,8 +119,15 @@ app.use(
   }),
 )
 
-// Body parsing
-app.use(express.json({ limit: '25mb' }))
+// Body parsing — captures rawBody for Paystack webhook HMAC verification
+app.use(
+  express.json({
+    limit: '25mb',
+    verify: (req: any, _res, buf) => {
+      req.rawBody = buf
+    },
+  }),
+)
 app.use(express.urlencoded({ extended: false, limit: '25mb' }))
 app.use(cookieParser())
 
@@ -154,6 +162,7 @@ app.use('/api/topics', authenticate, topicsRouter)
 app.use('/api/badges', authenticate, badgesRouter)
 app.use('/api/referrals', authenticate, referralsRouter)
 app.use('/api/courses', authenticate, coursesRouter)
+app.use('/api/subscriptions', subscriptionsRouter)
 app.use('/api/admin', authenticate, adminRouter)
 
 // Global error handler — must be last

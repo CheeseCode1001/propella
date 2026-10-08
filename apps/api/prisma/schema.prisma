@@ -214,6 +214,9 @@ model User {
   courses     Course[]
   courseFiles CourseFile[]
   withdrawals WithdrawalRequest[]
+  subscriptions       Subscription[]
+  paymentTransactions PaymentTransaction[]
+  paystackCustomerCode String?
 
   @@index([createdAt])
   @@map("users")
@@ -862,4 +865,76 @@ model PendingRegistration {
   @@index([email])
   @@index([expiresAt])
   @@map("pending_registrations")
+}
+
+enum SubscriptionPlan {
+  scholar_basic
+  scholar_shared
+  scholar_full
+  scholar_monthly
+}
+
+enum SubscriptionStatus {
+  active
+  expired
+  cancelled
+}
+
+enum PaymentStatus {
+  pending
+  success
+  failed
+  abandoned
+}
+
+model Subscription {
+  id                       String             @id @default(cuid())
+  userId                   String
+  user                     User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan                     SubscriptionPlan
+  status                   SubscriptionStatus @default(active)
+  amount                   Int
+  reference                String             @unique
+  paystackSubscriptionCode String?
+  paystackCustomerCode     String?
+  paystackPlanCode         String?
+  startDate                DateTime           @default(now())
+  expiresAt                DateTime
+  cancelledAt              DateTime?
+  isGift                   Boolean            @default(false)
+  giftRecipientEmail       String?
+  giftRecipientName        String?
+  giftMessage              String?
+  isShared                 Boolean            @default(false)
+  sharedWithEmail          String?
+  sharedWithUserId         String?
+  createdAt                DateTime           @default(now())
+  updatedAt                DateTime           @updatedAt
+
+  payments                 PaymentTransaction[]
+
+  @@index([userId, status])
+  @@index([reference])
+  @@map("subscriptions")
+}
+
+model PaymentTransaction {
+  id             String        @id @default(cuid())
+  userId         String
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptionId String?
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  reference      String        @unique
+  amount         Int
+  currency       String        @default("NGN")
+  status         PaymentStatus @default(pending)
+  channel        String?
+  paidAt         DateTime?
+  metadata       Json          @default("{}")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([reference])
+  @@map("payment_transactions")
 }

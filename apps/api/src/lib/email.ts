@@ -746,3 +746,119 @@ export async function sendWithdrawalApprovedEmail(
     logger.error({ err, to }, 'Failed to send withdrawal approved email')
   }
 }
+
+export async function sendSubscriptionReceiptEmail(params: {
+  to: string
+  name: string
+  planName: string
+  amount: number
+  reference: string
+  expiresAt: Date
+}): Promise<void> {
+  if (!canSend()) return
+  const firstName = params.name.split(' ')[0] || 'Scholar'
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to: params.to,
+      subject: `Receipt: Your Propella Scholar Subscription (${params.planName}) 🎉`,
+      html: base(`
+        <h1>Thank you for your subscription! 🎉</h1>
+        <p>Hello ${firstName},</p>
+        <p>Your payment for <strong>${params.planName}</strong> has been successfully confirmed. You now have full Scholar access!</p>
+        <div style="background:#FAF7F2;border-radius:8px;border:1px solid #EBE4D8;padding:16px;margin:20px 0;">
+          <p style="margin:0 0 8px;font-size:14px;color:#1A1814;"><strong>Subscription Details:</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Plan: <strong>${params.planName}</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Amount Paid: <strong>₦${params.amount.toLocaleString()}</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Valid Until: <strong>${params.expiresAt.toLocaleDateString()}</strong></p>
+          <p style="margin:0;font-size:13px;color:#4A463E;">Reference: <code>${params.reference}</code></p>
+        </div>
+        <p>You can now enjoy:</p>
+        <div class="checklist">
+          <div class="check-item">&#10003; 6,994+ CBT past questions with step-by-step solutions</div>
+          <div class="check-item">&#10003; Timed JAMB, WAEC &amp; NECO mock simulators</div>
+          <div class="check-item">&#10003; Unlimited AI tutor messages &amp; document parsing</div>
+          <div class="check-item">&#10003; 50-minute Pomodoro sessions in Marathon mode</div>
+        </div>
+        ${renderButton('Go to Dashboard', `${env.FRONTEND_URL}/dashboard`)}
+      `),
+    })
+    logger.info({ to: params.to, reference: params.reference }, 'Subscription receipt email sent')
+  } catch (err) {
+    logger.error({ err, to: params.to }, 'Failed to send subscription receipt email')
+  }
+}
+
+export async function sendGiftSubscriptionEmail(params: {
+  to: string
+  recipientName?: string | undefined
+  senderName: string
+  planName: string
+  message?: string | undefined
+  expiresAt: Date
+}): Promise<void> {
+  if (!canSend()) return
+  const firstName = params.recipientName ? params.recipientName.split(' ')[0] : 'Scholar'
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to: params.to,
+      subject: `🎁 ${params.senderName} has gifted you a Propella Scholar Subscription!`,
+      html: base(`
+        <h1>You Received a Gift Subscription! 🎁</h1>
+        <p>Hello ${firstName},</p>
+        <p>Exciting news! <strong>${params.senderName}</strong> has sponsored a <strong>${params.planName}</strong> for your studies on Propella.</p>
+        ${
+          params.message
+            ? `<div style="background:#FAF7F2;border-left:3px solid #B23A2E;border-radius:4px;padding:14px;margin:20px 0;font-style:italic;color:#4A463E;">"${params.message}" &mdash; ${params.senderName}</div>`
+            : ''
+        }
+        <div style="background:#FAF7F2;border-radius:8px;border:1px solid #EBE4D8;padding:16px;margin:20px 0;">
+          <p style="margin:0 0 8px;font-size:14px;color:#1A1814;"><strong>Gift Package Details:</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Package: <strong>${params.planName}</strong></p>
+          <p style="margin:0;font-size:13px;color:#4A463E;">Active Until: <strong>${params.expiresAt.toLocaleDateString()}</strong></p>
+        </div>
+        <p>Log in or sign up with this email address (<strong>${params.to}</strong>) to immediately access all your premium features.</p>
+        ${renderButton('Open Propella Study', `${env.FRONTEND_URL}/login`)}
+      `),
+    })
+    logger.info({ to: params.to, senderName: params.senderName }, 'Gift subscription email sent')
+  } catch (err) {
+    logger.error({ err, to: params.to }, 'Failed to send gift subscription email')
+  }
+}
+
+export async function sendSharedPlanInviteEmail(params: {
+  to: string
+  partnerName?: string | undefined
+  senderName: string
+  expiresAt: Date
+}): Promise<void> {
+  if (!canSend()) return
+  const firstName = params.partnerName ? params.partnerName.split(' ')[0] : 'Scholar'
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to: params.to,
+      subject: `👥 ${params.senderName} shared their Propella Scholar Plan with you!`,
+      html: base(`
+        <h1>You're on the Shared Scholar Plan! 👥</h1>
+        <p>Hello ${firstName},</p>
+        <p>Awesome news! <strong>${params.senderName}</strong> purchased a Shared Plan on Propella and added you as their study partner.</p>
+        <div style="background:#FAF7F2;border-radius:8px;border:1px solid #EBE4D8;padding:16px;margin:20px 0;">
+          <p style="margin:0 0 8px;font-size:14px;color:#1A1814;"><strong>Shared Plan Access:</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Shared by: <strong>${params.senderName}</strong></p>
+          <p style="margin:0 0 4px;font-size:13px;color:#4A463E;">Full Scholar Access Valid Until: <strong>${params.expiresAt.toLocaleDateString()}</strong></p>
+        </div>
+        <p>Your account now has full Scholar access with all past questions, AI explanations, and mock exams enabled!</p>
+        ${renderButton('Start Studying Now', `${env.FRONTEND_URL}/dashboard`)}
+      `),
+    })
+    logger.info({ to: params.to, senderName: params.senderName }, 'Shared plan invite email sent')
+  } catch (err) {
+    logger.error({ err, to: params.to }, 'Failed to send shared plan invite email')
+  }
+}

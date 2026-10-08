@@ -48,6 +48,7 @@ export function buildAuthUser(user: User): AuthUser {
     name: user.name,
     email: user.email,
     plan: user.plan,
+    planExpiresAt: user.planExpiresAt ? user.planExpiresAt.toISOString() : null,
     onboardingCompleted: user.onboardingCompleted,
     onboardingStep: user.onboardingStep,
     theme: user.theme,

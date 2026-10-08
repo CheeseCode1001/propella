@@ -4,6 +4,51 @@ export type ExamType = (typeof EXAM_TYPES)[number]
 export const PLAN_TYPES = ['free', 'scholar'] as const
 export type PlanType = (typeof PLAN_TYPES)[number]
 
+export const SUBSCRIPTION_PLANS = {
+  scholar_basic: {
+    id: 'scholar_basic',
+    name: 'Basic Plan',
+    price: 1999,
+    priceKobo: 199900,
+    durationDays: 30,
+    currency: 'NGN',
+    interval: 'monthly',
+    description: 'Full Scholar access for 1 student for 30 days',
+  },
+  scholar_shared: {
+    id: 'scholar_shared',
+    name: 'Shared Plan (Two Accounts)',
+    price: 2999,
+    priceKobo: 299900,
+    durationDays: 30,
+    currency: 'NGN',
+    interval: 'monthly',
+    description: 'Buy one plan and share with your friend or family (2 accounts get full Scholar access for 30 days)',
+  },
+  scholar_full: {
+    id: 'scholar_full',
+    name: 'Pay Once Till Exam',
+    price: 9999,
+    priceKobo: 999900,
+    durationDays: 365,
+    currency: 'NGN',
+    interval: 'exam_season',
+    description: 'One-time payment for full Scholar access right up until your exam',
+  },
+  scholar_monthly: {
+    id: 'scholar_monthly',
+    name: 'Basic Plan',
+    price: 1999,
+    priceKobo: 199900,
+    durationDays: 30,
+    currency: 'NGN',
+    interval: 'monthly',
+    description: 'Full Scholar access for 1 student for 30 days',
+  },
+} as const
+
+export type SubscriptionPlanId = keyof typeof SUBSCRIPTION_PLANS
+
 export const TOPIC_STATUSES = ['locked', 'ready', 'in-progress', 'completed', 'needs-revision'] as const
 export type TopicStatus = (typeof TOPIC_STATUSES)[number]
 

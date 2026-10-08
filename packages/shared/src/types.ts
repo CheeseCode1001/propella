@@ -17,6 +17,7 @@ export interface AuthUser {
   name: string
   email: string
   plan: PlanType
+  planExpiresAt?: string | null
   onboardingCompleted: boolean
   onboardingStep: number
   theme: 'system' | 'light' | 'dark'
@@ -26,6 +27,35 @@ export interface AuthUser {
   emailVerified: boolean
   undergraduateMode?: boolean
   referralBalance?: number
+}
+
+export interface SubscriptionDto {
+  id: string
+  plan: 'scholar_basic' | 'scholar_shared' | 'scholar_full' | 'scholar_monthly'
+  planName: string
+  amount: number
+  status: 'active' | 'expired' | 'cancelled'
+  startDate: string
+  expiresAt: string
+  reference: string
+  isGift: boolean
+  giftRecipientEmail?: string | null
+  giftRecipientName?: string | null
+  giftMessage?: string | null
+  isShared?: boolean
+  sharedWithEmail?: string | null
+  createdAt: string
+}
+
+export interface PaymentTransactionDto {
+  id: string
+  reference: string
+  amount: number
+  currency: string
+  status: 'pending' | 'success' | 'failed' | 'abandoned'
+  channel?: string | null
+  paidAt?: string | null
+  createdAt: string
 }
 
 export interface AuthTokens {

@@ -102,6 +102,11 @@ const EnvSchema = z.object({
   // comma-separated. Use for custom domains or a second preview deployment.
   CORS_EXTRA_ORIGINS: z.string().default(''),
 
+  // Paystack payment gateway
+  PAYSTACK_SECRET_KEY: z.string().optional().default(''),
+  PAYSTACK_PUBLIC_KEY: z.string().optional().default(''),
+  PAYSTACK_PLAN_MONTHLY_CODE: z.string().optional().default(''),
+
   // Seeded super-admin. Both are required to seed one in production.
   SUPER_ADMIN_EMAIL: z.string().optional().default(''),
   SUPER_ADMIN_PASSWORD: z.string().optional().default(''),

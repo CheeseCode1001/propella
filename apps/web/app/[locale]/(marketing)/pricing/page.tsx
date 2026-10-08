@@ -1,13 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Link } from '@/lib/i18n/navigation'
-import { Check, Gift, Sparkles, ShieldCheck, HelpCircle, ArrowRight, X, Heart } from 'lucide-react'
+import { Link, useRouter } from '@/lib/i18n/navigation'
+import { useSearchParams } from 'next/navigation'
+import { Check, Gift, Sparkles, ShieldCheck, HelpCircle, ArrowRight, X, Heart, Loader2 } from 'lucide-react'
+import confetti from 'canvas-confetti'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useAuthStore } from '@/lib/stores/auth-store'
+import { api } from '@/lib/api-client'
+import { startPaystackCheckout } from '@/lib/paystack'
+import type { AuthUser, SubscriptionPlanId } from '@propella/shared'
 
 interface PlanFeature {
   text: string
@@ -25,43 +31,193 @@ const freeFeatures: PlanFeature[] = [
   { text: 'Predictive score engine & pacing metrics', included: false },
 ]
 
-const monthlyFeatures: PlanFeature[] = [
-  { text: 'Unlimited practice questions across all subjects', included: true },
-  { text: '6,994 past questions with step-by-step solutions', included: true },
-  { text: 'Real timed CBT mock engine (JAMB/WAEC/NECO)', included: true },
-  { text: 'Undergraduate Course Files (100L–500L) access', included: true },
-  { text: 'AI assistant document querying & summaries', included: true },
-  { text: 'Detailed mastery analytics & speed statistics', included: true },
-  { text: 'Full study roadmap & spaced revision planner', included: true },
-  { text: 'Standard email & WhatsApp support', included: true },
+const basicFeatures: PlanFeature[] = [
+  { text: 'Full access for 1 student account (30 days)', included: true },
+  { text: '6,994+ CBT past questions with detailed solutions', included: true },
+  { text: 'Unlimited timed JAMB, WAEC & NECO mocks', included: true },
+  { text: 'AI tutor explanations & hints on difficult concepts', included: true },
+  { text: 'Performance analytics & speed statistics', included: true },
+  { text: 'Spaced revision planner & study roadmap', included: true },
 ]
 
-const fullPackageFeatures: PlanFeature[] = [
-  { text: 'Everything in 1-Month Scholar plan', included: true },
-  { text: 'Full Year / Lifetime Pre-Varsity & Undergrad access', included: true },
+const sharedFeatures: PlanFeature[] = [
+  { text: '👥 Full Scholar access for 2 separate accounts', included: true },
+  { text: 'Buy once and share with your friend or family', included: true },
+  { text: 'Save 25% (costs only ₦1,500/student)', included: true },
+  { text: 'Independent progress, scores, and analytics for each', included: true },
+  { text: 'All 6,994+ CBT past questions & timed mock exams', included: true },
+  { text: 'Unlimited AI tutor explanations on every device', included: true },
+]
+
+const tillExamFeatures: PlanFeature[] = [
+  { text: '⭐ Complete access right up until your exam day', included: true },
+  { text: 'One-time payment — zero recurring renewal worries', included: true },
   { text: 'All 3 major exam tracks (JAMB, WAEC & NECO)', included: true },
-  { text: 'Unlimited AI Tutor messages & course document parsing', included: true },
-  { text: 'Offline practice mode & printable mock papers', included: true },
-  { text: 'Priority WhatsApp concierge tutor support', included: true },
-  { text: '300+ JAMB score money-back performance guarantee', included: true },
-  { text: 'Bonus ₦2,000 digital referral wallet boost', included: true },
+  { text: 'Undergraduate Course Files (100L–500L) included', included: true },
+  { text: 'Priority AI tutor responses & exam prediction engine', included: true },
+  { text: 'Offline practice mode & printable mock worksheets', included: true },
 ]
 
 export default function PricingPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const user = useAuthStore((s) => s.user)
+  const setUser = useAuthStore((s) => s.setUser)
+
   const [giftModalOpen, setGiftModalOpen] = useState(false)
   const [giftFriendName, setGiftFriendName] = useState('')
   const [giftFriendEmail, setGiftFriendEmail] = useState('')
-  const [giftPlan, setGiftPlan] = useState<'monthly' | 'package'>('monthly')
+  const [giftPlan, setGiftPlan] = useState<'basic' | 'shared' | 'till_exam'>('basic')
   const [giftMessage, setGiftMessage] = useState('')
   const [giftSubmitted, setGiftSubmitted] = useState(false)
+  const [checkoutLoading, setCheckoutLoading] = useState<SubscriptionPlanId | 'gift' | null>(null)
+  const [bannerAlert, setBannerAlert] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
-  function handleGiftSubmit(e: React.FormEvent) {
+  // Verify return from Paystack checkout callback if applicable
+  useEffect(() => {
+    const isCallback = searchParams.get('payment') === 'callback'
+    const ref = searchParams.get('ref') || searchParams.get('reference')
+    if (isCallback && ref) {
+      api
+        .get<{ data: { success: boolean; message: string } }>(
+          `/subscriptions/verify/${encodeURIComponent(ref)}`,
+        )
+        .then(async (res) => {
+          setBannerAlert({
+            type: 'success',
+            message: res.data?.message || 'Payment confirmed! Scholar subscription activated.',
+          })
+          try {
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } })
+          } catch {
+            // ignore
+          }
+          const updated = await api.get<{ data: { user: AuthUser } }>('/users/me')
+          if (updated?.data?.user) setUser(updated.data.user)
+        })
+        .catch((err) => {
+          setBannerAlert({
+            type: 'error',
+            message: err.message || 'Could not verify payment reference.',
+          })
+        })
+    }
+  }, [searchParams, setUser])
+
+  async function handlePlanCheckout(planId: SubscriptionPlanId) {
+    if (!user) {
+      router.push(`/signup?plan=${planId}`)
+      return
+    }
+
+    setCheckoutLoading(planId)
+    try {
+      await startPaystackCheckout({
+        plan: planId,
+        onSuccess: async (reference) => {
+          try {
+            await api.get(`/subscriptions/verify/${encodeURIComponent(reference)}`)
+            const updated = await api.get<{ data: { user: AuthUser } }>('/users/me')
+            if (updated?.data?.user) setUser(updated.data.user)
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } })
+            setBannerAlert({
+              type: 'success',
+              message: 'Subscription successfully activated with Paystack!',
+            })
+          } catch {
+            // ignore
+          } finally {
+            setCheckoutLoading(null)
+          }
+        },
+        onCancel: () => {
+          setCheckoutLoading(null)
+        },
+      })
+    } catch (err: any) {
+      setBannerAlert({
+        type: 'error',
+        message: err.message || 'Failed to start Paystack checkout.',
+      })
+      setCheckoutLoading(null)
+    }
+  }
+
+  async function handleGiftSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setGiftSubmitted(true)
+    const targetPlan: SubscriptionPlanId =
+      giftPlan === 'basic'
+        ? 'scholar_basic'
+        : giftPlan === 'shared'
+          ? 'scholar_shared'
+          : 'scholar_full'
+
+    if (!user) {
+      router.push(
+        `/signup?gift=true&recipientEmail=${encodeURIComponent(giftFriendEmail)}&recipientName=${encodeURIComponent(giftFriendName)}&plan=${targetPlan}`,
+      )
+      return
+    }
+
+    setCheckoutLoading('gift')
+    try {
+      await startPaystackCheckout({
+        plan: targetPlan,
+        isGift: true,
+        giftRecipientEmail: giftFriendEmail,
+        giftRecipientName: giftFriendName,
+        giftMessage,
+        onSuccess: async (reference) => {
+          try {
+            await api.get(`/subscriptions/verify/${encodeURIComponent(reference)}`)
+            setGiftSubmitted(true)
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } })
+          } catch {
+            // ignore
+          } finally {
+            setCheckoutLoading(null)
+          }
+        },
+        onCancel: () => {
+          setCheckoutLoading(null)
+        },
+      })
+    } catch (err: any) {
+      setBannerAlert({
+        type: 'error',
+        message: err.message || 'Failed to start gift checkout.',
+      })
+      setCheckoutLoading(null)
+    }
   }
 
   return (
     <div className="flex flex-col py-12">
+      {bannerAlert && (
+        <div className="max-w-[1240px] mx-auto px-6 w-full mb-6">
+          <div
+            className={`p-4 rounded-2xl text-sm flex items-start gap-3 border ${
+              bannerAlert.type === 'success'
+                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400'
+                : 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-400'
+            }`}
+          >
+            {bannerAlert.type === 'success' ? (
+              <Check className="h-5 w-5 shrink-0 mt-0.5 text-emerald-500" />
+            ) : (
+              <X className="h-5 w-5 shrink-0 mt-0.5 text-rose-500" />
+            )}
+            <div className="flex-1 font-semibold">{bannerAlert.message}</div>
+            <button
+              onClick={() => setBannerAlert(null)}
+              className="text-xs opacity-70 hover:opacity-100"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="max-w-[1240px] mx-auto px-6 lg:px-8 text-center mb-16">
         <Badge variant="accent" className="mb-4 px-3 py-1 text-xs">
@@ -97,30 +253,30 @@ export default function PricingPage() {
         </div>
       </div>
 
-      {/* 3 Tier Cards */}
-      <div className="max-w-[1240px] mx-auto px-6 lg:px-8 w-full mb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      {/* 4 Plan Cards */}
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {/* Free Tier */}
-          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-8 shadow-sm">
+          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm">
             <div>
               <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-ink-3)] mb-2">
                 Free Starter
               </p>
               <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-4xl font-extrabold text-[var(--color-ink)]">₦0</span>
+                <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦0</span>
                 <span className="text-xs text-[var(--color-ink-3)]">/ forever</span>
               </div>
-              <p className="text-xs text-[var(--color-ink-3)] mb-6">
-                Perfect for exploring the platform and testing your baseline knowledge.
+              <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                Perfect for exploring the syllabus and testing baseline knowledge.
               </p>
 
-              <div className="h-px bg-[var(--color-rule)] mb-6" />
+              <div className="h-px bg-[var(--color-rule)] mb-5" />
 
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-2.5 mb-6">
                 {freeFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs">
+                  <li key={i} className="flex items-start gap-2 text-xs">
                     <Check
-                      size={15}
+                      size={14}
                       className={f.included ? 'text-emerald-500 shrink-0 mt-0.5' : 'text-gray-300 dark:text-gray-600 shrink-0 mt-0.5'}
                     />
                     <span className={f.included ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-3)] line-through'}>
@@ -136,72 +292,139 @@ export default function PricingPage() {
             </Button>
           </div>
 
-          {/* 1-Month Scholar Plan */}
-          <div className="flex flex-col justify-between rounded-2xl border-2 border-[var(--color-accent)] bg-[var(--color-paper)] p-8 shadow-xl relative">
-            <Badge variant="accent" className="absolute -top-3 right-6 shadow-sm">
-              Most Popular
+          {/* Basic Plan */}
+          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm hover:border-[var(--color-accent)]/50 transition-colors">
+            <div>
+              <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-2">
+                Basic Plan
+              </p>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦1,999</span>
+                <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
+              </div>
+              <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                Full Scholar access for 1 student account for a productive 30-day sprint.
+              </p>
+
+              <div className="h-px bg-[var(--color-rule)] mb-5" />
+
+              <ul className="space-y-2.5 mb-6">
+                {basicFeatures.map((f, i) => (
+                  <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-ink)]">
+                    <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+                    <span>{f.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <Button
+              variant="secondary"
+              className="w-full font-semibold border-[var(--color-accent)]/30 hover:bg-[var(--color-accent)]/10"
+              disabled={checkoutLoading !== null}
+              onClick={() => handlePlanCheckout('scholar_basic')}
+            >
+              {checkoutLoading === 'scholar_basic' ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Connecting…
+                </>
+              ) : (
+                'Choose Basic (₦1,999)'
+              )}
+            </Button>
+          </div>
+
+          {/* Shared Plan (Two Accounts) */}
+          <div className="flex flex-col justify-between rounded-2xl border-2 border-[var(--color-accent)] bg-[var(--color-paper)] p-6 shadow-xl relative">
+            <Badge variant="accent" className="absolute -top-3 right-4 shadow-sm text-[10px]">
+              👥 Two Accounts
             </Badge>
 
             <div>
               <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-2">
-                1-Month Scholar
+                Shared Plan
               </p>
               <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-4xl font-extrabold text-[var(--color-ink)]">₦2,500</span>
+                <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦2,999</span>
                 <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
               </div>
-              <p className="text-xs text-[var(--color-ink-3)] mb-6">
-                Full comprehensive access for an intense month of mock prep and course work.
+              <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                Buy one plan and share with your friend or family. 2 accounts get full Scholar access!
               </p>
 
-              <div className="h-px bg-[var(--color-rule)] mb-6" />
+              <div className="h-px bg-[var(--color-rule)] mb-5" />
 
-              <ul className="space-y-3 mb-8">
-                {monthlyFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs text-[var(--color-ink)]">
-                    <Check size={15} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+              <ul className="space-y-2.5 mb-6">
+                {sharedFeatures.map((f, i) => (
+                  <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-ink)] font-medium">
+                    <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
                     <span>{f.text}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <Button variant="accent" className="w-full font-semibold" asChild>
-              <Link href="/signup">Subscribe for ₦2,500</Link>
+            <Button
+              variant="accent"
+              className="w-full font-semibold shadow-md"
+              disabled={checkoutLoading !== null}
+              onClick={() => handlePlanCheckout('scholar_shared')}
+            >
+              {checkoutLoading === 'scholar_shared' ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Connecting…
+                </>
+              ) : (
+                'Get Shared Plan (₦2,999)'
+              )}
             </Button>
           </div>
 
-          {/* Full Exam Package */}
-          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-gradient-to-b from-[var(--color-paper)] to-[var(--color-paper-2)] p-8 shadow-sm">
+          {/* Pay Once Till Exam */}
+          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-gradient-to-b from-[var(--color-paper)] to-[var(--color-paper-2)] p-6 shadow-sm hover:border-emerald-500/50 transition-colors">
             <div>
               <Badge className="mb-2 bg-emerald-500/10 text-emerald-600 border border-emerald-500/30 text-[10px]">
-                Best Value Package
+                ⭐ Best Value
               </Badge>
               <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-ink)] mb-2">
-                Full Exam Package
+                Pay Once Till Exam
               </p>
               <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-4xl font-extrabold text-[var(--color-ink)]">₦15,000</span>
-                <span className="text-xs text-[var(--color-ink-3)]">/ one-time full access</span>
+                <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦9,999</span>
+                <span className="text-xs text-[var(--color-ink-3)]">/ full pass</span>
               </div>
-              <p className="text-xs text-[var(--color-ink-3)] mb-6">
-                Complete all-inclusive package covering your entire exam season & undergraduate year.
+              <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                One-time payment for complete Scholar access right up until your exam.
               </p>
 
-              <div className="h-px bg-[var(--color-rule)] mb-6" />
+              <div className="h-px bg-[var(--color-rule)] mb-5" />
 
-              <ul className="space-y-3 mb-8">
-                {fullPackageFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs text-[var(--color-ink)] font-medium">
-                    <Check size={15} className="text-emerald-500 shrink-0 mt-0.5" />
+              <ul className="space-y-2.5 mb-6">
+                {tillExamFeatures.map((f, i) => (
+                  <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-ink)] font-medium">
+                    <Check size={14} className="text-emerald-500 shrink-0 mt-0.5" />
                     <span>{f.text}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <Button variant="secondary" className="w-full font-semibold border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30" asChild>
-              <Link href="/signup">Get Full Package (₦15,000)</Link>
+            <Button
+              variant="secondary"
+              className="w-full font-semibold border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+              disabled={checkoutLoading !== null}
+              onClick={() => handlePlanCheckout('scholar_full')}
+            >
+              {checkoutLoading === 'scholar_full' ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Connecting…
+                </>
+              ) : (
+                'Get Pass (₦9,999)'
+              )}
             </Button>
           </div>
         </div>
@@ -333,7 +556,11 @@ export default function PricingPage() {
                 <h4 className="font-bold text-base text-[var(--color-ink)] mb-1">Gift Order Initialized!</h4>
                 <p className="text-xs text-[var(--color-ink-2)] max-w-sm mx-auto mb-4">
                   An email has been dispatched to <strong>{giftFriendEmail}</strong> with their access key for the{' '}
-                  {giftPlan === 'monthly' ? '1-Month Scholar Plan (₦2,500)' : 'Full Exam Package (₦15,000)'}.
+                  {giftPlan === 'basic'
+                    ? 'Basic Plan (₦1,999)'
+                    : giftPlan === 'shared'
+                      ? 'Shared Plan (₦2,999)'
+                      : 'Pay Once Till Exam (₦9,999)'}.
                 </p>
                 <Button
                   variant="accent"
@@ -378,45 +605,65 @@ export default function PricingPage() {
                   <Label className="text-xs font-semibold text-[var(--color-ink-2)] mb-1.5 block">
                     Choose Subscription Gift
                   </Label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     <label
-                      className={`flex flex-col p-3 rounded-xl border cursor-pointer transition-all ${
-                        giftPlan === 'monthly'
+                      className={`flex flex-col p-2.5 rounded-xl border cursor-pointer transition-all ${
+                        giftPlan === 'basic'
                           ? 'border-[var(--color-accent)] bg-[var(--color-accent-tint)]'
                           : 'border-[var(--color-rule)] bg-[var(--color-paper-2)]'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs font-bold text-[var(--color-ink)]">1-Month Scholar</span>
+                        <span className="text-xs font-bold text-[var(--color-ink)]">Basic</span>
                         <input
                           type="radio"
                           name="giftPlan"
-                          checked={giftPlan === 'monthly'}
-                          onChange={() => setGiftPlan('monthly')}
+                          checked={giftPlan === 'basic'}
+                          onChange={() => setGiftPlan('basic')}
                         />
                       </div>
-                      <span className="text-base font-extrabold text-[var(--color-ink)]">₦2,500</span>
-                      <span className="text-[10px] text-[var(--color-ink-3)]">30 days unlimited access</span>
+                      <span className="text-sm font-extrabold text-[var(--color-ink)]">₦1,999</span>
+                      <span className="text-[10px] text-[var(--color-ink-3)]">30 days 1 account</span>
                     </label>
 
                     <label
-                      className={`flex flex-col p-3 rounded-xl border cursor-pointer transition-all ${
-                        giftPlan === 'package'
+                      className={`flex flex-col p-2.5 rounded-xl border cursor-pointer transition-all ${
+                        giftPlan === 'shared'
+                          ? 'border-[var(--color-accent)] bg-[var(--color-accent-tint)]'
+                          : 'border-[var(--color-rule)] bg-[var(--color-paper-2)]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-bold text-[var(--color-ink)]">Shared (2 Accts)</span>
+                        <input
+                          type="radio"
+                          name="giftPlan"
+                          checked={giftPlan === 'shared'}
+                          onChange={() => setGiftPlan('shared')}
+                        />
+                      </div>
+                      <span className="text-sm font-extrabold text-[var(--color-ink)]">₦2,999</span>
+                      <span className="text-[10px] text-[var(--color-ink-3)]">30 days 2 accounts</span>
+                    </label>
+
+                    <label
+                      className={`flex flex-col p-2.5 rounded-xl border cursor-pointer transition-all ${
+                        giftPlan === 'till_exam'
                           ? 'border-emerald-500 bg-emerald-500/10'
                           : 'border-[var(--color-rule)] bg-[var(--color-paper-2)]'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs font-bold text-[var(--color-ink)]">Full Package</span>
+                        <span className="text-xs font-bold text-[var(--color-ink)]">Till Exam</span>
                         <input
                           type="radio"
                           name="giftPlan"
-                          checked={giftPlan === 'package'}
-                          onChange={() => setGiftPlan('package')}
+                          checked={giftPlan === 'till_exam'}
+                          onChange={() => setGiftPlan('till_exam')}
                         />
                       </div>
-                      <span className="text-base font-extrabold text-[var(--color-ink)]">₦15,000</span>
-                      <span className="text-[10px] text-[var(--color-ink-3)]">Full exam season bundle</span>
+                      <span className="text-sm font-extrabold text-[var(--color-ink)]">₦9,999</span>
+                      <span className="text-[10px] text-[var(--color-ink-3)]">Full exam pass</span>
                     </label>
                   </div>
                 </div>
@@ -439,8 +686,19 @@ export default function PricingPage() {
                   <Button type="button" variant="secondary" onClick={() => setGiftModalOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" variant="accent">
-                    Proceed to Gift Checkout (₦{giftPlan === 'monthly' ? '2,500' : '15,000'})
+                  <Button
+                    type="submit"
+                    variant="accent"
+                    disabled={checkoutLoading !== null}
+                  >
+                    {checkoutLoading === 'gift' ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Connecting Paystack…
+                      </>
+                    ) : (
+                      `Proceed to Gift Checkout (₦${giftPlan === 'basic' ? '1,999' : giftPlan === 'shared' ? '2,999' : '9,999'})`
+                    )}
                   </Button>
                 </div>
               </form>

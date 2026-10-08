@@ -128,6 +128,31 @@ export function Sidebar() {
         })}
       </nav>
 
+      {/* Upgrade CTA banner if on Free plan */}
+      {user?.plan !== 'scholar' && (
+        <div className="px-3 pb-3">
+          <Link
+            href="/settings?tab=plan"
+            className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-[var(--color-accent-tint)] to-purple-500/10 border border-[var(--color-accent)]/30 hover:border-[var(--color-accent)] transition-all group no-underline"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-base">👑</span>
+              <div>
+                <p className="text-xs font-bold text-[var(--color-ink)] leading-tight">
+                  Upgrade to Scholar
+                </p>
+                <p className="text-[10px] text-[var(--color-ink-3)]">
+                  Unlimited AI &amp; CBT exams
+                </p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-[var(--color-accent)] group-hover:translate-x-0.5 transition-transform">
+              →
+            </span>
+          </Link>
+        </div>
+      )}
+
       {/* User card */}
       <div
         style={{ borderTop: '1px solid var(--color-rule)', padding: '12px 16px', position: 'relative' }}
@@ -184,9 +209,15 @@ export function Sidebar() {
             >
               {user?.name ?? 'User'}
             </span>
-            <Badge variant="default" className="mt-0.5" style={{ fontSize: 10 }}>
-              {user?.plan ?? 'free'}
-            </Badge>
+            {user?.plan === 'scholar' ? (
+              <Badge variant="accent" className="mt-0.5 text-[10px] bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30 font-semibold py-0">
+                👑 Scholar
+              </Badge>
+            ) : (
+              <Badge variant="default" className="mt-0.5 text-[10px] py-0">
+                Free
+              </Badge>
+            )}
           </div>
         </button>
 
