@@ -27,6 +27,40 @@ export interface AuthUser {
   emailVerified: boolean
   undergraduateMode?: boolean
   referralBalance?: number
+  trialUsage?: TrialUsageDto | null
+  entitlements?: EntitlementStatusDto
+}
+
+export interface TrialTopicItem {
+  subjectSlug: string
+  topicSlug: string
+  firstViewedAt: string
+}
+
+export interface TrialUsageDto {
+  topicsViewed: TrialTopicItem[]
+  topicsLimit: number
+  aiQuestionsCount: number
+  aiQuestionsLimit: number
+  quizzesTakenCount: number
+  quizzesLimit: number
+  mocksLimit: number
+  isPaywallLocked: boolean
+  firstActivityAt?: string | null
+  lockedAt?: string | null
+}
+
+export interface EntitlementStatusDto {
+  plan: PlanType
+  isScholar: boolean
+  isTrial: boolean
+  isPaywallLocked: boolean
+  trialUsage?: TrialUsageDto | null
+  remaining: {
+    topics: number
+    aiQuestions: number
+    quizzes: number
+  }
 }
 
 export interface SubscriptionDto {

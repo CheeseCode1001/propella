@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
-import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare } from 'iconsax-reactjs'
+import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare, Crown1 } from 'iconsax-reactjs'
 import { Link } from '@/lib/i18n/navigation'
 import { api } from '@/lib/api-client'
 import { Button } from '@/components/ui/button'
@@ -11,6 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { ErrorState, errorKindFrom } from '@/components/common/error-state'
 import { useOnlineStatus } from '@/lib/hooks/use-online-status'
 import { TopicActions } from '@/components/topics/topic-actions'
+import { usePaywallStore } from '@/lib/stores/paywall-store'
 
 interface TopicSection {
   heading: string
@@ -70,6 +71,7 @@ export default function TopicReaderPage() {
   const online = useOnlineStatus()
   const router = useRouter()
   const [practicing, setPracticing] = useState(false)
+  const openPaywall = usePaywallStore((s) => s.openPaywall)
 
   async function handleStartPractice() {
     if (!data) return
@@ -104,7 +106,47 @@ export default function TopicReaderPage() {
 
   if (isLoading) return <ReaderSkeleton />
 
+  const isPaywallError = Boolean(
+    error?.message &&
+      (error.message.toLowerCase().includes('trial') ||
+        error.message.toLowerCase().includes('paywall') ||
+        error.message.toLowerCase().includes('scholar')),
+  )
+
   if (isError || !data) {
+    if (isPaywallError) {
+      return (
+        <div className="mx-auto w-full max-w-[640px] mt-12 p-8 rounded-3xl bg-[var(--color-paper-2)] border border-[var(--color-outline)] text-center shadow-lg">
+          <div className="mx-auto w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
+            <Crown1 size={32} variant="Bold" />
+          </div>
+          <h2 className="text-2xl font-extrabold text-[var(--color-ink)]">
+            Free Trial Sample Limit Reached
+          </h2>
+          <p className="mt-3 text-sm text-[var(--color-ink-muted)] max-w-md mx-auto leading-relaxed">
+            {error?.message ||
+              'You have already sampled your 1 free trial topic. To access this topic and the complete syllabus across all subjects, upgrade to Scholar.'}
+          </p>
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button
+              onClick={() => openPaywall('topic_reader', error?.message)}
+              className="w-full sm:w-auto h-11 px-6 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-md"
+            >
+              <Crown1 size={16} variant="Bold" className="mr-1.5" />
+              Upgrade to Scholar
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => router.push('/roadmap')}
+              className="w-full sm:w-auto h-11 px-6 rounded-xl"
+            >
+              Back to Roadmap
+            </Button>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <ErrorState
         kind={errorKindFrom(error, online)}

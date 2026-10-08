@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
 import * as assistantService from './assistant.service'
 import { AppError } from '../../middleware/error-handler'
+import { assertCanAskAssistant } from '../entitlements/entitlements.service'
 
 function requireUser(req: Request): string {
   if (!req.user?.id) throw new AppError(401, 'Not authenticated')
@@ -135,13 +136,16 @@ export async function sendMessage(
     attachedFileId?: string
   }
 
-  // Set SSE headers
-  res.setHeader('Content-Type', 'text/event-stream')
-  res.setHeader('Cache-Control', 'no-cache')
-  res.setHeader('Connection', 'keep-alive')
-  res.flushHeaders()
-
   try {
+    // Validate trial limit before opening SSE stream
+    await assertCanAskAssistant(userId)
+
+    // Set SSE headers
+    res.setHeader('Content-Type', 'text/event-stream')
+    res.setHeader('Cache-Control', 'no-cache')
+    res.setHeader('Connection', 'keep-alive')
+    res.flushHeaders()
+
     await assistantService.streamMessage(
       userId,
       req.params.id,

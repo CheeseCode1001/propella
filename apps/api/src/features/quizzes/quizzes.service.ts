@@ -23,6 +23,7 @@ import {
   type RoadmapNodeJson,
   type SubjectTopic,
 } from '../../models/types'
+import { assertCanTakeQuiz, recordQuizAttempt } from '../entitlements/entitlements.service'
 
 export interface GenerateQuizInput {
   subjectSlug: string
@@ -48,6 +49,9 @@ export async function generateQuiz(
   userId: string,
   input: GenerateQuizInput,
 ): Promise<Quiz> {
+  // Validate trial limit / entitlement for quiz generation
+  await assertCanTakeQuiz(userId, input.type === 'mock')
+
   // Fetch subject + topic info
   const subject = await prisma.subject.findUnique({ where: { slug: input.subjectSlug } })
   if (!subject) {
@@ -118,7 +122,7 @@ export async function generateQuiz(
     }
   }
 
-  return prisma.quiz.create({
+  const createdQuiz = await prisma.quiz.create({
     data: {
       userId,
       type: input.type,
@@ -132,6 +136,10 @@ export async function generateQuiz(
       generatedByModel: usedAi ? QUIZ_MODEL : PAST_QUESTION_BANK,
     },
   })
+
+  await recordQuizAttempt(userId)
+
+  return createdQuiz
 }
 
 /** Stems from the student's recent quizzes on a topic, so the AI avoids them. */

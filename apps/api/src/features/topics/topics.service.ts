@@ -3,6 +3,7 @@ import { NotFoundError } from '../../middleware/error-handler'
 import { jsonArray, type SubjectTopic, type TopicSection, type TopicExample } from '../../models/types'
 import { generateTopicContent } from './topic-content'
 import { logger } from '../../config/logger'
+import { assertCanAccessTopic } from '../entitlements/entitlements.service'
 
 export interface TopicNeighbour {
   subjectSlug: string
@@ -41,6 +42,9 @@ export async function getTopicReader(
   const topics = jsonArray<SubjectTopic>(subject.topics)
   const index = topics.findIndex((t) => t.slug === topicSlug)
   if (index === -1) throw new NotFoundError('Topic not found')
+
+  // Check trial quota / entitlement before serving topic content
+  await assertCanAccessTopic(userId, subjectSlug, topicSlug)
 
   const topic = topics[index]!
 

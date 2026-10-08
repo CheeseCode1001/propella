@@ -217,6 +217,7 @@ model User {
   subscriptions       Subscription[]
   paymentTransactions PaymentTransaction[]
   paystackCustomerCode String?
+  trialUsage          TrialUsage?
 
   @@index([createdAt])
   @@map("users")
@@ -937,4 +938,33 @@ model PaymentTransaction {
   @@index([userId, createdAt])
   @@index([reference])
   @@map("payment_transactions")
+}
+
+/// Tracks single-pass free plan trial consumption, entitlement limits, and paywall state.
+model TrialUsage {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// Json array of { subjectSlug: string, topicSlug: string, firstViewedAt: string }
+  topicsViewed      Json      @default("[]")
+  topicsLimit       Int       @default(1)
+
+  aiQuestionsCount  Int       @default(0)
+  aiQuestionsLimit  Int       @default(3)
+
+  quizzesTakenCount Int       @default(0)
+  quizzesLimit      Int       @default(1)
+
+  mocksLimit        Int       @default(0)
+
+  isPaywallLocked   Boolean   @default(false)
+  firstActivityAt   DateTime?
+  lockedAt          DateTime?
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("trial_usages")
 }

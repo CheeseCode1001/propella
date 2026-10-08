@@ -19,6 +19,7 @@ import {
   type QuizQuestion,
   type SubjectTopic,
 } from '../../models/types'
+import { assertCanTakeQuiz } from '../entitlements/entitlements.service'
 
 const JAMB_TIME_LIMIT = 7200 // 2 hours in seconds
 const WAEC_NECO_TIME_LIMIT = 10800 // 3 hours in seconds
@@ -30,6 +31,9 @@ export async function generateMock(
   examType: ExamType,
   subjectSlugs: string[],
 ): Promise<Quiz> {
+  // Mock exams are strictly Scholar features
+  await assertCanTakeQuiz(userId, true)
+
   // Fetch subjects
   const subjects = await prisma.subject.findMany({
     where: { slug: { in: subjectSlugs }, examTypes: { has: examType } },

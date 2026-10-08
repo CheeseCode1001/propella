@@ -3,6 +3,10 @@ import { prisma } from '../../config/db'
 import { AppError, NotFoundError } from '../../middleware/error-handler'
 import { getGemini, CHAT_MODEL } from '../../lib/gemini'
 import { jsonArray, type ChatMessage } from '../../models/types'
+import {
+  assertCanAskAssistant,
+  recordAssistantQuery,
+} from '../entitlements/entitlements.service'
 
 const SYSTEM_PROMPT = `You are Propella, a focused study companion for Nigerian secondary school students preparing for JAMB, WAEC, and NECO. Answer clearly and concisely. Use Nigerian curriculum examples where helpful. When a student asks about a topic in their syllabus, structure answers as: a 1-2 sentence definition, the core principle, a worked example, and 2 practice questions they can try. Never claim to know things you don't. Refuse off-topic requests politely (entertainment, off-curriculum subjects).`
 
@@ -106,6 +110,9 @@ export async function streamMessage(
 
   if (!thread) throw new NotFoundError('Thread not found')
 
+  // Check trial quota / entitlement before generating assistant answer
+  await assertCanAskAssistant(userId)
+
   let fileContext = ''
   let referencedFileName = ''
   if (attachedFileId) {
@@ -182,6 +189,9 @@ export async function streamMessage(
       ...(messages.length === 0 ? { title: content.slice(0, 60) } : {}),
     },
   })
+
+  // Record AI query consumption for trial accounts
+  await recordAssistantQuery(userId)
 
   return fullText
 }

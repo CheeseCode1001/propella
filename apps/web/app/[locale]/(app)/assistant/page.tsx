@@ -13,6 +13,7 @@ import {
   Messages2,
   Folder2,
   DocumentText1,
+  Crown1,
 } from 'iconsax-reactjs'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -29,6 +30,9 @@ import { useDictation, useSpeech } from '@/lib/hooks/use-speech'
 import { API_URL } from '@/lib/constants'
 import { cn } from '@/lib/utils/cn'
 import { AiThinkingBubble, AiStreamingBubble } from '@/components/ai/ai-chat-bubble-status'
+import { useAuthStore } from '@/lib/stores/auth-store'
+import { usePaywallStore } from '@/lib/stores/paywall-store'
+import type { EntitlementStatusDto } from '@propella/shared'
 
 /** "5 minutes ago" for recent items, a plain date once that stops being useful. */
 function relativeTime(iso: string): string {
@@ -366,6 +370,24 @@ export default function AssistantPage() {
         .catch(() => []),
   })
 
+  const user = useAuthStore((s) => s.user)
+  const openPaywall = usePaywallStore((s) => s.openPaywall)
+
+  const { data: entitlements } = useQuery({
+    queryKey: ['entitlements-status'],
+    queryFn: () =>
+      api
+        .get<{ data: EntitlementStatusDto }>('/entitlements/status')
+        .then((r) => r.data),
+    enabled: Boolean(user && user.plan === 'free'),
+  })
+
+  const isFreePlan = user?.plan === 'free'
+  const isAiLocked = Boolean(
+    isFreePlan &&
+      (entitlements?.remaining?.aiQuestions === 0 || entitlements?.isPaywallLocked),
+  )
+
   const allFiles = (coursesData ?? []).flatMap((c) =>
     (c.files ?? []).map((f) => ({
       ...f,
@@ -434,6 +456,14 @@ export default function AssistantPage() {
     async (content: string) => {
       if (!content.trim() || isStreaming) return
 
+      if (isAiLocked) {
+        openPaywall(
+          'ai_assistant',
+          'You have reached your Free Trial limit of AI questions. Upgrade to Scholar to continue asking questions.',
+        )
+        return
+      }
+
       let threadId = activeThreadId
 
       // Create thread if none selected
@@ -491,7 +521,17 @@ export default function AssistantPage() {
 
         if (!response.ok) {
           const errData = await response.json().catch(() => ({}))
-          throw new Error(errData?.message || 'Could not send message. Please try again.')
+          const errMsg = errData?.error || errData?.message || 'Could not send message. Please try again.'
+          if (
+            response.status === 403 ||
+            errMsg.toLowerCase().includes('trial') ||
+            errMsg.toLowerCase().includes('paywall') ||
+            errMsg.toLowerCase().includes('scholar')
+          ) {
+            openPaywall('ai_assistant', errMsg)
+            await queryClient.invalidateQueries({ queryKey: ['entitlements-status'] })
+          }
+          throw new Error(errMsg)
         }
 
         const reader = response.body?.getReader()
@@ -764,15 +804,64 @@ export default function AssistantPage() {
             </div>
           )}
 
+          {isAiLocked && (
+            <div className="mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-amber-500/15 border border-amber-500/30">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400">
+                  <Crown1 size={18} variant="Bold" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[var(--color-ink)]">
+                    Free Trial AI Query Limit Reached ({entitlements?.trialUsage?.aiQuestionsLimit ?? 3}/{entitlements?.trialUsage?.aiQuestionsLimit ?? 3})
+                  </p>
+                  <p className="text-[11px] text-[var(--color-ink-muted)]">
+                    Subscribe to Scholar for unlimited 24/7 AI explanations and question breakdowns.
+                  </p>
+                </div>
+              </div>
+              <Button
+                size="sm"
+                onClick={() => openPaywall('ai_assistant')}
+                className="bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-xs shrink-0"
+              >
+                Upgrade to Scholar
+              </Button>
+            </div>
+          )}
+
+          {isFreePlan && !isAiLocked && (
+            <div className="mb-2 flex items-center justify-between text-[11px] text-[var(--color-ink-muted)] px-1">
+              <span className="flex items-center gap-1 font-medium">
+                🎯 Free Trial Sample:
+                <strong className="text-[var(--color-ink)] font-bold">
+                  {entitlements?.remaining?.aiQuestions ?? 3} AI questions remaining
+                </strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => openPaywall('ai_assistant')}
+                className="text-amber-600 dark:text-amber-400 hover:underline font-semibold"
+              >
+                Unlock Unlimited &rarr;
+              </button>
+            </div>
+          )}
+
           <div className="flex items-end gap-2">
             <textarea
               ref={textareaRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={dictation.listening ? 'Listening…' : t('placeholder')}
+              placeholder={
+                isAiLocked
+                  ? 'Free trial sample limit reached. Upgrade to continue...'
+                  : dictation.listening
+                    ? 'Listening…'
+                    : t('placeholder')
+              }
               rows={1}
-              disabled={isStreaming}
+              disabled={isStreaming || isAiLocked}
               className="min-w-0 flex-1 resize-none rounded-[var(--radius-sm)] border border-[var(--color-rule-2)] bg-[var(--color-paper)] px-3.5 py-2.5 text-[14px] leading-normal text-[var(--color-ink)] outline-none"
               style={{ fontFamily: 'var(--font-sans)', maxHeight: 120, overflow: 'hidden' }}
             />

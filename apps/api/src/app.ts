@@ -30,6 +30,7 @@ import badgesRouter from './features/badges/badges.routes'
 import referralsRouter from './features/referrals/referrals.routes'
 import coursesRouter from './features/courses/courses.routes'
 import subscriptionsRouter from './features/subscriptions/subscriptions.routes'
+import { entitlementsRouter } from './features/entitlements/entitlements.routes'
 
 const app: Express = express()
 
@@ -163,6 +164,7 @@ app.use('/api/badges', authenticate, badgesRouter)
 app.use('/api/referrals', authenticate, referralsRouter)
 app.use('/api/courses', authenticate, coursesRouter)
 app.use('/api/subscriptions', subscriptionsRouter)
+app.use('/api/entitlements', entitlementsRouter)
 app.use('/api/admin', authenticate, adminRouter)
 
 // Global error handler — must be last

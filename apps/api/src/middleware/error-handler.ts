@@ -7,9 +7,20 @@ export class AppError extends Error {
   constructor(
     public readonly statusCode: number,
     message: string,
+    public readonly details?: unknown,
   ) {
     super(message)
     this.name = 'AppError'
+  }
+}
+
+export class PaywallRequiredError extends AppError {
+  constructor(
+    message = 'Subscription required to continue',
+    details?: { feature?: string; code?: string; upgradeUrl?: string; [key: string]: unknown },
+  ) {
+    super(403, message, { code: 'PAYWALL_REQUIRED', upgradeUrl: '/pricing', ...details })
+    this.name = 'PaywallRequiredError'
   }
 }
 
@@ -61,7 +72,10 @@ export function errorHandler(
 
   if (err instanceof AppError) {
     logger.warn({ err, path: req.path, statusCode: err.statusCode }, err.message)
-    res.status(err.statusCode).json({ error: err.message })
+    res.status(err.statusCode).json({
+      error: err.message,
+      ...(err.details ? { details: err.details } : {}),
+    })
     return
   }
 

@@ -7,6 +7,8 @@ import { MobileTopBar } from '@/components/shell/mobile-top-bar'
 import { MobileNav } from '@/components/shell/mobile-nav'
 import { MarathonWidget } from '@/components/marathon/marathon-widget'
 import { OfflineBanner } from '@/components/common/offline-banner'
+import { TrialBanner } from '@/components/paywall/trial-banner'
+import { PaywallModal } from '@/components/paywall/paywall-modal'
 import { cn } from '@/lib/utils/cn'
 
 /**
@@ -44,6 +46,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="flex min-w-0 flex-1 flex-col">
           {/* Tells the student when they are running on saved data */}
           <OfflineBanner />
+          {/* Persistent Free Plan trial status and paywall notification */}
+          <TrialBanner />
           {/* Desktop top bar — hidden on mobile */}
           <TopBar />
           {/* Mobile top bar — hidden on desktop */}
@@ -69,6 +73,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Floating marathon card — visible on every app page while a run is live */}
         <MarathonWidget />
+
+        {/* Global Paywall & Upgrade modal */}
+        <PaywallModal />
       </div>
     </AuthGuard>
   )

@@ -5,6 +5,8 @@ import { getRank, getNextRank } from '@propella/shared'
 import type { AuthUser } from '@propella/shared'
 import { jsonArray, type ExamProfileSubject } from '../../models/types'
 import { toUserStreak } from '../gamification/streak'
+import { getEntitlementStatus } from '../entitlements/entitlements.service'
+import type { EntitlementStatusDto } from '@propella/shared'
 
 interface ExamProfileSummary {
   examType: string
@@ -26,6 +28,7 @@ interface ExamProfileSummary {
 
 interface MeResponse {
   user: AuthUser
+  entitlements: EntitlementStatusDto
   examProfile: ExamProfileSummary | null
   streak: {
     currentStreak: number
@@ -92,18 +95,23 @@ export async function getMe(userId: string): Promise<MeResponse> {
     throw new NotFoundError('User not found')
   }
 
-  const [examProfile, streakRow, xpAgg] = await Promise.all([
+  const [examProfile, streakRow, xpAgg, entitlements] = await Promise.all([
     prisma.examProfile.findUnique({ where: { userId } }),
     prisma.streak.findUnique({ where: { userId } }),
     prisma.xPEvent.aggregate({ where: { userId }, _sum: { amount: true } }),
+    getEntitlementStatus(userId),
   ])
 
   const totalXP = xpAgg._sum.amount ?? 0
   const rank = getRank(totalXP)
   const nextRank = getNextRank(totalXP)
 
+  const authUser = buildAuthUser(user)
+  authUser.entitlements = entitlements
+
   return {
-    user: buildAuthUser(user),
+    user: authUser,
+    entitlements,
     examProfile: examProfile ? buildExamProfileSummary(examProfile) : null,
     streak: toUserStreak(streakRow),
     xp: {
