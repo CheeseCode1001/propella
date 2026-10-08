@@ -12,6 +12,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
+    "db:resolve": "prisma migrate resolve",
     "db:studio": "prisma studio",
     "dev": "tsx watch src/server.ts",
     "postinstall": "prisma generate",
