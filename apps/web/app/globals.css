@@ -62,7 +62,9 @@
   --shadow-inset: inset 0 1px 0 0 rgba(255,255,255,0.6);
 }
 
-[data-theme="dark"] {
+[data-theme="dark"],
+.dark,
+html.dark {
   --color-paper: #14130F;
   --color-paper-2: #1C1A15;
   --color-paper-3: #25221C;
@@ -79,6 +81,8 @@
   --color-warning-tint: #2E2210;
   --color-danger-tint: #2E1414;
 }
+
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
 
 * {
   box-sizing: border-box;

@@ -1,7 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useParams } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
+import { useTranslations, useLocale } from 'next-intl'
 import { api } from '@/lib/api-client'
 import { QuestionImage } from '@/components/common/question-image'
 import { Button } from '@/components/ui/button'
@@ -276,6 +277,7 @@ function QuestionReviewItem({
 export default function QuizResultsPage() {
   const params = useParams()
   const router = useRouter()
+  const locale = useLocale()
   const t = useTranslations('quiz')
   const quizId = params.quizId as string
   const attemptId = params.attemptId as string
@@ -320,6 +322,7 @@ export default function QuizResultsPage() {
         type: wholeSubject ? 'subject' : 'topic',
         difficulty: data.quiz.difficulty,
         questionCount: data.quiz.questions.length,
+        locale,
       })
       router.push(`/quizzes/${result.data.quizId}`)
     } catch {

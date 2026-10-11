@@ -14,10 +14,12 @@ export async function getTopicReader(
 ): Promise<void> {
   try {
     const userId = requireUser(req)
+    const locale = (req.query.locale as string) || (req.user as any)?.locale
     const data = await topicsService.getTopicReader(
       userId,
       req.params.subjectSlug,
       req.params.topicSlug,
+      locale,
     )
     res.status(200).json({ data })
   } catch (err) {

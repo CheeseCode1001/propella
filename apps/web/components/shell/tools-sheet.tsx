@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence, useDragControls } from 'framer-motion'
-import { useRouter } from 'next/navigation'
-import { X, ChevronRight, BookOpen, ClipboardCheck, FileText, Timer, Sparkles, TrendingUp, Trophy, Globe } from 'lucide-react'
+import { useRouter } from '@/lib/i18n/navigation'
+import { X, ChevronRight, BookOpen, ClipboardCheck, FileText, Timer, Sparkles, TrendingUp, Trophy, Globe, Sun, Moon } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils/cn'
 import { localeMetadata, type Locale } from '@/lib/i18n/locales'
 import { LocaleSwitcher } from '@/components/common/locale-switcher'
@@ -283,6 +284,9 @@ export function ToolsSheet({ open, onClose }: ToolsSheetProps) {
                 )
               })}
 
+              {/* Theme row */}
+              <ThemeRow themeLabel={tSettings('theme') || 'Theme'} />
+
               {/* Language row */}
               <LanguageRow onClose={onClose} languageLabel={tSettings('language')} />
             </div>
@@ -348,3 +352,57 @@ function LanguageRow({ onClose, languageLabel }: { onClose: () => void; language
     </>
   )
 }
+
+function ThemeRow({ themeLabel }: { themeLabel: string }) {
+  const { resolvedTheme, setTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
+
+  return (
+    <div style={{ borderTop: '1px solid var(--color-rule)' }}>
+      <button
+        onClick={() => setTheme(isDark ? 'light' : 'dark')}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+          width: '100%',
+          minHeight: 64,
+          padding: '12px 20px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          textAlign: 'left',
+        }}
+      >
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            flexShrink: 0,
+            backgroundColor: 'var(--color-paper-2)',
+            borderRadius: 'var(--radius-sm)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {isDark ? (
+            <Moon size={20} strokeWidth={1.5} color="var(--color-ink)" />
+          ) : (
+            <Sun size={20} strokeWidth={1.5} color="var(--color-ink)" />
+          )}
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 16, fontWeight: 500, color: 'var(--color-ink)' }}>{themeLabel}</div>
+          <div style={{ fontSize: 13, color: 'var(--color-ink-2)', marginTop: 1 }}>
+            {isDark ? 'Dark mode' : 'Light mode'}
+          </div>
+        </div>
+        <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-accent)' }}>
+          {isDark ? 'Light' : 'Dark'}
+        </span>
+      </button>
+    </div>
+  )
+}
+

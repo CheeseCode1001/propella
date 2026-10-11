@@ -139,7 +139,9 @@
     "hard": "Ṣòro",
     "adaptive": "Ìmọ̀ ara rẹ",
     "noQuizzes": "Kò sí àdánwò.",
-    "startFirstQuiz": "Ṣẹda àdánwò àkọ́kọ́ rẹ."
+    "startFirstQuiz": "Ṣẹda àdánwò àkọ́kọ́ rẹ.",
+    "answered": "{count} ti dáhùn",
+    "pastQuestion": "Ìbéèrè àtijọ́ · {source}"
   },
   "mocks": {
     "title": "Àwọn ìdánwò àkópọ̀",
@@ -290,5 +292,42 @@
       "honours": "Ọ̀lá",
       "summaLaudeCumLaude": "Ọlá Gbèdéke"
     }
+  },
+  "notes": {
+    "title": "Àkọsílẹ̀",
+    "subtitle": "Gbogbo ohun tí o kọ sílẹ̀ ní ibì kan.",
+    "empty": "Àkọsílẹ̀ rẹ yóò wà níhìn-ín bí o ṣe ń kẹ́kọ̀ọ́. Ṣí orí-ọ̀rọ̀ èyíkéyìí kí o sì bẹ̀rẹ̀ kíkọ̀wé.",
+    "emptyTitle": "Kò tíì sí àkọsílẹ̀",
+    "new": "Àkọsílẹ̀ tuntun",
+    "search": "Wá àwọn àkọsílẹ̀ rẹ",
+    "untitled": "Àkọsílẹ̀ láìní àkọlé",
+    "save": "Fi pamọ́",
+    "saved": "Ti fipamọ́",
+    "delete": "Pa àkọsílẹ̀ rẹ́",
+    "general": "Gbogbogbò"
+  },
+  "topics": {
+    "examplesAndSolutions": "Àwọn Àpẹẹrẹ àti Ìdáhùn",
+    "problem": "Ìṣòro / Ìbéèrè",
+    "walkthrough": "Àlàyé Ìgbésẹ̀-kọ̀ọ̀kan",
+    "finalAnswer": "Ìdáhùn Ìparí",
+    "summaryAndKeyTakeaways": "Àkópọ̀ àti Àwọn Kókó Ọ̀rọ̀",
+    "markCompleted": "Sàmì sí i gẹ́gẹ́ bí parí",
+    "completed": "Orí-ọ̀rọ̀ parí",
+    "startPractice": "Bẹ̀rẹ̀ Ìdánwò Ìdánrawò",
+    "preparingQuiz": "Ń múra Ìdánwò sílẹ̀…",
+    "nextTopic": "Orí-ọ̀rọ̀ Tó Kàn",
+    "previousTopic": "Orí-ọ̀rọ̀ Tẹ́lẹ̀",
+    "freeTrialLimit": "Àyè Ìdánwò Ọ̀fẹ́ Ti Parí",
+    "freeTrialDesc": "O ti ka orí-ọ̀rọ̀ àpẹẹrẹ ọ̀fẹ́ rẹ. Láti wo gbogbo àwọn orí-ọ̀rọ̀ lórí gbogbo ẹ̀kọ́, gbé ipele rẹ ga sí Scholar.",
+    "upgradeToScholar": "Gbé Ga sí Scholar",
+    "backToRoadmap": "Padà sí Ètò Ẹ̀kọ́",
+    "errorTitle": "A kò lè ṣí orí-ọ̀rọ̀ yìí",
+    "errorMessage": "Àkọsílẹ̀ orí-ọ̀rọ̀ yìí kò wọlé. Gbìyànjú lẹ́ẹ̀kan síi nígbà díẹ̀.",
+    "readAloud": "Ka síta",
+    "stopReading": "Dá kíkà dúró",
+    "askAi": "Béèrè lọ́wọ́ AI",
+    "addToPlanner": "Fi kún ètò ẹ̀kọ́",
+    "notes": "Àkọsílẹ̀"
   }
 }

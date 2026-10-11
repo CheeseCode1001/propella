@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
+import { useLocale } from 'next-intl'
 import { api } from '@/lib/api-client'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
@@ -9,6 +11,7 @@ import { TaskSquare, Refresh } from 'iconsax-reactjs'
 
 export default function NewQuizPage() {
   const router = useRouter()
+  const locale = useLocale()
   const searchParams = useSearchParams()
   const subjectSlug = searchParams.get('subject')
   const topicSlug = searchParams.get('topic')
@@ -35,6 +38,7 @@ export default function NewQuizPage() {
         difficulty: 'adaptive',
         mode,
         questionCount: 10,
+        locale,
       })
 
       router.replace(`/quizzes/${res.data.quizId}`)

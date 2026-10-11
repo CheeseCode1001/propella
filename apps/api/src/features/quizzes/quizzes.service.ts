@@ -1,7 +1,7 @@
 import type { ExamType, Quiz, QuizAttempt, QuizMode } from '../../config/db'
 import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
-import { generateQuestions, PAST_QUESTION_BANK } from './quiz-generation'
+import { generateQuestions, translateQuizQuestions, PAST_QUESTION_BANK } from './quiz-generation'
 import {
   bankIdsIn,
   drawPastQuestions,
@@ -33,6 +33,7 @@ export interface GenerateQuizInput {
   difficulty: 'easy' | 'medium' | 'hard' | 'adaptive'
   mode: QuizMode
   questionCount: number
+  locale?: string | undefined
 }
 
 export interface SubmitQuizInput {
@@ -51,6 +52,13 @@ export async function generateQuiz(
 ): Promise<Quiz> {
   // Validate trial limit / entitlement for quiz generation
   await assertCanTakeQuiz(userId, input.type === 'mock')
+
+  // Detect user's preferred locale
+  const studentUser = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { locale: true },
+  })
+  const targetLocale = input.locale || studentUser?.locale || 'en'
 
   // Fetch subject + topic info
   const subject = await prisma.subject.findUnique({ where: { slug: input.subjectSlug } })
@@ -103,6 +111,7 @@ export async function generateQuiz(
         difficulty: input.difficulty === 'adaptive' ? 'medium' : input.difficulty,
         count: shortfall,
         recentStems: await recentStemsFor(userId, aiTopic.slug),
+        locale: targetLocale,
       })
       questions = questions.concat(generated.map((q) => shuffleOptions(q)))
       usedAi = true
@@ -120,6 +129,11 @@ export async function generateQuiz(
       if (questions.length === 0) throw err
       logger.warn({ err, subjectSlug: subject.slug }, 'AI top-up failed; serving past questions only')
     }
+  }
+
+  // If student is in a non-English locale, translate questions to target language
+  if (targetLocale && targetLocale !== 'en' && questions.length > 0) {
+    questions = await translateQuizQuestions(questions, targetLocale)
   }
 
   const createdQuiz = await prisma.quiz.create({

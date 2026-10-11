@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
 import { api } from '@/lib/api-client'
 
 export default function StudyNewPage() {

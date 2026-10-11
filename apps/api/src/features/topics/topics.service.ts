@@ -1,7 +1,7 @@
 import { prisma } from '../../config/db'
 import { NotFoundError } from '../../middleware/error-handler'
 import { jsonArray, type SubjectTopic, type TopicSection, type TopicExample } from '../../models/types'
-import { generateTopicContent } from './topic-content'
+import { generateTopicContent, translateTopicContent } from './topic-content'
 import { logger } from '../../config/logger'
 import { assertCanAccessTopic } from '../entitlements/entitlements.service'
 
@@ -25,16 +25,20 @@ export interface TopicReaderResponse {
   next: TopicNeighbour | null
 }
 
+const topicTranslationCache = new Map<
+  string,
+  { intro: string; sections: TopicSection[]; examples: TopicExample[]; summary: string[] }
+>()
+
 /**
  * Returns the lesson for one topic, generating and caching it on first request.
- *
- * The row is shared by every student sitting the same exam, so the model is
- * called once per topic rather than once per reader.
+ * Respects student's selected locale (Yoruba, Hausa, Igbo) with translation.
  */
 export async function getTopicReader(
   userId: string,
   subjectSlug: string,
   topicSlug: string,
+  locale?: string,
 ): Promise<TopicReaderResponse> {
   const subject = await prisma.subject.findUnique({ where: { slug: subjectSlug } })
   if (!subject) throw new NotFoundError('Subject not found')
@@ -112,6 +116,28 @@ export async function getTopicReader(
       })
     } catch (err) {
       logger.warn({ err, subjectSlug, topicSlug }, 'Topic content was already cached')
+    }
+  }
+
+  // If locale requested is non-English (yo, ha, ig), translate notes
+  if (locale && locale !== 'en') {
+    const cacheKey = `${exam}:${subjectSlug}:${topicSlug}:${locale}`
+    const cachedTranslation = topicTranslationCache.get(cacheKey)
+    if (cachedTranslation) {
+      intro = cachedTranslation.intro
+      sections = cachedTranslation.sections
+      examples = cachedTranslation.examples
+      summary = cachedTranslation.summary
+    } else {
+      const translated = await translateTopicContent(
+        { intro, sections, examples, summary },
+        locale,
+      )
+      intro = translated.intro
+      sections = translated.sections
+      examples = translated.examples
+      summary = translated.summary
+      topicTranslationCache.set(cacheKey, { intro, sections, examples, summary })
     }
   }
 

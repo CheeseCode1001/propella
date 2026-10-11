@@ -1,6 +1,6 @@
-'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { api } from '@/lib/api-client'
 import { QuestionImage } from '@/components/common/question-image'
@@ -42,6 +42,7 @@ export default function QuizEnginePage() {
   const params = useParams()
   const router = useRouter()
   const t = useTranslations('quiz')
+  const tCommon = useTranslations('common')
   const quizId = params.quizId as string
 
   const [quiz, setQuiz] = useState<QuizData | null>(null)
@@ -251,7 +252,7 @@ export default function QuizEnginePage() {
               color: 'var(--color-ink-3)',
             }}
           >
-            {answeredCount} answered
+            {t('answered', { count: answeredCount })}
           </span>
         </div>
 
@@ -287,7 +288,7 @@ export default function QuizEnginePage() {
             marginBottom: 8,
           }}
         >
-          Past question · {currentQuestion.source.replace(/\s+Q\d+$/, '')}
+          {t('pastQuestion', { source: currentQuestion.source.replace(/\s+Q\d+$/, '') })}
         </p>
       )}
 
@@ -449,7 +450,7 @@ export default function QuizEnginePage() {
           onClick={handlePrev}
           disabled={currentIndex === 0}
         >
-          Previous
+          {tCommon('previous')}
         </Button>
 
         {isLastQuestion ? (
@@ -458,11 +459,11 @@ export default function QuizEnginePage() {
             onClick={handleSubmit}
             disabled={submitting || answeredCount === 0}
           >
-            {submitting ? 'Submitting...' : t('submitQuiz')}
+            {submitting ? `${tCommon('loading')}…` : t('submitQuiz')}
           </Button>
         ) : (
           <Button variant="default" onClick={handleNext}>
-            Next
+            {tCommon('next')}
           </Button>
         )}
       </div>

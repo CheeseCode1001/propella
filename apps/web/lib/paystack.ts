@@ -13,9 +13,7 @@ export interface CheckoutOptions {
 
 declare global {
   interface Window {
-    PaystackPop?: {
-      setup: (options: any) => { openIframe: () => void }
-    }
+    PaystackPop?: any
   }
 }
 
@@ -31,7 +29,7 @@ export function loadPaystackScript(): Promise<boolean> {
     }
     const script = document.createElement('script')
     script.id = 'paystack-inline-js'
-    script.src = 'https://js.paystack.co/v1/inline.js'
+    script.src = 'https://js.paystack.co/v2/inline.js'
     script.async = true
     script.onload = () => resolve(true)
     script.onerror = () => resolve(false)
@@ -47,6 +45,7 @@ export async function startPaystackCheckout(options: CheckoutOptions) {
       reference: string
       amount: number
       plan: string
+      email?: string
     }
   }>('/subscriptions/initialize', {
     plan: options.plan,
@@ -56,36 +55,44 @@ export async function startPaystackCheckout(options: CheckoutOptions) {
     giftMessage: options.giftMessage,
   })
 
-  const { authorizationUrl, accessCode, reference } = res.data
+  const { authorizationUrl, accessCode, reference, email } = res.data
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY?.trim()
 
-  // If public key is available, attempt seamless Paystack popup iframe
-  if (publicKey && typeof window !== 'undefined') {
+  // Attempt seamless Paystack v2 popup if available on window
+  if (typeof window !== 'undefined') {
     const loaded = await loadPaystackScript()
     if (loaded && window.PaystackPop) {
-      const handler = window.PaystackPop.setup({
-        key: publicKey,
-        access_code: accessCode,
-        callback: (response: { reference: string }) => {
-          if (options.onSuccess) {
-            options.onSuccess(response.reference || reference)
-          } else {
-            window.location.href = `/settings?tab=plan&payment=callback&ref=${response.reference || reference}`
-          }
-        },
-        onClose: () => {
-          options.onCancel?.()
-        },
-      })
-      handler.openIframe()
-      return { type: 'popup' as const, reference }
+      try {
+        const popup = new window.PaystackPop()
+        if (typeof popup.checkout === 'function') {
+          popup.checkout({
+            key: publicKey,
+            email: email,
+            accessCode: accessCode,
+            onSuccess: (response: { reference?: string }) => {
+              const ref = response?.reference || reference
+              if (options.onSuccess) {
+                options.onSuccess(ref)
+              } else {
+                window.location.href = `/settings?tab=plan&payment=callback&ref=${encodeURIComponent(ref)}`
+              }
+            },
+            onCancel: () => {
+              options.onCancel?.()
+            },
+          })
+          return { type: 'popup' as const, reference }
+        }
+      } catch (err) {
+        console.warn('Paystack popup initiation failed, falling back to direct redirect:', err)
+      }
     }
-  }
 
-  // Reliable checkout redirect (works across all browsers, mobile Safari, etc.)
-  if (typeof window !== 'undefined' && authorizationUrl) {
-    window.location.href = authorizationUrl
-    return { type: 'redirect' as const, reference, url: authorizationUrl }
+    // Direct redirect to Paystack authorizationUrl (robust across all mobile and desktop browsers)
+    if (authorizationUrl) {
+      window.location.href = authorizationUrl
+      return { type: 'redirect' as const, reference, url: authorizationUrl }
+    }
   }
 
   return { type: 'unknown' as const, reference }

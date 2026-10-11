@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { Magicpen, Note1, TaskSquare, VolumeHigh, PauseCircle, CloseCircle } from 'iconsax-reactjs'
+import { useTranslations } from 'next-intl'
 import { useSpeech } from '@/lib/hooks/use-speech'
 import { cn } from '@/lib/utils/cn'
 import { TopicNoteModal } from './topic-note-modal'
@@ -97,6 +98,7 @@ function ActionButton({
  */
 export function TopicActions({ topic }: { topic: TopicForActions }) {
   const { supported: canSpeak, speaking, speak, stop } = useSpeech()
+  const t = useTranslations('topics')
   const [openModal, setOpenModal] = useState<OpenModal>(null)
   // Bumped on every open so the modals remount with fresh fields — cheaper and
   // more predictable than an effect that resets state when `open` flips.
@@ -122,23 +124,23 @@ export function TopicActions({ topic }: { topic: TopicForActions }) {
         <div className="scrollbar-hide flex gap-2 overflow-x-auto">
           <ActionButton
             icon={Magicpen}
-            label="Ask AI"
+            label={t('askAi')}
             onClick={() => openWith('chat')}
           />
           <ActionButton
             icon={Note1}
-            label="Take notes"
+            label={t('notes')}
             onClick={() => openWith('note')}
           />
           <ActionButton
             icon={TaskSquare}
-            label="Create todo"
+            label={t('addToPlanner')}
             onClick={() => openWith('todo')}
           />
           {canSpeak && (
             <ActionButton
               icon={speaking ? PauseCircle : VolumeHigh}
-              label={speaking ? 'Stop' : 'Read to me'}
+              label={speaking ? t('stopReading') : t('readAloud')}
               active={speaking}
               onClick={() => (speaking ? stop() : speak(script))}
             />
@@ -152,7 +154,7 @@ export function TopicActions({ topic }: { topic: TopicForActions }) {
         <button
           type="button"
           onClick={() => (speaking ? stop() : speak(script))}
-          aria-label={speaking ? 'Stop reading this topic' : 'Read this topic aloud'}
+          aria-label={speaking ? t('stopReading') : t('readAloud')}
           className="fixed right-4 z-30 flex items-center gap-2 rounded-full border-none px-4 py-3 text-[13px] font-semibold text-white transition-transform active:scale-95 lg:right-8"
           style={{
             bottom: 'calc(80px + env(safe-area-inset-bottom))',
@@ -164,12 +166,12 @@ export function TopicActions({ topic }: { topic: TopicForActions }) {
           {speaking ? (
             <>
               <CloseCircle size={18} color="currentColor" variant="Bold" />
-              Stop
+              {t('stopReading')}
             </>
           ) : (
             <>
               <VolumeHigh size={18} color="currentColor" variant="Bold" />
-              Listen
+              {t('readAloud')}
             </>
           )}
         </button>

@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useParams, useRouter } from 'next/navigation'
-import { Link } from '@/lib/i18n/navigation'
+import { useParams } from 'next/navigation'
+import { Link, useRouter } from '@/lib/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import ReactMarkdown from 'react-markdown'
 import { Pause, Play, X, FileText, MessageCircle, BookOpen } from 'lucide-react'
@@ -47,6 +47,8 @@ export default function StudySessionPage() {
   const params = useParams()
   const router = useRouter()
   const t = useTranslations('study')
+  const tTopics = useTranslations('topics')
+  const tNav = useTranslations('nav')
   const sessionId = params.sessionId as string
 
   const [elapsed, setElapsed] = useState(0)
@@ -287,18 +289,18 @@ export default function StudySessionPage() {
       >
         <Button variant="secondary" size="sm" onClick={() => setNotesOpen(true)}>
           <FileText size={14} />
-          Take notes
+          {tTopics('notes')}
         </Button>
         <Button variant="secondary" size="sm" asChild>
           <Link href="/assistant">
             <MessageCircle size={14} />
-            Ask AI
+            {tTopics('askAi')}
           </Link>
         </Button>
         <Button variant="accent" size="sm" asChild>
           <Link href="/quizzes">
             <BookOpen size={14} />
-            Practice
+            {tTopics('startPractice')}
           </Link>
         </Button>
       </div>

@@ -221,3 +221,59 @@ Requirements:
 
   return { intro: raw.intro, sections, examples, summary }
 }
+
+export async function translateTopicContent(
+  content: GeneratedTopicContent,
+  locale: string,
+): Promise<GeneratedTopicContent> {
+  if (!locale || locale === 'en') return content
+
+  const targetLang =
+    locale === 'yo' ? 'Yoruba' : locale === 'ha' ? 'Hausa' : locale === 'ig' ? 'Igbo' : null
+  if (!targetLang) return content
+
+  const prompt = `You are an expert Nigerian educational translator.
+Translate the following study notes JSON into ${targetLang}.
+Requirements:
+- Preserve the exact JSON schema: { "intro": string, "sections": [{ "heading": string, "points": string[] }], "examples": [{ "title": string, "problem": string, "walkthrough": string[], "answer": string }], "summary": string[] }.
+- Tone: serious, direct, respectful and educational for a Nigerian student.
+- Keep technical terms (e.g. subject names, scientific formulas, equations, units) in standard notation.
+${locale === 'yo' ? '- For Yoruba: use standard tone marks and dot diacritics (ẹ, ọ, ṣ).' : ''}
+${locale === 'ha' ? '- For Hausa: use standard modern Boko Latin script.' : ''}
+${locale === 'ig' ? '- For Igbo: use modern Onwu orthography with dot diacritics (ị, ọ, ụ).' : ''}
+
+Source JSON:
+${JSON.stringify(content)}`
+
+  try {
+    const ai = getGemini()
+    const response = await ai.models.generateContent({
+      model: QUIZ_MODEL,
+      contents: prompt,
+      config: {
+        responseMimeType: 'application/json',
+        responseSchema: CONTENT_SCHEMA,
+        temperature: 0.2,
+      },
+    })
+
+    const text = response.text
+    if (!text) return content
+
+    const parsed = JSON.parse(text) as Partial<GeneratedTopicContent>
+    if (!parsed.intro || !Array.isArray(parsed.sections) || parsed.sections.length === 0) {
+      return content
+    }
+
+    return {
+      intro: parsed.intro,
+      sections: parsed.sections.filter(isSection),
+      examples: Array.isArray(parsed.examples) ? parsed.examples.filter(isExample) : content.examples,
+      summary: isStringArray(parsed.summary) ? parsed.summary : content.summary,
+    }
+  } catch (err) {
+    logger.warn({ err, locale }, 'Failed to translate study notes with Gemini, returning base notes')
+    return content
+  }
+}
+

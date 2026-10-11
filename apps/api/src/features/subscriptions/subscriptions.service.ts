@@ -122,8 +122,13 @@ export async function initializeSubscription(
       ? env.PAYSTACK_PLAN_MONTHLY_CODE
       : undefined
 
+  const email = user.email?.trim()?.toLowerCase()
+  if (!email || !email.includes('@')) {
+    throw new AppError(400, 'Your account does not have a valid email address configured for payment.')
+  }
+
   const paystackData = await initializePaystackTransaction({
-    email: user.email,
+    email,
     amount: planConfig.priceKobo,
     reference,
     callbackUrl,
@@ -166,6 +171,7 @@ export async function initializeSubscription(
     reference,
     amount: planConfig.price,
     plan: input.plan,
+    email,
   }
 }
 

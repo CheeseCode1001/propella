@@ -1,7 +1,8 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
+import { useTranslations, useLocale } from 'next-intl'
 import { format } from 'date-fns'
 import { useSubjects } from '@/lib/hooks/use-subjects'
 import { useRoadmap } from '@/lib/hooks/use-roadmap'
@@ -48,6 +49,7 @@ function useRecentQuizzes() {
 
 export default function QuizzesPage() {
   const router = useRouter()
+  const locale = useLocale()
   const t = useTranslations('quiz')
   const searchParams = useSearchParams()
   const initialSubjectParam = searchParams.get('subject')
@@ -128,6 +130,7 @@ export default function QuizzesPage() {
         difficulty: 'adaptive',
         mode,
         questionCount: 10,
+        locale,
       })
       router.push(`/quizzes/${result.data.quizId}`)
     } catch (err) {

@@ -63,8 +63,13 @@ export async function initializePaystackTransaction(
 ): Promise<PaystackInitializeResponse> {
   const secretKey = getSecretKey()
 
+  const cleanEmail = input.email?.trim()?.toLowerCase()
+  if (!cleanEmail || !cleanEmail.includes('@')) {
+    throw new AppError(400, 'A valid email address is required to initialize payment with Paystack')
+  }
+
   const payload: Record<string, unknown> = {
-    email: input.email,
+    email: cleanEmail,
     amount: input.amount,
     reference: input.reference,
     callback_url: input.callbackUrl,

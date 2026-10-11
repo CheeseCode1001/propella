@@ -139,7 +139,9 @@
     "hard": "Siri ike",
     "adaptive": "Na-eme onwe ya",
     "noQuizzes": "Enweghị nnwale.",
-    "startFirstQuiz": "Mepụta nnwale gị nke mbụ iji nwalee ihe ọmụmụ gị."
+    "startFirstQuiz": "Mepụta nnwale gị nke mbụ iji nwalee ihe ọmụmụ gị.",
+    "answered": "{count} a zara",
+    "pastQuestion": "Ajụjụ gara aga · {source}"
   },
   "mocks": {
     "title": "Nnwale zuru ezu",
@@ -290,5 +292,42 @@
       "honours": "Otito",
       "summaLaudeCumLaude": "Kasị elu"
     }
+  },
+  "notes": {
+    "title": "Ihe Ndetu",
+    "subtitle": "Ihe niile ị debere n'otu ebe.",
+    "empty": "Ihe ndetu gị ga-adị ebe a ka ị na-amụ ihe. Meghee isiokwu ọ bụla wee bido ide ihe.",
+    "emptyTitle": "Enweghị ihe ndetu ugbu a",
+    "new": "Ihe ndetu ọhụrụ",
+    "search": "Chọọ ihe ndetu gị",
+    "untitled": "Ihe ndetu na-enweghị aha",
+    "save": "Chekwaa",
+    "saved": "Echekwara",
+    "delete": "Hichapụ ihe ndetu",
+    "general": "N'ozuzu"
+  },
+  "topics": {
+    "examplesAndSolutions": "Ihe Nlereanya na Azịza",
+    "problem": "Ajụjụ / Nsogbu",
+    "walkthrough": "Nkọwa Nzọụkwụ-na-nzọụkwụ",
+    "finalAnswer": "Azịza Ikpeazụ",
+    "summaryAndKeyTakeaways": "Nchịkọta na Isi Ihe Ndị Dị Mkpa",
+    "markCompleted": "Kaa akara dị ka ihe zuru ezu",
+    "completed": "Emechara isiokwu a",
+    "startPractice": "Malite Ajụjụ Omume",
+    "preparingQuiz": "Na-akwadebe Ajụjụ…",
+    "nextTopic": "Isiokwu Na-esonụ",
+    "previousTopic": "Isiokwu gara aga",
+    "freeTrialLimit": "Eruola Oke Nnwale N'efu",
+    "freeTrialDesc": "Ị hụla isiokwu nnwale n'efu gị. Iji nweta akwụkwọ ọmụmụ zuru oke n'isiokwu niile, banye na Scholar.",
+    "upgradeToScholar": "Banye na Scholar",
+    "backToRoadmap": "Laghachi na Nhazi Ọmụmụ",
+    "errorTitle": "Anyị enweghị ike imeghe isiokwu a",
+    "errorMessage": "Ihe ndetu maka isiokwu a agaghị abata. Biko nwaa ọzọ n'obere oge.",
+    "readAloud": "Gụọ ya n'olu dara ụda",
+    "stopReading": "Kwụsị ịgụ",
+    "askAi": "Jụọ AI",
+    "addToPlanner": "Tinye na nhazi ọmụmụ",
+    "notes": "Ihe Ndetu"
   }
 }

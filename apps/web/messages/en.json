@@ -149,7 +149,9 @@
     "examMode": "Exam mode",
     "examModeDesc": "No feedback until you submit, exactly like the real paper.",
     "yourAnswer": "Your answer",
-    "correctAnswer": "Correct answer"
+    "correctAnswer": "Correct answer",
+    "answered": "{count} answered",
+    "pastQuestion": "Past question · {source}"
   },
   "mocks": {
     "title": "Mock exams",
@@ -313,5 +315,29 @@
     "saved": "Saved",
     "delete": "Delete note",
     "general": "General"
+  },
+  "topics": {
+    "examplesAndSolutions": "Examples & Solutions",
+    "problem": "Problem",
+    "walkthrough": "Step-by-step Walkthrough",
+    "finalAnswer": "Final Answer",
+    "summaryAndKeyTakeaways": "Summary & Key Takeaways",
+    "markCompleted": "Mark topic completed",
+    "completed": "Topic completed",
+    "startPractice": "Start Practice Quiz",
+    "preparingQuiz": "Preparing Quiz…",
+    "nextTopic": "Next Topic",
+    "previousTopic": "Previous Topic",
+    "freeTrialLimit": "Free Trial Sample Limit Reached",
+    "freeTrialDesc": "You have already sampled your free trial topic. To access this topic and the complete syllabus across all subjects, upgrade to Scholar.",
+    "upgradeToScholar": "Upgrade to Scholar",
+    "backToRoadmap": "Back to Roadmap",
+    "errorTitle": "We could not open this topic",
+    "errorMessage": "The notes for this topic did not load. Try again in a moment.",
+    "readAloud": "Read aloud",
+    "stopReading": "Stop reading",
+    "askAi": "Ask AI",
+    "addToPlanner": "Add to study planner",
+    "notes": "Notes"
   }
 }

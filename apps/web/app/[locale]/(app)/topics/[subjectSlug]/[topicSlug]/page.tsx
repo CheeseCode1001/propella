@@ -1,10 +1,9 @@
-'use client'
-
 import { useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
+import { useRouter, Link } from '@/lib/i18n/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare, Crown1 } from 'iconsax-reactjs'
-import { Link } from '@/lib/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import { api } from '@/lib/api-client'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -68,6 +67,8 @@ export default function TopicReaderPage() {
   const params = useParams()
   const subjectSlug = params.subjectSlug as string
   const topicSlug = params.topicSlug as string
+  const locale = (params.locale as string) || 'en'
+  const t = useTranslations('topics')
   const online = useOnlineStatus()
   const router = useRouter()
   const [practicing, setPracticing] = useState(false)
@@ -84,6 +85,7 @@ export default function TopicReaderPage() {
         difficulty: 'adaptive',
         mode: 'study',
         questionCount: 10,
+        locale,
       })
       router.push('/quizzes/' + res.data.quizId)
     } catch {
@@ -94,13 +96,11 @@ export default function TopicReaderPage() {
   }
 
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ['topic-reader', subjectSlug, topicSlug],
+    queryKey: ['topic-reader', subjectSlug, topicSlug, locale],
     queryFn: () =>
       api
-        .get<{ data: TopicReader }>(`/topics/${subjectSlug}/${topicSlug}`)
+        .get<{ data: TopicReader }>(`/topics/${subjectSlug}/${topicSlug}?locale=${encodeURIComponent(locale)}`)
         .then((r) => r.data),
-    // Notes are cached server-side and never change for a topic, so there is no
-    // reason to refetch them during a reading session.
     staleTime: 60 * 60 * 1000,
   })
 
@@ -121,11 +121,10 @@ export default function TopicReaderPage() {
             <Crown1 size={32} variant="Bold" />
           </div>
           <h2 className="text-2xl font-extrabold text-[var(--color-ink)]">
-            Free Trial Sample Limit Reached
+            {t('freeTrialLimit')}
           </h2>
           <p className="mt-3 text-sm text-[var(--color-ink-muted)] max-w-md mx-auto leading-relaxed">
-            {error?.message ||
-              'You have already sampled your 1 free trial topic. To access this topic and the complete syllabus across all subjects, upgrade to Scholar.'}
+            {error?.message || t('freeTrialDesc')}
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button
@@ -133,14 +132,14 @@ export default function TopicReaderPage() {
               className="w-full sm:w-auto h-11 px-6 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-md"
             >
               <Crown1 size={16} variant="Bold" className="mr-1.5" />
-              Upgrade to Scholar
+              {t('upgradeToScholar')}
             </Button>
             <Button
               variant="secondary"
               onClick={() => router.push('/roadmap')}
               className="w-full sm:w-auto h-11 px-6 rounded-xl"
             >
-              Back to Roadmap
+              {t('backToRoadmap')}
             </Button>
           </div>
         </div>
@@ -150,8 +149,8 @@ export default function TopicReaderPage() {
     return (
       <ErrorState
         kind={errorKindFrom(error, online)}
-        title="We could not open this topic"
-        message="The notes for this topic did not load. Try again in a moment."
+        title={t('errorTitle')}
+        message={t('errorMessage')}
         onRetry={() => void refetch()}
         className="mt-8"
       />
@@ -214,7 +213,7 @@ export default function TopicReaderPage() {
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             <Lamp size={18} color="var(--color-accent)" variant="Bold" />
-            Worked examples
+            {t('examplesAndSolutions')}
           </h2>
 
           <div className="flex flex-col gap-4">
@@ -259,7 +258,7 @@ export default function TopicReaderPage() {
                     fontFamily: 'var(--font-sans)',
                   }}
                 >
-                  Answer: {example.answer}
+                  {t('finalAnswer')}: {example.answer}
                 </p>
               </div>
             ))}
@@ -281,7 +280,7 @@ export default function TopicReaderPage() {
             style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-accent)' }}
           >
             <Book1 size={17} color="currentColor" variant="Bold" />
-            Summary
+            {t('summaryAndKeyTakeaways')}
           </h2>
           <ul className="flex flex-col gap-2 pl-0">
             {data.summary.map((point, i) => (
@@ -300,7 +299,7 @@ export default function TopicReaderPage() {
       <div className="mb-8">
         <Button variant="accent" disabled={practicing} onClick={handleStartPractice}>
           <TaskSquare size={15} color="currentColor" variant="Linear" />
-          {practicing ? 'Starting quiz...' : 'Practise this topic'}
+          {practicing ? t('preparingQuiz') : t('startPractice')}
         </Button>
       </div>
 

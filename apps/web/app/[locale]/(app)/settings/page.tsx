@@ -14,9 +14,13 @@ import {
   CreditCard,
   RefreshCw,
   X,
+  Sun,
+  Moon,
+  Monitor,
 } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { api } from '@/lib/api-client'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
@@ -160,7 +164,8 @@ function ProfileTab() {
     },
     [setUser],
   )
-  const { register, handleSubmit } = useForm<ProfileForm>({
+  const { theme, setTheme } = useTheme()
+  const { register, handleSubmit, setValue } = useForm<ProfileForm>({
     defaultValues: {
       name: user?.name ?? '',
       timezone: user?.timezone ?? 'Africa/Lagos',
@@ -171,6 +176,9 @@ function ProfileTab() {
   async function onSubmit(data: ProfileForm) {
     try {
       await api.patch('/users/me', data)
+      if (data.theme) {
+        setTheme(data.theme)
+      }
       setSaved(true)
       setTimeout(() => setSaved(false), 2000)
     } catch {
@@ -214,18 +222,46 @@ function ProfileTab() {
             <Label style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', display: 'block', marginBottom: 8 }}>
               {t('theme')}
             </Label>
-            <div style={{ display: 'flex', gap: 10 }}>
-              {(['system', 'light', 'dark'] as const).map((t) => (
-                <label
-                  key={t}
-                  style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}
-                >
-                  <input type="radio" value={t} {...register('theme')} />
-                  <span style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-ink-2)', textTransform: 'capitalize' }}>
-                    {t}
-                  </span>
-                </label>
-              ))}
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              {[
+                { id: 'system', label: 'System', icon: Monitor },
+                { id: 'light', label: 'Light', icon: Sun },
+                { id: 'dark', label: 'Dark', icon: Moon },
+              ].map(({ id, label, icon: Icon }) => {
+                const isActive = (theme || 'system') === id
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => {
+                      setTheme(id)
+                      setValue('theme', id as any)
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '8px 16px',
+                      borderRadius: 'var(--radius-md)',
+                      border: isActive
+                        ? '1.5px solid var(--color-accent)'
+                        : '1px solid var(--color-rule)',
+                      backgroundColor: isActive
+                        ? 'var(--color-accent-tint)'
+                        : 'var(--color-paper-2)',
+                      color: isActive ? 'var(--color-accent)' : 'var(--color-ink)',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 13,
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    <Icon size={16} strokeWidth={1.5} />
+                    {label}
+                  </button>
+                )
+              })}
             </div>
           </div>
 

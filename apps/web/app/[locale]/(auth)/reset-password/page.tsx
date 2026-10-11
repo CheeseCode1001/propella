@@ -2,8 +2,8 @@
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Link } from '@/lib/i18n/navigation'
+import { useSearchParams } from 'next/navigation'
+import { Link, useRouter } from '@/lib/i18n/navigation'
 import { useState, Suspense } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import { useTranslations } from 'next-intl'

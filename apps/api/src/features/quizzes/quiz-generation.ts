@@ -75,6 +75,7 @@ export async function generateQuestions(params: {
   difficulty: string
   count: number
   recentStems?: string[]
+  locale?: string
 }): Promise<QuizQuestion[]> {
   const avoidList = params.recentStems?.length
     ? `\n\nDo not repeat, and do not lightly reword, any of these recently-seen stems:\n${params.recentStems
@@ -84,6 +85,11 @@ export async function generateQuestions(params: {
     : ''
 
   const exam = params.examType.toUpperCase()
+  const targetLang =
+    params.locale === 'yo' ? 'Yoruba' : params.locale === 'ha' ? 'Hausa' : params.locale === 'ig' ? 'Igbo' : null
+  const langDirective = targetLang
+    ? `\n- Language: All question stems, multiple-choice options, and explanations MUST be written in natural, fluent ${targetLang}. Technical subject terms, units, and mathematical equations may remain in standard form.`
+    : ''
 
   const prompt = `Generate ${params.count} multiple-choice questions on the topic "${params.topicName}" within the subject "${params.subjectName}" for a Nigerian ${exam} candidate. Difficulty: ${params.difficulty}.
 
@@ -91,7 +97,7 @@ Questions must:
 - Follow the exact style, phrasing and structure of ${exam} past papers
 - Have exactly 4 options (A, B, C, D) with exactly one correct answer
 - Use the Nigerian curriculum and Nigerian contexts for worked examples
-- Include a clear, teaching explanation that explains WHY the answer is correct and references the relevant principle${avoidList}`
+- Include a clear, teaching explanation that explains WHY the answer is correct and references the relevant principle${langDirective}${avoidList}`
 
   const ai = getGemini()
 
@@ -155,3 +161,66 @@ Questions must:
 
   return questions
 }
+
+export async function translateQuizQuestions(
+  questions: QuizQuestion[],
+  locale: string,
+): Promise<QuizQuestion[]> {
+  if (!locale || locale === 'en' || questions.length === 0) return questions
+
+  const targetLang =
+    locale === 'yo' ? 'Yoruba' : locale === 'ha' ? 'Hausa' : locale === 'ig' ? 'Igbo' : null
+  if (!targetLang) return questions
+
+  const prompt = `You are an expert Nigerian educational translator.
+Translate the stems, options, and explanations of these multiple choice quiz questions into ${targetLang}.
+Rules:
+- Preserve the exact question id, correctOptionId, topicSlug, difficulty, source, and imageUrl.
+- Translate only "stem", "explanation", and the "text" property of each option.
+- Ensure options array retains the exact same "id" (A, B, C, D) and order.
+- Keep technical terms and mathematical formulas intact.
+- Return a JSON array of the questions with translated text.
+
+Questions to translate:
+${JSON.stringify(questions)}`
+
+  try {
+    const ai = getGemini()
+    const response = await ai.models.generateContent({
+      model: QUIZ_MODEL,
+      contents: prompt,
+      config: {
+        responseMimeType: 'application/json',
+        temperature: 0.2,
+      },
+    })
+
+    const text = response.text
+    if (!text) return questions
+
+    const parsed = JSON.parse(text)
+    if (!Array.isArray(parsed) || parsed.length !== questions.length) {
+      return questions
+    }
+
+    return parsed.map((item, idx) => {
+      const orig = questions[idx]!
+      return {
+        ...orig,
+        stem: typeof item.stem === 'string' ? item.stem : orig.stem,
+        explanation: typeof item.explanation === 'string' ? item.explanation : orig.explanation,
+        options:
+          Array.isArray(item.options) && item.options.length === 4
+            ? item.options.map((opt: any, oIdx: number) => ({
+                id: orig.options[oIdx]?.id || opt.id,
+                text: typeof opt.text === 'string' ? opt.text : orig.options[oIdx]?.text || '',
+              }))
+            : orig.options,
+      }
+    })
+  } catch (err) {
+    logger.warn({ err, locale }, 'Failed to translate quiz questions, falling back to original')
+    return questions
+  }
+}
+

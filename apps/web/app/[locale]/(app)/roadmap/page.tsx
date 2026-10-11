@@ -1,7 +1,6 @@
 'use client'
 import { useMemo, useState, useEffect } from 'react'
-import { Link } from '@/lib/i18n/navigation'
-import { useRouter } from 'next/navigation'
+import { Link, useRouter } from '@/lib/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { Trophy, Check, Lock } from 'lucide-react'
 import { format } from 'date-fns'

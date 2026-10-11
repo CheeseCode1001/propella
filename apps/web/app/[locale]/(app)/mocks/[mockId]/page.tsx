@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api-client'
 import { QuestionImage } from '@/components/common/question-image'

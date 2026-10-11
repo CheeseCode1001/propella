@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/lib/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { useNotifications, type Notification } from '@/lib/hooks/use-notifications'
 import { useMarkRead } from '@/lib/hooks/use-mark-read'

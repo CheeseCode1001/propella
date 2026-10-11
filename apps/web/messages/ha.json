@@ -139,7 +139,9 @@
     "hard": "Wuya",
     "adaptive": "Mai daidaitawa",
     "noQuizzes": "Babu jarrabawa.",
-    "startFirstQuiz": "Ƙirƙiri jarrabawar farkonka don gwada iliminka."
+    "startFirstQuiz": "Ƙirƙiri jarrabawar farkonka don gwada iliminka.",
+    "answered": "{count} an amsa",
+    "pastQuestion": "Tambayar da ta gabata · {source}"
   },
   "mocks": {
     "title": "Gwaje-gwajen cikakke",
@@ -290,5 +292,42 @@
       "honours": "Girmamawa",
       "summaLaudeCumLaude": "Mafi girma"
     }
+  },
+  "notes": {
+    "title": "Rubutattun Bayanai",
+    "subtitle": "Dukkan abubuwan da ka rubuta a wuri guda.",
+    "empty": "Bayananka za su taru a nan yayin da kake karatu. Buɗe kowane darasi don fara rubutawa.",
+    "emptyTitle": "Babu wani bayani tukuna",
+    "new": "Sabuwar rubutu",
+    "search": "Nemi bayanan da ka rubuta",
+    "untitled": "Rubutu marar suna",
+    "save": "Ajiye",
+    "saved": "An ajiye",
+    "delete": "Goge rubutu",
+    "general": "Gabaɗaya"
+  },
+  "topics": {
+    "examplesAndSolutions": "Misalai da Hanyoyin Warwarewa",
+    "problem": "Tambaya / Matsala",
+    "walkthrough": "Bayani Mataki-mataki",
+    "finalAnswer": "Amsa ta Ƙarshe",
+    "summaryAndKeyTakeaways": "Taƙaitaccen Bayani da Muhimman Darussa",
+    "markCompleted": "Nuna an kammala",
+    "completed": "An kammala darasin",
+    "startPractice": "Fara Gwajin Karatu",
+    "preparingQuiz": "Ana Shirya Tambayoyi…",
+    "nextTopic": "Darasi na Gaba",
+    "previousTopic": "Darasin Baya",
+    "freeTrialLimit": "An Kai Iyakar Gwajin Kyauta",
+    "freeTrialDesc": "Ka riga ka duba darasin gwaji na kyauta. Domin samun cikakken manhajar dukkan darussa, haɓaka zuwa Scholar.",
+    "upgradeToScholar": "Haɓaka zuwa Scholar",
+    "backToRoadmap": "Koma Taswirar Karatu",
+    "errorTitle": "Ba a iya buɗe wannan darasi ba",
+    "errorMessage": "Bayanin wannan darasi bai shigo ba. Da fatan za a sake gwadawa.",
+    "readAloud": "Karanta da Murya",
+    "stopReading": "Daina Karatu",
+    "askAi": "Tambayi AI",
+    "addToPlanner": "Ƙara a Tsarin Karatu",
+    "notes": "Rubutattun Bayanai"
   }
 }
