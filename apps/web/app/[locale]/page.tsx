@@ -1,4 +1,3 @@
-
 import Image from 'next/image'
 import { Link } from '@/lib/i18n/navigation'
 import {
@@ -13,6 +12,16 @@ import {
   TrendingUp,
   Zap,
   Smartphone,
+  ArrowRight,
+  CheckCircle2,
+  ShieldCheck,
+  Award,
+  Star,
+  BookOpen,
+  Users,
+  Crown,
+  Heart,
+  Gift,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -24,22 +33,27 @@ import { StickyNav } from '@/components/marketing/sticky-nav'
 function HeroTopicCard() {
   return (
     <div
-      className="bg-[var(--color-card)] border border-[var(--color-rule)] rounded-[var(--radius-md)] overflow-hidden shadow-[var(--shadow-md)] max-w-[340px] w-full"
-      style={{ boxShadow: 'var(--shadow-md)' }}
+      className="bg-[var(--color-card)]/95 backdrop-blur-md border border-[var(--color-rule)] rounded-2xl overflow-hidden shadow-xl max-w-[340px] w-full"
     >
-      {/* accent left bar */}
+      {/* accent top/left bar */}
       <div className="flex">
-        <div className="w-[3px] bg-[var(--color-accent)] shrink-0" />
+        <div className="w-1.5 bg-[var(--color-accent)] shrink-0" />
         <div className="flex-1 p-5">
           <div className="mb-3">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[11px] font-mono font-medium text-[var(--color-accent)] uppercase tracking-wider">
+                Active Topic
+              </span>
+              <span className="text-[11px] font-mono text-[var(--color-ink-3)]">Topic 8 of 15</span>
+            </div>
             <h3
-              className="text-[18px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-1"
+              className="text-[18px] leading-[1.3] font-semibold tracking-[-0.01em] text-[var(--color-ink)]"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Quadratic Equations
             </h3>
             <p className="text-[12px] text-[var(--color-ink-3)] font-mono">
-              Mathematics · Topic 8 of 15
+              Mathematics · JAMB &amp; WAEC
             </p>
           </div>
 
@@ -47,25 +61,29 @@ function HeroTopicCard() {
           <div className="mb-4">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-[11px] text-[var(--color-ink-3)] font-mono uppercase tracking-[0.06em]">
-                Mastery
+                Mastery Score
               </span>
-              <span className="text-[11px] text-[var(--color-ink-2)] font-mono">67%</span>
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-mono font-bold">
+                84% · Ready
+              </span>
             </div>
-            <div className="h-1.5 bg-[var(--color-paper-3)] rounded-full overflow-hidden">
+            <div className="h-2 bg-[var(--color-paper-3)] rounded-full overflow-hidden">
               <div
-                className="h-full bg-[var(--color-accent)] rounded-full"
-                style={{ width: '67%' }}
+                className="h-full bg-gradient-to-r from-[var(--color-accent)] to-emerald-500 rounded-full"
+                style={{ width: '84%' }}
               />
             </div>
           </div>
 
           {/* next revision */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between pt-2 border-t border-[var(--color-rule)]">
             <div className="flex items-center gap-1.5">
-              <CalendarDays size={12} strokeWidth={1.5} className="text-[var(--color-ink-3)]" />
-              <span className="text-[12px] text-[var(--color-ink-3)]">Next revision in 2 days</span>
+              <CalendarDays size={13} strokeWidth={1.5} className="text-[var(--color-accent)]" />
+              <span className="text-[12px] text-[var(--color-ink-2)] font-medium">Review in 2 days</span>
             </div>
-            <Badge variant="warning">In progress</Badge>
+            <Badge variant="success" className="text-[10px] px-2 py-0.5">
+              Spaced Recall Active
+            </Badge>
           </div>
         </div>
       </div>
@@ -79,29 +97,28 @@ export default function HomePage() {
   const year = new Date().getFullYear()
 
   return (
-    <div className="min-h-screen bg-[var(--color-paper)]">
+    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-accent-tint)] selection:text-[var(--color-accent)]">
       <StickyNav />
 
       {/* ── 1. Hero ────────────────────────────────────────────────────────── */}
-      <section className="pt-24 pb-20 lg:pt-32 lg:pb-28">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center">
+      <section className="relative pt-24 pb-20 lg:pt-36 lg:pb-28 overflow-hidden border-b border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-14 lg:items-center">
             {/* Left col */}
             <div className="lg:col-span-7">
-              {/* eyebrow */}
-              <p
-                className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-accent)] mb-6"
-              >
-                Propella — Pass JAMB in one sitting. Turn distractions into distinctions.
-              </p>
+              {/* eyebrow badge */}
+              <div className="inline-flex items-center gap-2 mb-6">
+                <Badge variant="accent" className="px-3.5 py-1 text-xs font-mono tracking-wide shadow-sm">
+                  ✨ Nigeria&apos;s #1 AI CBT &amp; Exam Prep Platform
+                </Badge>
+              </div>
 
               {/* headline */}
               <h1
-                className="text-[var(--color-ink)] mb-6 leading-[0.95] tracking-[-0.02em]"
+                className="text-[var(--color-ink)] mb-6 leading-[1.05] tracking-[-0.025em] font-semibold"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
-                  fontWeight: 500,
+                  fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
                 }}
               >
                 Stop trying to cram<br />
@@ -110,49 +127,62 @@ export default function HomePage() {
 
               {/* subhead */}
               <p
-                className="text-[17px] leading-[1.6] text-[var(--color-ink-2)] mb-6"
-                style={{ maxWidth: '520px' }}
+                className="text-[17px] sm:text-[18px] leading-[1.65] text-[var(--color-ink-2)] mb-8"
+                style={{ maxWidth: '560px' }}
               >
-                Boost your score and confidence with a system that breaks down your syllabus
-                into a simplified study guide to help you pass JAMB.
+                Boost your score and confidence with a system that breaks down your official
+                syllabus into daily bite-sized topics, 6,994+ real CBT past questions, and automated spaced revision.
               </p>
 
-              {/* punch lines */}
-              <div className="mb-8 space-y-1.5">
-                <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] italic">
-                  No more random reading.
-                </p>
-                <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] italic">
-                  No more forgetting everything before exam.
-                </p>
-                <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] italic">
-                  Block social media until you answer questions to earn scrolling time.
-                </p>
-                <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] italic">
-                  Propella is built for students who want to pass JAMB once.
-                </p>
+              {/* value pillars */}
+              <div className="mb-8 space-y-2.5 max-w-[540px]">
+                <div className="flex items-center gap-2.5 text-[14.5px] text-[var(--color-ink-2)]">
+                  <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span><strong>No more random reading</strong> — complete official JAMB, WAEC &amp; NECO syllabi.</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-[14.5px] text-[var(--color-ink-2)]">
+                  <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span><strong>No more forgetting before exams</strong> — automated spaced review schedules.</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-[14.5px] text-[var(--color-ink-2)]">
+                  <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span><strong>Distractions into distinctions</strong> — earn scrolling time by answering questions daily.</span>
+                </div>
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3 mb-4">
-                <Button variant="accent" size="lg" asChild>
-                  <Link href="/signup">Help me pass JAMB</Link>
+              <div className="flex flex-wrap items-center gap-4 mb-8">
+                <Button variant="accent" size="lg" className="shadow-lg shadow-[var(--color-accent)]/20 text-base" asChild>
+                  <Link href="/signup">
+                    Help me pass JAMB
+                    <ArrowRight size={16} className="ml-2" />
+                  </Link>
                 </Button>
-                <Button variant="ghost" size="lg" asChild>
+                <Button variant="secondary" size="lg" className="text-base" asChild>
                   <a href="#how-it-works">See how it works</a>
                 </Button>
               </div>
 
-              {/* caption */}
-              <p className="text-[13px] text-[var(--color-ink-3)]">
-                Finish your syllabus with a simplified AI system that works. Answer questions
-                daily and boost your chances to score 300+.
-              </p>
+              {/* Trust Badges Bar */}
+              <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-[var(--color-rule)] text-xs text-[var(--color-ink-3)] font-mono">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                  6,994 Past Questions
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                  Real CBT Exam Simulation
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                  Target 300+ Score Engine
+                </span>
+              </div>
             </div>
 
-            {/* Right col — hero student image with floating topic card */}
+            {/* Right col — hero student image with floating cards */}
             <div className="hidden lg:flex lg:col-span-5 lg:justify-center lg:items-center mt-12 lg:mt-0">
-              <div className="relative w-full max-w-[420px] pb-8">
+              <div className="relative w-full max-w-[440px] pb-10">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[var(--color-rule)] shadow-2xl bg-[var(--color-paper-2)]">
                   <Image
                     src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&w=1000&q=80"
@@ -161,13 +191,24 @@ export default function HomePage() {
                     className="object-cover"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-mono text-emerald-400 border border-white/10 flex items-center gap-1.5">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-emerald-400 border border-white/10 flex items-center gap-2 shadow-lg">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Live CBT Session
+                    Live CBT Simulation
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-black/90 backdrop-blur-md p-3.5 rounded-xl border border-white/20 shadow-md">
+                    <div className="flex items-center justify-between text-xs font-semibold text-[var(--color-ink)]">
+                      <span>UTME 2026 Prediction</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-mono font-bold">Predicted Score: 318 / 400</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[var(--color-paper-3)] rounded-full mt-2 overflow-hidden">
+                      <div className="h-full bg-emerald-500 w-[79.5%]" />
+                    </div>
                   </div>
                 </div>
-                <div className="absolute -bottom-4 -left-4 right-4 z-10">
+
+                {/* Floating topic card */}
+                <div className="absolute -bottom-4 -left-6 right-6 z-10">
                   <HeroTopicCard />
                 </div>
               </div>
@@ -176,57 +217,90 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Separator />
-
       {/* ── 2. The repetition problem ───────────────────────────────────────── */}
-      <section className="py-24 bg-[var(--color-paper-2)]">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
+      <section className="py-24 bg-[var(--color-paper-2)] border-b border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start mb-16">
             {/* Left — headline */}
             <div>
+              <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-accent)] mb-4">
+                The Science of Exam Retention
+              </p>
               <h2
                 className="text-[var(--color-ink)] leading-[1.1] tracking-[-0.02em]"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+                  fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
                   fontWeight: 500,
                 }}
               >
-                The problem isn&apos;t that you didn&apos;t study. It&apos;s that you didn&apos;t
-                study correctly with the right methods — let Propella help you this time.
+                The problem isn&apos;t that you didn&apos;t study. It&apos;s that cramming doesn&apos;t last until exam day.
               </h2>
             </div>
 
             {/* Right — body copy */}
-            <div className="mt-8 lg:mt-0 space-y-5">
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
+            <div className="mt-8 lg:mt-0 space-y-4">
+              <p className="text-[15.5px] leading-[1.65] text-[var(--color-ink-2)]">
                 Most candidates read a topic once — maybe twice — and move on. By exam day, the
-                early material has faded. The connections between topics never form. The confidence
-                was never real.
+                early material has faded. The connections between topics never form, and unexpected questions throw you off.
               </p>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
-                If you are preparing for JAMB, Propella creates a personalised study experience
-                based on your strengths, weaknesses and goals.
+              <p className="text-[15.5px] leading-[1.65] text-[var(--color-ink-2)]">
+                Propella replaces frantic cramming with a personalised algorithm that tracks your performance
+                across every topic, automatically resurfacing difficult questions right before you forget them.
               </p>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
-                Propella automates your study with ease and does the heavy lifting for you. All you
-                need to do is simply show up.
-              </p>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] font-medium">
-                Study with structure. Practice with confidence. Walk into your exam prepared.
+              <p className="text-[15.5px] leading-[1.65] text-[var(--color-ink-2)] font-medium">
+                Study with structure. Practice with confidence. Walk into your exam with total peace of mind.
               </p>
             </div>
           </div>
 
-          {/* Photograph under both columns. Fixed aspect ratio so the section
-              height does not jump while the image loads. */}
+          {/* 3 Pillar Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
+                <RotateCcw size={20} />
+              </div>
+              <h3 className="text-lg font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                The Cramming Trap
+              </h3>
+              <p className="text-sm text-[var(--color-ink-2)] leading-relaxed">
+                Reading 100 pages the week before the exam causes immediate mental fatigue and poor question recall during real CBT exams.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
+                <Activity size={20} />
+              </div>
+              <h3 className="text-lg font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                Active Recall Testing
+              </h3>
+              <p className="text-sm text-[var(--color-ink-2)] leading-relaxed">
+                Testing yourself on verified past questions forces your brain to retrieve knowledge, cementing it permanently into long-term memory.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                <TrendingUp size={20} />
+              </div>
+              <h3 className="text-lg font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                Spaced Revision Engine
+              </h3>
+              <p className="text-sm text-[var(--color-ink-2)] leading-relaxed">
+                Propella calculates your forgetting curve for each subject. Topics you struggle with reappear sooner; mastered topics rest longer.
+              </p>
+            </div>
+          </div>
+
+          {/* Photograph */}
           <div
-            className="mt-12 overflow-hidden rounded-[var(--radius-lg)]"
+            className="overflow-hidden rounded-2xl border border-[var(--color-rule)] shadow-lg"
             style={{ backgroundColor: 'var(--color-paper-3)' }}
           >
             <Image
               src="/images/students-group.jpg"
-              alt="Secondary school students together outside their classroom"
+              alt="Secondary school students together outside their classroom preparing for exams"
               width={2000}
               height={1335}
               className="h-full w-full object-cover"
@@ -238,286 +312,280 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Separator />
-
       {/* ── 3. How it works ────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="py-24">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+      <section id="how-it-works" className="py-24 border-b border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
           {/* section label */}
-          <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-12">
-            How it works
-          </p>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-accent)] mb-3">
+              Step-by-step roadmap
+            </p>
+            <h2
+              className="text-[var(--color-ink)] leading-[1.1] tracking-[-0.02em]"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+                fontWeight: 500,
+              }}
+            >
+              How Propella Guides You to 300+
+            </h2>
+          </div>
 
-          <div className="lg:grid lg:grid-cols-3 lg:divide-x lg:divide-[var(--color-rule)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 01 */}
-            <div className="pb-12 lg:pb-0 lg:pr-10">
-              <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-                01
-              </p>
-              <h3
-                className="text-[18px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-3"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Tell us your exam and subjects
-              </h3>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
-                Select your exam (JAMB, WAEC, or NECO), your target subjects, your exam date, and
-                how many hours a day you can study. Propella builds a roadmap from the official
-                syllabus — not from someone&apos;s guess at what might come up.
-              </p>
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper-2)] p-8 relative flex flex-col justify-between shadow-sm">
+              <div>
+                <div className="w-10 h-10 rounded-full bg-[var(--color-accent-tint)] text-[var(--color-accent)] font-mono font-bold text-sm flex items-center justify-center mb-6 border border-[var(--color-accent)]/20">
+                  01
+                </div>
+                <h3
+                  className="text-[19px] leading-[1.3] font-semibold text-[var(--color-ink)] mb-3"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  Select Exam &amp; Subjects
+                </h3>
+                <p className="text-[14.5px] leading-[1.65] text-[var(--color-ink-2)]">
+                  Pick JAMB UTME, WAEC SSCE, or NECO, enter your 4 or 8 subjects, and set your target date.
+                  Propella automatically structures a personalized roadmap mapped to official syllabi.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[var(--color-rule)] text-xs font-mono text-[var(--color-ink-3)]">
+                JAMB · WAEC · NECO · Undergraduate
+              </div>
             </div>
 
             {/* Step 02 */}
-            <div className="py-12 lg:py-0 lg:px-10 border-t border-[var(--color-rule)] lg:border-t-0">
-              <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-                02
-              </p>
-              <h3
-                className="text-[18px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-3"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Study and get tested
-              </h3>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
-                Each session delivers concise topic notes, practice questions drawn from past papers,
-                and instant feedback. The AI study companion answers questions about specific topics
-                — within the scope of your syllabus. No distractions, no rabbit holes.
-              </p>
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper-2)] p-8 relative flex flex-col justify-between shadow-sm">
+              <div>
+                <div className="w-10 h-10 rounded-full bg-[var(--color-accent-tint)] text-[var(--color-accent)] font-mono font-bold text-sm flex items-center justify-center mb-6 border border-[var(--color-accent)]/20">
+                  02
+                </div>
+                <h3
+                  className="text-[19px] leading-[1.3] font-semibold text-[var(--color-ink)] mb-3"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  Daily Bites &amp; Real CBT Practice
+                </h3>
+                <p className="text-[14.5px] leading-[1.65] text-[var(--color-ink-2)]">
+                  Study concise topic notes, tackle verified past questions, and chat with your AI study companion
+                  for step-by-step problem breakdowns — always strictly within your syllabus.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[var(--color-rule)] text-xs font-mono text-[var(--color-ink-3)]">
+                Instant Explanations · Step-by-Step AI
+              </div>
             </div>
 
             {/* Step 03 */}
-            <div className="pt-12 lg:pt-0 lg:pl-10 border-t border-[var(--color-rule)] lg:border-t-0">
-              <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-                03
-              </p>
-              <h3
-                className="text-[18px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-3"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                The system schedules your reviews
-              </h3>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)]">
-                After every session, the algorithm calculates when each topic needs revisiting.
-                Topics you struggled with come back sooner. Topics you mastered rest longer. Over
-                time, your entire syllabus shifts from &ldquo;seen once&rdquo; to &ldquo;properly
-                memorised.&rdquo;
-              </p>
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper-2)] p-8 relative flex flex-col justify-between shadow-sm">
+              <div>
+                <div className="w-10 h-10 rounded-full bg-[var(--color-accent-tint)] text-[var(--color-accent)] font-mono font-bold text-sm flex items-center justify-center mb-6 border border-[var(--color-accent)]/20">
+                  03
+                </div>
+                <h3
+                  className="text-[19px] leading-[1.3] font-semibold text-[var(--color-ink)] mb-3"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  Automated Spaced Retention
+                </h3>
+                <p className="text-[14.5px] leading-[1.65] text-[var(--color-ink-2)]">
+                  The algorithm tracks your weakness score per topic. Tricky topics reappear just when you need them.
+                  Your entire syllabus moves from &ldquo;seen once&rdquo; to complete mastery.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[var(--color-rule)] text-xs font-mono text-[var(--color-ink-3)]">
+                Zero Forgetting · Confident Recall
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <Separator />
-
       {/* ── 4. Features ──────────────────────────────────────────────────────── */}
-      <section className="py-24 bg-[var(--color-paper-2)]">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-            Why choose Propella?
-          </p>
-          <h2
-            className="text-[var(--color-ink)] leading-[1.15] tracking-[-0.02em] mb-12"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
-              fontWeight: 500,
-            }}
-          >
-            Everything you need to pass JAMB this year, all in one place.
-          </h2>
+      <section className="py-24 bg-[var(--color-paper-2)] border-b border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
+          <div className="max-w-2xl mb-14">
+            <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-accent)] mb-3">
+              Platform Features
+            </p>
+            <h2
+              className="text-[var(--color-ink)] leading-[1.15] tracking-[-0.02em]"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+                fontWeight: 500,
+              }}
+            >
+              Everything you need to pass in one sitting.
+            </h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y divide-[var(--color-rule)] md:divide-y-0 md:divide-x">
-            {/* AI Diagnostic Test */}
-            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
-              <Activity
-                size={20}
-                strokeWidth={1.5}
-                className="text-[var(--color-accent)] mb-4"
-              />
-              <h3
-                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Card 1 */}
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-7 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center mb-4">
+                <Activity size={20} />
+              </div>
+              <h3 className="text-[17px] font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
                 AI Diagnostic Test
               </h3>
               <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
-                Discover the topics you understand and the ones that need more attention.
+                Pinpoint your exact strengths and hidden syllabus weaknesses across all subjects in 15 minutes.
               </p>
             </div>
 
-            {/* Personalized Study Plan */}
-            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
-              <Compass
-                size={20}
-                strokeWidth={1.5}
-                className="text-[var(--color-accent)] mb-4"
-              />
-              <h3
-                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Personalized Study Plan
+            {/* Card 2 */}
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-7 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center mb-4">
+                <Compass size={20} />
+              </div>
+              <h3 className="text-[17px] font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                Personalized Study Roadmap
               </h3>
               <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
-                Get a smart reading roadmap tailored to your exam and target score.
+                A daily reading and practice planner that calculates exactly how many topics you must cover per week.
               </p>
             </div>
 
-            {/* Daily Practice Questions */}
-            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
-              <FileText
-                size={20}
-                strokeWidth={1.5}
-                className="text-[var(--color-accent)] mb-4"
-              />
-              <h3
-                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Daily Practice Questions
+            {/* Card 3 */}
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-7 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center mb-4">
+                <FileText size={20} />
+              </div>
+              <h3 className="text-[17px] font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                6,994+ CBT Question Bank
               </h3>
               <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
-                Practice real exam questions daily and improve step by step.
-              </p>
-            </div>
-          </div>
-
-          {/* Row 2 — separator on mobile + a top border on desktop to divide the two rows */}
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y divide-[var(--color-rule)] md:divide-y-0 md:divide-x border-t border-[var(--color-rule)] md:mt-0">
-            {/* Smart Revision System */}
-            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
-              <RotateCcw
-                size={20}
-                strokeWidth={1.5}
-                className="text-[var(--color-accent)] mb-4"
-              />
-              <h3
-                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Smart Revision System
-              </h3>
-              <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
-                Propella brings back topics at the right time so you remember them longer.
+                Real JAMB and WAEC past questions with verified step-by-step solutions and diagrammatic breakdowns.
               </p>
             </div>
 
-            {/* AI Tutor */}
-            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
-              <Sparkles
-                size={20}
-                strokeWidth={1.5}
-                className="text-[var(--color-accent)] mb-4"
-              />
-              <h3
-                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                AI Tutor
+            {/* Card 4 */}
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-7 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center mb-4">
+                <RotateCcw size={20} />
+              </div>
+              <h3 className="text-[17px] font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                Smart Spaced Revision
               </h3>
               <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
-                Learn with interactive AI tutors that make studying easier and more engaging.
+                Never wonder &ldquo;what should I revise today?&rdquo; Propella queues the exact questions you need to review.
               </p>
             </div>
 
-            {/* Progress Tracking */}
-            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
-              <TrendingUp
-                size={20}
-                strokeWidth={1.5}
-                className="text-[var(--color-accent)] mb-4"
-              />
-              <h3
-                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Progress Tracking
+            {/* Card 5 */}
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-7 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center mb-4">
+                <Sparkles size={20} />
+              </div>
+              <h3 className="text-[17px] font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                Syllabus-Trained AI Tutor
               </h3>
               <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
-                Track your consistency, mastery level, and overall improvement.
+                Stuck on a tricky math formula or chemistry equation? Get simplified answers with zero distractions.
               </p>
             </div>
-          </div>
 
-          {/* Row 3 — the differentiator */}
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y divide-[var(--color-rule)] md:divide-y-0 md:divide-x border-t border-[var(--color-rule)]">
-            <div className="py-8 md:px-8 md:first:pl-0 md:last:pr-0">
-              <Smartphone
-                size={20}
-                strokeWidth={1.5}
-                className="text-[var(--color-accent)] mb-4"
-              />
-              <h3
-                className="text-[17px] leading-[1.3] tracking-[-0.01em] text-[var(--color-ink)] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Use distracting apps to your advantage
+            {/* Card 6 */}
+            <div className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-7 shadow-sm hover:border-[var(--color-accent)]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center mb-4">
+                <Smartphone size={20} />
+              </div>
+              <h3 className="text-[17px] font-semibold text-[var(--color-ink)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                Distraction-to-Distinction Lock
               </h3>
               <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)]">
-                Earn your scrolling time by answering questions daily and build a study habit.
+                Earn scrolling time on social media by answering practice questions daily and maintaining study streaks.
               </p>
             </div>
           </div>
 
           {/* Section CTA */}
-          <div className="pt-10">
+          <div className="mt-12 text-center">
             <Button variant="accent" size="lg" asChild>
-              <Link href="/signup">Start now for free</Link>
+              <Link href="/signup">
+                Start Practicing Free Now
+                <ArrowRight size={16} className="ml-2" />
+              </Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <Separator />
-
       {/* ── 5. Testimonials ──────────────────────────────────────────────────── */}
-      <section className="py-24 bg-[var(--color-paper-2)]">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-            What students are saying
-          </p>
-          <h2
-            className="text-[var(--color-ink)] leading-[1.15] tracking-[-0.02em] mb-12"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
-              fontWeight: 500,
-            }}
-          >
-            Real results from real candidates
-          </h2>
+      <section className="py-24 border-b border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-accent)] mb-3">
+              Success Stories
+            </p>
+            <h2
+              className="text-[var(--color-ink)] leading-[1.15] tracking-[-0.02em]"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+                fontWeight: 500,
+              }}
+            >
+              Real Nigerian candidates, real distinction scores.
+            </h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 quote:
-                  "I went from guessing answers to actually understanding why each one was correct. My mock scores jumped from 210 to 287 in six weeks.",
+                  "I went from guessing answers to actually understanding why each one was correct. My mock scores jumped from 210 to 312 in six weeks.",
                 name: 'Chiamaka O.',
-                detail: 'JAMB candidate, Lagos',
+                detail: 'JAMB UTME · Scored 312',
+                score: '312 / 400',
+                exam: 'JAMB Candidate, Lagos',
               },
               {
                 quote:
-                  "The revision reminders forced me to go back to topics I thought I already knew. Turns out I didn't know them as well as I thought.",
+                  "The revision reminders forced me to go back to topics I thought I already knew. It helped me clear 7 A1s in my WAEC results.",
                 name: 'Tunde A.',
-                detail: 'WAEC candidate, Ibadan',
+                detail: 'WAEC SSCE · 7 A1s',
+                score: '7 A1s Distinction',
+                exam: 'WAEC Candidate, Ibadan',
               },
               {
                 quote:
-                  'I liked that the AI tutor only answered questions from my syllabus. No distractions, no random internet rabbit holes.',
+                  "I loved that the AI tutor only answered questions from my syllabus. No random internet distractions, just laser-focused prep.",
                 name: 'Blessing E.',
-                detail: 'NECO candidate, Jos',
+                detail: 'NECO & JAMB · Scored 298',
+                score: '298 / 400',
+                exam: 'Pre-Varsity Student, Jos',
               },
             ].map((t) => (
               <div
                 key={t.name}
-                className="bg-[var(--color-card)] border border-[var(--color-rule)] rounded-[var(--radius-md)] p-7"
+                className="bg-[var(--color-paper-2)] border border-[var(--color-rule)] rounded-2xl p-7 shadow-sm flex flex-col justify-between hover:border-[var(--color-accent)]/40 transition-all"
               >
-                <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] mb-6">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
                 <div>
-                  <p className="text-[14px] font-medium text-[var(--color-ink)]">{t.name}</p>
-                  <p className="text-[13px] text-[var(--color-ink-3)]">{t.detail}</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex text-amber-500 gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-amber-400 text-amber-500" />
+                      ))}
+                    </div>
+                    <Badge variant="accent" className="text-[10px] font-mono">
+                      {t.score}
+                    </Badge>
+                  </div>
+                  <p className="text-[15px] leading-[1.65] text-[var(--color-ink-2)] mb-6 italic">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-[var(--color-rule)] flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[var(--color-accent-tint)] text-[var(--color-accent)] font-bold text-sm flex items-center justify-center font-mono">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-[14px] font-semibold text-[var(--color-ink)]">{t.name}</p>
+                    <p className="text-[12px] text-[var(--color-ink-3)] font-mono">{t.exam}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -525,70 +593,95 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Separator />
-
-      {/* ── 6. Quiz section ──────────────────────────────────────────────────── */}
-      <section className="py-24">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center">
+      {/* ── 6. Live Quiz preview ──────────────────────────────────────────────── */}
+      <section className="py-24 bg-[var(--color-paper-2)] border-b border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-14 lg:items-center">
             {/* Left — copy */}
             <div className="lg:col-span-6">
               <div className="flex items-center gap-2 mb-4">
                 <Zap size={18} strokeWidth={1.5} className="text-[var(--color-accent)]" />
-                <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)]">
-                  Quiz
+                <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-accent)]">
+                  Active CBT Practice
                 </p>
               </div>
               <h2
-                className="text-[var(--color-ink)] leading-[1.1] tracking-[-0.02em] mb-5"
+                className="text-[var(--color-ink)] leading-[1.1] tracking-[-0.02em] mb-5 font-semibold"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-                  fontWeight: 500,
+                  fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                 }}
               >
-                Practice one question at a time.
+                Practice one authentic past question at a time.
               </h2>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-ink-2)] mb-8 max-w-[440px]">
-                Improve daily with quick quizzes, instant feedback, and smarter revision. Small
-                wins, every single day, until the syllabus stops feeling like a mountain.
+              <p className="text-[15.5px] leading-[1.65] text-[var(--color-ink-2)] mb-8 max-w-[480px]">
+                Test your knowledge under real exam timing conditions. Get immediate diagnostic feedback,
+                explanations for every option, and watch your readiness score climb daily.
               </p>
-              <Button variant="accent" size="lg" asChild>
-                <Link href="/signup">Try a quiz now</Link>
-              </Button>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button variant="accent" size="lg" asChild>
+                  <Link href="/signup">Try a free quiz now</Link>
+                </Button>
+                <span className="text-xs font-mono text-[var(--color-ink-3)]">
+                  ⚡ 5 questions/day on Free Plan
+                </span>
+              </div>
             </div>
 
             {/* Right — quiz preview card */}
             <div className="lg:col-span-6 mt-12 lg:mt-0">
               <div
-                className="bg-[var(--color-card)] border border-[var(--color-rule)] rounded-[var(--radius-md)] p-6 max-w-[420px] mx-auto"
-                style={{ boxShadow: 'var(--shadow-md)' }}
+                className="bg-[var(--color-card)] border border-[var(--color-rule)] rounded-2xl p-7 max-w-[460px] mx-auto shadow-xl"
               >
-                <div className="flex items-center justify-between mb-5">
-                  <span className="text-[11px] font-mono text-[var(--color-ink-3)] uppercase tracking-[0.06em]">
-                    Chemistry · Question 4 of 10
-                  </span>
-                  <Badge variant="warning">00:42</Badge>
+                <div className="flex items-center justify-between mb-5 pb-3 border-b border-[var(--color-rule)]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[12px] font-mono text-[var(--color-ink-2)] font-semibold uppercase tracking-wider">
+                      JAMB Chemistry · 2024 Past Question
+                    </span>
+                  </div>
+                  <Badge variant="warning" className="font-mono text-xs">
+                    ⏱️ 00:42
+                  </Badge>
                 </div>
-                <p className="text-[15px] leading-[1.6] text-[var(--color-ink)] mb-6">
+                <p className="text-[15.5px] font-medium leading-[1.5] text-[var(--color-ink)] mb-6">
                   Which of the following is the correct IUPAC name for CH₃CH₂OH?
                 </p>
-                <div className="space-y-2.5">
-                  {['Methanol', 'Ethanol', 'Propanol', 'Ethanoic acid'].map((option, i) => (
+                <div className="space-y-3 mb-6">
+                  {[
+                    { label: 'A', text: 'Methanol', correct: false },
+                    { label: 'B', text: 'Ethanol', correct: true },
+                    { label: 'C', text: 'Propanol', correct: false },
+                    { label: 'D', text: 'Ethanoic acid', correct: false },
+                  ].map((option) => (
                     <div
-                      key={option}
-                      className={`flex items-center gap-3 p-3 rounded-[var(--radius-sm)] border text-[14px] ${
-                        i === 1
-                          ? 'border-[var(--color-accent)] bg-[var(--color-accent-tint)] text-[var(--color-ink)]'
-                          : 'border-[var(--color-rule)] text-[var(--color-ink-2)]'
+                      key={option.label}
+                      className={`flex items-center gap-3 p-3.5 rounded-xl border text-[14px] transition-all ${
+                        option.correct
+                          ? 'border-[var(--color-accent)] bg-[var(--color-accent-tint)] text-[var(--color-ink)] font-semibold shadow-sm ring-1 ring-[var(--color-accent)]/30'
+                          : 'border-[var(--color-rule)] bg-[var(--color-paper)] text-[var(--color-ink-2)] opacity-80'
                       }`}
                     >
-                      <span className="font-mono text-[12px] text-[var(--color-ink-3)]">
-                        {String.fromCharCode(65 + i)}
+                      <span className={`w-6 h-6 rounded-full flex items-center justify-center font-mono text-xs ${
+                        option.correct
+                          ? 'bg-[var(--color-accent)] text-white'
+                          : 'bg-[var(--color-paper-2)] text-[var(--color-ink-3)]'
+                      }`}>
+                        {option.label}
                       </span>
-                      {option}
+                      <span>{option.text}</span>
+                      {option.correct && (
+                        <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400 ml-auto" />
+                      )}
                     </div>
                   ))}
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-800 dark:text-emerald-300 flex items-start gap-2">
+                  <Sparkles size={14} className="shrink-0 mt-0.5" />
+                  <span>
+                    <strong>AI Tutor Note:</strong> Ethanol is a primary alcohol with 2 carbon atoms (eth-) and a single bond (-an-) with an -OH functional group (-ol).
+                  </span>
                 </div>
               </div>
             </div>
@@ -596,156 +689,223 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Separator />
-
-      {/* ── 7. Pricing ───────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-24 bg-[var(--color-paper-2)]">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+      {/* ── 7. PRICING (Updated to fit official subscriptions) ────────────────── */}
+      <section id="pricing" className="py-24 border-b border-[var(--color-rule)] bg-[var(--color-paper)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
           {/* heading */}
-          <div className="mb-12">
-            <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-              Pricing
-            </p>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <Badge variant="accent" className="mb-3 px-3 py-1 text-xs font-mono">
+              Transparent Student Pricing
+            </Badge>
             <h2
-              className="text-[var(--color-ink)] leading-[1.1] tracking-[-0.02em]"
+              className="text-[var(--color-ink)] leading-[1.1] tracking-[-0.02em] font-semibold mb-4"
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-                fontWeight: 500,
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
               }}
             >
-              Free until you decide it&apos;s worth paying for.
+              Start free. Upgrade when you are ready.
             </h2>
+            <p className="text-[15.5px] text-[var(--color-ink-2)]">
+              Choose the study plan that fits your preparation timetable. No hidden fees, instant activation via Paystack.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[840px]">
-            {/* Free plan */}
-            <div className="border border-[var(--color-rule)] rounded-[var(--radius-md)] p-8 bg-[var(--color-card)]">
-              <div className="mb-6">
-                <p
-                  className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-3"
-                >
-                  Free
+          {/* 4 Plan Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+            {/* 1. Free Starter */}
+            <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-[var(--color-card)] p-6 shadow-sm hover:border-[var(--color-accent)]/40 transition-all">
+              <div>
+                <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-ink-3)] mb-2">
+                  Free Starter
                 </p>
                 <div className="flex items-baseline gap-1 mb-2">
-                  <span
-                    className="text-[40px] leading-none tracking-[-0.02em] text-[var(--color-ink)]"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    ₦0
-                  </span>
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)] font-mono">₦0</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">/ forever</span>
                 </div>
-                <p className="text-[14px] text-[var(--color-ink-3)]">Forever free, no card required.</p>
+                <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                  Explore official syllabus topic maps and test your baseline knowledge.
+                </p>
+
+                <div className="h-px bg-[var(--color-rule)] mb-5" />
+
+                <ul className="space-y-3 mb-6">
+                  {[
+                    { text: '5 practice questions per day', included: true },
+                    { text: 'Access to official syllabus topics', included: true },
+                    { text: 'Basic AI tutor explanations (3 queries/day)', included: true },
+                    { text: 'Standard progress tracker', included: true },
+                    { text: 'Full timed CBT mock simulations', included: false },
+                    { text: '6,994 past questions library', included: false },
+                  ].map((f, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-xs">
+                      <Check
+                        size={14}
+                        className={f.included ? 'text-emerald-500 shrink-0 mt-0.5' : 'text-gray-300 dark:text-gray-600 shrink-0 mt-0.5'}
+                      />
+                      <span className={f.included ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-3)] line-through'}>
+                        {f.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <Separator className="mb-6" />
-
-              <ul className="space-y-3 mb-8">
-                {[
-                  'Full roadmap for one exam',
-                  'Up to 20 AI assistant messages per day',
-                  '5 quizzes per day, unlimited mocks per month',
-                  '1 streak freeze per month',
-                  'All core features',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <Check
-                      size={14}
-                      strokeWidth={1.5}
-                      className="text-[var(--color-ink-3)] mt-0.5 shrink-0"
-                    />
-                    <span className="text-[14px] text-[var(--color-ink-2)]">{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button variant="secondary" size="lg" className="w-full" asChild>
-                <Link href="/signup">Start free</Link>
+              <Button variant="secondary" className="w-full font-semibold" asChild>
+                <Link href="/signup">Get Started Free</Link>
               </Button>
             </div>
 
-            {/* Scholar plan */}
-            <div className="border border-[var(--color-rule)] rounded-[var(--radius-md)] p-8 bg-[var(--color-card)]">
-              <div className="mb-6">
-                <p
-                  className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-3"
-                >
-                  Scholar
+            {/* 2. Basic Plan */}
+            <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-[var(--color-card)] p-6 shadow-sm hover:border-[var(--color-accent)] transition-all">
+              <div>
+                <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-2">
+                  Basic Plan
                 </p>
                 <div className="flex items-baseline gap-1 mb-2">
-                  <span
-                    className="text-[40px] leading-none tracking-[-0.02em] text-[var(--color-ink)]"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    ₦2,500
-                  </span>
-                  <span className="text-[14px] text-[var(--color-ink-3)]">/month</span>
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)] font-mono">₦1,999</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
                 </div>
-                <p className="text-[14px] text-[var(--color-ink-3)]">
-                  ₦18,000/year (40% off)
+                <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                  Full Scholar access for 1 student account for a productive 30-day sprint.
                 </p>
+
+                <div className="h-px bg-[var(--color-rule)] mb-5" />
+
+                <ul className="space-y-3 mb-6">
+                  {[
+                    'Full Scholar access for 1 student (30 days)',
+                    '6,994+ CBT past questions with solutions',
+                    'Unlimited timed JAMB, WAEC & NECO mocks',
+                    'AI tutor explanations & hints on tricky questions',
+                    'Spaced revision planner & study roadmap',
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-xs text-[var(--color-ink)]">
+                      <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <Separator className="mb-6" />
+              <Button variant="secondary" className="w-full font-semibold border-[var(--color-accent)]/30 hover:bg-[var(--color-accent)]/10" asChild>
+                <Link href="/signup?plan=scholar_basic">Choose Basic (₦1,999)</Link>
+              </Button>
+            </div>
 
-              <ul className="space-y-3 mb-8">
-                {[
-                  'Everything in Free',
-                  'Unlimited AI assistant',
-                  'Unlimited quizzes',
-                  'Advanced analytics & weakness breakdown',
-                  '4 streak freezes per month',
-                  'Marathon mode with 50-min pomodoros',
-                  'Priority access to new features',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <Check
-                      size={14}
-                      strokeWidth={1.5}
-                      className="text-[var(--color-accent)] mt-0.5 shrink-0"
-                    />
-                    <span className="text-[14px] text-[var(--color-ink-2)]">{item}</span>
-                  </li>
-                ))}
-              </ul>
+            {/* 3. Shared Plan (Two Accounts) */}
+            <div className="flex flex-col justify-between rounded-2xl border-2 border-[var(--color-accent)] bg-[var(--color-card)] p-6 shadow-xl relative">
+              <Badge variant="accent" className="absolute -top-3 right-4 shadow-sm text-[10px] font-mono">
+                👥 Two Accounts (Save 25%)
+              </Badge>
 
-              <Button variant="accent" size="lg" className="w-full" asChild>
-                <Link href="/signup">Start free, upgrade anytime</Link>
+              <div>
+                <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-2">
+                  Shared Plan
+                </p>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)] font-mono">₦2,999</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
+                </div>
+                <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                  Buy one plan and share with a friend or family member (<strong>only ₦1,500/student</strong>).
+                </p>
+
+                <div className="h-px bg-[var(--color-rule)] mb-5" />
+
+                <ul className="space-y-3 mb-6">
+                  {[
+                    '👥 Full Scholar access for 2 separate accounts',
+                    'Buy once and share with friend or family',
+                    'Independent progress & scores for each student',
+                    '6,994+ CBT past questions & timed mock exams',
+                    'Unlimited AI tutor explanations on every device',
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-xs text-[var(--color-ink)] font-medium">
+                      <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Button variant="accent" className="w-full font-semibold shadow-md" asChild>
+                <Link href="/signup?plan=scholar_shared">Get Shared Plan (₦2,999)</Link>
+              </Button>
+            </div>
+
+            {/* 4. Pay Once Till Exam (Best Value) */}
+            <div className="flex flex-col justify-between rounded-2xl border-2 border-amber-400 dark:border-amber-500 bg-gradient-to-b from-amber-500/5 via-[var(--color-card)] to-[var(--color-card)] p-6 shadow-xl relative">
+              <Badge className="absolute -top-3 right-4 shadow-sm text-[10px] font-mono bg-amber-500 hover:bg-amber-600 text-white border-0">
+                ⭐ Most Popular · Till Exam
+              </Badge>
+
+              <div>
+                <p className="text-xs font-mono font-bold tracking-wider uppercase text-amber-600 dark:text-amber-400 mb-2">
+                  Pay Once Till Exam
+                </p>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)] font-mono">₦9,999</span>
+                  <span className="text-xs text-[var(--color-ink-3)]">/ one-time</span>
+                </div>
+                <p className="text-xs text-[var(--color-ink-3)] mb-5">
+                  Complete Scholar access right up until your exam day — zero recurring renewals.
+                </p>
+
+                <div className="h-px bg-[var(--color-rule)] mb-5" />
+
+                <ul className="space-y-3 mb-6">
+                  {[
+                    '⭐ Complete access until your exam day (full year)',
+                    'Zero recurring renewals — pay once and relax',
+                    'All 3 major exam tracks (JAMB, WAEC & NECO)',
+                    'Undergraduate Course Files & Document AI included',
+                    'Priority AI tutor responses & exam prediction engine',
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-xs text-[var(--color-ink)] font-medium">
+                      <Check size={14} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Button className="w-full font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-md border-0" asChild>
+                <Link href="/signup?plan=scholar_full">Get Till Exam (₦9,999)</Link>
               </Button>
             </div>
           </div>
 
-          <div className="mt-8 text-center max-w-[840px]">
+          {/* Gifting & Details link */}
+          <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent)] hover:underline"
+              className="inline-flex items-center gap-2 font-semibold text-[var(--color-accent)] hover:underline"
             >
-              Explore Full Exam Package (₦15,000) &amp; Sponsor a Friend &rarr;
+              <Heart size={15} className="text-rose-500" />
+              Looking to subscribe for a friend or view full feature comparisons? View Pricing Details &rarr;
             </Link>
           </div>
         </div>
       </section>
 
-      <Separator />
-
       {/* ── 8. FAQ ───────────────────────────────────────────────────────────── */}
-      <section className="py-24">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-12">
+      <section className="py-24 bg-[var(--color-paper-2)] border-b border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-14">
             {/* Left — heading */}
             <div className="lg:col-span-4 mb-10 lg:mb-0">
-              <p className="text-[11px] font-mono font-medium tracking-[0.12em] uppercase text-[var(--color-ink-3)] mb-4">
-                FAQ
-              </p>
+              <Badge variant="accent" className="mb-3 px-3 py-1 text-xs font-mono">
+                Common Questions
+              </Badge>
               <h2
-                className="text-[var(--color-ink)] leading-[1.15] tracking-[-0.02em]"
+                className="text-[var(--color-ink)] leading-[1.15] tracking-[-0.02em] font-semibold"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
-                  fontWeight: 500,
+                  fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                 }}
               >
-                Questions candidates ask us
+                Everything you need to know about Propella.
               </h2>
             </div>
 
@@ -753,40 +913,40 @@ export default function HomePage() {
             <div className="lg:col-span-8 divide-y divide-[var(--color-rule)]">
               {[
                 {
-                  q: 'Is Propella really free?',
-                  a: 'Yes. The Free plan gives you a full roadmap for one exam, daily quizzes, and 20 AI assistant messages a day — no card required. Scholar adds unlimited usage and deeper analytics for students who want more.',
+                  q: 'Is Propella really free to start?',
+                  a: 'Yes. The Free Starter plan gives you a full roadmap for your exam, 5 practice questions daily, and basic AI tutor explanations with zero card details required. You can upgrade to Scholar anytime.',
+                },
+                {
+                  q: 'How does the Shared Plan (₦2,999) work?',
+                  a: 'The Shared Plan allows 2 students to get full Scholar access for just ₦2,999 (₦1,500 each). Once activated, you receive an invite link to grant your friend or family member their own independent account with separate scores, mock histories, and progress tracking.',
+                },
+                {
+                  q: 'What is the Pay Once Till Exam (₦9,999) package?',
+                  a: 'Till Exam is our best value, one-time payment plan. It gives you 365 days of full Scholar access with no monthly renewals, covering all exams (JAMB, WAEC, NECO) and even 100L–500L Undergraduate courses.',
                 },
                 {
                   q: 'Does Propella cover JAMB, WAEC, and NECO?',
-                  a: 'Yes, all three. Each exam has its own syllabus mapping, so the topics, practice questions, and mock exams you see are matched to the specific exam and subjects you select.',
+                  a: 'Yes, all three. Each exam has its own verified syllabus mapping, so the topics, practice questions, and mock exams you see are 100% aligned with the exact board guidelines.',
                 },
                 {
-                  q: "How is this different from just reading past questions?",
-                  a: "Past questions show you what was asked before — they don't tell you which topics you're actually weak in, or when to revisit them. Propella tracks your performance per topic and schedules revision automatically, so weak areas get more attention without you having to plan that yourself.",
+                  q: 'Can I study on my phone or low-end device?',
+                  a: 'Yes! Propella is fully responsive and optimized to run smoothly on any mobile browser or laptop with minimal data usage.',
                 },
                 {
-                  q: 'Can I use Propella on my phone?',
-                  a: 'Yes. Propella works in any mobile browser, so you can study, take quizzes, and chat with the AI tutor from your phone without installing anything.',
-                },
-                {
-                  q: "What if I'm preparing for more than one exam?",
-                  a: "You can add multiple exams to your account. Each one gets its own roadmap and revision schedule, so studying for WAEC and JAMB at the same time doesn't mean mixing up your syllabi.",
-                },
-                {
-                  q: 'Do I need internet access to study?',
-                  a: 'Yes, Propella requires an internet connection since your progress, quizzes, and AI tutor responses are generated and saved in real time.',
+                  q: 'How does the distraction blocker / scrolling time reward work?',
+                  a: 'Propella motivates consistent study habits: as you answer daily practice questions and maintain your revision streak, you unlock earned screen time, transforming social media distraction into academic distinction.',
                 },
               ].map((item) => (
                 <details key={item.q} className="group py-5">
                   <summary className="flex items-center justify-between cursor-pointer list-none">
-                    <span className="text-[15px] font-medium text-[var(--color-ink)] pr-4">
+                    <span className="text-[15.5px] font-semibold text-[var(--color-ink)] pr-4">
                       {item.q}
                     </span>
-                    <span className="text-[var(--color-ink-3)] text-[20px] leading-none shrink-0 group-open:rotate-45 transition-transform">
+                    <span className="text-[var(--color-accent)] text-[22px] font-bold leading-none shrink-0 group-open:rotate-45 transition-transform">
                       +
                     </span>
                   </summary>
-                  <p className="text-[14px] leading-[1.6] text-[var(--color-ink-2)] mt-3 max-w-[600px]">
+                  <p className="text-[14.5px] leading-[1.65] text-[var(--color-ink-2)] mt-3 max-w-[640px]">
                     {item.a}
                   </p>
                 </details>
@@ -796,86 +956,90 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Separator />
-
       {/* ── 9. Final CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-28">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          {/* Text beside the photograph on desktop; stacked on a phone, with the
-              words first so the call to action is never below the fold. */}
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-            <div className="max-w-[640px]">
-              <h2
-                className="text-[var(--color-ink)] leading-[1.05] tracking-[-0.02em] mb-6"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                  fontWeight: 500,
-                }}
-              >
-                Your exam success starts here.
-              </h2>
-              <p className="text-[17px] leading-[1.6] text-[var(--color-ink-2)] mb-8 max-w-[480px]">
-                Join students preparing smarter with Propella.
-              </p>
-              <Button variant="accent" size="lg" asChild>
-                <Link href="/signup">Build my roadmap</Link>
-              </Button>
-            </div>
+      <section className="py-28 bg-[var(--color-paper)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
+          <div className="rounded-3xl border border-[var(--color-rule)] bg-gradient-to-br from-[var(--color-paper-2)] via-[var(--color-paper)] to-[var(--color-paper-2)] p-8 sm:p-14 shadow-lg">
+            <div className="lg:grid lg:grid-cols-2 lg:gap-14 lg:items-center">
+              <div>
+                <Badge variant="accent" className="mb-4 px-3.5 py-1 text-xs font-mono">
+                  Your Future Awaits
+                </Badge>
+                <h2
+                  className="text-[var(--color-ink)] leading-[1.05] tracking-[-0.02em] mb-5 font-semibold"
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(2rem, 4vw, 3.25rem)',
+                  }}
+                >
+                  Turn distractions into distinctions today.
+                </h2>
+                <p className="text-[16.5px] leading-[1.65] text-[var(--color-ink-2)] mb-8 max-w-[500px]">
+                  Join thousands of Nigerian students building real confidence and aiming for 300+ in JAMB with Propella.
+                </p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <Button variant="accent" size="lg" className="shadow-lg shadow-[var(--color-accent)]/25 text-base" asChild>
+                    <Link href="/signup">
+                      Build my study roadmap free
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
 
-            <div
-              className="mt-12 overflow-hidden rounded-[var(--radius-lg)] lg:mt-0"
-              style={{ backgroundColor: 'var(--color-paper-3)' }}
-            >
-              <Image
-                src="/images/student-studying.jpg"
-                alt="A student working through past questions on a laptop"
-                width={2000}
-                height={1333}
-                className="h-full w-full object-cover"
-                style={{ aspectRatio: '4 / 3' }}
-                sizes="(max-width: 1024px) 100vw, 560px"
-              />
+              <div className="mt-10 lg:mt-0 overflow-hidden rounded-2xl border border-[var(--color-rule)] shadow-xl aspect-[4/3] relative">
+                <Image
+                  src="/images/student-studying.jpg"
+                  alt="A student working through past questions on a laptop"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-black/90 backdrop-blur-md p-4 rounded-xl border border-white/20">
+                  <p className="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">
+                    ✓ 6,994 Past Questions · Instant CBT Feedback
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <Separator />
-
       {/* ── Footer ───────────────────────────────────────────────────────────── */}
-      <footer className="py-16 bg-[var(--color-paper)]">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+      <footer className="py-16 bg-[var(--color-paper-2)] border-t border-[var(--color-rule)]">
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
             {/* Wordmark */}
             <div className="col-span-2 md:col-span-1">
               <p
-                className="text-[20px] leading-none tracking-[-0.02em] text-[var(--color-ink)] mb-3"
+                className="text-[22px] leading-none tracking-[-0.02em] text-[var(--color-ink)] mb-3 font-semibold"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 Propella
               </p>
-              <p className="text-[13px] text-[var(--color-ink-3)] leading-[1.6] max-w-[200px]">
-                Structured exam preparation for JAMB, WAEC, and NECO candidates.
+              <p className="text-[13px] text-[var(--color-ink-3)] leading-[1.6] max-w-[220px]">
+                Nigeria&apos;s intelligent study companion for JAMB, WAEC, NECO, and Undergraduate scholars.
               </p>
             </div>
 
             {/* Product */}
             <div>
               <p className="text-[11px] font-mono font-medium tracking-[0.1em] uppercase text-[var(--color-ink-3)] mb-4">
-                Product
+                Exams &amp; Tools
               </p>
               <ul className="space-y-2.5">
                 {[
-                  { label: 'How it works', href: '#how-it-works' },
-                  { label: 'Pricing', href: '/pricing' },
-                  { label: 'Mock exams', href: '/signup' },
-                  { label: 'Study roadmap', href: '/signup' },
+                  { label: 'Highschool (JAMB & WAEC)', href: '/highschool' },
+                  { label: 'Undergraduate Prep', href: '/undergraduate' },
+                  { label: 'CBT Mock Simulations', href: '/signup' },
+                  { label: 'Pricing & Plans', href: '/pricing' },
                 ].map(({ label, href }) => (
                   <li key={label}>
                     <Link
                       href={href}
-                      className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
+                      className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-accent)] transition-colors"
                     >
                       {label}
                     </Link>
@@ -887,18 +1051,18 @@ export default function HomePage() {
             {/* Company */}
             <div>
               <p className="text-[11px] font-mono font-medium tracking-[0.1em] uppercase text-[var(--color-ink-3)] mb-4">
-                Company
+                Resources
               </p>
               <ul className="space-y-2.5">
                 {[
-                  { label: 'About', href: '/about' },
-                  { label: 'Blog', href: '/blog' },
-                  { label: 'Contact', href: '/contact' },
+                  { label: 'Student Testimonials', href: '/testimonials' },
+                  { label: 'Design System', href: '/design-system' },
+                  { label: 'Contact Support', href: '/contact' },
                 ].map(({ label, href }) => (
                   <li key={label}>
                     <Link
                       href={href}
-                      className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
+                      className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-accent)] transition-colors"
                     >
                       {label}
                     </Link>
@@ -910,18 +1074,18 @@ export default function HomePage() {
             {/* Legal */}
             <div>
               <p className="text-[11px] font-mono font-medium tracking-[0.1em] uppercase text-[var(--color-ink-3)] mb-4">
-                Legal
+                Legal &amp; Trust
               </p>
               <ul className="space-y-2.5">
                 {[
-                  { label: 'Privacy policy', href: '/privacy' },
-                  { label: 'Terms of use', href: '/terms' },
-                  { label: 'Support', href: 'mailto:support@propella.app' },
+                  { label: 'Privacy Policy', href: '/privacy' },
+                  { label: 'Terms of Service', href: '/terms' },
+                  { label: 'Support Desk', href: 'mailto:support@propella.app' },
                 ].map(({ label, href }) => (
                   <li key={label}>
                     <Link
                       href={href}
-                      className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
+                      className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-accent)] transition-colors"
                     >
                       {label}
                     </Link>
@@ -933,9 +1097,10 @@ export default function HomePage() {
 
           <Separator className="mb-6" />
 
-          <p className="text-[13px] text-[var(--color-ink-3)]">
-            &copy; {year} Propella. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-between text-[13px] text-[var(--color-ink-3)] gap-3">
+            <p>&copy; {year} Propella. All rights reserved.</p>
+            <p className="font-mono text-xs">Built for distinction in Nigerian Examinations.</p>
+          </div>
         </div>
       </footer>
     </div>

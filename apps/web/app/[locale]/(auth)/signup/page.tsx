@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Link, useRouter } from '@/lib/i18n/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
 import { Gift } from 'iconsax-reactjs'
@@ -63,9 +63,15 @@ export default function SignupPage() {
   const router = useRouter()
   const setUser = useAuthStore((s) => s.setUser)
   const setToken = useAuthStore((s) => s.setAccessToken)
+  const logout = useAuthStore((s) => s.logout)
   const [serverError, setServerError] = useState<string | null>(null)
   const [passwordValue, setPasswordValue] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+
+  // Clear any old/stale session on mount so that the signup and verification flow starts fresh
+  useEffect(() => {
+    logout()
+  }, [logout])
 
   const searchParamsRef = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('ref')?.trim() : ''
   const {
@@ -90,6 +96,9 @@ export default function SignupPage() {
     setServerError(null)
     const code = (data.referralCode || initialRef || '').trim()
     try {
+      // Clear any stale local auth state before signing up
+      logout()
+
       await api.post<{ data: { pendingVerification: boolean; email: string } }>('/auth/signup', {
         name: data.name,
         email: data.email,

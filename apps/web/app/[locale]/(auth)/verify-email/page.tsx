@@ -36,10 +36,28 @@ export default function VerifyEmailPage() {
 
   const activeEmail = emailParam || user?.email || ''
 
-  // Already verified — nothing to do here.
+  // Already verified — only redirect if the user is already signed in AND there is no pending emailParam
   useEffect(() => {
-    if (user?.emailVerified) router.replace('/onboarding')
-  }, [user?.emailVerified, router])
+    if (!emailParam && user?.emailVerified) {
+      router.replace('/onboarding')
+    }
+  }, [emailParam, user?.emailVerified, router])
+
+  // If verifying a pending signup email, clear any mismatched stale user session
+  useEffect(() => {
+    if (emailParam && user && user.email.toLowerCase() !== emailParam.toLowerCase()) {
+      setUser(null)
+      setToken('')
+    }
+  }, [emailParam, user, setUser, setToken])
+
+  // Auto-focus the first digit input on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      inputsRef.current[0]?.focus()
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     if (cooldown <= 0) return
