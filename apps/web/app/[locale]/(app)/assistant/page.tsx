@@ -389,7 +389,7 @@ function AssistantContent() {
   const isFreePlan = user?.plan === 'free'
   const isAiLocked = Boolean(
     isFreePlan &&
-      (entitlements?.remaining?.aiQuestions === 0 || entitlements?.isPaywallLocked),
+    (entitlements?.remaining?.aiQuestions === 0 || entitlements?.isPaywallLocked),
   )
 
   const coursesList: any[] = Array.isArray(coursesResponse)
@@ -401,9 +401,9 @@ function AssistantContent() {
   const allFiles = coursesList.flatMap((c: any) =>
     Array.isArray(c?.files)
       ? c.files.map((f: any) => ({
-          ...f,
-          courseCode: c?.code ?? '',
-        }))
+        ...f,
+        courseCode: c?.code ?? '',
+      }))
       : [],
   )
 
@@ -640,7 +640,7 @@ function AssistantContent() {
           variant="accent"
           size="sm"
           onClick={handleNewThread}
-          style={{marginBottom: 12, width: '100%', justifyContent: 'flex-start', gap: 8 }}
+          style={{ marginBottom: 12, width: '100%', justifyContent: 'flex-start', gap: 8 }}
         >
           <Plus size={14} strokeWidth={1.5} />
           {t('newThread')}
@@ -713,7 +713,7 @@ function AssistantContent() {
             <div
               style={{
                 display: 'flex',
-                width:"100%",
+                width: "100%",
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -738,16 +738,16 @@ function AssistantContent() {
                   <button
                     key={prompt}
                     onClick={() => void handleSend(prompt)}
+                    className="hover:border-[var(--color-accent)] hover:bg-[var(--color-paper-2)] hover:text-[var(--color-accent)] transition-all"
                     style={{
                       padding: '8px 14px',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--color-rule-2)',
                       backgroundColor: 'var(--color-paper)',
-                      color: 'white',
+                      color: 'var(--color-ink)',
                       fontFamily: 'var(--font-sans)',
                       fontSize: 13,
                       cursor: 'pointer',
-                      transition: 'all 0.15s',
                       textAlign: 'left',
                     }}
                   >
