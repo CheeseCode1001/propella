@@ -322,7 +322,7 @@ function StreamingBubble({ text }: { text: string }) {
   )
 }
 
-export default function AssistantPage() {
+function AssistantContent() {
   const queryClient = useQueryClient()
   const t = useTranslations('assistant')
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null)
@@ -361,13 +361,16 @@ export default function AssistantPage() {
     [speaking, speak, stopSpeaking],
   )
 
-  const { data: coursesData } = useQuery({
+  const { data: coursesResponse } = useQuery({
     queryKey: ['courses-with-files'],
-    queryFn: () =>
-      api
-        .get<{ data: Array<{ id: string; code: string; title: string; files: Array<{ id: string; name: string; fileType: string }> }> }>('/courses')
-        .then((r) => r.data)
-        .catch(() => []),
+    queryFn: async () => {
+      try {
+        const res = await api.get<{ data: any }>('/courses')
+        return res?.data ?? []
+      } catch {
+        return []
+      }
+    },
   })
 
   const user = useAuthStore((s) => s.user)
@@ -378,7 +381,8 @@ export default function AssistantPage() {
     queryFn: () =>
       api
         .get<{ data: EntitlementStatusDto }>('/entitlements/status')
-        .then((r) => r.data),
+        .then((r) => r.data)
+        .catch(() => null),
     enabled: Boolean(user && user.plan === 'free'),
   })
 
@@ -388,21 +392,30 @@ export default function AssistantPage() {
       (entitlements?.remaining?.aiQuestions === 0 || entitlements?.isPaywallLocked),
   )
 
-  const allFiles = (coursesData ?? []).flatMap((c) =>
-    (c.files ?? []).map((f) => ({
-      ...f,
-      courseCode: c.code,
-    }))
+  const coursesList: any[] = Array.isArray(coursesResponse)
+    ? coursesResponse
+    : Array.isArray((coursesResponse as any)?.courses)
+      ? (coursesResponse as any).courses
+      : []
+
+  const allFiles = coursesList.flatMap((c: any) =>
+    Array.isArray(c?.files)
+      ? c.files.map((f: any) => ({
+          ...f,
+          courseCode: c?.code ?? '',
+        }))
+      : [],
   )
 
-  const activeFile = allFiles.find((f) => f.id === selectedFileId)
+  const activeFile = allFiles.find((f: any) => f.id === selectedFileId)
 
   const { data: threadsData, isLoading: threadsLoading } = useQuery({
     queryKey: ['chat-threads'],
     queryFn: () =>
       api
         .get<{ data: { threads: ChatThread[] } }>('/assistant/threads')
-        .then((r) => r.data.threads),
+        .then((r) => r.data?.threads ?? [])
+        .catch(() => []),
   })
 
   const { data: threadDetail, isLoading: threadLoading } = useQuery({
@@ -410,7 +423,8 @@ export default function AssistantPage() {
     queryFn: () =>
       api
         .get<{ data: ThreadDetail }>(`/assistant/threads/${activeThreadId}`)
-        .then((r) => r.data),
+        .then((r) => r.data)
+        .catch(() => undefined),
     enabled: !!activeThreadId,
   })
 
@@ -1003,5 +1017,19 @@ export default function AssistantPage() {
         .prose-sm pre { background: var(--color-paper-3); padding: 12px; border-radius: 6px; overflow-x: auto; }
       `}</style>
     </div>
+  )
+}
+
+export default function AssistantPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-full w-full items-center justify-center p-8">
+          <Skeleton className="h-48 w-full max-w-lg rounded-2xl" />
+        </div>
+      }
+    >
+      <AssistantContent />
+    </Suspense>
   )
 }

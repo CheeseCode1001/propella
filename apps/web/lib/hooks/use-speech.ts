@@ -264,7 +264,7 @@ function toSpokenText(markdown: string): string {
 export function useSpeech(): UseSpeechResult {
   const supported = useSyncExternalStore(
     noopSubscribe,
-    () => 'speechSynthesis' in window,
+    () => typeof window !== 'undefined' && 'speechSynthesis' in window,
     () => false,
   )
 
