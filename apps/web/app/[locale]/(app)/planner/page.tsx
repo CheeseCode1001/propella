@@ -348,36 +348,12 @@ export default function PlannerPage() {
 
       {/* Session detail panel */}
       {selectedNode && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 100,
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-          }}
-        >
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4">
           <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundColor: 'rgba(0,0,0,0.3)',
-            }}
+            className="absolute inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
             onClick={() => setSelectedNode(null)}
           />
-          <div
-            style={{
-              position: 'relative',
-              backgroundColor: 'var(--color-paper)',
-              borderTopLeftRadius: 'var(--radius-lg)',
-              borderTopRightRadius: 'var(--radius-lg)',
-              padding: 24,
-              width: '100%',
-              maxWidth: 480,
-              boxShadow: 'var(--shadow-md)',
-            }}
-          >
+          <div className="relative w-full max-w-[480px] rounded-t-3xl sm:rounded-2xl bg-[var(--color-paper)] p-6 shadow-2xl border border-[var(--color-rule)] transition-all">
             <div
               style={{
                 borderLeft: `4px solid ${getSubjectColor(selectedNode.subjectSlug)}`,

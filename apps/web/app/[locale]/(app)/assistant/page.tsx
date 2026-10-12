@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, Suspense } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Send, Plus } from 'lucide-react'
 import {

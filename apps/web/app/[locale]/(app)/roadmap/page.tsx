@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { EmptyState } from '@/components/common/empty-state'
 import { FilterPills } from '@/components/common/filter-pills'
-import { BookSquare, Folder2 } from 'iconsax-reactjs'
+import { BookSquare } from 'iconsax-reactjs'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import type { ExamType, RoadmapNode } from '@propella/shared'
 
@@ -175,17 +175,27 @@ function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => 
           </Badge>
 
           {node.status === 'completed' && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <Check size={12} strokeWidth={1.5} style={{ color: 'var(--color-success)' }} />
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--color-ink-3)' }}>
-                Completed{' '}
-                {node.lastStudiedAt ? format(new Date(node.lastStudiedAt), 'MMM d') : ''}
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <Check size={12} strokeWidth={1.5} style={{ color: 'var(--color-success)' }} />
+                <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--color-ink-3)' }}>
+                  Completed{' '}
+                  {node.lastStudiedAt ? format(new Date(node.lastStudiedAt), 'MMM d') : ''}
+                </span>
+              </div>
+              <Button
+                variant="secondary"
+                size="sm"
+                asChild
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Link href={`/topics/${node.subjectSlug}/${node.topicSlug}`}>Review Notes</Link>
+              </Button>
             </div>
           )}
 
           {node.status === 'in-progress' && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 120 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 160, flexWrap: 'wrap' }}>
               <div
                 style={{
                   flex: 1,
@@ -193,6 +203,7 @@ function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => 
                   backgroundColor: 'var(--color-paper-3)',
                   borderRadius: 2,
                   overflow: 'hidden',
+                  minWidth: 80,
                 }}
               >
                 <div
@@ -207,6 +218,14 @@ function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => 
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-ink-3)', flexShrink: 0 }}>
                 {node.mastery}%
               </span>
+              <Button
+                variant="secondary"
+                size="sm"
+                asChild
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Link href={`/topics/${node.subjectSlug}/${node.topicSlug}`}>Continue</Link>
+              </Button>
             </div>
           )}
 
@@ -326,33 +345,6 @@ export default function RoadmapPage() {
   const { data: subjectsData } = useSubjects()
   const t = useTranslations('roadmap')
 
-  useEffect(() => {
-    if (user?.undergraduateMode) {
-      router.replace('/files')
-    }
-  }, [user?.undergraduateMode, router])
-
-  if (user?.undergraduateMode) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-[var(--color-accent-tint)] flex items-center justify-center text-[var(--color-accent)] mb-4">
-          <Folder2 size={32} variant="Bulk" />
-        </div>
-        <h2 className="text-xl font-bold text-[var(--color-ink)] mb-2">Undergraduate Track Active</h2>
-        <p className="text-[var(--color-ink-2)] text-sm max-w-md mb-6 leading-relaxed">
-          Undergraduate students manage courses and study materials inside Course Files rather than secondary school syllabi.
-        </p>
-        <Link
-          href="/files"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--color-accent)] text-white text-sm font-semibold hover:opacity-90 transition-opacity"
-        >
-          <Folder2 size={18} />
-          Go to Course Files
-        </Link>
-      </div>
-    )
-  }
-
   // Null means "whatever the first available board is". Deriving the effective
   // value instead of storing it keeps the selection correct when the student's
   // subjects change, with no effect to sync it back.
@@ -373,6 +365,17 @@ export default function RoadmapPage() {
       ),
     [data, examsBySubject],
   )
+
+  // Number of topics mapped under each exam type
+  const examTopicCounts = useMemo(() => {
+    const counts: Record<string, number> = {}
+    for (const exam of EXAM_ORDER) {
+      counts[exam] = (data?.nodes ?? []).filter((n) =>
+        examsBySubject.get(n.subjectSlug)?.includes(exam),
+      ).length
+    }
+    return counts
+  }, [data, examsBySubject])
 
   // Fall back to the first board whenever the chosen one is not on offer.
   const activeExam: ExamType | null =
@@ -426,7 +429,9 @@ export default function RoadmapPage() {
           <Skeleton className="h-4 w-48" />
         ) : data ? (
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-ink-3)' }}>
+            {activeExam ? `${EXAM_LABELS[activeExam]}: ` : ''}
             {completedCount} of {filteredNodes.length} topics completed
+            {filteredNodes.length > 0 ? ` (${Math.round((completedCount / filteredNodes.length) * 100)}%)` : ''}
           </p>
         ) : null}
       </div>
@@ -438,7 +443,10 @@ export default function RoadmapPage() {
           label="Exam"
           value={activeExam ?? ''}
           onChange={(exam) => setChosenExam(exam as ExamType)}
-          options={availableExams.map((exam) => ({ value: exam, label: EXAM_LABELS[exam] }))}
+          options={availableExams.map((exam) => ({
+            value: exam,
+            label: `${EXAM_LABELS[exam]} (${examTopicCounts[exam] ?? 0} topics)`,
+          }))}
         />
         <FilterPills
           label="Subject"

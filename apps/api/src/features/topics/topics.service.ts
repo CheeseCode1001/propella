@@ -1,6 +1,12 @@
 import { prisma } from '../../config/db'
 import { NotFoundError } from '../../middleware/error-handler'
-import { jsonArray, type SubjectTopic, type TopicSection, type TopicExample } from '../../models/types'
+import {
+  jsonArray,
+  type SubjectTopic,
+  type TopicSection,
+  type TopicExample,
+  type RoadmapNodeJson,
+} from '../../models/types'
 import { generateTopicContent, translateTopicContent } from './topic-content'
 import { logger } from '../../config/logger'
 import { assertCanAccessTopic } from '../entitlements/entitlements.service'
@@ -9,6 +15,16 @@ export interface TopicNeighbour {
   subjectSlug: string
   topicSlug: string
   topicName: string
+}
+
+export interface TopicQuizResult {
+  attemptId: string
+  quizId: string
+  score: number
+  totalQuestions: number
+  correctCount: number
+  completedAt: string
+  durationSec: number
 }
 
 export interface TopicReaderResponse {
@@ -23,6 +39,8 @@ export interface TopicReaderResponse {
   /** Ordered neighbours within the same subject, so the reader can move on. */
   previous: TopicNeighbour | null
   next: TopicNeighbour | null
+  quizResult: TopicQuizResult | null
+  isCompleted: boolean
 }
 
 const topicTranslationCache = new Map<
@@ -49,6 +67,29 @@ export async function getTopicReader(
 
   // Check trial quota / entitlement before serving topic content
   await assertCanAccessTopic(userId, subjectSlug, topicSlug)
+
+  // Ensure topic is at least ready/in-progress in user's roadmap so returning to syllabus never shows it locked
+  try {
+    const roadmap = await prisma.roadmap.findUnique({
+      where: { userId },
+      select: { nodes: true },
+    })
+    if (roadmap) {
+      const nodes = jsonArray<RoadmapNodeJson>(roadmap.nodes)
+      const targetNode = nodes.find(
+        (n) => n.subjectSlug === subjectSlug && n.topicSlug === topicSlug,
+      )
+      if (targetNode && (targetNode.status === 'locked' || targetNode.status === 'ready')) {
+        targetNode.status = 'in-progress'
+        await prisma.roadmap.update({
+          where: { userId },
+          data: { nodes },
+        })
+      }
+    }
+  } catch (err) {
+    logger.warn({ err, userId, subjectSlug, topicSlug }, 'Failed to sync topic reading state to roadmap')
+  }
 
   const topic = topics[index]!
 
@@ -144,6 +185,73 @@ export async function getTopicReader(
   const toNeighbour = (t: SubjectTopic | undefined): TopicNeighbour | null =>
     t ? { subjectSlug, topicSlug: t.slug, topicName: t.name } : null
 
+  // Fetch latest completed quiz attempt for this topic
+  const latestAttempt = await prisma.quizAttempt.findFirst({
+    where: {
+      userId,
+      completedAt: { not: null },
+      quiz: {
+        OR: [
+          { topicTopicSlug: topicSlug },
+          { topicSubjectSlug: subjectSlug, topicTopicSlug: topicSlug },
+          { subjectSlug, topicTopicSlug: topicSlug },
+        ],
+      },
+    },
+    orderBy: { completedAt: 'desc' },
+    select: {
+      id: true,
+      quizId: true,
+      score: true,
+      completedAt: true,
+      durationSec: true,
+      answers: true,
+      quiz: {
+        select: {
+          questionCount: true,
+        },
+      },
+    },
+  })
+
+  let quizResult: TopicQuizResult | null = null
+  if (latestAttempt) {
+    const answers = jsonArray<{ isCorrect?: boolean }>(latestAttempt.answers)
+    const correctCount = answers.filter((a) => a.isCorrect).length
+    const totalQuestions = latestAttempt.quiz.questionCount || answers.length || 10
+    quizResult = {
+      attemptId: latestAttempt.id,
+      quizId: latestAttempt.quizId,
+      score: latestAttempt.score,
+      totalQuestions,
+      correctCount: answers.length > 0 ? correctCount : Math.round((latestAttempt.score / 100) * totalQuestions),
+      completedAt: latestAttempt.completedAt?.toISOString() ?? new Date().toISOString(),
+      durationSec: latestAttempt.durationSec,
+    }
+  }
+
+  // Check if topic is marked completed on roadmap or via completed quiz
+  let isCompleted = Boolean(latestAttempt)
+  if (!isCompleted) {
+    try {
+      const roadmap = await prisma.roadmap.findUnique({
+        where: { userId },
+        select: { nodes: true },
+      })
+      if (roadmap) {
+        const nodes = jsonArray<RoadmapNodeJson>(roadmap.nodes)
+        const currentNode = nodes.find(
+          (n) => n.subjectSlug === subjectSlug && n.topicSlug === topicSlug,
+        )
+        if (currentNode?.status === 'completed') {
+          isCompleted = true
+        }
+      }
+    } catch {
+      // non-blocking
+    }
+  }
+
   return {
     subjectSlug,
     subjectName: subject.name,
@@ -155,5 +263,7 @@ export async function getTopicReader(
     summary,
     previous: toNeighbour(topics[index - 1]),
     next: toNeighbour(topics[index + 1]),
+    quizResult,
+    isCompleted,
   }
 }

@@ -31,9 +31,8 @@ export function Sidebar() {
   // studying are locked. Study surfaces stay reachable.
   const navItems = [
     { href: '/dashboard', icon: Home2, label: tNav('dashboard'), lockable: false },
-    isUndergrad
-      ? { href: '/files', icon: Folder2, label: tNav('files'), lockable: false }
-      : { href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false },
+    { href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false },
+    { href: '/files', icon: Folder2, label: tNav('files'), lockable: false },
     { href: '/notes', icon: Note1, label: tNav('notes'), lockable: false },
     { href: '/planner', icon: Calendar, label: tNav('planner'), lockable: false },
     { href: '/quizzes', icon: TaskSquare, label: tNav('quizzes'), lockable: false },

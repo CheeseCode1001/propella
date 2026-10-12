@@ -128,15 +128,42 @@ export async function updateNodeStatus(
   const prevStatus = node.status
   node.status = status as RoadmapNodeStatus
 
+  let unlockedNextSlug: string | null = null
+
+  if (status === 'completed') {
+    node.lastStudiedAt = new Date().toISOString()
+    if (node.mastery < 80) node.mastery = 100
+
+    // Unlock subsequent topic in this subject so syllabus progresses
+    const subjectNodes = nodes.filter((n) => n.subjectSlug === subjectSlug)
+    const currentIndex = subjectNodes.findIndex((n) => n.topicSlug === topicSlug)
+    if (currentIndex !== -1 && currentIndex + 1 < subjectNodes.length) {
+      const nextNode = subjectNodes[currentIndex + 1]
+      if (nextNode && nextNode.status === 'locked') {
+        nextNode.status = 'ready'
+        unlockedNextSlug = nextNode.topicSlug
+      }
+    }
+  }
+
   await prisma.roadmap.update({ where: { userId }, data: { nodes } })
 
   if (prevStatus === 'locked' && status === 'ready') {
     await notify(userId, 'topic_unlocked', {
       title: `New topic unlocked`,
       body: `${topicSlug.replace(/-/g, ' ')} is now available on your roadmap.`,
-      deeplink: `/roadmap/${subjectSlug}/${topicSlug}`,
+      deeplink: `/topics/${subjectSlug}/${topicSlug}`,
       metadata: { topicId: topicSlug, subjectSlug },
-    })
+    }).catch(() => {})
+  }
+
+  if (unlockedNextSlug) {
+    await notify(userId, 'topic_unlocked', {
+      title: `New topic unlocked`,
+      body: `${unlockedNextSlug.replace(/-/g, ' ')} is now available on your roadmap.`,
+      deeplink: `/topics/${subjectSlug}/${unlockedNextSlug}`,
+      metadata: { topicId: unlockedNextSlug, subjectSlug },
+    }).catch(() => {})
   }
 }
 
@@ -156,6 +183,16 @@ export async function updateNodeMastery(
 
   if (mastery >= 80 && node.revisionsCompleted >= 1) {
     node.status = 'completed'
+    node.lastStudiedAt = new Date().toISOString()
+
+    const subjectNodes = nodes.filter((n) => n.subjectSlug === subjectSlug)
+    const currentIndex = subjectNodes.findIndex((n) => n.topicSlug === topicSlug)
+    if (currentIndex !== -1 && currentIndex + 1 < subjectNodes.length) {
+      const nextNode = subjectNodes[currentIndex + 1]
+      if (nextNode && nextNode.status === 'locked') {
+        nextNode.status = 'ready'
+      }
+    }
   }
 
   await prisma.roadmap.update({ where: { userId }, data: { nodes } })

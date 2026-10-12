@@ -354,19 +354,19 @@ function ExamTab() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="overflow-hidden">
         <CardHeader>
           <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Exam Settings</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-hidden">
           <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            <div>
+            <div className="w-full max-w-md min-w-0">
               <Label htmlFor="examDate" style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', display: 'block', marginBottom: 6 }}>
                 Target exam date
               </Label>
-              <Input id="examDate" type="date" {...register('examDate')} />
+              <Input id="examDate" type="date" className="w-full max-w-full min-w-0 box-border" {...register('examDate')} />
             </div>
-            <div>
+            <div className="w-full max-w-md min-w-0">
               <Label htmlFor="dailyStudy" style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', display: 'block', marginBottom: 6 }}>
                 Daily study commitment (minutes)
               </Label>
@@ -375,6 +375,7 @@ function ExamTab() {
                 type="number"
                 min={15}
                 max={480}
+                className="w-full max-w-full min-w-0 box-border"
                 {...register('dailyStudyMinutes', { valueAsNumber: true })}
               />
             </div>

@@ -53,7 +53,18 @@ export function useDeleteTask() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (id: string) => api.del(`/planner/tasks/${id}`),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: KEY }),
+    onMutate: async (id: string) => {
+      await queryClient.cancelQueries({ queryKey: KEY })
+      const previous = queryClient.getQueryData<PlannerTask[]>(KEY)
+      queryClient.setQueryData<PlannerTask[]>(KEY, (old) =>
+        (old ?? []).filter((task) => task.id !== id),
+      )
+      return { previous }
+    },
+    onError: (_err, _id, context) => {
+      if (context?.previous) queryClient.setQueryData(KEY, context.previous)
+    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: KEY }),
   })
 }
 

@@ -34,10 +34,25 @@ interface QuizListItem {
   attemptId: string | null
   topicSlug: string
   subjectSlug: string
+  difficulty?: string
   mode: QuizMode
   score: number | null
   questionCount: number
   createdAt: string
+}
+
+function getSubjectColor(slug: string): string {
+  const map: Record<string, string> = {
+    english: 'var(--color-subj-english, #3b82f6)',
+    mathematics: 'var(--color-subj-math, #ef4444)',
+    physics: 'var(--color-subj-physics, #8b5cf6)',
+    chemistry: 'var(--color-subj-chemistry, #10b981)',
+    biology: 'var(--color-subj-biology, #06b6d4)',
+    economics: 'var(--color-subj-economics, #f59e0b)',
+    government: 'var(--color-subj-government, #6366f1)',
+    literature: 'var(--color-subj-literature, #ec4899)',
+  }
+  return map[slug] ?? 'var(--color-subj-default, var(--color-accent))'
 }
 
 function useRecentQuizzes() {
@@ -380,82 +395,114 @@ export default function QuizzesPage() {
             message="Pick a topic above to generate your first one. Every question you try makes the next one easier."
           />
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {recentQuizzes.map((quiz) => (
-              <div
-                key={quiz.quizId}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  padding: '10px 16px',
-                  backgroundColor: 'var(--color-card)',
-                  border: '1px solid var(--color-rule)',
-                  borderRadius: 'var(--radius-sm)',
-                }}
-              >
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: 14,
-                      fontWeight: 500,
-                      color: 'var(--color-ink)',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {quiz.topicSlug
-                      ? quiz.topicSlug.replace(/-/g, ' ')
-                      : `${quiz.subjectSlug.replace(/-/g, ' ')} - all topics`}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: 12,
-                      color: 'var(--color-ink-3)',
-                    }}
-                  >
-                    {format(new Date(quiz.createdAt), 'MMM d, yyyy')}
-                    {' · '}
-                    {quiz.questionCount} questions
-                    {' · '}
-                    {quiz.mode === 'exam' ? t('examMode') : t('studyMode')}
-                  </p>
+          <div className="flex flex-col gap-3">
+            {recentQuizzes.map((quiz) => {
+              const subjColor = getSubjectColor(quiz.subjectSlug)
+              const title = quiz.topicSlug
+                ? quiz.topicSlug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+                : `${quiz.subjectSlug.replace(/-/g, ' ').toUpperCase()} · All Topics`
+              const correctEstimated =
+                quiz.score !== null ? Math.round((quiz.score / 100) * quiz.questionCount) : null
+
+              return (
+                <div
+                  key={quiz.quizId}
+                  className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-[var(--color-rule)] bg-[var(--color-card)] hover:border-[var(--color-accent)]/50 hover:shadow-md transition-all duration-200"
+                  style={{ borderLeft: `4px solid ${subjColor}` }}
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                      <span
+                        className="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider text-white"
+                        style={{ backgroundColor: subjColor }}
+                      >
+                        {quiz.subjectSlug.replace(/-/g, ' ')}
+                      </span>
+                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-[var(--color-paper-3)] text-[var(--color-ink-2)] font-medium">
+                        {quiz.mode === 'exam' ? 'Exam Mode' : 'Study Mode'}
+                      </span>
+                      {quiz.difficulty && (
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-[var(--color-paper-3)] text-[var(--color-ink-3)] font-mono capitalize">
+                          {quiz.difficulty}
+                        </span>
+                      )}
+                    </div>
+
+                    <h4 className="text-[15px] font-semibold text-[var(--color-ink)] truncate mb-1">
+                      {title}
+                    </h4>
+
+                    <div className="flex items-center gap-2.5 text-xs text-[var(--color-ink-3)] flex-wrap">
+                      <span>{format(new Date(quiz.createdAt), 'MMM d, yyyy · HH:mm')}</span>
+                      <span>•</span>
+                      <span>{quiz.questionCount} Questions</span>
+                      {correctEstimated !== null && (
+                        <>
+                          <span>•</span>
+                          <span className="font-semibold text-[var(--color-ink-2)]">
+                            {correctEstimated}/{quiz.questionCount} Correct
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0 justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-[var(--color-rule-2)]">
+                    {quiz.score !== null ? (
+                      <div className="text-right">
+                        <Badge
+                          variant={
+                            quiz.score >= 70
+                              ? 'success'
+                              : quiz.score >= 50
+                              ? 'accent'
+                              : 'danger'
+                          }
+                          className="text-xs px-2.5 py-1"
+                        >
+                          {quiz.score}%
+                        </Badge>
+                      </div>
+                    ) : (
+                      <Badge variant="default" className="text-xs">
+                        Not Completed
+                      </Badge>
+                    )}
+
+                    <div className="flex items-center gap-1.5">
+                      {quiz.attemptId ? (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => router.push(`/quizzes/${quiz.quizId}/results/${quiz.attemptId}`)}
+                          className="h-8 px-3 text-xs font-semibold"
+                        >
+                          Review Results
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="accent"
+                          size="sm"
+                          onClick={() => router.push(`/quizzes/${quiz.quizId}`)}
+                          className="h-8 px-3 text-xs font-semibold"
+                        >
+                          Continue
+                        </Button>
+                      )}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => router.push(`/quizzes/${quiz.quizId}`)}
+                        title="Retake Quiz"
+                        className="h-8 px-2.5 text-xs text-[var(--color-ink-3)] hover:text-[var(--color-accent)]"
+                      >
+                        Retake
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-
-                {quiz.score !== null ? (
-                  <Badge
-                    variant={
-                      quiz.score >= 70
-                        ? 'success'
-                        : quiz.score >= 50
-                        ? 'accent'
-                        : 'danger'
-                    }
-                  >
-                    {quiz.score}%
-                  </Badge>
-                ) : (
-                  <Badge variant="default">Not attempted</Badge>
-                )}
-
-                {quiz.attemptId && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      router.push(
-                        `/quizzes/${quiz.quizId}/results/${quiz.attemptId}`,
-                      )
-                    }
-                  >
-                    View
-                  </Button>
-                )}
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
       </div>

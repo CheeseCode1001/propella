@@ -8,6 +8,7 @@ import { QuestionImage } from '@/components/common/question-image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { LoadingState } from '@/components/common/loading-state'
+import { ArrowLeft } from 'iconsax-reactjs'
 
 interface QuizOption {
   id: 'A' | 'B' | 'C' | 'D'
@@ -367,6 +368,22 @@ export default function QuizResultsPage() {
         padding: '0 0 60px',
       }}
     >
+      {/* Top back navigation */}
+      <div className="mb-2 flex items-center justify-between pt-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => router.push('/quizzes')}
+          className="gap-2 text-[var(--color-ink-2)] hover:text-[var(--color-ink)]"
+        >
+          <ArrowLeft size={16} color="currentColor" variant="Linear" />
+          <span>{t('backToQuizzes') || 'Back to Quizzes'}</span>
+        </Button>
+        <Badge variant={attempt.score >= 70 ? 'success' : attempt.score >= 50 ? 'accent' : 'danger'}>
+          {quiz.difficulty ? `${quiz.difficulty.toUpperCase()} · ` : ''}
+          {quiz.type === 'subject' ? 'Subject Quiz' : 'Topic Quiz'}
+        </Badge>
+      </div>
       {/* Score hero */}
       <div
         style={{
@@ -526,12 +543,26 @@ export default function QuizResultsPage() {
       </div>
 
       {/* Action buttons */}
-      <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-        <Button variant="accent" onClick={handlePracticeAgain} disabled={regenerating}>
+      <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+        {quiz.topicRef?.subjectSlug && quiz.topicRef?.topicSlug && (
+          <Button
+            variant="accent"
+            onClick={() =>
+              router.push(`/topics/${quiz.topicRef!.subjectSlug}/${quiz.topicRef!.topicSlug}`)
+            }
+          >
+            Back to Topic Notes
+          </Button>
+        )}
+        <Button
+          variant={quiz.topicRef?.topicSlug ? 'secondary' : 'accent'}
+          onClick={handlePracticeAgain}
+          disabled={regenerating}
+        >
           {regenerating ? 'Generating...' : 'Practice again'}
         </Button>
         <Button variant="secondary" onClick={() => router.push('/roadmap')}>
-          Back to roadmap
+          Back to syllabus
         </Button>
       </div>
     </div>

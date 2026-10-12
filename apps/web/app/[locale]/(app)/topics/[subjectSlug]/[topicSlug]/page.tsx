@@ -3,8 +3,10 @@
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { useRouter, Link } from '@/lib/i18n/navigation'
-import { useQuery } from '@tanstack/react-query'
-import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare, Crown1 } from 'iconsax-reactjs'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare, Crown1, TickCircle } from 'iconsax-reactjs'
+import { Lock } from 'lucide-react'
+import { format } from 'date-fns'
 import { useTranslations } from 'next-intl'
 import { api } from '@/lib/api-client'
 import { Button } from '@/components/ui/button'
@@ -32,6 +34,16 @@ interface TopicNeighbour {
   topicName: string
 }
 
+interface TopicQuizResult {
+  attemptId: string
+  quizId: string
+  score: number
+  totalQuestions: number
+  correctCount: number
+  completedAt: string
+  durationSec: number
+}
+
 interface TopicReader {
   subjectSlug: string
   subjectName: string
@@ -43,6 +55,8 @@ interface TopicReader {
   summary: string[]
   previous: TopicNeighbour | null
   next: TopicNeighbour | null
+  quizResult?: TopicQuizResult | null
+  isCompleted?: boolean
 }
 
 function ReaderSkeleton() {
@@ -73,6 +87,7 @@ export default function TopicReaderPage() {
   const t = useTranslations('topics')
   const online = useOnlineStatus()
   const router = useRouter()
+  const queryClient = useQueryClient()
   const [practicing, setPracticing] = useState(false)
   const openPaywall = usePaywallStore((s) => s.openPaywall)
 
@@ -112,38 +127,95 @@ export default function TopicReaderPage() {
     error?.message &&
       (error.message.toLowerCase().includes('trial') ||
         error.message.toLowerCase().includes('paywall') ||
-        error.message.toLowerCase().includes('scholar')),
+        error.message.toLowerCase().includes('scholar') ||
+        error.message.toLowerCase().includes('limit')),
   )
 
   if (isError || !data) {
     if (isPaywallError) {
       return (
-        <div className="mx-auto w-full max-w-[640px] mt-12 p-8 rounded-3xl bg-[var(--color-paper-2)] border border-[var(--color-outline)] text-center shadow-lg">
-          <div className="mx-auto w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
-            <Crown1 size={32} variant="Bold" />
+        <div className="relative mx-auto w-full max-w-[620px] my-10 rounded-3xl border border-amber-500/25 bg-[var(--color-paper)] p-8 sm:p-10 shadow-2xl text-center overflow-hidden">
+          {/* Ambient radial amber aura */}
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-gradient-to-b from-amber-500/20 to-transparent blur-3xl pointer-events-none" />
+
+          {/* Crown emblem */}
+          <div className="relative mx-auto w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 text-white flex items-center justify-center shadow-lg shadow-amber-500/30 mb-5">
+            <Crown1 size={36} variant="Bold" />
           </div>
-          <h2 className="text-2xl font-extrabold text-[var(--color-ink)]">
-            {t('freeTrialLimit')}
+
+          {/* Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 mb-3">
+            <Crown1 size={14} variant="Bold" />
+            Scholar Plan Required
+          </div>
+
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-ink)] tracking-tight">
+            Free Trial Sample Limit Reached
           </h2>
-          <p className="mt-3 text-sm text-[var(--color-ink-muted)] max-w-md mx-auto leading-relaxed">
-            {error?.message || t('freeTrialDesc')}
+
+          <p className="mt-3 text-sm sm:text-base text-[var(--color-ink-muted)] max-w-lg mx-auto leading-relaxed">
+            {error?.message ||
+              'You have reached your Free Trial limit of 1 sample topic. Upgrade to Scholar to unlock all topics across all subjects.'}
           </p>
-          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+
+          {/* Feature benefits highlight */}
+          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+            {[
+              {
+                title: 'All Topics Unlocked',
+                desc: 'Full access to all 12 secondary subjects without locks',
+              },
+              {
+                title: '24/7 AI Personal Tutor',
+                desc: 'Step-by-step solutions and custom study queries',
+              },
+              {
+                title: 'JAMB & WAEC CBT Mocks',
+                desc: 'Official exam-hall simulation with automatic marking',
+              },
+              {
+                title: 'Adaptive Practice Quizzes',
+                desc: 'Over 10,000 curated past questions with instant answers',
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="flex items-start gap-2.5 p-3 rounded-2xl bg-[var(--color-paper-2)]/90 backdrop-blur-sm border border-[var(--color-outline)]/70"
+              >
+                <div className="mt-0.5 text-amber-500 shrink-0">
+                  <TickCircle size={16} variant="Bold" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[var(--color-ink)]">{item.title}</p>
+                  <p className="text-[11px] text-[var(--color-ink-muted)] leading-tight mt-0.5">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button
               onClick={() => openPaywall('topic_reader', error?.message)}
-              className="w-full sm:w-auto h-11 px-6 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-md"
+              className="w-full sm:w-auto h-12 px-7 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-2xl shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
             >
-              <Crown1 size={16} variant="Bold" className="mr-1.5" />
-              {t('upgradeToScholar')}
+              <Crown1 size={18} variant="Bold" />
+              Upgrade to Scholar · From ₦1,999
             </Button>
             <Button
               variant="secondary"
               onClick={() => router.push('/roadmap')}
-              className="w-full sm:w-auto h-11 px-6 rounded-xl"
+              className="w-full sm:w-auto h-12 px-6 rounded-2xl"
             >
-              {t('backToRoadmap')}
+              Back to Roadmap
             </Button>
           </div>
+
+          <p className="mt-4 text-[11px] text-[var(--color-ink-muted)]">
+            Instant activation across all devices · Trusted by students nationwide
+          </p>
         </div>
       )
     }
@@ -297,17 +369,79 @@ export default function TopicReaderPage() {
         </section>
       )}
 
-      {/* Practise what you just read */}
-      <div className="mb-8">
-        <Button variant="accent" disabled={practicing} onClick={handleStartPractice}>
-          <TaskSquare size={15} color="currentColor" variant="Linear" />
-          {practicing ? t('preparingQuiz') : t('startPractice')}
-        </Button>
-      </div>
+      {/* Practice Test & Topic Completion Section */}
+      {data.quizResult ? (
+        <section className="mb-8 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 sm:p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+                  <TickCircle size={14} variant="Bold" />
+                  Practice Test Taken · Topic Completed
+                </span>
+                <span className="text-xs text-[var(--color-ink-muted)]">
+                  {format(new Date(data.quizResult.completedAt), 'MMM d, yyyy')}
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-[var(--color-ink)]">
+                Latest Score: {data.quizResult.score}% ({data.quizResult.correctCount}/{data.quizResult.totalQuestions} Questions Correct)
+              </h3>
+              <p className="text-xs text-[var(--color-ink-muted)] mt-1">
+                You have completed this topic. The next topic on your syllabus is unlocked and ready.
+              </p>
+            </div>
 
-      {/* Move through the syllabus without going back to the list. There is no
-          timer here — reading is not a race. */}
-      <nav className="flex flex-col gap-2 border-t border-[var(--color-rule)] pt-4 sm:flex-row sm:justify-between">
+            <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+              <Button
+                variant="accent"
+                size="sm"
+                disabled={practicing}
+                onClick={handleStartPractice}
+                className="gap-1.5"
+              >
+                <TaskSquare size={15} />
+                {practicing ? t('preparingQuiz') : 'Retake Practice Test'}
+              </Button>
+              <Button variant="secondary" size="sm" asChild>
+                <Link href={`/quizzes/${data.quizResult.quizId}/results/${data.quizResult.attemptId}`}>
+                  Review Answers
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="mb-8 rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-1">
+                <Lock size={14} />
+                Next Topic Locked
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-[var(--color-ink)]">
+                Take the Practice Test to Unlock the Next Topic
+              </h3>
+              <p className="text-xs sm:text-sm text-[var(--color-ink-muted)] mt-0.5 max-w-md">
+                Answer 10 practice questions on this topic to test your recall, mark the topic as completed, and unlock the next lesson.
+              </p>
+            </div>
+
+            <Button
+              variant="accent"
+              disabled={practicing}
+              onClick={handleStartPractice}
+              className="shrink-0 gap-2 h-11 px-5 shadow-md"
+            >
+              <TaskSquare size={16} variant="Linear" />
+              {practicing ? t('preparingQuiz') : 'Start Practice Test (10 Qs)'}
+            </Button>
+          </div>
+        </section>
+      )}
+
+      {/* Move through the syllabus. Previous is always available so students can go back and re-read anytime.
+          Next is strictly locked until the practice quiz for this topic has been taken. */}
+      <nav className="flex flex-col gap-3 border-t border-[var(--color-rule)] pt-4 sm:flex-row sm:justify-between sm:items-center">
         {data.previous ? (
           <Button variant="secondary" size="sm" asChild>
             <Link href={`/topics/${data.previous.subjectSlug}/${data.previous.topicSlug}`}>
@@ -320,12 +454,30 @@ export default function TopicReaderPage() {
         )}
 
         {data.next && (
-          <Button variant="secondary" size="sm" asChild>
-            <Link href={`/topics/${data.next.subjectSlug}/${data.next.topicSlug}`}>
-              <span className="truncate">{data.next.topicName}</span>
-              <ArrowRight size={14} color="currentColor" variant="Linear" />
-            </Link>
-          </Button>
+          (data.quizResult || data.isCompleted) ? (
+            <Button variant="accent" size="sm" asChild>
+              <Link href={`/topics/${data.next.subjectSlug}/${data.next.topicSlug}`}>
+                <span className="truncate">{data.next.topicName}</span>
+                <ArrowRight size={14} color="currentColor" variant="Linear" />
+              </Link>
+            </Button>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled
+                className="opacity-50 cursor-not-allowed flex items-center gap-1.5"
+                title="Complete the practice test above to unlock this topic"
+              >
+                <Lock size={13} className="text-[var(--color-ink-muted)]" />
+                <span className="truncate">{data.next.topicName}</span>
+              </Button>
+              <span className="text-[11px] text-[var(--color-ink-3)] hidden sm:inline font-medium">
+                (Take practice test to unlock)
+              </span>
+            </div>
+          )
         )}
       </nav>
     </article>

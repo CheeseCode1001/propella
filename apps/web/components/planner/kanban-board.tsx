@@ -69,9 +69,14 @@ function TaskCard({
 
         <button
           type="button"
-          onClick={onDelete}
+          draggable={false}
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation()
+            onDelete()
+          }}
           aria-label={`Delete "${task.title}"`}
-          className="shrink-0 cursor-pointer rounded border-none bg-transparent p-0.5 text-[var(--color-ink-3)] opacity-0 transition-opacity hover:text-[var(--color-danger)] focus:opacity-100 group-hover:opacity-100"
+          className="shrink-0 cursor-pointer rounded border-none bg-transparent p-1 text-[var(--color-ink-3)] opacity-70 transition-all hover:bg-[var(--color-danger)]/10 hover:text-[var(--color-danger)] hover:opacity-100 focus:opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
         >
           <Trash size={14} color="currentColor" variant="Linear" />
         </button>

@@ -299,8 +299,18 @@ export async function submitAttempt(
 
     const newMastery = Math.round(node.mastery * 0.7 + correctness * 0.3)
     node.mastery = newMastery
-    if (newMastery >= 80 && node.revisionsCompleted >= 1) {
-      node.status = 'completed'
+    // For every topic that a quiz has been taken, mark it completed on the roadmap
+    node.status = 'completed'
+    node.lastStudiedAt = new Date().toISOString()
+    node.revisionsCompleted = (node.revisionsCompleted || 0) + 1
+
+    const subjectNodes = nodes.filter((n) => n.subjectSlug === node.subjectSlug)
+    const currentIndex = subjectNodes.findIndex((n) => n.topicSlug === node.topicSlug)
+    if (currentIndex !== -1 && currentIndex + 1 < subjectNodes.length) {
+      const nextNode = subjectNodes[currentIndex + 1]
+      if (nextNode && nextNode.status === 'locked') {
+        nextNode.status = 'ready'
+      }
     }
     masteryUpdates.push({ topicSlug: topicResult.topicSlug, mastery: newMastery })
 
@@ -318,6 +328,24 @@ export async function submitAttempt(
     node.nextRevisionAt = sm2Result.nextReviewDate.toISOString()
 
     roadmapChanged = true
+  }
+
+  if (quiz.topicTopicSlug) {
+    const mainNode = findNode(quiz.topicTopicSlug)
+    if (mainNode && mainNode.status !== 'completed') {
+      mainNode.status = 'completed'
+      mainNode.lastStudiedAt = new Date().toISOString()
+      mainNode.revisionsCompleted = (mainNode.revisionsCompleted || 0) + 1
+      const subjectNodes = nodes.filter((n) => n.subjectSlug === mainNode.subjectSlug)
+      const currentIndex = subjectNodes.findIndex((n) => n.topicSlug === mainNode.topicSlug)
+      if (currentIndex !== -1 && currentIndex + 1 < subjectNodes.length) {
+        const nextNode = subjectNodes[currentIndex + 1]
+        if (nextNode && nextNode.status === 'locked') {
+          nextNode.status = 'ready'
+        }
+      }
+      roadmapChanged = true
+    }
   }
 
   if (roadmapChanged) {
