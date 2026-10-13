@@ -53,10 +53,10 @@ export default function ContactPage() {
                     <h4 className="text-sm font-semibold text-[var(--color-ink)]">Email Support</h4>
                     <p className="text-xs text-[var(--color-ink-2)] mt-0.5">Average response under 2 hours</p>
                     <a
-                      href="mailto:support@propella.ng"
+                      href="mailto:support@propellastudy.com"
                       className="text-xs font-mono font-medium text-[var(--color-accent)] hover:underline mt-1 block"
                     >
-                      support@propella.ng
+                      support@propellastudy.com
                     </a>
                   </div>
                 </div>

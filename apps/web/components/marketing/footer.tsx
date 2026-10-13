@@ -97,8 +97,8 @@ export function MarketingFooter() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:support@propella.ng" className="hover:text-[var(--color-ink)] transition-colors">
-                  support@propella.ng
+                <a href="mailto:support@propellastudy.com" className="hover:text-[var(--color-ink)] transition-colors">
+                  support@propellastudy.com
                 </a>
               </li>
               <li>

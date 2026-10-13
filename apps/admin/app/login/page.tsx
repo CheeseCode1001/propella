@@ -105,14 +105,6 @@ export default function AdminLoginPage() {
             {busy ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
-
-        <p style={{ marginTop: 16, fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.6 }}>
-          Admin access is granted from the server:
-          <br />
-          <code style={{ fontSize: 11.5 }}>
-            pnpm --filter @propella/api admin:grant you@example.com
-          </code>
-        </p>
       </div>
     </div>
   )

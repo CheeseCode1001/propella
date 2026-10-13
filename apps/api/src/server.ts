@@ -17,6 +17,12 @@ process.on('unhandledRejection', (reason: unknown) => {
 
 async function startServer(): Promise<void> {
   await connectDB()
+  try {
+    const { seedSuperAdmin } = await import('./seeds/super-admin')
+    await seedSuperAdmin()
+  } catch (err) {
+    logger.warn({ err }, 'Could not run super-admin seed on startup')
+  }
   startScheduler()
 
   const server = app.listen(env.PORT, () => {

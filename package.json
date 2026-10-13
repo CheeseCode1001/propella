@@ -7,6 +7,9 @@
   },
   "scripts": {
     "dev": "pnpm --parallel --filter './apps/*' dev",
+    "mobile": "pnpm --filter @propella/mobile start",
+    "mobile:android": "pnpm --filter @propella/mobile android",
+    "mobile:ios": "pnpm --filter @propella/mobile ios",
     "build": "pnpm --filter @propella/shared build && pnpm --filter @propella/web build && pnpm --filter @propella/admin build",
     "lint": "pnpm --recursive lint",
     "type-check": "pnpm --recursive type-check",

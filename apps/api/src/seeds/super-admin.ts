@@ -26,25 +26,37 @@ export async function seedSuperAdmin(): Promise<void> {
     return
   }
 
+  const effectivePassword = password || 'ChangeMe!2026'
+  const passwordHash = await bcrypt.hash(effectivePassword, 12)
+
   const existing = await prisma.user.findUnique({
     where: { email },
     select: { id: true, role: true },
   })
 
   if (existing) {
-    if (existing.role !== 'admin') {
-      await prisma.user.update({
-        where: { id: existing.id },
-        data: { role: 'admin', emailVerifiedAt: new Date() },
-      })
-      console.log(`Promoted existing account to super admin: ${email}`)
-    } else {
-      console.log(`Super admin already present: ${email}`)
+    const updateData: {
+      role: 'admin'
+      emailVerifiedAt: Date
+      onboardingCompleted: boolean
+      passwordHash?: string
+    } = {
+      role: 'admin',
+      emailVerifiedAt: new Date(),
+      onboardingCompleted: true,
     }
+
+    if (password) {
+      updateData.passwordHash = passwordHash
+    }
+
+    await prisma.user.update({
+      where: { id: existing.id },
+      data: updateData,
+    })
+    console.log(`Synced super admin account: ${email}`)
     return
   }
-
-  const effectivePassword = password || 'ChangeMe!2026'
 
   await prisma.user.create({
     data: {
