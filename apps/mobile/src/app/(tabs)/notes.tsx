@@ -12,11 +12,26 @@ import { Palette, Fonts, getSubjectColor } from '@/constants/theme';
 import { MobileTopBar } from '@/components/mobile-top-bar';
 import { mockStudyNotes, type StudyNote } from '@/lib/mock-data';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { api } from '@/lib/api-client';
 
 export default function NotesScreen() {
   const [search, setSearch] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('all');
   const [notes, setNotes] = useState(mockStudyNotes);
+
+  React.useEffect(() => {
+    async function loadNotes() {
+      try {
+        const res = await api.get<{ data: any }>('/notes');
+        if (res?.data && Array.isArray(res.data) && res.data.length > 0) {
+          setNotes(res.data);
+        }
+      } catch {
+        // Fallback to rich mockStudyNotes
+      }
+    }
+    loadNotes();
+  }, []);
 
   const subjects = [
     { label: 'All Subjects', slug: 'all' },

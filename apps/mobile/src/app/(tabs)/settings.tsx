@@ -15,6 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '@/lib/auth-store';
 import { usePaywallStore } from '@/lib/paywall-store';
 import { useRouter } from 'expo-router';
+import { getApiUrl, setCustomApiUrl, testApiConnection } from '@/lib/api-client';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -27,6 +28,29 @@ export default function SettingsScreen() {
   const [remindersEnabled, setRemindersEnabled] = useState(true);
   const [soundEffects, setSoundEffects] = useState(true);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  // Live API Connection state
+  const [currentApiUrl, setCurrentApiUrl] = useState('');
+  const [apiStatus, setApiStatus] = useState<'testing' | 'online' | 'offline'>('testing');
+  const [apiLatency, setApiLatency] = useState<number | null>(null);
+
+  const checkConnection = React.useCallback(async () => {
+    setApiStatus('testing');
+    const url = await getApiUrl();
+    setCurrentApiUrl(url);
+    const result = await testApiConnection();
+    if (result.ok) {
+      setApiStatus('online');
+      setApiLatency(result.latencyMs);
+    } else {
+      setApiStatus('offline');
+      setApiLatency(null);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    checkConnection();
+  }, [checkConnection]);
 
   const examOptions = [
     { label: 'JAMB UTME', key: 'jamb' as const },
@@ -256,6 +280,110 @@ export default function SettingsScreen() {
               trackColor={{ false: Palette.paper2, true: Palette.accent }}
               thumbColor="#FFFFFF"
             />
+          </View>
+        </View>
+
+        {/* API Server & Cloud Connectivity */}
+        <View style={styles.sectionCard}>
+          <View style={styles.syncRow}>
+            <View style={{ flex: 1, paddingRight: 8 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <Text style={styles.sectionTitle}>Backend API Server</Text>
+                <View
+                  style={[
+                    styles.statusPill,
+                    apiStatus === 'online'
+                      ? styles.statusPillOnline
+                      : apiStatus === 'testing'
+                      ? styles.statusPillTesting
+                      : styles.statusPillOffline,
+                  ]}
+                >
+                  <View
+                    style={[
+                      styles.statusDot,
+                      {
+                        backgroundColor:
+                          apiStatus === 'online'
+                            ? Palette.success
+                            : apiStatus === 'testing'
+                            ? Palette.accent
+                            : Palette.danger,
+                      },
+                    ]}
+                  />
+                  <Text
+                    style={[
+                      styles.statusPillText,
+                      {
+                        color:
+                          apiStatus === 'online'
+                            ? Palette.success
+                            : apiStatus === 'testing'
+                            ? Palette.accent
+                            : Palette.danger,
+                      },
+                    ]}
+                  >
+                    {apiStatus === 'online'
+                      ? `Online (${apiLatency}ms)`
+                      : apiStatus === 'testing'
+                      ? 'Pinging…'
+                      : 'Offline'}
+                  </Text>
+                </View>
+              </View>
+              <Text style={styles.sectionDesc} numberOfLines={1}>
+                {currentApiUrl || 'Resolving endpoint...'}
+              </Text>
+            </View>
+
+            <TouchableOpacity
+              style={styles.pingButton}
+              activeOpacity={0.7}
+              onPress={checkConnection}
+            >
+              <Ionicons name="refresh-outline" size={15} color={Palette.accent} />
+              <Text style={styles.pingButtonText}>Test</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.serverActionsRow}>
+            <TouchableOpacity
+              style={styles.serverPresetPill}
+              activeOpacity={0.7}
+              onPress={async () => {
+                await setCustomApiUrl(null);
+                await checkConnection();
+                Alert.alert('Server Reset', 'Switched to Auto Detect (Metro Host/Localhost)');
+              }}
+            >
+              <Text style={styles.serverPresetText}>Auto Detect</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.serverPresetPill}
+              activeOpacity={0.7}
+              onPress={async () => {
+                await setCustomApiUrl('http://10.0.2.2:5000');
+                await checkConnection();
+                Alert.alert('Server Changed', 'Switched to Android Emulator (10.0.2.2:5000)');
+              }}
+            >
+              <Text style={styles.serverPresetText}>Emulator (10.0.2.2)</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.serverPresetPill}
+              activeOpacity={0.7}
+              onPress={async () => {
+                await setCustomApiUrl('https://propella-uo1q.onrender.com');
+                await checkConnection();
+                Alert.alert('Server Changed', 'Switched to Render Cloud API');
+              }}
+            >
+              <Text style={styles.serverPresetText}>Render Cloud</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -572,4 +700,71 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
+  statusPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 10,
+  },
+  statusPillOnline: {
+    backgroundColor: Palette.successTint,
+  },
+  statusPillTesting: {
+    backgroundColor: Palette.accentTint,
+  },
+  statusPillOffline: {
+    backgroundColor: Palette.dangerTint,
+  },
+  statusDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  statusPillText: {
+    fontSize: 10.5,
+    fontWeight: '700',
+  },
+  pingButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: Palette.paper2,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Palette.rule,
+  },
+  pingButtonText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: Palette.accent,
+  },
+  serverActionsRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 12,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: Palette.paper2,
+  },
+  serverPresetPill: {
+    flex: 1,
+    backgroundColor: Palette.paper,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Palette.rule,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  serverPresetText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 10.5,
+    fontWeight: '600',
+    color: Palette.ink2,
+  },
 });
+

@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { BarChart3, Users, FileQuestion, History, LogOut, ShieldCheck, Megaphone, Banknote } from 'lucide-react'
 import { api, ApiError, getToken, setToken } from '@/lib/api'
 
@@ -23,41 +23,31 @@ const NAV = [
 export function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
-  const [state, setState] = useState<'checking' | 'ok'>('checking')
 
   useEffect(() => {
+    // If no token exists at all, redirect to login
     if (!getToken()) {
       router.replace('/login')
       return
     }
+
+    // Verify admin access in the background without blocking the UI
     let cancelled = false
     api
       .get('/admin/metrics')
-      .then(() => {
-        if (!cancelled) setState('ok')
-      })
       .catch((err: unknown) => {
         if (cancelled) return
         if (err instanceof ApiError && (err.status === 401 || err.status === 403)) {
           setToken(null)
           router.replace('/login')
-        } else {
-          // Network trouble should not bounce an admin back to the login form.
-          setState('ok')
         }
       })
+
     return () => {
       cancelled = true
     }
   }, [router])
 
-  if (state === 'checking') {
-    return (
-      <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', color: 'var(--ink-3)' }}>
-        Checking access…
-      </div>
-    )
-  }
 
   function signOut() {
     setToken(null)

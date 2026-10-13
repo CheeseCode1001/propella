@@ -1,17 +1,42 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import Constants from 'expo-constants';
 
 const TOKEN_KEY = 'propella_access_token';
 const API_URL_KEY = 'propella_custom_api_url';
 
 /**
- * Android emulator uses 10.0.2.2 to connect to host machine localhost:5000.
- * iOS simulator / web uses localhost:5000.
- * Default can also point to production API.
+ * Dynamically resolves the API URL:
+ * 1. Custom URL stored in AsyncStorage
+ * 2. EXPO_PUBLIC_API_URL if set to a remote domain
+ * 3. Metro Host IP if running on physical device / Expo Go
+ * 4. 10.0.2.2:5000 if running on Android Emulator
+ * 5. localhost:5000 if running on iOS simulator or web
  */
-export const DEFAULT_API_URL =
-  process.env.EXPO_PUBLIC_API_URL ||
-  (Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000');
+export function resolveDefaultApiUrl(): string {
+  const envUrl = process.env.EXPO_PUBLIC_API_URL;
+  if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+    return envUrl;
+  }
+
+  // Physical device or Expo Go: extract host machine IP from Metro debugger URI
+  const hostUri = Constants.expoConfig?.hostUri;
+  if (hostUri) {
+    const hostIp = hostUri.split(':')[0];
+    if (hostIp && hostIp !== 'localhost' && hostIp !== '127.0.0.1') {
+      return `http://${hostIp}:5000`;
+    }
+  }
+
+  // Android emulator loopback to host
+  if (Platform.OS === 'android') {
+    return 'http://10.0.2.2:5000';
+  }
+
+  return envUrl || 'http://localhost:5000';
+}
+
+export const DEFAULT_API_URL = resolveDefaultApiUrl();
 
 let _accessToken: string | null = null;
 let _hasLoadedToken = false;
@@ -46,7 +71,7 @@ export async function getApiUrl(): Promise<string> {
     const custom = await AsyncStorage.getItem(API_URL_KEY);
     if (custom) return custom;
   } catch {}
-  return DEFAULT_API_URL;
+  return resolveDefaultApiUrl();
 }
 
 export async function setCustomApiUrl(url: string | null): Promise<void> {
@@ -57,6 +82,37 @@ export async function setCustomApiUrl(url: string | null): Promise<void> {
       await AsyncStorage.removeItem(API_URL_KEY);
     }
   } catch {}
+}
+
+export async function testApiConnection(): Promise<{
+  ok: boolean;
+  url: string;
+  latencyMs: number;
+  error?: string;
+}> {
+  const url = await getApiUrl();
+  const start = Date.now();
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+    const res = await fetch(`${url}/health`, {
+      method: 'GET',
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    const latencyMs = Date.now() - start;
+    if (res.ok) {
+      return { ok: true, url, latencyMs };
+    }
+    return { ok: false, url, latencyMs, error: `HTTP ${res.status}` };
+  } catch (err: any) {
+    return {
+      ok: false,
+      url,
+      latencyMs: Date.now() - start,
+      error: err?.name === 'AbortError' ? 'Connection timed out' : 'Unreachable',
+    };
+  }
 }
 
 let refreshPromise: Promise<string | null> | null = null;
