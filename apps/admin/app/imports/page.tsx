@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Providers } from '../providers'
 import { Shell, PageHeader } from '@/components/shell'
+import { SkeletonTable } from '@/components/skeleton'
 import { api } from '@/lib/api'
 
 interface Batch {
@@ -24,7 +25,13 @@ function ImportHistory() {
       api.get<{ data: { batches: Batch[] } }>('/admin/imports?limit=50').then((r) => r.data.batches),
   })
 
-  if (isLoading) return <p style={{ color: 'var(--ink-3)' }}>Loading…</p>
+  if (isLoading) {
+    return (
+      <div className="card" style={{ overflow: 'hidden' }}>
+        <SkeletonTable rows={6} cols={7} />
+      </div>
+    )
+  }
   if (!data || data.length === 0) {
     return (
       <div className="card" style={{ padding: 40, textAlign: 'center', color: 'var(--ink-3)' }}>

@@ -25,38 +25,34 @@ export function MobileTopBar({
       <TouchableOpacity
         style={styles.logoRow}
         activeOpacity={0.8}
-        onPress={() => router.push('/')}
+        onPress={() => router.push('/(tabs)')}
       >
         <View style={styles.logoBadge}>
-          <Ionicons name="sparkles" size={15} color="#FFFFFF" />
+          <Ionicons name="sparkles" size={16} color="#FFFFFF" />
         </View>
         <Text style={styles.brandTitle}>Propella</Text>
       </TouchableOpacity>
 
       {/* Right Actions */}
       <View style={styles.rightActions}>
-        {/* Streak Pill */}
+        {/* Streak: matches web Flame size 15 with aubergine accent color + 16px medium ink number */}
         <TouchableOpacity
-          style={styles.streakPill}
+          style={styles.streakRow}
           activeOpacity={0.7}
           onPress={onPressStreak ?? (() => router.push('/progress'))}
         >
-          <Ionicons name="flame" size={16} color={Palette.warning} />
+          <Ionicons name="flame" size={17} color={Palette.accent} />
           <Text style={styles.streakCount}>{streak}</Text>
         </TouchableOpacity>
 
-        {/* Notifications Button */}
+        {/* Notification Bell */}
         <TouchableOpacity
-          style={styles.iconButton}
+          style={styles.bellButton}
           activeOpacity={0.7}
           onPress={onPressNotifications ?? (() => router.push('/notifications'))}
         >
           <Ionicons name="notifications-outline" size={20} color={Palette.ink} />
-          {unreadCount > 0 && (
-            <View style={styles.unreadDot}>
-              <Text style={styles.unreadCountText}>{unreadCount}</Text>
-            </View>
-          )}
+          {unreadCount > 0 && <View style={styles.unreadDot} />}
         </TouchableOpacity>
       </View>
     </View>
@@ -65,81 +61,77 @@ export function MobileTopBar({
 
 const styles = StyleSheet.create({
   container: {
-    height: 52,
+    height: 48,
     backgroundColor: Palette.paper,
     borderBottomWidth: 1,
     borderBottomColor: Palette.rule,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    paddingLeft: 20,
+    paddingRight: 12,
   },
   logoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 10,
   },
   logoBadge: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
+    width: 30,
+    height: 30,
+    borderRadius: 9,
     backgroundColor: Palette.accent,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: Palette.accent,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    elevation: 2,
   },
   brandTitle: {
     fontFamily: Fonts?.serif ?? 'serif',
     fontSize: 20,
     fontWeight: '700',
     color: Palette.ink,
-    letterSpacing: -0.5,
+    letterSpacing: -0.4,
   },
   rightActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 8,
   },
-  streakPill: {
+  streakRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: Palette.warningTint,
-    paddingHorizontal: 8,
+    paddingHorizontal: 6,
     paddingVertical: 4,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: '#F1DCB8',
   },
   streakCount: {
     fontFamily: Fonts?.sans ?? 'sans-serif',
-    fontSize: 13,
-    fontWeight: '700',
-    color: Palette.warning,
+    fontSize: 16,
+    fontWeight: '600',
+    color: Palette.ink,
   },
-  iconButton: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: Palette.paper2,
+  bellButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   unreadDot: {
     position: 'absolute',
-    top: -2,
-    right: -2,
+    top: 7,
+    right: 7,
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
     backgroundColor: Palette.danger,
-    minWidth: 16,
-    height: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 3,
-  },
-  unreadCountText: {
-    color: '#FFFFFF',
-    fontSize: 9,
-    fontWeight: '700',
+    borderWidth: 1,
+    borderColor: Palette.paper,
   },
 });
+

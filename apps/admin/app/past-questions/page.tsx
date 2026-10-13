@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Upload, Trash2, Download, AlertTriangle, CheckCircle2 } from 'lucide-react'
 import { Providers } from '../providers'
 import { Shell, PageHeader } from '@/components/shell'
+import { SkeletonTable } from '@/components/skeleton'
 import { api, API_URL } from '@/lib/api'
 
 interface PastQuestion {
@@ -313,7 +314,7 @@ function QuestionBank() {
       </div>
 
       {isLoading ? (
-        <p style={{ padding: 24, color: 'var(--ink-3)' }}>Loading…</p>
+        <SkeletonTable rows={7} cols={6} />
       ) : !data || data.questions.length === 0 ? (
         <div style={{ padding: 40, textAlign: 'center', color: 'var(--ink-3)' }}>
           <p style={{ margin: 0, fontWeight: 600, color: 'var(--ink-2)' }}>No questions yet</p>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Shell } from '@/components/shell'
+import { SkeletonTable } from '@/components/skeleton'
 import { api, ApiError } from '@/lib/api'
 import { Check, X, Clock } from 'lucide-react'
 
@@ -176,9 +177,7 @@ export default function WithdrawalsPage() {
         {/* Table */}
         <div className="card" style={{ overflow: 'hidden' }}>
           {loading ? (
-            <div style={{ padding: 40, textAlign: 'center', color: 'var(--ink-3)', fontSize: 14 }}>
-              Loading withdrawal requests...
-            </div>
+            <SkeletonTable rows={5} cols={6} />
           ) : filtered.length === 0 ? (
             <div style={{ padding: 40, textAlign: 'center', color: 'var(--ink-3)', fontSize: 14 }}>
               No {filter !== 'all' ? filter : ''} withdrawal requests found.

@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { ShieldCheck, ShieldOff, UserPlus } from 'lucide-react'
 import { Providers } from '../providers'
 import { Shell, PageHeader } from '@/components/shell'
+import { SkeletonTable } from '@/components/skeleton'
 import { api } from '@/lib/api'
 
 interface AdminAccount {
@@ -115,21 +116,14 @@ function Administrators() {
         </div>
 
         {isLoading ? (
-          <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                style={{ height: 40, borderRadius: 6, background: 'var(--paper-3)' }}
-              />
-            ))}
-          </div>
+          <SkeletonTable rows={4} cols={5} />
         ) : admins.length === 0 ? (
           <p style={{ padding: 16, fontSize: 13, color: 'var(--ink-2)' }}>
             No administrators found.
           </p>
         ) : (
           <div style={{ overflowX: 'auto' }}>
-            <table>
+            <table className="data">
               <thead>
                 <tr>
                   <th>Name</th>

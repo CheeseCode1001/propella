@@ -12,7 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Palette, Fonts, getSubjectColor } from '@/constants/theme';
 import { MobileTopBar } from '@/components/mobile-top-bar';
 import { mockDashboardData } from '@/lib/mock-data';
-import type { TodayTopic } from '@propella/shared';
+import type { TodayTopic, WeakTopic, DailyScore } from '@propella/shared';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '@/lib/auth-store';
 import { api } from '@/lib/api-client';
@@ -63,9 +63,29 @@ export default function DashboardScreen() {
     });
   }, [loadDashboard]);
 
+  // Formatted date matching web: 'Tuesday, October 13.'
+  const dateLabel = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  }) + '.';
+
+  // 7-day streak history dots (today + last 6 days)
+  const streakCount = data.streak.currentStreak || 0;
+  const historyDots = Array.from({ length: 7 }, (_, i) => {
+    const isToday = i === 6;
+    const studied = (6 - i) < streakCount;
+    return { isToday, studied };
+  });
+
+  const totalMinutesPlanned = data.todayTopics.reduce((acc, t) => acc + (t.estimatedMinutes || 15), 0);
+  const firstReadyIndex = data.todayTopics.findIndex(
+    (t) => t.status === 'ready' || t.status === 'in-progress'
+  );
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
-      {/* Refined Web Mobile Top Bar */}
+      {/* Web Mobile Top Bar */}
       <MobileTopBar
         streak={data.streak.currentStreak}
         unreadCount={2}
@@ -78,58 +98,32 @@ export default function DashboardScreen() {
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={Palette.accent} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={Palette.accent}
+          />
         }
       >
-        {/* Exam Countdown & Readiness Banner */}
-        <View style={styles.countdownCard}>
-          <View style={styles.countdownHeader}>
-            <View>
-              <Text style={styles.countdownTitle}>JAMB UTME 2026</Text>
-              <Text style={styles.countdownSubtitle}>
-                {data.daysToExam} days until your exam
-              </Text>
-            </View>
-            <View style={styles.readinessBadge}>
-              <Text style={styles.readinessNumber}>{data.examReadiness}%</Text>
-              <Text style={styles.readinessLabel}>Readiness</Text>
-            </View>
-          </View>
-
-          {/* Progress Bar */}
-          <View style={styles.progressTrack}>
-            <View
-              style={[
-                styles.progressFill,
-                { width: `${data.examReadiness}%` },
-              ]}
-            />
-          </View>
-
-          <View style={styles.countdownFooter}>
-            <Text style={styles.countdownFooterText}>
-              On track for 300+ score goal
-            </Text>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => router.push('/roadmap')}
-              style={styles.viewRoadmapLink}
-            >
-              <Text style={styles.viewRoadmapText}>View Syllabus</Text>
-              <Ionicons name="arrow-forward" size={12} color={Palette.accent} />
-            </TouchableOpacity>
-          </View>
+        {/* Above-grid: Date & Countdown Header (matches web dashboard) */}
+        <View style={styles.pageHeader}>
+          <Text style={styles.dateLabel}>{dateLabel}</Text>
+          <Text style={styles.examCountdownHeadline}>
+            {data.daysToExam != null
+              ? `${data.daysToExam} days until ${data.examType?.toUpperCase() || 'JAMB UTME'}`
+              : 'Prepare for Excellence'}
+          </Text>
         </View>
 
-        {/* Quick Action Hub */}
-        <View style={styles.quickActionsRow}>
+        {/* Quick Study Action Strip */}
+        <View style={styles.quickActionsStrip}>
           <TouchableOpacity
             style={styles.actionPill}
             activeOpacity={0.7}
             onPress={() => router.push('/quizzes')}
           >
-            <View style={[styles.actionIcon, { backgroundColor: Palette.accentTint }]}>
-              <Ionicons name="checkbox-outline" size={18} color={Palette.accent} />
+            <View style={[styles.actionIconBox, { backgroundColor: Palette.accentTint }]}>
+              <Ionicons name="checkbox-outline" size={17} color={Palette.accent} />
             </View>
             <Text style={styles.actionPillText}>Take Quiz</Text>
           </TouchableOpacity>
@@ -139,8 +133,8 @@ export default function DashboardScreen() {
             activeOpacity={0.7}
             onPress={() => router.push('/assistant')}
           >
-            <View style={[styles.actionIcon, { backgroundColor: '#EDE7F6' }]}>
-              <Ionicons name="sparkles" size={18} color="#6B4E8F" />
+            <View style={[styles.actionIconBox, { backgroundColor: '#EDE7F6' }]}>
+              <Ionicons name="sparkles" size={17} color="#6B4E8F" />
             </View>
             <Text style={styles.actionPillText}>Ask AI</Text>
           </TouchableOpacity>
@@ -150,8 +144,8 @@ export default function DashboardScreen() {
             activeOpacity={0.7}
             onPress={() => router.push('/marathon')}
           >
-            <View style={[styles.actionIcon, { backgroundColor: Palette.warningTint }]}>
-              <Ionicons name="flash" size={18} color={Palette.warning} />
+            <View style={[styles.actionIconBox, { backgroundColor: Palette.warningTint }]}>
+              <Ionicons name="flash" size={17} color={Palette.warning} />
             </View>
             <Text style={styles.actionPillText}>Marathon</Text>
           </TouchableOpacity>
@@ -161,161 +155,271 @@ export default function DashboardScreen() {
             activeOpacity={0.7}
             onPress={() => router.push('/mocks')}
           >
-            <View style={[styles.actionIcon, { backgroundColor: '#E0F2F1' }]}>
-              <Ionicons name="document-text" size={18} color="#2F6B6B" />
+            <View style={[styles.actionIconBox, { backgroundColor: '#E0F2F1' }]}>
+              <Ionicons name="document-text" size={17} color="#2F6B6B" />
             </View>
             <Text style={styles.actionPillText}>Mocks</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Today's Focus Card */}
-        <View style={styles.sectionCard}>
-          <View style={styles.sectionHeader}>
-            <View>
-              <Text style={styles.sectionTag}>TODAY’S FOCUS</Text>
-              <Text style={styles.sectionTitle}>Daily Study Goals</Text>
-            </View>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => router.push('/planner')}
-            >
-              <Text style={styles.seeAllText}>Planner</Text>
-            </TouchableOpacity>
+        {/* Today's Focus Card (matches web TodayFocusCard) */}
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.kicker}>TODAY</Text>
+            <Text style={styles.cardTitle}>
+              {data.todayTopics.length} topic{data.todayTopics.length !== 1 ? 's' : ''} scheduled · {totalMinutesPlanned} min planned
+            </Text>
           </View>
 
-          <View style={styles.topicList}>
-            {data.todayTopics.map((item, index) => {
-              const subjectColor = getSubjectColor(item.subjectSlug);
+          <View style={styles.topicRowsList}>
+            {data.todayTopics.map((item, idx) => {
+              const subjColor = getSubjectColor(item.subjectSlug);
+              const isFirstReady = idx === (firstReadyIndex >= 0 ? firstReadyIndex : 0);
+
+              let badgeBg = Palette.paper2;
+              let badgeColor = Palette.ink2;
+              let badgeLabel = 'Ready';
+
+              if (item.status === 'in-progress') {
+                badgeBg = Palette.accentTint;
+                badgeColor = Palette.accent;
+                badgeLabel = 'In Progress';
+              } else if (item.status === 'completed') {
+                badgeBg = Palette.successTint;
+                badgeColor = Palette.success;
+                badgeLabel = 'Completed';
+              } else if (item.status === 'needs-revision') {
+                badgeBg = Palette.warningTint;
+                badgeColor = Palette.warning;
+                badgeLabel = 'Needs Revision';
+              }
+
               return (
-                <TouchableOpacity
-                  key={`${item.subjectSlug}-${index}`}
-                  style={styles.topicItem}
-                  activeOpacity={0.7}
-                  onPress={() =>
-                    router.push({
-                      pathname: '/topic-detail',
-                      params: {
-                        subjectSlug: item.subjectSlug,
-                        title: item.topicName,
-                      },
-                    })
-                  }
-                >
-                  <View
-                    style={[styles.subjectIndicator, { backgroundColor: subjectColor }]}
-                  />
-                  <View style={styles.topicContent}>
-                    <View style={styles.topicTopRow}>
-                      <Text style={[styles.subjectName, { color: subjectColor }]}>
-                        {item.subjectName}
-                      </Text>
-                      <View style={styles.timeTag}>
-                        <Ionicons name="time-outline" size={12} color={Palette.ink3} />
-                        <Text style={styles.timeText}>{item.estimatedMinutes}m</Text>
-                      </View>
-                    </View>
-                    <Text style={styles.topicTitle}>{item.topicName}</Text>
+                <View key={`${item.subjectSlug}-${idx}`} style={styles.topicRow}>
+                  {/* 4px vertical subject stripe */}
+                  <View style={[styles.subjectStripe, { backgroundColor: subjColor }]} />
+
+                  {/* Topic name */}
+                  <Text style={styles.topicNameText} numberOfLines={1}>
+                    {item.topicName}
+                  </Text>
+
+                  {/* Status badge */}
+                  <View style={[styles.statusBadge, { backgroundColor: badgeBg }]}>
+                    <Text style={[styles.statusBadgeText, { color: badgeColor }]}>
+                      {badgeLabel}
+                    </Text>
                   </View>
-                  <View style={styles.startBadge}>
-                    <Ionicons name="play" size={12} color={Palette.accent} />
-                  </View>
-                </TouchableOpacity>
+
+                  {/* Minutes */}
+                  <Text style={styles.monoMinutesText}>
+                    {item.estimatedMinutes} min
+                  </Text>
+
+                  {/* Direct Start Action Button */}
+                  {isFirstReady && (
+                    <TouchableOpacity
+                      style={styles.startButton}
+                      activeOpacity={0.8}
+                      onPress={() =>
+                        router.push({
+                          pathname: '/topic-detail',
+                          params: {
+                            subjectSlug: item.subjectSlug,
+                            title: item.topicName,
+                          },
+                        })
+                      }
+                    >
+                      <Text style={styles.startButtonText}>Start</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               );
             })}
           </View>
 
+          {/* Footer: View full planner link */}
+          <View style={styles.cardFooter}>
+            <TouchableOpacity
+              style={styles.plannerLink}
+              activeOpacity={0.7}
+              onPress={() => router.push('/planner')}
+            >
+              <Text style={styles.plannerLinkText}>View full planner</Text>
+              <Ionicons name="arrow-forward" size={13} color={Palette.accent} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Streak & XP Gamification Grid */}
+        <View style={styles.twoColumnGrid}>
+          {/* Streak Card (matches web StreakCard) */}
+          <View style={[styles.card, styles.gridCard]}>
+            <View style={styles.streakCenterContent}>
+              <Text style={styles.streakLargeNumber}>{data.streak.currentStreak}</Text>
+              <Text style={styles.streakSubtitle}>
+                {data.streak.currentStreak === 1 ? 'day in a row' : 'days in a row'}
+              </Text>
+
+              {/* 7-day dot progress track */}
+              <View style={styles.streakDotsRow}>
+                {historyDots.map((dot, i) => (
+                  <View
+                    key={i}
+                    style={[
+                      styles.streakDot,
+                      {
+                        width: dot.isToday ? 8 : 6,
+                        height: dot.isToday ? 8 : 6,
+                        borderRadius: dot.isToday ? 4 : 3,
+                        backgroundColor: dot.studied ? Palette.accent : 'transparent',
+                        borderColor: dot.studied ? Palette.accent : Palette.ink3,
+                        borderWidth: dot.studied ? 0 : 1.5,
+                      },
+                    ]}
+                  />
+                ))}
+              </View>
+
+              <View style={styles.longestStreakRow}>
+                <Ionicons name="flame" size={14} color={Palette.ink3} />
+                <Text style={styles.longestStreakText}>
+                  Longest: {data.streak.longestStreak} days
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          {/* XP & Rank Card (matches web XPRankCard) */}
+          <View style={[styles.card, styles.gridCard]}>
+            <Text style={styles.kicker}>RANK</Text>
+            <Text style={styles.rankNameText}>{data.xp.rankName}</Text>
+
+            <View style={styles.rankProgressTrack}>
+              <View
+                style={[
+                  styles.rankProgressFill,
+                  {
+                    width: `${Math.min(
+                      100,
+                      Math.max(
+                        15,
+                        ((data.xp.totalXP % 1000) / 1000) * 100
+                      )
+                    )}%`,
+                  },
+                ]}
+              />
+            </View>
+
+            <Text style={styles.rankMonoSubtext}>
+              {data.xp.xpToNextRank != null && data.xp.nextRankName
+                ? `${data.xp.xpToNextRank} XP to ${data.xp.nextRankName}`
+                : `${data.xp.totalXP.toLocaleString()} XP total`}
+            </Text>
+          </View>
+        </View>
+
+        {/* Exam Readiness Card (matches web ExamReadinessCard) */}
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.kicker}>READINESS</Text>
+            <Text style={styles.cardTitle}>Exam readiness</Text>
+          </View>
+
+          <View style={styles.readinessNumberRow}>
+            <Text style={styles.readinessHugeNumber}>{data.examReadiness}</Text>
+            <Text style={styles.readinessPercentSign}>%</Text>
+          </View>
+
+          <View style={styles.readinessTrack}>
+            <View
+              style={[
+                styles.readinessFill,
+                {
+                  width: `${data.examReadiness}%`,
+                  backgroundColor:
+                    data.examReadiness >= 70 ? Palette.success : Palette.accent,
+                },
+              ]}
+            />
+          </View>
+
+          <Text style={styles.readinessFootnote}>
+            Based on topic mastery, quiz scores, and revision progress
+          </Text>
+
           <TouchableOpacity
-            style={styles.primaryButton}
+            style={styles.mockButton}
             activeOpacity={0.85}
-            onPress={() => router.push('/quizzes')}
+            onPress={() => router.push('/mocks')}
           >
-            <Text style={styles.primaryButtonText}>Start Daily Practice</Text>
-            <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
+            <Ionicons name="document-text-outline" size={15} color={Palette.ink} />
+            <Text style={styles.mockButtonText}>Take a mock exam</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Streak & XP Gamification Row */}
-        <View style={styles.statsGrid}>
-          {/* Streak Card */}
-          <View style={styles.statCard}>
-            <View style={styles.statIconBadge}>
-              <Ionicons name="flame" size={20} color={Palette.warning} />
-            </View>
-            <Text style={styles.statNumber}>{data.streak.currentStreak} Days</Text>
-            <Text style={styles.statLabel}>Current Streak</Text>
-            <Text style={styles.statSublabel}>
-              Longest: {data.streak.longestStreak} days
-            </Text>
+        {/* Weakest Topics (matches web WeakestTopicsCard) */}
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.kicker}>NEEDS ATTENTION</Text>
+            <Text style={styles.cardTitle}>Weakest topics</Text>
+            <Text style={styles.cardSubtitle}>Topics with the lowest mastery</Text>
           </View>
 
-          {/* XP Card */}
-          <View style={styles.statCard}>
-            <View style={[styles.statIconBadge, { backgroundColor: Palette.accentTint }]}>
-              <Ionicons name="trophy" size={20} color={Palette.accent} />
-            </View>
-            <Text style={styles.statNumber}>{data.xp.totalXP} XP</Text>
-            <Text style={styles.statLabel}>{data.xp.rankName}</Text>
-            <Text style={styles.statSublabel}>
-              {data.xp.xpToNextRank} XP to {data.xp.nextRankName}
-            </Text>
+          <View style={styles.weakTopicsList}>
+            {data.weakestTopics.map((topic, i) => {
+              const subjColor = getSubjectColor(topic.subjectSlug);
+              return (
+                <View key={i} style={styles.weakTopicRow}>
+                  <View style={[styles.subjectStripe, { backgroundColor: subjColor }]} />
+                  <Text style={styles.weakTopicTitle} numberOfLines={1}>
+                    {topic.topicName}
+                  </Text>
+
+                  {/* Inline 56px mastery track */}
+                  <View style={styles.masteryBarTrack}>
+                    <View
+                      style={[
+                        styles.masteryBarFill,
+                        {
+                          width: `${topic.mastery}%`,
+                          backgroundColor:
+                            topic.mastery < 50 ? Palette.danger : Palette.warning,
+                        },
+                      ]}
+                    />
+                  </View>
+
+                  <Text style={styles.masteryMonoText}>{topic.mastery}%</Text>
+
+                  <TouchableOpacity
+                    style={styles.drillButton}
+                    activeOpacity={0.7}
+                    onPress={() =>
+                      router.push({
+                        pathname: '/topic-detail',
+                        params: {
+                          subjectSlug: topic.subjectSlug,
+                          title: topic.topicName,
+                        },
+                      })
+                    }
+                  >
+                    <Text style={styles.drillButtonText}>Drill</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
           </View>
         </View>
 
-        {/* Weak Topics (Needs Attention) */}
-        <View style={styles.sectionCard}>
-          <View style={styles.sectionHeader}>
-            <View>
-              <Text style={styles.sectionTag}>NEEDS REVISION</Text>
-              <Text style={styles.sectionTitle}>Priority Focus Topics</Text>
-            </View>
-            <TouchableOpacity onPress={() => router.push('/roadmap')}>
-              <Text style={styles.seeAllText}>Review All</Text>
-            </TouchableOpacity>
-          </View>
-
-          {data.weakestTopics.map((topic, i) => (
-            <TouchableOpacity
-              key={i}
-              style={styles.weakTopicRow}
-              activeOpacity={0.7}
-              onPress={() =>
-                router.push({
-                  pathname: '/topic-detail',
-                  params: {
-                    subjectSlug: topic.subjectSlug,
-                    title: topic.topicName,
-                  },
-                })
-              }
-            >
-              <View style={styles.weakTopicInfo}>
-                <Text style={styles.weakSubjectName}>{topic.subjectName}</Text>
-                <Text style={styles.weakTopicTitle}>{topic.topicName}</Text>
-              </View>
-              <View style={styles.masteryPill}>
-                <Text style={styles.masteryText}>{topic.mastery}%</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.drillButton}
-                activeOpacity={0.7}
-                onPress={() => router.push('/quizzes')}
-              >
-                <Text style={styles.drillButtonText}>Drill</Text>
-              </TouchableOpacity>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        {/* Weekly Study Trend / Scores */}
-        <View style={styles.sectionCard}>
-          <View style={styles.sectionHeader}>
-            <View>
-              <Text style={styles.sectionTag}>PERFORMANCE</Text>
-              <Text style={styles.sectionTitle}>This Week's Accuracy</Text>
-            </View>
-            <TouchableOpacity onPress={() => router.push('/progress')}>
-              <Text style={styles.seeAllText}>Detailed</Text>
-            </TouchableOpacity>
+        {/* Performance Trend (matches web PerformanceTrendCard) */}
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.kicker}>PERFORMANCE</Text>
+            <Text style={styles.cardTitle}>Last 7 days</Text>
           </View>
 
           <View style={styles.chartBarRow}>
@@ -342,6 +446,17 @@ export default function DashboardScreen() {
               </View>
             ))}
           </View>
+
+          <View style={styles.trendFooter}>
+            <Text style={styles.trendFooterText}>
+              Average score this week:{' '}
+              {Math.round(
+                data.recentScores.reduce((a, s) => a + s.averageScore, 0) /
+                  (data.recentScores.length || 1)
+              )}
+              %
+            </Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -358,95 +473,31 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 16,
-    gap: 16,
-    paddingBottom: 40,
+    gap: 14,
+    paddingBottom: 48,
   },
-  countdownCard: {
-    backgroundColor: Palette.card,
-    borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: Palette.rule,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+  pageHeader: {
+    marginBottom: 4,
   },
-  countdownHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  countdownTitle: {
-    fontFamily: Fonts?.serif ?? 'serif',
-    fontSize: 18,
-    fontWeight: '700',
-    color: Palette.ink,
-  },
-  countdownSubtitle: {
+  dateLabel: {
     fontFamily: Fonts?.sans ?? 'sans-serif',
     fontSize: 13,
     color: Palette.ink3,
-    marginTop: 2,
+    marginBottom: 4,
   },
-  readinessBadge: {
-    backgroundColor: Palette.accentTint,
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    alignItems: 'center',
+  examCountdownHeadline: {
+    fontFamily: Fonts?.serif ?? 'serif',
+    fontSize: 26,
+    fontWeight: '700',
+    color: Palette.ink,
+    lineHeight: 32,
+    letterSpacing: -0.5,
   },
-  readinessNumber: {
-    fontFamily: Fonts?.sans ?? 'sans-serif',
-    fontSize: 16,
-    fontWeight: '800',
-    color: Palette.accent,
-  },
-  readinessLabel: {
-    fontSize: 9,
-    fontWeight: '600',
-    color: Palette.accent2,
-    textTransform: 'uppercase',
-  },
-  progressTrack: {
-    height: 8,
-    backgroundColor: Palette.paper2,
-    borderRadius: 4,
-    overflow: 'hidden',
-    marginVertical: 4,
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: Palette.accent,
-    borderRadius: 4,
-  },
-  countdownFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  countdownFooterText: {
-    fontSize: 12,
-    color: Palette.ink2,
-    fontWeight: '500',
-  },
-  viewRoadmapLink: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  viewRoadmapText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: Palette.accent,
-  },
-  quickActionsRow: {
+  quickActionsStrip: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 8,
+    marginVertical: 4,
   },
   actionPill: {
     flex: 1,
@@ -457,8 +508,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Palette.rule,
     gap: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.02,
+    shadowRadius: 2,
+    elevation: 1,
   },
-  actionIcon: {
+  actionIconBox: {
     width: 32,
     height: 32,
     borderRadius: 8,
@@ -466,203 +522,290 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   actionPillText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
     fontSize: 11,
     fontWeight: '600',
     color: Palette.ink,
   },
-  sectionCard: {
+  card: {
     backgroundColor: Palette.card,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: Palette.rule,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.03,
+    shadowRadius: 3,
+    elevation: 1,
   },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+  cardHeader: {
     marginBottom: 12,
   },
-  sectionTag: {
+  kicker: {
+    fontFamily: Fonts?.mono ?? 'monospace',
     fontSize: 10,
-    fontWeight: '700',
-    color: Palette.accent,
-    letterSpacing: 0.5,
+    letterSpacing: 0.8,
+    color: Palette.ink3,
     textTransform: 'uppercase',
+    marginBottom: 4,
+    fontWeight: '600',
   },
-  sectionTitle: {
-    fontFamily: Fonts?.serif ?? 'serif',
-    fontSize: 16,
-    fontWeight: '700',
+  cardTitle: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 15,
+    fontWeight: '600',
     color: Palette.ink,
+  },
+  cardSubtitle: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 12,
+    color: Palette.ink3,
     marginTop: 2,
   },
-  seeAllText: {
+  topicRowsList: {
+    gap: 10,
+  },
+  topicRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: Palette.paper2,
+  },
+  subjectStripe: {
+    width: 4,
+    height: 22,
+    borderRadius: 2,
+  },
+  topicNameText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 14,
+    fontWeight: '500',
+    color: Palette.ink,
+    flex: 1,
+  },
+  statusBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+  },
+  statusBadgeText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  monoMinutesText: {
+    fontFamily: Fonts?.mono ?? 'monospace',
+    fontSize: 11,
+    color: Palette.ink3,
+  },
+  startButton: {
+    backgroundColor: Palette.accent,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: 8,
+  },
+  startButtonText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  cardFooter: {
+    marginTop: 12,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: Palette.paper2,
+  },
+  plannerLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  plannerLinkText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
     fontSize: 12,
     fontWeight: '600',
     color: Palette.accent,
   },
-  topicList: {
-    gap: 10,
-    marginBottom: 14,
-  },
-  topicItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Palette.paper,
-    borderRadius: 12,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: Palette.rule,
-    gap: 10,
-  },
-  subjectIndicator: {
-    width: 4,
-    height: 36,
-    borderRadius: 2,
-  },
-  topicContent: {
-    flex: 1,
-  },
-  topicTopRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 2,
-  },
-  subjectName: {
-    fontSize: 11,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-  },
-  timeTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-  },
-  timeText: {
-    fontSize: 11,
-    color: Palette.ink3,
-    fontWeight: '500',
-  },
-  topicTitle: {
-    fontFamily: Fonts?.sans ?? 'sans-serif',
-    fontSize: 14,
-    fontWeight: '600',
-    color: Palette.ink,
-  },
-  startBadge: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    backgroundColor: Palette.accentTint,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  primaryButton: {
-    backgroundColor: Palette.accent,
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    gap: 8,
-  },
-  primaryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  statsGrid: {
+  twoColumnGrid: {
     flexDirection: 'row',
     gap: 12,
   },
-  statCard: {
+  gridCard: {
     flex: 1,
-    backgroundColor: Palette.card,
-    borderRadius: 16,
-    padding: 14,
+  },
+  streakCenterContent: {
+    alignItems: 'center',
+    paddingVertical: 4,
+  },
+  streakLargeNumber: {
+    fontFamily: Fonts?.serif ?? 'serif',
+    fontSize: 52,
+    fontWeight: '700',
+    color: Palette.ink,
+    lineHeight: 56,
+  },
+  streakSubtitle: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 12,
+    color: Palette.ink2,
+    marginTop: 2,
+    marginBottom: 10,
+  },
+  streakDotsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 10,
+  },
+  streakDot: {
+    flexShrink: 0,
+  },
+  longestStreakRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  longestStreakText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 11,
+    color: Palette.ink3,
+  },
+  rankNameText: {
+    fontFamily: Fonts?.serif ?? 'serif',
+    fontSize: 20,
+    fontWeight: '700',
+    color: Palette.ink,
+    marginBottom: 12,
+  },
+  rankProgressTrack: {
+    height: 4,
+    backgroundColor: Palette.paper2,
+    borderRadius: 2,
+    overflow: 'hidden',
+    marginBottom: 8,
+  },
+  rankProgressFill: {
+    height: '100%',
+    backgroundColor: Palette.accent,
+    borderRadius: 2,
+  },
+  rankMonoSubtext: {
+    fontFamily: Fonts?.mono ?? 'monospace',
+    fontSize: 10,
+    color: Palette.ink3,
+    marginTop: 4,
+  },
+  readinessNumberRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: 3,
+    marginBottom: 8,
+  },
+  readinessHugeNumber: {
+    fontFamily: Fonts?.serif ?? 'serif',
+    fontSize: 44,
+    fontWeight: '700',
+    color: Palette.ink,
+    lineHeight: 48,
+  },
+  readinessPercentSign: {
+    fontFamily: Fonts?.serif ?? 'serif',
+    fontSize: 22,
+    color: Palette.ink2,
+  },
+  readinessTrack: {
+    height: 4,
+    backgroundColor: Palette.paper2,
+    borderRadius: 2,
+    overflow: 'hidden',
+    marginBottom: 8,
+  },
+  readinessFill: {
+    height: '100%',
+    borderRadius: 2,
+  },
+  readinessFootnote: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 11,
+    color: Palette.ink3,
+    marginBottom: 14,
+  },
+  mockButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    backgroundColor: Palette.paper2,
+    paddingVertical: 10,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: Palette.rule,
   },
-  statIconBadge: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: Palette.warningTint,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  statNumber: {
-    fontFamily: Fonts?.serif ?? 'serif',
-    fontSize: 18,
-    fontWeight: '700',
+  mockButtonText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 13,
+    fontWeight: '600',
     color: Palette.ink,
   },
-  statLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: Palette.ink2,
-    marginTop: 2,
-  },
-  statSublabel: {
-    fontSize: 11,
-    color: Palette.ink3,
-    marginTop: 4,
+  weakTopicsList: {
+    gap: 8,
   },
   weakTopicRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    gap: 10,
+    paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: Palette.paper2,
-    gap: 8,
-  },
-  weakTopicInfo: {
-    flex: 1,
-  },
-  weakSubjectName: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: Palette.danger,
-    textTransform: 'uppercase',
   },
   weakTopicTitle: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
     fontSize: 13,
-    fontWeight: '600',
+    fontWeight: '500',
     color: Palette.ink,
-    marginTop: 1,
+    flex: 1,
   },
-  masteryPill: {
-    backgroundColor: Palette.dangerTint,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
+  masteryBarTrack: {
+    width: 52,
+    height: 4,
+    backgroundColor: Palette.paper2,
+    borderRadius: 2,
+    overflow: 'hidden',
   },
-  masteryText: {
+  masteryBarFill: {
+    height: '100%',
+    borderRadius: 2,
+  },
+  masteryMonoText: {
+    fontFamily: Fonts?.mono ?? 'monospace',
     fontSize: 11,
-    fontWeight: '700',
-    color: Palette.danger,
+    color: Palette.ink3,
+    width: 32,
+    textAlign: 'right',
   },
   drillButton: {
     backgroundColor: Palette.paper2,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 6,
     borderWidth: 1,
     borderColor: Palette.rule,
   },
   drillButtonText: {
-    fontSize: 12,
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 11,
     fontWeight: '600',
-    color: Palette.ink,
+    color: Palette.accent,
   },
   chartBarRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    height: 120,
+    height: 110,
     paddingTop: 10,
   },
   chartCol: {
@@ -670,7 +813,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   barTrack: {
-    height: 70,
+    height: 64,
     width: 14,
     backgroundColor: Palette.paper2,
     borderRadius: 7,
@@ -682,13 +825,27 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   barLabel: {
-    fontSize: 10,
+    fontFamily: Fonts?.mono ?? 'monospace',
+    fontSize: 9,
     color: Palette.ink3,
     marginTop: 6,
   },
   barValue: {
+    fontFamily: Fonts?.mono ?? 'monospace',
     fontSize: 9,
     fontWeight: '700',
     color: Palette.ink2,
   },
+  trendFooter: {
+    marginTop: 12,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: Palette.paper2,
+  },
+  trendFooterText: {
+    fontFamily: Fonts?.sans ?? 'sans-serif',
+    fontSize: 12,
+    color: Palette.ink2,
+  },
 });
+

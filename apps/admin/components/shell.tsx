@@ -95,7 +95,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        <nav style={{ flex: 1, padding: '8px 0' }}>
+        <nav style={{ flex: 1, padding: '12px 10px', display: 'flex', flexDirection: 'column', gap: 3 }}>
           {NAV.map(({ href, label, icon: Icon }) => {
             const active = href === '/' ? pathname === '/' : pathname.startsWith(href)
             return (
@@ -106,40 +106,64 @@ export function Shell({ children }: { children: React.ReactNode }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 10,
-                  padding: '9px 20px',
-                  fontWeight: 500,
-                  color: active ? 'var(--ink)' : 'var(--ink-2)',
-                  background: active ? 'var(--paper-3)' : 'transparent',
-                  borderLeft: active ? '2px solid var(--accent)' : '2px solid transparent',
+                  padding: '9px 12px',
+                  borderRadius: 8,
+                  fontWeight: active ? 600 : 500,
+                  fontSize: 13,
+                  color: active ? 'var(--accent)' : 'var(--ink-2)',
+                  background: active ? 'var(--accent-tint)' : 'transparent',
+                  transition: 'background 120ms, color 120ms',
                 }}
               >
-                <Icon size={16} />
-                {label}
+                <Icon size={16} strokeWidth={active ? 2.2 : 1.8} />
+                <span>{label}</span>
               </Link>
             )
           })}
         </nav>
 
-        <div style={{ padding: 12, borderTop: '1px solid var(--rule)' }}>
-          <button className="btn" style={{ width: '100%' }} onClick={signOut}>
-            <LogOut size={15} />
+        <div style={{ padding: '14px 12px', borderTop: '1px solid var(--rule)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--accent)', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 700 }}>
+              A
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Super Admin</div>
+              <div style={{ fontSize: 10.5, color: 'var(--ink-3)' }}>Console Access</div>
+            </div>
+          </div>
+          <button className="btn" style={{ width: '100%', fontSize: 12, padding: '7px 10px' }} onClick={signOut}>
+            <LogOut size={14} />
             Sign out
           </button>
         </div>
       </aside>
 
-      <main style={{ flex: 1, minWidth: 0, padding: '28px 32px 60px' }}>{children}</main>
+      <main style={{ flex: 1, minWidth: 0, padding: '28px 36px 64px', maxWidth: 1200, margin: '0 auto' }}>
+        {children}
+      </main>
     </div>
   )
 }
 
-export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+export function PageHeader({
+  title,
+  subtitle,
+  actions,
+}: {
+  title: string
+  subtitle?: string
+  actions?: React.ReactNode
+}) {
   return (
-    <header style={{ marginBottom: 24 }}>
-      <h1 style={{ margin: 0, fontSize: 24, fontWeight: 650, letterSpacing: '-0.02em' }}>{title}</h1>
-      {subtitle && (
-        <p style={{ margin: '4px 0 0', color: 'var(--ink-2)', fontSize: 13.5 }}>{subtitle}</p>
-      )}
+    <header style={{ marginBottom: 28, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
+      <div>
+        <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--ink)' }}>{title}</h1>
+        {subtitle && (
+          <p style={{ margin: '5px 0 0', color: 'var(--ink-3)', fontSize: 13.5 }}>{subtitle}</p>
+        )}
+      </div>
+      {actions && <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>{actions}</div>}
     </header>
   )
 }

@@ -24,65 +24,57 @@ export function ToolsSheetModal({ visible, onClose }: ToolsSheetModalProps) {
     {
       id: 'planner',
       title: 'Study Planner',
-      description: 'Today’s schedule & weekly timetable',
+      description: 'Today and this week',
       icon: 'calendar-outline' as const,
-      color: '#3F5B7F',
       href: '/planner',
     },
     {
       id: 'quizzes',
       title: 'Practice Quizzes',
-      description: 'Targeted topic drills & instant explanations',
+      description: 'Practice by topic',
       icon: 'checkbox-outline' as const,
-      color: Palette.accent,
       href: '/quizzes',
     },
     {
       id: 'mocks',
       title: 'Mock Exams',
-      description: 'Timed full JAMB & WAEC simulations',
+      description: 'Full exam simulations',
       icon: 'document-text-outline' as const,
-      color: '#8E5A2B',
       href: '/mocks',
     },
     {
       id: 'marathon',
-      title: 'Marathon Run',
-      description: 'Fast-paced endurance streak challenge',
+      title: 'Marathon',
+      description: 'Long focused runs',
       icon: 'flash-outline' as const,
-      color: Palette.warning,
       href: '/marathon',
     },
     {
       id: 'assistant',
-      title: 'AI Study Assistant',
-      description: 'Ask anything from your Nigerian syllabus',
+      title: 'AI Assistant',
+      description: 'Ask anything from your syllabus',
       icon: 'sparkles-outline' as const,
-      color: '#6B4E8F',
       href: '/assistant',
     },
     {
       id: 'progress',
       title: 'Progress & Mastery',
-      description: 'Track weak areas, trends & achievements',
+      description: 'Mastery, streaks, trends',
       icon: 'trending-up-outline' as const,
-      color: Palette.success,
       href: '/progress',
     },
     {
       id: 'leaderboard',
       title: 'Leaderboard',
-      description: 'Weekly student ranks & XP race',
+      description: 'How you rank this week',
       icon: 'trophy-outline' as const,
-      color: '#B87A1F',
       href: '/leaderboard',
     },
     {
       id: 'files',
-      title: 'Course Files Vault',
+      title: 'Course Files',
       description: '100L-500L lecture notes & past papers',
       icon: 'folder-open-outline' as const,
-      color: '#3F5B7F',
       href: '/files',
     },
   ];
@@ -91,7 +83,7 @@ export function ToolsSheetModal({ visible, onClose }: ToolsSheetModalProps) {
     onClose();
     setTimeout(() => {
       router.push(href as any);
-    }, 150);
+    }, 120);
   }
 
   return (
@@ -110,46 +102,40 @@ export function ToolsSheetModal({ visible, onClose }: ToolsSheetModalProps) {
                 <View style={styles.handle} />
               </View>
 
-              {/* Header */}
+              {/* Header matching web tools sheet */}
               <View style={styles.headerRow}>
-                <View>
-                  <Text style={styles.sheetTitle}>Study Tools</Text>
-                  <Text style={styles.sheetSubtitle}>
-                    All your prep essentials in one place
-                  </Text>
-                </View>
+                <Text style={styles.sheetTitle}>Tools</Text>
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={onClose}
                   activeOpacity={0.7}
+                  accessibilityLabel="Close tools"
                 >
-                  <Ionicons name="close" size={20} color={Palette.ink2} />
+                  <Ionicons name="close" size={20} color={Palette.ink3} />
                 </TouchableOpacity>
               </View>
 
-              {/* Tool List */}
+              {/* Tool List matching web rows */}
               <ScrollView
                 style={styles.toolList}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.listContent}
               >
-                {tools.map((tool) => (
+                {tools.map((tool, idx) => (
                   <TouchableOpacity
                     key={tool.id}
-                    style={styles.toolCard}
+                    style={[
+                      styles.toolRow,
+                      idx < tools.length - 1 && styles.toolRowBorder,
+                    ]}
                     activeOpacity={0.7}
                     onPress={() => handleSelect(tool.href)}
                   >
-                    <View
-                      style={[
-                        styles.iconWrap,
-                        { backgroundColor: `${tool.color}15` },
-                      ]}
-                    >
+                    <View style={styles.iconBox}>
                       <Ionicons
                         name={tool.icon}
-                        size={22}
-                        color={tool.color}
+                        size={20}
+                        color={Palette.ink}
                       />
                     </View>
                     <View style={styles.toolTextWrap}>
@@ -177,20 +163,20 @@ export function ToolsSheetModal({ visible, onClose }: ToolsSheetModalProps) {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(26, 24, 20, 0.45)',
+    backgroundColor: 'rgba(0, 0, 0, 0.42)',
     justifyContent: 'flex-end',
   },
   sheetContainer: {
     backgroundColor: Palette.paper,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     paddingTop: 8,
-    paddingBottom: 32,
-    maxHeight: '80%',
+    paddingBottom: 28,
+    maxHeight: '82%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -3 },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
     elevation: 20,
   },
   handleContainer: {
@@ -198,7 +184,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   handle: {
-    width: 38,
+    width: 36,
     height: 4,
     borderRadius: 2,
     backgroundColor: Palette.rule2,
@@ -208,68 +194,64 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingBottom: 12,
+    paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: Palette.rule,
   },
   sheetTitle: {
     fontFamily: Fonts?.serif ?? 'serif',
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '700',
     color: Palette.ink,
-  },
-  sheetSubtitle: {
-    fontFamily: Fonts?.sans ?? 'sans-serif',
-    fontSize: 12,
-    color: Palette.ink3,
-    marginTop: 2,
   },
   closeButton: {
     width: 32,
     height: 32,
-    borderRadius: 16,
-    backgroundColor: Palette.paper2,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },
   toolList: {
-    paddingHorizontal: 16,
-    marginTop: 8,
+    flex: 1,
   },
   listContent: {
     paddingBottom: 16,
-    gap: 8,
   },
-  toolCard: {
+  toolRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Palette.card,
-    borderRadius: 14,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: Palette.rule,
-    gap: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    minHeight: 64,
+    gap: 16,
   },
-  iconWrap: {
-    width: 42,
-    height: 42,
-    borderRadius: 10,
+  toolRowBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: Palette.rule,
+  },
+  iconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: Palette.paper2,
     alignItems: 'center',
     justifyContent: 'center',
   },
   toolTextWrap: {
     flex: 1,
+    minWidth: 0,
   },
   toolItemTitle: {
     fontFamily: Fonts?.sans ?? 'sans-serif',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '600',
     color: Palette.ink,
   },
   toolItemDesc: {
     fontFamily: Fonts?.sans ?? 'sans-serif',
-    fontSize: 12,
-    color: Palette.ink3,
+    fontSize: 13,
+    color: Palette.ink2,
     marginTop: 2,
   },
 });
+

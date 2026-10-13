@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import { Tabs, useRouter, usePathname } from 'expo-router';
+import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { Tabs, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Palette, Fonts } from '@/constants/theme';
 import { ToolsSheetModal } from '@/components/tools-sheet-modal';
@@ -17,16 +17,16 @@ export default function TabLayout() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            height: 64 + (insets.bottom > 0 ? insets.bottom - 4 : 8),
+            height: 64 + (insets.bottom > 0 ? insets.bottom - 4 : 6),
             paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
             backgroundColor: Palette.paper,
             borderTopWidth: 1,
             borderTopColor: Palette.rule,
-            elevation: 10,
+            elevation: 8,
             shadowColor: '#000',
             shadowOffset: { width: 0, height: -2 },
-            shadowOpacity: 0.04,
-            shadowRadius: 4,
+            shadowOpacity: 0.03,
+            shadowRadius: 3,
           },
           tabBarActiveTintColor: Palette.accent,
           tabBarInactiveTintColor: Palette.ink3,
@@ -66,7 +66,7 @@ export default function TabLayout() {
           }}
         />
 
-        {/* Dummy Tab slot for the Raised Centre Tools Button */}
+        {/* Floating Raised Center Button: Tools (matches web 56x56 raised aubergine button) */}
         <Tabs.Screen
           name="tools-trigger"
           options={{
@@ -74,9 +74,11 @@ export default function TabLayout() {
             tabBarButton: () => (
               <View style={styles.centerButtonWrapper}>
                 <TouchableOpacity
-                  activeOpacity={0.85}
+                  activeOpacity={0.88}
                   style={styles.centerButton}
                   onPress={() => setToolsOpen(true)}
+                  accessibilityRole="button"
+                  accessibilityLabel="Study Tools"
                 >
                   <Ionicons name="grid" size={24} color="#FFFFFF" />
                 </TouchableOpacity>
@@ -136,17 +138,18 @@ const styles = StyleSheet.create({
     width: 60,
   },
   centerButton: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: Palette.accent,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
     shadowColor: Palette.accent,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 8,
+    shadowOpacity: 0.38,
+    shadowRadius: 10,
     elevation: 8,
   },
 });
+
