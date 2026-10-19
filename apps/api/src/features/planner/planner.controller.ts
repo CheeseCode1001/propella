@@ -120,3 +120,17 @@ export async function reorderColumn(
     next(err)
   }
 }
+
+export async function readjustPlanner(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const result = await plannerService.readjustPlanner(userId)
+    res.status(200).json({ data: result })
+  } catch (err) {
+    next(err)
+  }
+}

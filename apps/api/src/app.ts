@@ -29,6 +29,7 @@ import topicsRouter from './features/topics/topics.routes'
 import badgesRouter from './features/badges/badges.routes'
 import referralsRouter from './features/referrals/referrals.routes'
 import coursesRouter from './features/courses/courses.routes'
+import studyGroupsRouter from './features/study-groups/study-groups.routes'
 import subscriptionsRouter from './features/subscriptions/subscriptions.routes'
 import { entitlementsRouter } from './features/entitlements/entitlements.routes'
 
@@ -163,6 +164,7 @@ app.use('/api/topics', authenticate, topicsRouter)
 app.use('/api/badges', authenticate, badgesRouter)
 app.use('/api/referrals', authenticate, referralsRouter)
 app.use('/api/courses', authenticate, coursesRouter)
+app.use('/api/study-groups', authenticate, studyGroupsRouter)
 app.use('/api/subscriptions', subscriptionsRouter)
 app.use('/api/entitlements', entitlementsRouter)
 app.use('/api/admin', authenticate, adminRouter)

@@ -83,3 +83,24 @@ export async function deleteNote(
     next(err)
   }
 }
+
+export async function summarize(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { content } = req.body as { content: string }
+    const data = await notesService.summarizeMaterial(content)
+    res.status(200).json({ data })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function revisionAids(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { content } = req.body as { content: string }
+    const data = await notesService.generateRevisionAids(content)
+    res.status(200).json({ data })
+  } catch (err) {
+    next(err)
+  }
+}
+

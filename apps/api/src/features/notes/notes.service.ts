@@ -89,3 +89,110 @@ export async function getTopicNote(
     orderBy: { updatedAt: 'desc' },
   })
 }
+
+export async function summarizeMaterial(content: string): Promise<{
+  summary: string
+  keyPoints: string[]
+  examTips: string[]
+}> {
+  const text = content?.trim()
+  if (!text) throw new NotFoundError('Content is required to generate a summary')
+
+  const { getGemini, QUIZ_MODEL } = await import('../../lib/gemini')
+  const ai = getGemini()
+
+  const prompt = `You are a high-level educational AI tutor.
+Analyze the following study notes / reading material and generate:
+1. A concise, clear Executive Summary (2-3 paragraphs)
+2. 5-7 bullet points of crucial Key Concepts & Definitions
+3. 3-4 High-Yield Exam Tips / Traps to avoid
+
+Text:
+"""
+${text.slice(0, 15000)}
+"""
+
+Return valid JSON with keys:
+{
+  "summary": "...",
+  "keyPoints": ["...", "..."],
+  "examTips": ["...", "..."]
+}`
+
+  const response = await ai.models.generateContent({
+    model: QUIZ_MODEL,
+    contents: prompt,
+    config: {
+      responseMimeType: 'application/json',
+      temperature: 0.5,
+    },
+  })
+
+  try {
+    const parsed = JSON.parse(response.text || '{}')
+    return {
+      summary: parsed.summary || 'Summary generated from material.',
+      keyPoints: Array.isArray(parsed.keyPoints) ? parsed.keyPoints : [],
+      examTips: Array.isArray(parsed.examTips) ? parsed.examTips : [],
+    }
+  } catch {
+    return {
+      summary: response.text || 'Summary generated successfully.',
+      keyPoints: [],
+      examTips: [],
+    }
+  }
+}
+
+export async function generateRevisionAids(content: string): Promise<{
+  flashcards: Array<{ front: string; back: string }>
+  keyQuestions: Array<{ question: string; answer: string }>
+}> {
+  const text = content?.trim()
+  if (!text) throw new NotFoundError('Content is required to generate revision aids')
+
+  const { getGemini, QUIZ_MODEL } = await import('../../lib/gemini')
+  const ai = getGemini()
+
+  const prompt = `You are an expert revision tutor for secondary and tertiary students.
+Based on the following reading material, generate:
+1. 6-8 Revision Flashcards (front question/term, back answer/definition)
+2. 4-5 High-Yield Self-Test Questions with detailed answers
+
+Text:
+"""
+${text.slice(0, 15000)}
+"""
+
+Return valid JSON with keys:
+{
+  "flashcards": [
+    { "front": "...", "back": "..." }
+  ],
+  "keyQuestions": [
+    { "question": "...", "answer": "..." }
+  ]
+}`
+
+  const response = await ai.models.generateContent({
+    model: QUIZ_MODEL,
+    contents: prompt,
+    config: {
+      responseMimeType: 'application/json',
+      temperature: 0.6,
+    },
+  })
+
+  try {
+    const parsed = JSON.parse(response.text || '{}')
+    return {
+      flashcards: Array.isArray(parsed.flashcards) ? parsed.flashcards : [],
+      keyQuestions: Array.isArray(parsed.keyQuestions) ? parsed.keyQuestions : [],
+    }
+  } catch {
+    return {
+      flashcards: [],
+      keyQuestions: [],
+    }
+  }
+}

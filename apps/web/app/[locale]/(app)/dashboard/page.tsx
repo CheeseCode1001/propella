@@ -16,6 +16,8 @@ import { Calendar, Chart2, RefreshCircle } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
 import { ErrorState, errorKindFrom } from '@/components/common/error-state'
 import { useOnlineStatus } from '@/lib/hooks/use-online-status'
+import { useAuthStore } from '@/lib/stores/auth-store'
+import { Folder2, People, TaskSquare } from 'iconsax-reactjs'
 import type { TodayTopic, WeakTopic, DailyScore, UpcomingRevision } from '@propella/shared'
 import { formatDistanceToNow } from 'date-fns'
 
@@ -575,7 +577,7 @@ function UpcomingRevisionsCard({ revisions }: { revisions: UpcomingRevision[] })
                   </p>
                 </div>
                 <Button variant="secondary" size="sm" asChild>
-                  <Link href={`/study/new?subject=${r.subjectSlug}&topic=${r.topicSlug}&mode=revision`}>
+                  <Link href={`/topics/${r.subjectSlug}/${r.topicSlug}`}>
                     Revise
                   </Link>
                 </Button>
@@ -631,10 +633,10 @@ function ExamReadinessCard({ readiness }: { readiness: number }) {
           />
         </div>
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--color-ink-3)', marginBottom: 16 }}>
-          Based on topic mastery, quiz scores, and revision progress
+          Calculated accurately from your full-length CBT mock test results and verified syllabus performance.
         </p>
         <Button variant="secondary" size="sm" asChild>
-          <Link href="/mocks/new">Take a mock</Link>
+          <Link href="/mocks">Take a mock</Link>
         </Button>
       </CardContent>
     </Card>
@@ -645,6 +647,8 @@ export default function DashboardPage() {
   const { data, isLoading, isError, error, refetch } = useDashboard()
   const t = useTranslations('dashboard')
   const online = useOnlineStatus()
+  const user = useAuthStore((s) => s.user)
+  const isUndergrad = !!user?.undergraduateMode
 
   const today = new Date()
   const dateLabel = format(today, 'EEEE, MMMM d.')
@@ -687,6 +691,8 @@ export default function DashboardPage() {
         >
           {isLoading ? (
             <Skeleton className="h-9 w-48 inline-block" />
+          ) : isUndergrad ? (
+            '🎓 University Studies · Current Academic Session'
           ) : (
             <>
               {data?.daysToExam != null
@@ -739,8 +745,43 @@ export default function DashboardPage() {
             {/* Upcoming revisions - 6 cols */}
             <UpcomingRevisionsCard revisions={data.upcomingRevisions} />
 
-            {/* Exam readiness - 6 cols */}
-            <ExamReadinessCard readiness={data.examReadiness} />
+            {/* In undergraduate mode: Show Undergraduate Academic Hub card. In secondary mode: Show Exam Readiness card */}
+            {isUndergrad ? (
+              <Card className="lg:col-span-12">
+                <CardHeader>
+                  <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Undergraduate Study Hub</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-2)', marginBottom: 16 }}>
+                    Access your course lecture notes, build custom revision planners, practice AI tests from uploaded slides, or study together with coursemates in study groups.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <Button variant="accent" size="sm" asChild>
+                      <Link href="/files" className="flex items-center gap-1.5">
+                        <Folder2 size={16} /> Course Files & Shared Notes
+                      </Link>
+                    </Button>
+                    <Button variant="secondary" size="sm" asChild>
+                      <Link href="/planner" className="flex items-center gap-1.5">
+                        <Calendar size={16} /> Course Study Planner
+                      </Link>
+                    </Button>
+                    <Button variant="secondary" size="sm" asChild>
+                      <Link href="/study-groups" className="flex items-center gap-1.5">
+                        <People size={16} /> Collaborative Study Groups
+                      </Link>
+                    </Button>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href="/quizzes" className="flex items-center gap-1.5">
+                        <TaskSquare size={16} /> Generate Practice Quiz
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <ExamReadinessCard readiness={data.examReadiness} />
+            )}
           </>
         ) : null}
       </div>

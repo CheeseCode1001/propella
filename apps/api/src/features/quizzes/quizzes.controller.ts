@@ -22,13 +22,28 @@ export async function generateQuiz(
 ): Promise<void> {
   try {
     const userId = requireUser(req)
-    const { subjectSlug, topicSlug, type, difficulty, mode, questionCount } = req.body as {
-      subjectSlug: string
+    const {
+      subjectSlug,
+      topicSlug,
+      type,
+      difficulty,
+      mode,
+      questionCount,
+      noteContent,
+      documentName,
+      format,
+      arrangeBy,
+    } = req.body as {
+      subjectSlug?: string
       topicSlug?: string
       type?: 'topic' | 'subject' | 'mixed' | 'weakness' | 'mock'
-      difficulty: 'easy' | 'medium' | 'hard' | 'adaptive'
-      mode: QuizMode
-      questionCount: number
+      difficulty?: 'easy' | 'medium' | 'hard' | 'adaptive'
+      mode?: QuizMode
+      questionCount?: number
+      noteContent?: string
+      documentName?: string
+      format?: 'objective' | 'theory'
+      arrangeBy?: 'random' | 'topic'
     }
 
     if (type !== undefined && !QUIZ_TYPES.includes(type)) {
@@ -36,12 +51,13 @@ export async function generateQuiz(
     }
 
     // A 'subject' quiz draws past questions from every topic in the subject.
-    if (!subjectSlug || (!topicSlug && type !== 'subject')) {
-      throw new AppError(400, 'subjectSlug and topicSlug are required')
+    // When generating from notes/document, subjectSlug and topicSlug are optional.
+    if (!noteContent && (!subjectSlug || (!topicSlug && type !== 'subject'))) {
+      throw new AppError(400, 'subjectSlug and topicSlug are required when not uploading notes')
     }
 
     const validDifficulties = ['easy', 'medium', 'hard', 'adaptive']
-    if (!validDifficulties.includes(difficulty ?? '')) {
+    if (difficulty && !validDifficulties.includes(difficulty)) {
       throw new AppError(400, 'Invalid difficulty')
     }
 
@@ -56,6 +72,10 @@ export async function generateQuiz(
       difficulty: difficulty ?? 'medium',
       mode: mode ?? 'study',
       questionCount: Math.min(20, Math.max(1, questionCount ?? 10)),
+      noteContent,
+      documentName,
+      format,
+      arrangeBy,
     })
 
     res.status(201).json({

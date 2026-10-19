@@ -33,6 +33,8 @@ import { AvatarUpload } from '@/components/settings/avatar-upload'
 import { PushDeviceRow } from '@/components/settings/push-device-row'
 import { ReferralPanel } from '@/components/settings/referral-panel'
 import { startPaystackCheckout } from '@/lib/paystack'
+import { Modal } from '@/components/ui/modal'
+import { useSubjects } from '@/lib/hooks/use-subjects'
 import { SUBSCRIPTION_PLANS, type SubscriptionPlanId } from '@propella/shared'
 import type { AuthUser } from '@propella/shared'
 
@@ -78,6 +80,9 @@ interface ExamProfile {
   examDate: string
   dailyStudyMinutes: number
   leaderboardOptIn?: boolean
+  examType?: string
+  examTypes?: ('jamb' | 'waec' | 'neco' | 'undergraduate')[]
+  subjects?: Array<{ slug: string; name: string }>
 }
 
 function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
@@ -280,11 +285,18 @@ function ExamTab() {
   const t = useTranslations('settings')
   const user = useAuthStore((s) => s.user)
   const setUser = useAuthStore((s) => s.setUser)
+  const queryClient = useQueryClient()
   const [undergradMode, setUndergradMode] = useState(user?.undergraduateMode ?? false)
   const [undergradSaving, setUndergradSaving] = useState(false)
   const [saved, setSaved] = useState(false)
 
-  const { data: profile } = useQuery({
+  // Exam tracks modal state
+  const [pendingExam, setPendingExam] = useState<string | null>(null)
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([])
+  const [examTrackSaving, setExamTrackSaving] = useState(false)
+  const [examTrackError, setExamTrackError] = useState<string | null>(null)
+
+  const { data: profile, refetch: refetchProfile } = useQuery({
     queryKey: ['exam-profile-settings'],
     queryFn: () =>
       api
@@ -292,6 +304,12 @@ function ExamTab() {
         .then((r) => r.data)
         .catch(() => null),
   })
+
+  const { data: allSubjects = [] } = useSubjects()
+
+  const activeExamTypes = (profile?.examTypes && profile.examTypes.length > 0)
+    ? profile.examTypes
+    : [profile?.examType || 'jamb']
 
   const { register, handleSubmit } = useForm<ExamForm>({
     defaultValues: {
@@ -317,6 +335,81 @@ function ExamTab() {
     }
   }
 
+  const EXAM_OPTIONS = [
+    {
+      id: 'jamb',
+      name: 'JAMB UTME',
+      desc: 'Unified Tertiary Matriculation Examination (CBT & Syllabus)',
+    },
+    {
+      id: 'waec',
+      name: 'WAEC WASSCE',
+      desc: 'West African Senior School Certificate Examination',
+    },
+    {
+      id: 'neco',
+      name: 'NECO SSCE',
+      desc: 'National Examinations Council Senior School Certificate',
+    },
+  ]
+
+  async function handleToggleExamTrack(examId: string, currentlyActive: boolean) {
+    setExamTrackError(null)
+    if (currentlyActive) {
+      // Trying to toggle OFF
+      if (activeExamTypes.length <= 1) {
+        setExamTrackError('You must keep at least one secondary school exam active.')
+        return
+      }
+      const updated = activeExamTypes.filter((e) => e !== examId)
+      try {
+        setExamTrackSaving(true)
+        await api.patch('/users/exam-tracks', { examTypes: updated })
+        await refetchProfile()
+        queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+        queryClient.invalidateQueries({ queryKey: ['roadmap'] })
+      } catch (err) {
+        console.error('Failed to update exam tracks', err)
+        setExamTrackError('Failed to remove exam. Please try again.')
+      } finally {
+        setExamTrackSaving(false)
+      }
+    } else {
+      // Trying to toggle ON -> open modal to choose subjects
+      const currentSubjectSlugs = profile?.subjects?.map((s) => s.slug) ?? []
+      setSelectedSubjects(currentSubjectSlugs)
+      setPendingExam(examId)
+    }
+  }
+
+  async function handleConfirmAddSubjects() {
+    if (!pendingExam) return
+    setExamTrackSaving(true)
+    setExamTrackError(null)
+    try {
+      const updated = Array.from(new Set([...activeExamTypes, pendingExam]))
+      await api.patch('/users/exam-tracks', {
+        examTypes: updated,
+        addSubjects: selectedSubjects,
+      })
+      await refetchProfile()
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+      queryClient.invalidateQueries({ queryKey: ['roadmap'] })
+      setPendingExam(null)
+    } catch (err) {
+      console.error('Failed to activate exam track', err)
+      setExamTrackError('Failed to activate exam track. Please try again.')
+    } finally {
+      setExamTrackSaving(false)
+    }
+  }
+
+  function toggleSubjectSelection(slug: string) {
+    setSelectedSubjects((prev) =>
+      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
+    )
+  }
+
   async function onSubmit(data: ExamForm) {
     try {
       await api.patch('/onboarding/profile', data)
@@ -329,6 +422,107 @@ function ExamTab() {
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Registered Exam Tracks (JAMB, WAEC, NECO) */}
+      {!undergradMode && (
+        <Card>
+          <CardHeader>
+            <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>
+              Registered Exam Tracks
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-xs text-[var(--color-ink-3)] mb-4">
+              Control which exams you prepare for. In your syllabus and mock tests, you will only see the exams you have enabled below. Toggling on a new exam allows you to select and add subjects to your personalized study roadmap.
+            </p>
+            {examTrackError && (
+              <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-600 font-medium">
+                {examTrackError}
+              </div>
+            )}
+            <div className="flex flex-col">
+              {EXAM_OPTIONS.map((exam) => {
+                const isActive = activeExamTypes.includes(exam.id as any)
+                return (
+                  <ToggleRow
+                    key={exam.id}
+                    label={exam.name}
+                    description={exam.desc}
+                    checked={isActive}
+                    onChange={() => handleToggleExamTrack(exam.id, isActive)}
+                  />
+                )
+              })}
+            </div>
+            {examTrackSaving && (
+              <p className="text-xs text-[var(--color-ink-3)] mt-2">Updating syllabus and roadmap...</p>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Modal for adding subjects when toggling an exam on */}
+      <Modal
+        open={Boolean(pendingExam)}
+        onClose={() => {
+          if (!examTrackSaving) setPendingExam(null)
+        }}
+        title={`Add Subjects for ${EXAM_OPTIONS.find((e) => e.id === pendingExam)?.name ?? 'Exam'}`}
+        subtitle="Select the subjects you will prepare for in this exam board. They will be merged into your study roadmap."
+        size="md"
+        footer={
+          <div className="flex items-center justify-end gap-3">
+            <Button
+              variant="outline"
+              disabled={examTrackSaving}
+              onClick={() => setPendingExam(null)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="accent"
+              disabled={examTrackSaving || selectedSubjects.length === 0}
+              onClick={handleConfirmAddSubjects}
+            >
+              {examTrackSaving ? 'Saving & Rebuilding...' : `Activate & Add ${selectedSubjects.length} Subjects`}
+            </Button>
+          </div>
+        }
+      >
+        <div className="flex flex-col gap-3 py-1">
+          <p className="text-xs text-[var(--color-ink-2)]">
+            Pick your subjects below. You can change these anytime in your study settings.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 max-h-[300px] overflow-y-auto pr-1">
+            {allSubjects.map((sub) => {
+              const checked = selectedSubjects.includes(sub.slug)
+              return (
+                <button
+                  key={sub.id}
+                  type="button"
+                  onClick={() => toggleSubjectSelection(sub.slug)}
+                  className={`flex items-center justify-between p-3 rounded-lg border text-left transition-all ${
+                    checked
+                      ? 'border-[var(--color-accent)] bg-[var(--color-accent-tint)] text-[var(--color-accent)] font-medium'
+                      : 'border-[var(--color-rule)] bg-[var(--color-card)] text-[var(--color-ink)] hover:bg-[var(--color-paper-2)]'
+                  }`}
+                >
+                  <span className="text-xs leading-snug">{sub.name}</span>
+                  <div
+                    className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ml-2 ${
+                      checked
+                        ? 'bg-[var(--color-accent)] border-[var(--color-accent)] text-white'
+                        : 'border-[var(--color-rule)] bg-white'
+                    }`}
+                  >
+                    {checked && <Check size={12} strokeWidth={3} />}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </Modal>
+
       {/* Undergraduate Mode Switch */}
       <Card>
         <CardHeader>

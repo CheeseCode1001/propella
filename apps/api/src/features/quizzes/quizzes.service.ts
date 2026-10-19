@@ -1,7 +1,7 @@
 import type { ExamType, Quiz, QuizAttempt, QuizMode } from '../../config/db'
 import { prisma } from '../../config/db'
 import { NotFoundError, AppError } from '../../middleware/error-handler'
-import { generateQuestions, translateQuizQuestions, PAST_QUESTION_BANK } from './quiz-generation'
+import { generateQuestions, generateQuestionsFromNotes, translateQuizQuestions, PAST_QUESTION_BANK } from './quiz-generation'
 import {
   bankIdsIn,
   drawPastQuestions,
@@ -26,7 +26,7 @@ import {
 import { assertCanTakeQuiz, recordQuizAttempt } from '../entitlements/entitlements.service'
 
 export interface GenerateQuizInput {
-  subjectSlug: string
+  subjectSlug?: string | undefined
   /** Required for every type except 'subject', which draws from the whole subject. */
   topicSlug?: string | undefined
   type: 'topic' | 'subject' | 'mixed' | 'weakness' | 'mock'
@@ -34,6 +34,10 @@ export interface GenerateQuizInput {
   mode: QuizMode
   questionCount: number
   locale?: string | undefined
+  noteContent?: string | undefined
+  documentName?: string | undefined
+  format?: 'objective' | 'theory' | undefined
+  arrangeBy?: 'random' | 'topic' | undefined
 }
 
 export interface SubmitQuizInput {
@@ -60,10 +64,42 @@ export async function generateQuiz(
   })
   const targetLocale = input.locale || studentUser?.locale || 'en'
 
+  // If generating directly from an uploaded file / study note
+  if (input.noteContent && input.noteContent.trim().length > 0) {
+    const questions = await generateQuestionsFromNotes({
+      noteContent: input.noteContent,
+      count: input.questionCount,
+      difficulty: input.difficulty === 'adaptive' ? 'medium' : input.difficulty,
+      documentName: input.documentName,
+      format: input.format,
+      arrangeBy: input.arrangeBy,
+      locale: targetLocale,
+    })
+
+    const createdQuiz = await prisma.quiz.create({
+      data: {
+        userId,
+        type: input.type,
+        topicSubjectSlug: input.subjectSlug ?? 'notes',
+        topicTopicSlug: input.topicSlug ?? 'custom-document',
+        subjectSlug: input.subjectSlug ?? 'notes',
+        difficulty: input.difficulty,
+        mode: input.mode,
+        questionCount: questions.length,
+        questions: shuffle(questions),
+        generatedByModel: QUIZ_MODEL,
+      },
+    })
+
+    await recordQuizAttempt(userId)
+    return createdQuiz
+  }
+
   // Fetch subject + topic info
-  const subject = await prisma.subject.findUnique({ where: { slug: input.subjectSlug } })
+  const subjectSlug = input.subjectSlug || 'mathematics'
+  const subject = await prisma.subject.findUnique({ where: { slug: subjectSlug } })
   if (!subject) {
-    throw new NotFoundError(`Subject not found: ${input.subjectSlug}`)
+    throw new NotFoundError(`Subject not found: ${subjectSlug}`)
   }
 
   const topics = jsonArray<SubjectTopic>(subject.topics)
@@ -140,9 +176,9 @@ export async function generateQuiz(
     data: {
       userId,
       type: input.type,
-      topicSubjectSlug: input.subjectSlug,
+      topicSubjectSlug: input.subjectSlug ?? null,
       topicTopicSlug: topic?.slug ?? null,
-      subjectSlug: input.subjectSlug,
+      subjectSlug: input.subjectSlug ?? null,
       difficulty: input.difficulty,
       mode: input.mode,
       questionCount: questions.length,

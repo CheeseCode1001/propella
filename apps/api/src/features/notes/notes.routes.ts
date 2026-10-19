@@ -5,8 +5,11 @@ const router: IRouter = Router()
 
 router.get('/', notesController.listNotes)
 router.post('/', notesController.createNote)
+router.post('/summarize', notesController.summarize)
+router.post('/revision-aids', notesController.revisionAids)
 router.get('/:id', notesController.getNote)
 router.patch('/:id', notesController.updateNote)
 router.delete('/:id', notesController.deleteNote)
 
 export default router
+

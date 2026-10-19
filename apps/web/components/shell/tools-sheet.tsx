@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence, useDragControls } from 'framer-motion'
 import { useRouter } from '@/lib/i18n/navigation'
-import { X, ChevronRight, BookOpen, ClipboardCheck, FileText, Timer, Sparkles, TrendingUp, Trophy, Globe, Sun, Moon } from 'lucide-react'
+import { X, ChevronRight, BookOpen, ClipboardCheck, FileText, Timer, Sparkles, TrendingUp, Trophy, Globe, Sun, Moon, Users } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -11,6 +11,7 @@ import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils/cn'
 import { localeMetadata, type Locale } from '@/lib/i18n/locales'
 import { LocaleSwitcher } from '@/components/common/locale-switcher'
+import { useAuthStore } from '@/lib/stores/auth-store'
 
 interface ToolsSheetProps {
   open: boolean
@@ -23,25 +24,37 @@ export function ToolsSheet({ open, onClose }: ToolsSheetProps) {
   const dragControls = useDragControls()
   const tNav = useTranslations('nav')
   const tSettings = useTranslations('settings')
+  const user = useAuthStore((s) => s.user)
+  const isUndergrad = !!user?.undergraduateMode
 
   const tools = [
     {
       href: '/planner',
       icon: BookOpen,
-      label: tNav('planner'),
-      description: 'Today and this week',
+      label: isUndergrad ? 'Planner' : tNav('planner'),
+      description: isUndergrad ? 'Course tasks & reminders' : 'Today and this week',
     },
     {
       href: '/quizzes',
       icon: ClipboardCheck,
-      label: tNav('quizzes'),
-      description: 'Practice by topic',
+      label: isUndergrad ? 'Quizzes' : tNav('quizzes'),
+      description: isUndergrad ? 'Practice from notes & files' : 'Practice by topic',
     },
+    ...(!isUndergrad
+      ? [
+          {
+            href: '/mocks',
+            icon: FileText,
+            label: tNav('mocks'),
+            description: 'Full exam simulations',
+          },
+        ]
+      : []),
     {
-      href: '/mocks',
-      icon: FileText,
-      label: tNav('mocks'),
-      description: 'Full exam simulations',
+      href: '/study-groups',
+      icon: Users,
+      label: 'Study Groups',
+      description: 'Collaborative circles & referrals',
     },
     {
       href: '/marathon',

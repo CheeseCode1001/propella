@@ -15,6 +15,8 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { TaskSquare } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
 import { cn } from '@/lib/utils/cn'
+import { useAuthStore } from '@/lib/stores/auth-store'
+import { UploadCloud, FileText, X, Sparkles } from 'lucide-react'
 import type { QuizMode, Subject } from '@propella/shared'
 
 const QUIZ_MODE_OPTIONS: {
@@ -86,11 +88,35 @@ export default function QuizzesPage() {
     return subjects.filter((s) => enrolledSubjectSlugs.has(s.slug))
   }, [subjects, enrolledSubjectSlugs])
 
+  const user = useAuthStore((s) => s.user)
+  const isUndergrad = Boolean(user?.undergraduateMode)
+
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [selectedTopic, setSelectedTopic] = useState<string>('')
   const [mode, setMode] = useState<QuizMode>('study')
   const [generating, setGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // File/Note-based Quiz State
+  const [attachedNote, setAttachedNote] = useState<{ name: string; content: string } | null>(null)
+
+  function handleNoteFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const docName = file.name.replace(/\.[^/.]+$/, '')
+
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const content = (event.target?.result as string) || ''
+      setAttachedNote({ name: docName, content })
+      setError(null)
+    }
+    if (file.type.includes('text') || file.name.endsWith('.txt') || file.name.endsWith('.md')) {
+      reader.readAsText(file)
+    } else {
+      reader.readAsText(file)
+    }
+  }
 
   // Filter topics for the chosen subject strictly to the student's enrolled syllabus topics
   const availableTopics = useMemo(() => {
@@ -123,11 +149,29 @@ export default function QuizzesPage() {
     }
   }, [availableSubjects, initialSubjectParam, initialTopicParam, selectedSubject])
 
-
-
   async function handleGenerate() {
+    if (attachedNote) {
+      setError(null)
+      setGenerating(true)
+      try {
+        const result = await api.post<{ data: { id?: string; quizId?: string } }>('/quizzes/generate', {
+          noteContent: attachedNote.content,
+          documentName: attachedNote.name,
+          mode,
+          questionCount: 10,
+          locale,
+        })
+        const qId = result.data.id || result.data.quizId
+        router.push(`/quizzes/${qId}`)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to generate quiz from note')
+        setGenerating(false)
+      }
+      return
+    }
+
     if (!selectedSubject || !selectedTopic) {
-      setError('Please select a subject and topic')
+      setError('Please select a subject and topic, or upload a note/document')
       return
     }
 
@@ -141,7 +185,6 @@ export default function QuizzesPage() {
         subjectSlug: selectedSubject.slug,
         ...(wholeSubject ? {} : { topicSlug: selectedTopic }),
         type: wholeSubject ? 'subject' : 'topic',
-        // Difficulty is no longer a user-facing choice - the engine adapts it.
         difficulty: 'adaptive',
         mode,
         questionCount: 10,
@@ -167,7 +210,7 @@ export default function QuizzesPage() {
             marginBottom: 6,
           }}
         >
-          {t('title')}
+          {isUndergrad ? 'Course Quiz & Assessment Engine' : t('title')}
         </h1>
         <p
           style={{
@@ -176,7 +219,9 @@ export default function QuizzesPage() {
             color: 'var(--color-ink-3)',
           }}
         >
-          Practice your topics, one question at a time.
+          {isUndergrad
+            ? 'Generate practice quizzes from your course lecture notes, textbooks, and past papers.'
+            : 'Practice your topics, one question at a time.'}
         </p>
       </div>
 
@@ -184,101 +229,169 @@ export default function QuizzesPage() {
       <Card style={{ marginBottom: 32 }}>
         <CardHeader>
           <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: 16 }}>
-            Start a quiz
+            {isUndergrad ? 'Generate Course Quiz' : 'Start a quiz'}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Subject select */}
-            <div>
-              <label
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 12,
-                  fontWeight: 500,
-                  color: 'var(--color-ink-2)',
-                  marginBottom: 6,
-                  display: 'block',
-                }}
-              >
-                Subject
-              </label>
-              {subjectsLoading ? (
-                <Skeleton className="h-9 w-full" />
-              ) : (
-                <select
-                  value={selectedSubject?.slug ?? ''}
-                  onChange={(e) => {
-                    const subj = availableSubjects.find((s) => s.slug === e.target.value) ?? null
-                    setSelectedSubject(subj)
-                    setSelectedTopic('')
-                  }}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    borderRadius: 'var(--radius-sm)',
-                    border: '1px solid var(--color-rule-2)',
-                    backgroundColor: 'var(--color-paper-2)',
-                    color: 'var(--color-ink)',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: 14,
-                    outline: 'none',
-                    appearance: 'none',
-                    cursor: 'pointer',
-                  }}
+            {/* Attached Note Display (When file is uploaded, Subject and Topic are hidden) */}
+            {attachedNote ? (
+              <div className="flex items-center justify-between p-3.5 rounded-lg border border-[var(--color-accent)] bg-[var(--color-accent-tint)]">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <FileText size={20} className="text-[var(--color-accent)] shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-semibold text-[var(--color-ink)] truncate">
+                      {attachedNote.name}
+                    </p>
+                    <p className="text-[11px] text-[var(--color-ink-3)]">
+                      Quiz questions will be synthesized directly from this material.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAttachedNote(null)}
+                  className="p-1 rounded text-[var(--color-ink-3)] hover:text-red-600 transition-colors"
+                  title="Remove document and return to syllabus topics"
                 >
-                  <option value="">Select a subject...</option>
-                  {availableSubjects.map((s) => (
-                    <option key={s.slug} value={s.slug}>
-                      {s.name}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
+                  <X size={16} />
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* File Upload Trigger */}
+                <div className="p-3 rounded-lg border border-dashed border-[var(--color-rule-2)] bg-[var(--color-paper-2)] flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <UploadCloud size={20} className="text-[var(--color-accent)]" />
+                    <div>
+                      <p className="text-xs font-semibold text-[var(--color-ink)]">
+                        Generate quiz from a document / note
+                      </p>
+                      <p className="text-[11px] text-[var(--color-ink-3)]">
+                        Upload PDF, DOCX, TXT or paste your lecture notes
+                      </p>
+                    </div>
+                  </div>
 
-            {/* Topic select */}
-            <div>
-              <label
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 12,
-                  fontWeight: 500,
-                  color: 'var(--color-ink-2)',
-                  marginBottom: 6,
-                  display: 'block',
-                }}
-              >
-                Topic
-              </label>
-              <select
-                value={selectedTopic}
-                onChange={(e) => setSelectedTopic(e.target.value)}
-                disabled={!selectedSubject}
-                style={{
-                  width: '100%',
-                  padding: '8px 12px',
-                  borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--color-rule-2)',
-                  backgroundColor: selectedSubject ? 'var(--color-paper-2)' : 'var(--color-paper-3)',
-                  color: 'var(--color-ink)',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 14,
-                  outline: 'none',
-                  appearance: 'none',
-                  cursor: selectedSubject ? 'pointer' : 'not-allowed',
-                  opacity: selectedSubject ? 1 : 0.5,
-                }}
-              >
-                <option value="">Select a topic...</option>
-                <option value={ALL_TOPICS}>All topics (past questions)</option>
-                {availableTopics.map((t) => (
-                  <option key={t.slug} value={t.slug}>
-                    {t.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                  <label className="cursor-pointer">
+                    <input
+                      type="file"
+                      accept=".pdf,.docx,.txt,.md"
+                      onChange={handleNoteFileUpload}
+                      className="hidden"
+                    />
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-[var(--color-accent)] text-white hover:opacity-90 transition-opacity">
+                      <Sparkles size={13} />
+                      <span>Upload Note</span>
+                    </span>
+                  </label>
+                </div>
+
+                {/* Only show Subject and Topic selectors when no note is uploaded and not restricted to undergraduate files */}
+                {!isUndergrad && (
+                  <>
+                    <div className="flex items-center gap-2 my-1">
+                      <div className="flex-1 h-px bg-[var(--color-rule)]" />
+                      <span className="text-[11px] uppercase font-semibold tracking-wider text-[var(--color-ink-3)]">
+                        Or pick from syllabus
+                      </span>
+                      <div className="flex-1 h-px bg-[var(--color-rule)]" />
+                    </div>
+
+                    {/* Subject select */}
+                    <div>
+                      <label
+                        style={{
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: 12,
+                          fontWeight: 500,
+                          color: 'var(--color-ink-2)',
+                          marginBottom: 6,
+                          display: 'block',
+                        }}
+                      >
+                        Subject
+                      </label>
+                      {subjectsLoading ? (
+                        <Skeleton className="h-9 w-full" />
+                      ) : (
+                        <select
+                          value={selectedSubject?.slug ?? ''}
+                          onChange={(e) => {
+                            const subj = availableSubjects.find((s) => s.slug === e.target.value) ?? null
+                            setSelectedSubject(subj)
+                            setSelectedTopic('')
+                          }}
+                          style={{
+                            width: '100%',
+                            padding: '8px 12px',
+                            borderRadius: 'var(--radius-sm)',
+                            border: '1px solid var(--color-rule-2)',
+                            backgroundColor: 'var(--color-paper-2)',
+                            color: 'var(--color-ink)',
+                            fontFamily: 'var(--font-sans)',
+                            fontSize: 14,
+                            outline: 'none',
+                            appearance: 'none',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <option value="">Select a subject...</option>
+                          {availableSubjects.map((s) => (
+                            <option key={s.slug} value={s.slug}>
+                              {s.name}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    </div>
+
+                    {/* Topic select */}
+                    <div>
+                      <label
+                        style={{
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: 12,
+                          fontWeight: 500,
+                          color: 'var(--color-ink-2)',
+                          marginBottom: 6,
+                          display: 'block',
+                        }}
+                      >
+                        Topic
+                      </label>
+                      <select
+                        value={selectedTopic}
+                        onChange={(e) => setSelectedTopic(e.target.value)}
+                        disabled={!selectedSubject}
+                        style={{
+                          width: '100%',
+                          padding: '8px 12px',
+                          borderRadius: 'var(--radius-sm)',
+                          border: '1px solid var(--color-rule-2)',
+                          backgroundColor: selectedSubject ? 'var(--color-paper-2)' : 'var(--color-paper-3)',
+                          color: 'var(--color-ink)',
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: 14,
+                          outline: 'none',
+                          appearance: 'none',
+                          cursor: selectedSubject ? 'pointer' : 'not-allowed',
+                          opacity: selectedSubject ? 1 : 0.5,
+                        }}
+                      >
+                        <option value="">Select a topic...</option>
+                        <option value={ALL_TOPICS}>All topics (past questions)</option>
+                        {availableTopics.map((t) => (
+                          <option key={t.slug} value={t.slug}>
+                            {t.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                )}
+              </>
+            )}
 
             {/* Mode picker */}
             <div>

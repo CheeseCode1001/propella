@@ -1,7 +1,7 @@
 'use client'
 import { useState, useRef, useEffect, useCallback, Suspense } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Send, Plus } from 'lucide-react'
+import { Send, Plus, Paperclip } from 'lucide-react'
 import {
   More,
   Edit2,
@@ -342,6 +342,19 @@ function AssistantContent() {
   // Guards the ?ask= handoff so a re-render cannot send the question twice.
   const handoffSentRef = useRef(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const systemFileInputRef = useRef<HTMLInputElement>(null)
+  const [attachedLocalFile, setAttachedLocalFile] = useState<{ name: string; content: string } | null>(null)
+
+  function handleSystemFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const text = (event.target?.result as string) || ''
+      setAttachedLocalFile({ name: file.name, content: text })
+    }
+    reader.readAsText(file)
+  }
 
   const { supported: canSpeak, speaking, speak, stop: stopSpeaking } = useSpeech()
 
@@ -497,6 +510,11 @@ function AssistantContent() {
       // Declared out here so the finally block can read the finished reply.
       let fullText = ''
 
+      const finalContent = attachedLocalFile
+        ? `[Attached Document: ${attachedLocalFile.name}]\n"""\n${attachedLocalFile.content.slice(0, 10000)}\n"""\n\n${content}`
+        : content
+      setAttachedLocalFile(null)
+
       try {
         let token = getAccessToken()
         let response = await fetch(`${API_URL}/api/assistant/threads/${threadId}/messages`, {
@@ -507,7 +525,7 @@ function AssistantContent() {
           },
           credentials: 'include',
           body: JSON.stringify({
-            content,
+            content: finalContent,
             attachedFileId: selectedFileId || undefined,
           }),
         })
@@ -802,6 +820,22 @@ function AssistantContent() {
             </p>
           )}
 
+          {attachedLocalFile && (
+            <div className="mb-2 flex items-center gap-2 rounded-lg bg-[var(--color-accent-tint)] px-3 py-1.5 text-xs text-[var(--color-ink)] w-fit border border-[var(--color-accent)]/30">
+              <Paperclip size={14} className="text-[var(--color-accent)]" />
+              <span className="font-semibold text-[var(--color-accent)]">System File:</span>
+              <span className="truncate max-w-[240px]">{attachedLocalFile.name}</span>
+              <button
+                type="button"
+                onClick={() => setAttachedLocalFile(null)}
+                aria-label="Remove attached file"
+                className="ml-1 rounded px-1 hover:bg-black/10 transition-colors text-[var(--color-ink-3)] hover:text-rose-500 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           {activeFile && (
             <div className="mb-2 flex items-center gap-2 rounded-lg bg-[var(--color-accent-tint)] px-3 py-1.5 text-xs text-[var(--color-ink)] w-fit border border-[var(--color-accent)]/30">
               <Folder2 size={15} color="var(--color-accent)" variant="Bold" />
@@ -862,6 +896,25 @@ function AssistantContent() {
           )}
 
           <div className="flex items-end gap-2">
+            {/* Plus button to add files from local system */}
+            <input
+              ref={systemFileInputRef}
+              type="file"
+              accept=".pdf,.docx,.txt,.md,.pptx"
+              onChange={handleSystemFileUpload}
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={() => systemFileInputRef.current?.click()}
+              aria-label="Add file from device"
+              title="Add file from your system (PDF, DOCX, TXT, Notes)"
+              disabled={isStreaming || isAiLocked}
+              className="shrink-0 cursor-pointer rounded-[var(--radius-sm)] border border-[var(--color-rule-2)] bg-[var(--color-paper)] p-2.5 text-[var(--color-ink-2)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] disabled:opacity-50"
+            >
+              <Plus size={16} strokeWidth={2} />
+            </button>
+
             <textarea
               ref={textareaRef}
               value={inputValue}

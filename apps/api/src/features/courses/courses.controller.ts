@@ -66,3 +66,23 @@ export async function deleteFile(req: Request, res: Response, next: NextFunction
     next(err)
   }
 }
+
+export async function getSharedFile(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const data = await coursesService.getSharedFile(req.params.fileId as string)
+    res.status(200).json({ data })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function getPublicFiles(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const courseCode = req.query.courseCode as string | undefined
+    const data = await coursesService.listPublicFiles(courseCode)
+    res.status(200).json({ data })
+  } catch (err) {
+    next(err)
+  }
+}
+

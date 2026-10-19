@@ -108,6 +108,38 @@ export async function listAllFiles(userId: string) {
   })
 }
 
+export async function getSharedFile(fileId: string) {
+  const file = await prisma.courseFile.findUnique({
+    where: { id: fileId },
+    include: {
+      course: {
+        select: { code: true, title: true, year: true },
+      },
+      user: {
+        select: { name: true },
+      },
+    },
+  })
+  if (!file) throw new NotFoundError('Shared note / file not found')
+  return file
+}
+
+export async function listPublicFiles(courseCode?: string) {
+  return prisma.courseFile.findMany({
+    where: courseCode ? { course: { code: { contains: courseCode, mode: 'insensitive' } } } : {},
+    orderBy: { createdAt: 'desc' },
+    take: 50,
+    include: {
+      course: {
+        select: { code: true, title: true, year: true },
+      },
+      user: {
+        select: { name: true },
+      },
+    },
+  })
+}
+
 export async function deleteCourseFile(userId: string, fileId: string) {
   const file = await prisma.courseFile.findFirst({
     where: { id: fileId, userId },

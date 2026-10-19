@@ -11,7 +11,10 @@ router.post('/', coursesController.createCourse)
 router.delete('/:courseId', coursesController.deleteCourse)
 
 router.get('/files', coursesController.getAllFiles)
+router.get('/files/public', coursesController.getPublicFiles)
+router.get('/files/shared/:fileId', coursesController.getSharedFile)
 router.post('/:courseId/files', coursesController.uploadFile)
 router.delete('/files/:fileId', coursesController.deleteFile)
 
 export default router
+

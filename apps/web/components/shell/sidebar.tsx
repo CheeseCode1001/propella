@@ -5,7 +5,7 @@ import { Link, usePathname } from '@/lib/i18n/navigation'
 import {
   Home2, BookSquare, Calendar, TaskSquare, DocumentText,
   Timer1, Magicpen, Chart2, Cup, Profile, Card, Notification,
-  MessageQuestion, LogoutCurve, Lock1, Note1, Folder2,
+  MessageQuestion, LogoutCurve, Lock1, Note1, Folder2, People,
 } from 'iconsax-reactjs'
 import { NavIcon } from '@/components/common/nav-icon'
 import { useTranslations } from 'next-intl'
@@ -29,14 +29,16 @@ export function Sidebar() {
 
   // While a marathon is running the destinations that pull attention away from
   // studying are locked. Study surfaces stay reachable.
+  // In undergraduate mode, secondary school syllabus roadmap & mocks are removed.
   const navItems = [
     { href: '/dashboard', icon: Home2, label: tNav('dashboard'), lockable: false },
-    { href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false },
-    { href: '/files', icon: Folder2, label: tNav('files'), lockable: false },
+    ...(!isUndergrad ? [{ href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false }] : []),
+    { href: '/files', icon: Folder2, label: isUndergrad ? 'Course Files' : 'Study Files', lockable: false },
     { href: '/notes', icon: Note1, label: tNav('notes'), lockable: false },
-    { href: '/planner', icon: Calendar, label: tNav('planner'), lockable: false },
-    { href: '/quizzes', icon: TaskSquare, label: tNav('quizzes'), lockable: false },
-    { href: '/mocks', icon: DocumentText, label: tNav('mocks'), lockable: false },
+    { href: '/planner', icon: Calendar, label: isUndergrad ? 'Planner' : tNav('planner'), lockable: false },
+    { href: '/quizzes', icon: TaskSquare, label: isUndergrad ? 'Quizzes' : tNav('quizzes'), lockable: false },
+    ...(!isUndergrad ? [{ href: '/mocks', icon: DocumentText, label: tNav('mocks'), lockable: false }] : []),
+    { href: '/study-groups', icon: People, label: 'Study Groups', lockable: false },
     { href: '/marathon', icon: Timer1, label: tNav('marathon'), lockable: false },
     { href: '/assistant', icon: Magicpen, label: tNav('assistant'), lockable: false },
     { href: '/progress', icon: Chart2, label: tNav('progress'), lockable: true },

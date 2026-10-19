@@ -48,3 +48,21 @@ export async function updateMe(
     next(err)
   }
 }
+
+export async function updateExamTracks(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const data = await usersService.updateExamTracks(userId, req.body as {
+      examTypes: ('jamb' | 'waec' | 'neco' | 'undergraduate')[]
+      addSubjects?: string[]
+    })
+    res.status(200).json({ data })
+  } catch (err) {
+    next(err)
+  }
+}
+

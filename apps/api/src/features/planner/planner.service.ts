@@ -100,6 +100,27 @@ export async function createTask(
     },
   })
 
+  // Schedule a reminder if task has a future due date
+  if (input.dueDate) {
+    const scheduledFor = new Date(input.dueDate)
+    if (scheduledFor > new Date()) {
+      await prisma.reminder.create({
+        data: {
+          userId,
+          type: 'study_session',
+          channel: 'email',
+          scheduledFor,
+          status: 'scheduled',
+          payload: {
+            title: `Study Session: ${title}`,
+            body: `Reminder for your scheduled study task: "${title}". Stay consistent!`,
+            deeplink: '/planner',
+          },
+        },
+      }).catch(() => {})
+    }
+  }
+
   return toDto(row)
 }
 
@@ -201,4 +222,76 @@ export async function reorderColumn(
   )
 
   return listTasks(userId)
+}
+
+export async function readjustPlanner(userId: string): Promise<{
+  tasksAdjusted: number
+  nodesAdjusted: number
+  message: string
+}> {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  // 1. Overdue planner tasks (dueDate < today and not done)
+  const overdueTasks = await prisma.plannerTask.findMany({
+    where: {
+      userId,
+      status: { in: ['todo', 'doing'] },
+      dueDate: { lt: today },
+    },
+    orderBy: { dueDate: 'asc' },
+  })
+
+  // Spread overdue tasks over upcoming days starting today
+  let taskOffset = 0
+  for (const task of overdueTasks) {
+    const newDueDate = new Date(today)
+    newDueDate.setDate(newDueDate.getDate() + Math.floor(taskOffset / 2))
+    taskOffset++
+    await prisma.plannerTask.update({
+      where: { id: task.id },
+      data: { dueDate: newDueDate },
+    })
+  }
+
+  // 2. Overdue roadmap nodes
+  const roadmap = await prisma.roadmap.findUnique({ where: { userId } })
+  let nodesAdjusted = 0
+  if (roadmap?.nodes) {
+    const { jsonArray } = await import('../../models/types')
+    const nodes = jsonArray<any>(roadmap.nodes)
+    let modified = false
+    let dayOffset = 0
+
+    for (const node of nodes) {
+      if (node.status !== 'completed' && node.plannedStartDate) {
+        const planned = new Date(node.plannedStartDate)
+        if (planned < today) {
+          const newStart = new Date(today)
+          newStart.setDate(newStart.getDate() + Math.floor(dayOffset / 2))
+          const newTarget = new Date(newStart)
+          newTarget.setDate(newTarget.getDate() + 1)
+
+          node.plannedStartDate = newStart.toISOString()
+          node.targetCompletionDate = newTarget.toISOString()
+          dayOffset++
+          nodesAdjusted++
+          modified = true
+        }
+      }
+    }
+
+    if (modified) {
+      await prisma.roadmap.update({
+        where: { userId },
+        data: { nodes },
+      })
+    }
+  }
+
+  return {
+    tasksAdjusted: overdueTasks.length,
+    nodesAdjusted,
+    message: `Readjusted ${overdueTasks.length} tasks and ${nodesAdjusted} syllabus topics forward so you stay on track.`,
+  }
 }

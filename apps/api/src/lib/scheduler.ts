@@ -8,6 +8,8 @@ import {
   sendWeeklyDigestEmail,
   sendInactivityReminderEmail,
   sendPendingTodosEmail,
+  sendMissedTaskEmail,
+  sendDailyTopicReminderEmail,
 } from './email'
 import {
   notify,
@@ -354,6 +356,146 @@ cron.schedule('30 * * * *', async () => {
   }
 })
 
+// Daily at 07:00 UTC: Send daily topic reminders to prompt users to study scheduled topics
+cron.schedule('0 7 * * *', async () => {
+  try {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    // Find users with active roadmaps or planner tasks due today
+    const users = await prisma.user.findMany({
+      where: {
+        onboardingCompleted: true,
+        notifyStudyReminders: true,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        notifyEmail: true,
+        roadmap: { select: { nodes: true } },
+      },
+      take: 200,
+    })
+
+    for (const u of users) {
+      const scheduledTopics: Array<{ title: string; estimatedMinutes?: number }> = []
+
+      // Check roadmap nodes scheduled for today
+      if (u.roadmap?.nodes) {
+        const nodes = jsonArray<any>(u.roadmap.nodes)
+        for (const node of nodes) {
+          if (node.status !== 'completed' && node.plannedStartDate) {
+            const d = new Date(node.plannedStartDate)
+            if (d >= today && d < tomorrow) {
+              scheduledTopics.push({
+                title: node.topicName ?? node.topicSlug,
+                estimatedMinutes: node.estimatedMinutes ?? 15,
+              })
+            }
+          }
+        }
+      }
+
+      // Check planner tasks due today
+      const tasks = await prisma.plannerTask.findMany({
+        where: {
+          userId: u.id,
+          status: { in: ['todo', 'doing'] },
+          dueDate: { gte: today, lt: tomorrow },
+        },
+        select: { title: true },
+        take: 3,
+      })
+      for (const t of tasks) {
+        if (!scheduledTopics.some((st) => st.title === t.title)) {
+          scheduledTopics.push({ title: t.title, estimatedMinutes: 20 })
+        }
+      }
+
+      if (scheduledTopics.length === 0) continue
+
+      // In-app notification
+      await notify(u.id, 'study_reminder', {
+        title: `Today's Study Plan (${scheduledTopics.length} topic${scheduledTopics.length === 1 ? '' : 's'}) 📚`,
+        body: `Ready to learn? You have ${scheduledTopics.length} scheduled topic${scheduledTopics.length === 1 ? '' : 's'} today: ${scheduledTopics.slice(0, 2).map((t) => t.title).join(', ')}${scheduledTopics.length > 2 ? '...' : ''}.`,
+        deeplink: '/dashboard',
+        metadata: { scheduledCount: scheduledTopics.length },
+      })
+
+      // Email notification
+      if (u.notifyEmail) {
+        await sendDailyTopicReminderEmail(u.email, {
+          name: u.name,
+          topics: scheduledTopics,
+        })
+      }
+    }
+    logger.info('Daily topic reminders completed')
+  } catch (err) {
+    logger.error({ err }, 'Daily topic reminders error')
+  }
+})
+
+// Daily at 20:30 UTC: Detect missed scheduled tasks, auto-adjust planner & notify user
+cron.schedule('30 20 * * *', async () => {
+  try {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    // Find users with overdue tasks or overdue uncompleted roadmap nodes
+    const overdueUsers = await prisma.plannerTask.groupBy({
+      by: ['userId'],
+      where: {
+        status: { in: ['todo', 'doing'] },
+        dueDate: { lt: today },
+      },
+      _count: { id: true },
+    })
+
+    const { readjustPlanner } = await import('../features/planner/planner.service')
+
+    for (const group of overdueUsers) {
+      const userId = group.userId
+      const overdueTasks = await prisma.plannerTask.findMany({
+        where: { userId, status: { in: ['todo', 'doing'] }, dueDate: { lt: today } },
+        select: { title: true, subjectSlug: true },
+        take: 5,
+      })
+
+      // Adjust planner automatically
+      const adjustment = await readjustPlanner(userId)
+
+      // In-app notification
+      await notify(userId, 'study_reminder', {
+        title: 'Planner Readjusted for You 🗓️',
+        body: `You had missed scheduled tasks. We've smoothed out your planner so you stay on track without extra stress!`,
+        deeplink: '/planner',
+        metadata: { reason: 'missed_task_readjustment', adjustedCount: adjustment.tasksAdjusted + adjustment.nodesAdjusted },
+      })
+
+      // Email notification
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { email: true, name: true, notifyEmail: true },
+      })
+      if (user?.notifyEmail) {
+        await sendMissedTaskEmail(user.email, {
+          name: user.name,
+          missedCount: overdueTasks.length,
+          tasks: overdueTasks.map((t) => ({ title: t.title, subject: t.subjectSlug })),
+        })
+      }
+    }
+    logger.info('Missed task readjustment and notification check completed')
+  } catch (err) {
+    logger.error({ err }, 'Missed task readjustment check error')
+  }
+})
+
 export function startScheduler(): void {
   logger.info('Scheduler started')
 }
+

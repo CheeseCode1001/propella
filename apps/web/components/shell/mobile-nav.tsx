@@ -16,6 +16,7 @@ const TOOLS_ROUTES = [
   '/planner',
   '/quizzes',
   '/mocks',
+  '/study-groups',
   '/marathon',
   '/assistant',
   '/progress',

@@ -862,3 +862,71 @@ export async function sendSharedPlanInviteEmail(params: {
     logger.error({ err, to: params.to }, 'Failed to send shared plan invite email')
   }
 }
+
+export async function sendMissedTaskEmail(
+  to: string,
+  params: {
+    name: string
+    missedCount: number
+    tasks: Array<{ title: string; subject?: string | null }>
+  },
+): Promise<void> {
+  if (!canSend()) return
+  const firstName = params.name ? params.name.split(' ')[0] : 'there'
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to,
+      subject: `🗓️ Don't worry! Your study planner has been readjusted`,
+      html: base(`
+        <h1>We Adjusted Your Study Plan 🗓️</h1>
+        <p>Hello ${firstName},</p>
+        <p>Life happens! You missed ${params.missedCount} scheduled study topic${params.missedCount === 1 ? '' : 's'}. Instead of letting overdue work pile up and cause stress, Propella has automatically readjusted your study plan across upcoming days so you stay completely on track for exam day.</p>
+        <div style="background:#FAF7F2;border-radius:8px;border:1px solid #EBE4D8;padding:16px;margin:20px 0;">
+          <p style="margin:0 0 8px;font-size:14px;color:#1A1814;"><strong>Readjusted Topics:</strong></p>
+          ${params.tasks.map((t) => `<p style="margin:0 0 6px;font-size:13px;color:#4A463E;">&bull; <strong>${t.title}</strong> ${t.subject ? `<span style="color:#7C766B;">(${t.subject})</span>` : ''}</p>`).join('')}
+        </div>
+        <p>Jump back in today and tackle your next balanced session &mdash; small, steady steps lead to top scores!</p>
+        ${renderButton('View Updated Planner', `${env.FRONTEND_URL}/planner`)}
+      `, 'Your study planner was readjusted so you never fall behind.'),
+    })
+    logger.info({ to }, 'Missed task email sent')
+  } catch (err) {
+    logger.error({ err, to }, 'Failed to send missed task email')
+  }
+}
+
+export async function sendDailyTopicReminderEmail(
+  to: string,
+  params: {
+    name: string
+    topics: Array<{ title: string; estimatedMinutes?: number }>
+  },
+): Promise<void> {
+  if (!canSend()) return
+  const firstName = params.name ? params.name.split(' ')[0] : 'there'
+  const totalMins = params.topics.reduce((acc, t) => acc + (t.estimatedMinutes ?? 15), 0)
+  try {
+    await resend.emails.send({
+      from: FROM,
+      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
+      to,
+      subject: `☀️ Today's study topics: ${params.topics.length} topic${params.topics.length === 1 ? '' : 's'} (${totalMins} mins)`,
+      html: base(`
+        <h1>Your Daily Study Topics are Ready ☀️</h1>
+        <p>Good morning ${firstName},</p>
+        <p>Here is your personalized study schedule for today. Dedicating just ${totalMins} minutes today will keep your streak alive and build unbeatable mastery.</p>
+        <div style="background:#FAF7F2;border-radius:8px;border:1px solid #EBE4D8;padding:16px;margin:20px 0;">
+          <p style="margin:0 0 10px;font-size:14px;color:#1A1814;"><strong>Scheduled for Today:</strong></p>
+          ${params.topics.map((t) => `<p style="margin:0 0 8px;font-size:13.5px;color:#4A463E;">&bull; <strong>${t.title}</strong> ${t.estimatedMinutes ? `<span style="color:#7C766B;">&mdash; ${t.estimatedMinutes} min</span>` : ''}</p>`).join('')}
+        </div>
+        <p>Study on your phone, tablet, or laptop &mdash; let's make today count!</p>
+        ${renderButton('Start Today\'s Session', `${env.FRONTEND_URL}/dashboard`)}
+      `, 'Your daily study topics are ready for today.'),
+    })
+    logger.info({ to }, 'Daily topic reminder email sent')
+  } catch (err) {
+    logger.error({ err, to }, 'Failed to send daily topic reminder email')
+  }
+}

@@ -28,7 +28,7 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     throw new AppError(404, 'Onboarding not complete')
   }
 
-  const [roadmap, streakRow, xpAgg, recentAttempts] = await Promise.all([
+  const [roadmap, streakRow, xpAgg, recentAttempts, completedMocks] = await Promise.all([
     // 2. Roadmap
     prisma.roadmap.findUnique({ where: { userId } }),
     // 3. Streak
@@ -41,6 +41,17 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
       orderBy: { createdAt: 'desc' },
       take: 7,
       select: { createdAt: true, score: true },
+    }),
+    // 9. Completed mock tests to calculate accurate exam readiness
+    prisma.quizAttempt.findMany({
+      where: {
+        userId,
+        completedAt: { not: null },
+        quiz: { type: 'mock' },
+      },
+      orderBy: { completedAt: 'desc' },
+      take: 10,
+      select: { score: true, completedAt: true },
     }),
   ])
 
@@ -144,6 +155,37 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     Math.ceil((examDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
   )
 
+  // Calculate accurate exam readiness based on mock test performance
+  let examReadiness = 0
+  if (completedMocks.length > 0) {
+    if (completedMocks.length === 1) {
+      examReadiness = completedMocks[0]!.score
+    } else {
+      const latestScore = completedMocks[0]!.score
+      const priorScores = completedMocks.slice(1)
+      const avgPrior = priorScores.reduce((acc, m) => acc + m.score, 0) / priorScores.length
+      examReadiness = Math.round(latestScore * 0.6 + avgPrior * 0.4)
+    }
+  } else {
+    // Baseline readiness estimation when no mock has been completed yet
+    const coveredCount = nodes.filter((n) => n.status === 'completed').length
+    const totalCount = nodes.length || 1
+    const coverageFraction = coveredCount / totalCount
+    const avgRecentQuiz = recentAttempts.length > 0
+      ? recentAttempts.reduce((acc, a) => acc + a.score, 0) / recentAttempts.length
+      : 0
+    examReadiness = Math.min(50, Math.round(coverageFraction * 35 + avgRecentQuiz * 0.15))
+  }
+  examReadiness = Math.max(0, Math.min(100, examReadiness))
+
+  // Sync to roadmap asynchronously if changed
+  if (roadmap && roadmap.examReadiness !== examReadiness) {
+    prisma.roadmap.update({
+      where: { userId },
+      data: { examReadiness },
+    }).catch(() => {})
+  }
+
   return {
     daysToExam,
     examType: examProfile.examType,
@@ -155,6 +197,6 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     weakestTopics,
     recentScores,
     upcomingRevisions,
-    examReadiness: roadmap?.examReadiness ?? 0,
+    examReadiness,
   }
 }

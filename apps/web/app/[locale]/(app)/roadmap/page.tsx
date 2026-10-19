@@ -6,6 +6,7 @@ import { Trophy, Check, Lock } from 'lucide-react'
 import { format } from 'date-fns'
 import { useRoadmap } from '@/lib/hooks/use-roadmap'
 import { useSubjects } from '@/lib/hooks/use-subjects'
+import { useDashboard } from '@/lib/hooks/use-dashboard'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -357,13 +358,26 @@ export default function RoadmapPage() {
     [subjectsData],
   )
 
-  // Only offer boards the student actually has topics for.
+  const { data: dashboardData } = useDashboard()
+  const registeredExams = useMemo(() => {
+    if (dashboardData?.examTypes && dashboardData.examTypes.length > 0) {
+      return dashboardData.examTypes as ExamType[]
+    }
+    if (dashboardData?.examType) {
+      return [dashboardData.examType as ExamType]
+    }
+    return ['jamb' as ExamType]
+  }, [dashboardData])
+
+  // Only offer boards the student actually registered for in their profile/settings!
   const availableExams = useMemo(
     () =>
-      EXAM_ORDER.filter((exam) =>
-        (data?.nodes ?? []).some((n) => examsBySubject.get(n.subjectSlug)?.includes(exam)),
+      EXAM_ORDER.filter(
+        (exam) =>
+          registeredExams.includes(exam) &&
+          (data?.nodes ?? []).some((n) => examsBySubject.get(n.subjectSlug)?.includes(exam)),
       ),
-    [data, examsBySubject],
+    [data, examsBySubject, registeredExams],
   )
 
   // Number of topics mapped under each exam type

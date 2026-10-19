@@ -224,3 +224,97 @@ ${JSON.stringify(questions)}`
   }
 }
 
+export async function generateQuestionsFromNotes(params: {
+  noteContent: string
+  count: number
+  difficulty?: string | undefined
+  documentName?: string | undefined
+  arrangeBy?: 'random' | 'topic' | undefined
+  format?: 'objective' | 'theory' | undefined
+  locale?: string | undefined
+}): Promise<QuizQuestion[]> {
+  const count = Math.min(20, Math.max(1, params.count || 5))
+  const difficulty = params.difficulty || 'medium'
+  const isTheory = params.format === 'theory'
+
+  const prompt = `You are a master academic educator and examination designer.
+Generate ${count} ${isTheory ? 'theory and structured revision' : 'multiple-choice'} practice questions strictly from the following study material/notes.
+
+${params.documentName ? `Document Name: "${params.documentName}"` : ''}
+Difficulty level: ${difficulty}
+Arrangement style: ${params.arrangeBy === 'topic' ? 'Grouped methodically by topic/sub-heading' : 'Randomly distributed across key concepts'}
+
+Study Notes / Material Content:
+"""
+${params.noteContent.slice(0, 12000)}
+"""
+
+Requirements:
+- Each question must be substantive, testing actual comprehension, application, or recall from the text.
+- Exactly 4 options (A, B, C, D)
+- Exactly ONE correct optionId (A, B, C, or D)
+- A thorough, educational step-by-step explanation referencing the relevant facts from the text
+
+Return a JSON array of questions.`
+
+  const ai = getGemini()
+  const response = await ai.models.generateContent({
+    model: QUIZ_MODEL,
+    contents: prompt,
+    config: {
+      responseMimeType: 'application/json',
+      responseSchema: QUESTION_SCHEMA,
+      temperature: 0.7,
+    },
+  })
+
+  const text = response.text
+  if (!text) {
+    throw new AppError(502, 'The AI returned an empty response. Please retry.')
+  }
+
+  let raw: RawQuestion[]
+  try {
+    raw = JSON.parse(text) as RawQuestion[]
+  } catch (err) {
+    throw new AppError(502, 'Failed to parse AI-generated questions.')
+  }
+
+  const questions: QuizQuestion[] = []
+  for (const [i, q] of raw.entries()) {
+    if (
+      typeof q.stem !== 'string' ||
+      typeof q.explanation !== 'string' ||
+      typeof q.correctOptionId !== 'string' ||
+      !Array.isArray(q.options)
+    ) {
+      continue
+    }
+
+    const diffLevel: 'easy' | 'medium' | 'hard' =
+      difficulty === 'easy' || difficulty === 'hard' ? difficulty : 'medium'
+
+    questions.push({
+      id: `ai-note-${Date.now()}-${i}`,
+      stem: q.stem.trim(),
+      options: q.options.map((opt: any, oIdx) => ({
+        id: (OPTION_IDS[oIdx] ?? 'A') as OptionId,
+        text: typeof opt?.text === 'string' ? opt.text.trim() : String(opt?.text ?? ''),
+      })),
+      correctOptionId: (OPTION_IDS.includes(q.correctOptionId as OptionId)
+        ? q.correctOptionId
+        : 'A') as OptionId,
+      explanation: q.explanation.trim(),
+      topicSlug: 'notes-custom',
+      difficulty: diffLevel,
+      source: params.documentName ? `Document: ${params.documentName}` : 'Uploaded Notes',
+    })
+  }
+
+  if (questions.length === 0) {
+    throw new AppError(502, 'Could not generate sufficient questions from the provided notes.')
+  }
+
+  return questions
+}
+

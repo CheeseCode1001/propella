@@ -206,3 +206,53 @@ export async function updateProfile(
 
   return buildAuthUser(user)
 }
+
+export async function updateExamTracks(
+  userId: string,
+  input: {
+    examTypes: ('jamb' | 'waec' | 'neco' | 'undergraduate')[]
+    addSubjects?: string[]
+  },
+) {
+  const profile = await prisma.examProfile.findUnique({ where: { userId } })
+  if (!profile) throw new NotFoundError('Exam profile not found')
+
+  const currentSubjects = jsonArray<ExamProfileSubject>(profile.subjects)
+  const existingSlugs = new Set(currentSubjects.map((s) => s.slug))
+
+  if (input.addSubjects && input.addSubjects.length > 0) {
+    const newSlugs = input.addSubjects.filter((s) => !existingSlugs.has(s))
+    if (newSlugs.length > 0) {
+      const found = await prisma.subject.findMany({
+        where: { slug: { in: newSlugs } },
+        select: { id: true, slug: true, name: true },
+      })
+      for (const s of found) {
+        currentSubjects.push({
+          subjectId: s.id,
+          slug: s.slug,
+          name: s.name,
+          isWeak: false,
+          isStrong: false,
+          currentMastery: 50,
+        })
+      }
+    }
+  }
+
+  const primaryExamType = input.examTypes[0] || profile.examType
+  const updatedProfile = await prisma.examProfile.update({
+    where: { userId },
+    data: {
+      examType: primaryExamType,
+      examTypes: input.examTypes,
+      subjects: currentSubjects,
+    },
+  })
+
+  // Rebuild the roadmap with the updated exams and subjects
+  const { generateInitialRoadmap } = await import('../../lib/adaptive-engine')
+  await generateInitialRoadmap(userId, updatedProfile)
+
+  return buildExamProfileSummary(updatedProfile)
+}

@@ -240,6 +240,28 @@ export async function submitMock(
     },
   })
 
+  // Recalculate and update roadmap exam readiness based on mock test performance
+  try {
+    const priorMocks = await prisma.quizAttempt.findMany({
+      where: {
+        userId,
+        completedAt: { not: null },
+        quiz: { type: 'mock' },
+        id: { not: attempt.id },
+      },
+      select: { score: true },
+    })
+    const newReadiness = priorMocks.length > 0
+      ? Math.round(score * 0.6 + (priorMocks.reduce((a, b) => a + b.score, 0) / priorMocks.length) * 0.4)
+      : score
+    await prisma.roadmap.updateMany({
+      where: { userId },
+      data: { examReadiness: Math.max(0, Math.min(100, newReadiness)) },
+    })
+  } catch (err) {
+    logger.warn({ err, userId }, 'Failed to update roadmap examReadiness after mock')
+  }
+
   // In-app notification
   const { notify } = await import('../notifications/notification.service')
   await notify(userId, 'quiz_result', {
