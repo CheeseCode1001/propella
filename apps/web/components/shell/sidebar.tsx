@@ -1,11 +1,9 @@
 'use client'
-// Locale-aware: next/navigation's usePathname keeps the /en prefix, which never
-// matches these locale-less hrefs — that is why nothing looked active.
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import {
   Home2, BookSquare, Calendar, TaskSquare, DocumentText,
-  Timer1, Magicpen, Chart2, Cup, Profile, Card, Notification,
-  MessageQuestion, LogoutCurve, Lock1, Note1, Folder2, People,
+  Magicpen, Chart2, Cup, Profile, Card, Notification,
+  MessageQuestion, LogoutCurve, Note1, Folder2, People,
 } from 'iconsax-reactjs'
 import { NavIcon } from '@/components/common/nav-icon'
 import { useTranslations } from 'next-intl'
@@ -16,7 +14,6 @@ import { SignOutDialog } from '@/components/auth/sign-out-dialog'
 import { LocaleSwitcher } from '@/components/common/locale-switcher'
 import { cn } from '@/lib/utils/cn'
 import { useState, useRef, useEffect } from 'react'
-import { useMarathonActive } from '@/lib/stores/marathon-store'
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -24,25 +21,20 @@ export function Sidebar() {
   const tNav = useTranslations('nav')
   const tAuth = useTranslations('auth')
 
-  const marathonActive = useMarathonActive()
   const isUndergrad = !!user?.undergraduateMode
 
-  // While a marathon is running the destinations that pull attention away from
-  // studying are locked. Study surfaces stay reachable.
-  // In undergraduate mode, secondary school syllabus roadmap & mocks are removed.
   const navItems = [
-    { href: '/dashboard', icon: Home2, label: tNav('dashboard'), lockable: false },
-    ...(!isUndergrad ? [{ href: '/roadmap', icon: BookSquare, label: tNav('roadmap'), lockable: false }] : []),
-    { href: '/files', icon: Folder2, label: isUndergrad ? 'Course Files' : 'Study Files', lockable: false },
-    { href: '/notes', icon: Note1, label: tNav('notes'), lockable: false },
-    { href: '/planner', icon: Calendar, label: isUndergrad ? 'Planner' : tNav('planner'), lockable: false },
-    { href: '/quizzes', icon: TaskSquare, label: isUndergrad ? 'Quizzes' : tNav('quizzes'), lockable: false },
-    ...(!isUndergrad ? [{ href: '/mocks', icon: DocumentText, label: tNav('mocks'), lockable: false }] : []),
-    { href: '/study-groups', icon: People, label: 'Study Groups', lockable: false },
-    { href: '/marathon', icon: Timer1, label: tNav('marathon'), lockable: false },
-    { href: '/assistant', icon: Magicpen, label: tNav('assistant'), lockable: false },
-    { href: '/progress', icon: Chart2, label: tNav('progress'), lockable: true },
-    { href: '/leaderboard', icon: Cup, label: tNav('leaderboard'), lockable: true },
+    { href: '/dashboard', icon: Home2, label: tNav('dashboard') },
+    ...(!isUndergrad ? [{ href: '/roadmap', icon: BookSquare, label: tNav('roadmap') }] : []),
+    { href: '/files', icon: Folder2, label: isUndergrad ? 'Course Files' : 'Study Files' },
+    { href: '/notes', icon: Note1, label: tNav('notes') },
+    { href: '/planner', icon: Calendar, label: isUndergrad ? 'Planner' : tNav('planner') },
+    { href: '/quizzes', icon: TaskSquare, label: isUndergrad ? 'Quizzes' : tNav('quizzes') },
+    ...(!isUndergrad ? [{ href: '/mocks', icon: DocumentText, label: tNav('mocks') }] : []),
+    { href: '/study-groups', icon: People, label: 'Study Groups' },
+    { href: '/assistant', icon: Magicpen, label: tNav('assistant') },
+    { href: '/progress', icon: Chart2, label: tNav('progress') },
+    { href: '/leaderboard', icon: Cup, label: tNav('leaderboard') },
   ]
   const [menuOpen, setMenuOpen] = useState(false)
   const [signOutOpen, setSignOutOpen] = useState(false)
@@ -84,24 +76,8 @@ export function Sidebar() {
 
       {/* Nav */}
       <nav className="flex flex-1 flex-col gap-1.5" style={{ padding: '12px 0' }}>
-        {navItems.map(({ href, icon: Icon, label, lockable }) => {
+        {navItems.map(({ href, icon: Icon, label }) => {
           const isActive = pathname === href || pathname.startsWith(href + '/')
-          const locked = marathonActive && lockable
-
-          if (locked) {
-            return (
-              <span
-                key={href}
-                aria-disabled="true"
-                title="Locked until your marathon ends"
-                className="mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-1.5 text-[14px] font-medium text-[var(--color-ink-3)] cursor-not-allowed opacity-50 select-none"
-              >
-                <NavIcon icon={Icon} active={false} size={20} />
-                <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500 }}>{label}</span>
-                <Lock1 size={14} color="currentColor" variant="Linear" style={{ marginLeft: 'auto' }} />
-              </span>
-            )
-          }
 
           return (
             <Link
@@ -112,12 +88,10 @@ export function Sidebar() {
                 'mx-3 flex items-center gap-3 rounded-[var(--radius-sm)] px-3 py-1.5',
                 'text-[14px] font-medium no-underline transition-colors duration-100',
                 isActive
-                  // Active page reads as a solid primary block, not a hairline.
                   ? 'bg-[var(--color-accent)] text-white'
                   : 'text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-3)]',
               )}
             >
-              {/* Icon and label both inherit the white from the parent. */}
               <NavIcon icon={Icon} active={isActive} size={20} />
               <span
                 style={{ fontFamily: 'var(--font-sans)', fontWeight: isActive ? 600 : 500 }}
@@ -182,7 +156,6 @@ export function Sidebar() {
             }}
           >
             {user?.avatarUrl ? (
-              // Stored as a data URL, so next/image cannot optimise it.
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={user.avatarUrl}
@@ -263,26 +236,19 @@ export function Sidebar() {
 
             <button
               onClick={() => { setMenuOpen(false); setSignOutOpen(true) }}
-              disabled={marathonActive}
-              title={marathonActive ? 'Finish or stop your marathon first' : undefined}
               className="flex items-center gap-2.5 px-3 py-2 text-[14px] font-medium w-full text-left transition-colors"
               style={{
-                color: marathonActive ? 'var(--color-ink-3)' : 'var(--color-ink-2)',
+                color: 'var(--color-ink-2)',
                 background: 'none',
                 border: 'none',
-                cursor: marathonActive ? 'not-allowed' : 'pointer',
-                opacity: marathonActive ? 0.5 : 1,
+                cursor: 'pointer',
               }}
               onMouseEnter={(e) => {
-                if (!marathonActive) e.currentTarget.style.backgroundColor = 'var(--color-paper-3)'
+                e.currentTarget.style.backgroundColor = 'var(--color-paper-3)'
               }}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
-              {marathonActive ? (
-                <Lock1 size={17} color="currentColor" variant="Linear" />
-              ) : (
-                <LogoutCurve size={17} color="currentColor" variant="Linear" />
-              )}
+              <LogoutCurve size={17} color="currentColor" variant="Linear" />
               {tAuth('logout')}
             </button>
           </div>

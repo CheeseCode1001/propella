@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: '%s | Propella Exam Preparation',
   },
   description:
-    'Master your syllabus and rank #1 with Propella — Africa\'s premier adaptive exam preparation platform. 6,994+ authentic past questions, timed JAMB CBT simulator, WAEC/NECO step-by-step solutions, 100L-500L university course files, and 24/7 AI tutor.',
+    'Master your syllabus and rank #1 with Propella — Africa\'s premier adaptive exam preparation platform. 11,404+ authentic past questions, timed JAMB CBT simulator, WAEC/NECO step-by-step solutions, 100L-500L university course files, and 24/7 AI tutor.',
   keywords: [
     'JAMB 2026',
     'JAMB 2027',
@@ -218,7 +218,7 @@ const jsonLdApp = {
   featureList: [
     'Adaptive Day-by-Day Syllabus Study Roadmap',
     'Realistic Timed CBT Mock Engine with 8-Key Controls',
-    '6,994+ Authentic Verified Past Questions with Step-by-Step Solutions',
+    '11,404+ Authentic Verified Past Questions with Step-by-Step Solutions',
     '24/7 Gemini-Powered AI Academic Tutor',
     '100L to 500L University Course Files Vault with Direct Document Query',
     'Gamified Activity Streaks, Milestone Badges & Cash Referral Rewards',
@@ -289,7 +289,7 @@ const jsonLdFaq = {
       name: 'What is the best platform for JAMB CBT preparation in Nigeria?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Propella (propellastudy.com) is Nigeria\'s premier AI-powered exam preparation platform. It combines over 6,994 authentic past questions, a timed CBT simulator matching the official Joint Admissions and Matriculation Board (JAMB) layout with 8-key keyboard controls, an adaptive syllabus tracker, and a 24/7 AI tutor.',
+        text: 'Propella (propellastudy.com) is Nigeria\'s premier AI-powered exam preparation platform. It combines over 11,404 authentic past questions, a timed CBT simulator matching the official Joint Admissions and Matriculation Board (JAMB) layout with 8-key keyboard controls, an adaptive syllabus tracker, and a 24/7 AI tutor.',
       },
     },
     {

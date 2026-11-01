@@ -10,14 +10,11 @@ import { NavIcon } from '@/components/common/nav-icon'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { ToolsSheet } from './tools-sheet'
 
-// Everything reachable from the Tools sheet, so the centre button can show as
-// active while the student is on one of them.
 const TOOLS_ROUTES = [
   '/planner',
   '/quizzes',
   '/mocks',
   '/study-groups',
-  '/marathon',
   '/assistant',
   '/progress',
   '/leaderboard',
@@ -105,8 +102,6 @@ function NavTab({ href, icon, label, pathname }: NavTabProps) {
       className={cn(
         'flex flex-col items-center gap-0.5 rounded-[var(--radius-md)] px-3 py-1.5',
         'no-underline transition-colors duration-100',
-        // Tinted rather than filled: a solid block per tab is heavy on a bar
-        // this small, so the accent goes on the icon and label instead.
         isActive ? 'text-[var(--color-accent)]' : 'text-[var(--color-ink-3)]',
       )}
     >

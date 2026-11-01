@@ -18,6 +18,7 @@ export interface AuthUser {
   email: string
   plan: PlanType
   planExpiresAt?: string | null
+  createdAt?: string
   onboardingCompleted: boolean
   onboardingStep: number
   theme: 'system' | 'light' | 'dark'
@@ -56,6 +57,9 @@ export interface EntitlementStatusDto {
   isTrial: boolean
   isPaywallLocked: boolean
   trialUsage?: TrialUsageDto | null
+  discountEligible?: boolean
+  discountExpiresAt?: string | null
+  discountPercent?: number
   remaining: {
     topics: number
     aiQuestions: number
@@ -68,6 +72,11 @@ export interface SubscriptionDto {
   plan: 'scholar_basic' | 'scholar_shared' | 'scholar_full' | 'scholar_monthly'
   planName: string
   amount: number
+  renewalAmount?: number
+  isDiscounted?: boolean
+  autoRenew?: boolean
+  cardLast4?: string | null
+  cardBrand?: string | null
   status: 'active' | 'expired' | 'cancelled'
   startDate: string
   expiresAt: string
@@ -207,6 +216,7 @@ export interface DashboardData {
   examTypes?: ExamType[]
   examDate: string
   todayTopics: TodayTopic[]
+  dailyScheduleCompleted?: boolean
   streak: UserStreak
   xp: XPSummary
   weakestTopics: WeakTopic[]
@@ -223,6 +233,7 @@ export interface TodayTopic {
   estimatedMinutes: number
   status: TopicStatus
   nodeStatus: 'new' | 'revision' | 'quiz-due'
+  isContinuation?: boolean
 }
 
 export interface WeakTopic {

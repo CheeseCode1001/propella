@@ -12,7 +12,7 @@ import { notify } from '../notifications/notification.service'
 export interface AdminMetrics {
   users: { total: number; verified: number; onboarded: number; newLast7Days: number }
   content: { subjects: number; pastQuestions: number; quizzesGenerated: number }
-  activity: { studySessions: number; quizAttempts: number; marathonRuns: number; xpAwarded: number }
+  activity: { studySessions: number; quizAttempts: number; xpAwarded: number }
   pastQuestionsByExam: Array<{ exam: ExamType; count: number }>
 }
 
@@ -29,7 +29,6 @@ export async function getMetrics(): Promise<AdminMetrics> {
     quizzes,
     sessions,
     attempts,
-    marathons,
     xp,
     byExam,
   ] = await Promise.all([
@@ -42,7 +41,6 @@ export async function getMetrics(): Promise<AdminMetrics> {
     prisma.quiz.count(),
     prisma.studySession.count(),
     prisma.quizAttempt.count(),
-    prisma.marathonRun.count(),
     prisma.xPEvent.aggregate({ _sum: { amount: true } }),
     prisma.pastQuestion.groupBy({ by: ['exam'], _count: { _all: true } }),
   ])
@@ -53,7 +51,6 @@ export async function getMetrics(): Promise<AdminMetrics> {
     activity: {
       studySessions: sessions,
       quizAttempts: attempts,
-      marathonRuns: marathons,
       xpAwarded: xp._sum.amount ?? 0,
     },
     pastQuestionsByExam: byExam.map((r) => ({ exam: r.exam, count: r._count._all })),

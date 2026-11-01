@@ -3,12 +3,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence, useDragControls } from 'framer-motion'
 import { useRouter } from '@/lib/i18n/navigation'
-import { X, ChevronRight, BookOpen, ClipboardCheck, FileText, Timer, Sparkles, TrendingUp, Trophy, Globe, Sun, Moon, Users } from 'lucide-react'
+import { X, ChevronRight, BookOpen, ClipboardCheck, FileText, Sparkles, TrendingUp, Trophy, Globe, Sun, Moon, Users } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
-import { cn } from '@/lib/utils/cn'
 import { localeMetadata, type Locale } from '@/lib/i18n/locales'
 import { LocaleSwitcher } from '@/components/common/locale-switcher'
 import { useAuthStore } from '@/lib/stores/auth-store'
@@ -55,12 +54,6 @@ export function ToolsSheet({ open, onClose }: ToolsSheetProps) {
       icon: Users,
       label: 'Study Groups',
       description: 'Collaborative circles & referrals',
-    },
-    {
-      href: '/marathon',
-      icon: Timer,
-      label: tNav('marathon'),
-      description: 'Long focused runs',
     },
     {
       href: '/assistant',
@@ -418,4 +411,3 @@ function ThemeRow({ themeLabel }: { themeLabel: string }) {
     </div>
   )
 }
-

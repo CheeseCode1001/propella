@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from 'express'
 import type { QuizAttempt, QuizMode } from '../../config/db'
 import { QUIZ_MODES, QUIZ_TYPES } from '@propella/shared'
 import { AppError } from '../../middleware/error-handler'
-import { jsonArray, type QuizAnswer } from '../../models/types'
+import { jsonArray, type ByTopicResult, type QuizAnswer, type QuizQuestion } from '../../models/types'
 import * as quizzesService from './quizzes.service'
 
 function requireUser(req: Request): string {
@@ -84,6 +84,7 @@ export async function generateQuiz(
         type: quiz.type,
         difficulty: quiz.difficulty,
         mode: quiz.mode,
+        timeLimit: quiz.timeLimit,
         questionCount: quiz.questionCount,
         topicRef: {
           subjectSlug: quiz.topicSubjectSlug,
@@ -148,12 +149,17 @@ export async function submitAttempt(
       durationSec: durationSec ?? 0,
     })
 
+    const correctCount = answersOf(result.attempt).filter((a) => a.isCorrect).length
+    const totalCount = answersOf(result.attempt).length
+
     res.status(200).json({
       data: {
         attemptId: result.attempt.id,
         score: result.attempt.score,
-        correct: answersOf(result.attempt).filter((a) => a.isCorrect).length,
-        total: answersOf(result.attempt).length,
+        correct: correctCount,
+        total: totalCount,
+        correctCount,
+        totalCount,
         durationSec: result.attempt.durationSec,
         xpAwarded: result.xpAwarded,
         masteryUpdates: result.masteryUpdates,
@@ -176,18 +182,44 @@ export async function getAttempt(
 
     const { attempt, quiz } = await quizzesService.getAttempt(userId, attemptId)
 
+    const questions = jsonArray<QuizQuestion>(quiz.questions)
+    const questionMap = new Map(questions.map((q) => [q.id, q]))
+    const rawAnswers = answersOf(attempt)
+    const enrichedAnswers = rawAnswers.map((a) => {
+      const q = questionMap.get(a.questionId)
+      return {
+        ...a,
+        correctOptionId: q?.correctOptionId ?? 'A',
+      }
+    })
+    const correctCount = enrichedAnswers.filter((a) => a.isCorrect).length
+    const totalCount = questions.length || quiz.questionCount || enrichedAnswers.length
+
+    const byTopicRecord: Record<string, { correct: number; total: number; masteryDelta?: number }> = {}
+    for (const item of jsonArray<ByTopicResult>(attempt.byTopic)) {
+      if (item && item.topicSlug) {
+        byTopicRecord[item.topicSlug] = {
+          correct: item.correct,
+          total: item.total,
+          masteryDelta: item.masteryDelta,
+        }
+      }
+    }
+
     res.status(200).json({
       data: {
         attempt: {
           id: attempt.id,
           quizId: attempt.quizId,
           score: attempt.score,
-          correct: answersOf(attempt).filter((a) => a.isCorrect).length,
-          total: answersOf(attempt).length,
+          correct: correctCount,
+          total: totalCount,
+          correctCount,
+          totalCount,
           durationSec: attempt.durationSec,
           xpAwarded: attempt.xpAwarded,
-          answers: attempt.answers,
-          byTopic: attempt.byTopic,
+          answers: enrichedAnswers,
+          byTopic: byTopicRecord,
           startedAt: attempt.startedAt.toISOString(),
           completedAt: attempt.completedAt?.toISOString() ?? null,
         },
@@ -196,6 +228,7 @@ export async function getAttempt(
           type: quiz.type,
           difficulty: quiz.difficulty,
           mode: quiz.mode,
+          timeLimit: quiz.timeLimit ?? (quiz.mode === 'exam' ? questions.length * 90 : null),
           topicRef: {
             subjectSlug: quiz.topicSubjectSlug,
             topicSlug: quiz.topicTopicSlug,

@@ -24,7 +24,7 @@
     "test:admin": "node scripts/smoke-admin.cjs",
     "test:bank": "node scripts/smoke-past-questions.cjs",
     "test:smoke": "node scripts/smoke.cjs",
-    "test:unit": "tsx --test src/lib/question-bank.test.ts src/seeds/past-questions.test.ts src/features/gamification/streak.test.ts",
+    "test:unit": "tsx --test src/lib/question-bank.test.ts src/seeds/past-questions.test.ts src/features/gamification/streak.test.ts src/features/pre-launch-updates.test.ts",
     "type-check": "tsc --noEmit",
     "warm:topics": "tsx scripts/warm-topic-content.ts"
   },

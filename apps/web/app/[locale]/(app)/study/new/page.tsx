@@ -25,13 +25,12 @@ export default function StudyNewPage() {
       .post<{ data: { sessionId: string } }>('/sessions/start', {
         subjectSlug,
         topicSlug,
-        isMarathon: false,
       })
       .then(({ data }) => {
-        router.replace(`/study/${data.sessionId}`)
+        router.replace(`/topics/${subjectSlug}/${topicSlug}?sessionId=${data.sessionId}`)
       })
       .catch(() => {
-        router.replace('/dashboard')
+        router.replace(`/topics/${subjectSlug}/${topicSlug}`)
       })
   }, [subjectSlug, topicSlug, router])
 
@@ -63,7 +62,7 @@ export default function StudyNewPage() {
           color: 'var(--color-ink-3)',
         }}
       >
-        Starting your session...
+        Opening topic...
       </p>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>

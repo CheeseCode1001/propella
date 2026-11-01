@@ -1,6 +1,12 @@
 import { prisma, Prisma } from '../../config/db'
 import { PaywallRequiredError, NotFoundError } from '../../middleware/error-handler'
-import type { EntitlementStatusDto, TrialUsageDto, TrialTopicItem } from '@propella/shared'
+import {
+  WELCOME_DISCOUNT_WINDOW_MS,
+  WELCOME_DISCOUNT_PERCENT,
+  type EntitlementStatusDto,
+  type TrialUsageDto,
+  type TrialTopicItem,
+} from '@propella/shared'
 
 const DEFAULT_TOPICS_LIMIT = 1
 const DEFAULT_AI_QUESTIONS_LIMIT = 3
@@ -60,19 +66,27 @@ export async function getOrCreateTrialUsage(userId: string) {
 }
 
 /**
- * Returns the comprehensive entitlement status for the client.
+ * Returns the comprehensive entitlement status for the client, including
+ * 3-day (72-hour) 50% welcome discount eligibility (#999 Basic, #1,499 Shared, #4,999 Full).
  */
 export async function getEntitlementStatus(userId: string): Promise<EntitlementStatusDto> {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { plan: true, planExpiresAt: true },
-  })
+  const [user, priorSubCount] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { plan: true, planExpiresAt: true, createdAt: true },
+    }),
+    prisma.subscription.count({ where: { userId } }),
+  ])
   if (!user) throw new NotFoundError('User not found')
 
   const now = new Date()
   const isScholar =
     user.plan === 'scholar' &&
     Boolean(user.planExpiresAt && user.planExpiresAt.getTime() > now.getTime())
+
+  const discountWindowEndsAt = new Date(user.createdAt.getTime() + WELCOME_DISCOUNT_WINDOW_MS)
+  const discountEligible =
+    !isScholar && priorSubCount === 0 && now.getTime() < discountWindowEndsAt.getTime()
 
   if (isScholar) {
     return {
@@ -86,6 +100,9 @@ export async function getEntitlementStatus(userId: string): Promise<EntitlementS
         aiQuestions: 999999,
         quizzes: 999999,
       },
+      discountEligible: false,
+      discountExpiresAt: null,
+      discountPercent: WELCOME_DISCOUNT_PERCENT,
     }
   }
 
@@ -123,6 +140,9 @@ export async function getEntitlementStatus(userId: string): Promise<EntitlementS
       aiQuestions: remainingAi,
       quizzes: remainingQuizzes,
     },
+    discountEligible,
+    discountExpiresAt: discountEligible ? discountWindowEndsAt.toISOString() : null,
+    discountPercent: WELCOME_DISCOUNT_PERCENT,
   }
 }
 
@@ -159,7 +179,7 @@ export async function assertCanAccessTopic(
     }
 
     throw new PaywallRequiredError(
-      'You have reached your Free Trial limit of 1 sample topic. Upgrade to Scholar to unlock all topics across all subjects.',
+      'You have reached your Free Trial limit of 1 sample topic. Upgrade to Scholar (50% off — ₦999 in your first 3 days) to unlock all topics across all subjects.',
       {
         feature: 'topic',
         limit: usage.topicsLimit,

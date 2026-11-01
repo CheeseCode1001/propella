@@ -73,6 +73,30 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
 
   const nodes = jsonArray<RoadmapNodeJson>(roadmap?.nodes)
 
+  // Ensure every subject with uncompleted nodes has at least one unlocked ('ready' or 'in-progress') node
+  let nodesMutated = false
+  const bySubject = new Map<string, RoadmapNodeJson[]>()
+  for (const n of nodes) {
+    const list = bySubject.get(n.subjectSlug) ?? []
+    list.push(n)
+    bySubject.set(n.subjectSlug, list)
+  }
+  for (const [, subNodes] of bySubject) {
+    const hasActive = subNodes.some(
+      (n) => n.status === 'ready' || n.status === 'in-progress' || n.status === 'needs-revision',
+    )
+    if (!hasActive) {
+      const nextLocked = subNodes.find((n) => n.status === 'locked')
+      if (nextLocked) {
+        nextLocked.status = 'ready'
+        nodesMutated = true
+      }
+    }
+  }
+  if (nodesMutated && roadmap) {
+    prisma.roadmap.update({ where: { userId }, data: { nodes } }).catch(() => {})
+  }
+
   // Load subjects for name resolution
   const subjectSlugs = [...new Set(nodes.map((n) => n.subjectSlug))]
   const subjects = await prisma.subject.findMany({
@@ -87,18 +111,28 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     return jsonArray<SubjectTopic>(subject?.topics).find((t) => t.slug === node.topicSlug)
   }
 
-  // 6. Today's planned topics
+  // 6. Today's planned topics + seamless continuation after daily schedule is covered
   const today = new Date()
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999)
   const todayTopics: TodayTopic[] = []
 
-  for (const node of nodes) {
-    if (
-      new Date(node.plannedStartDate) <= today &&
-      new Date(node.plannedEndDate) >= today &&
-      (node.status === 'ready' || node.status === 'in-progress')
-    ) {
-      const topic = topicOf(node)
+  const scheduledForToday = nodes.filter(
+    (node) =>
+      new Date(node.plannedStartDate) <= endOfToday &&
+      new Date(node.plannedEndDate) >= startOfToday,
+  )
+  const completedTodayCount = nodes.filter(
+    (node) =>
+      node.status === 'completed' &&
+      ((node.lastStudiedAt && new Date(node.lastStudiedAt) >= startOfToday) ||
+        (new Date(node.plannedStartDate) <= endOfToday &&
+          new Date(node.plannedEndDate) >= startOfToday)),
+  ).length
 
+  for (const node of scheduledForToday) {
+    if (node.status === 'ready' || node.status === 'in-progress' || node.status === 'needs-revision') {
+      const topic = topicOf(node)
       todayTopics.push({
         subjectSlug: node.subjectSlug,
         subjectName: subjectMap.get(node.subjectSlug)?.name ?? node.subjectSlug,
@@ -107,6 +141,35 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
         estimatedMinutes: topic?.estimatedMinutes ?? 30,
         status: node.status,
         nodeStatus: node.revisionsCompleted > 0 ? 'revision' : 'new',
+        isContinuation: false,
+      })
+    }
+  }
+
+  const dailyScheduleCompleted = todayTopics.length === 0 && completedTodayCount > 0
+
+  // Allow student to continue even after covering their daily schedule!
+  // Surface the next ready/in-progress topics across their subjects so they can keep studying.
+  if (todayTopics.length === 0) {
+    const seenSubjects = new Set<string>()
+    const candidates = nodes
+      .filter((n) => n.status === 'in-progress' || n.status === 'ready' || n.status === 'needs-revision')
+      .sort((a, b) => new Date(a.plannedStartDate).getTime() - new Date(b.plannedStartDate).getTime())
+
+    for (const node of candidates) {
+      if (todayTopics.length >= 4) break
+      if (seenSubjects.has(node.subjectSlug) && candidates.length > 4) continue
+      seenSubjects.add(node.subjectSlug)
+      const topic = topicOf(node)
+      todayTopics.push({
+        subjectSlug: node.subjectSlug,
+        subjectName: subjectMap.get(node.subjectSlug)?.name ?? node.subjectSlug,
+        topicSlug: node.topicSlug,
+        topicName: topic?.name ?? node.topicSlug,
+        estimatedMinutes: topic?.estimatedMinutes ?? 30,
+        status: node.status,
+        nodeStatus: node.revisionsCompleted > 0 ? 'revision' : 'new',
+        isContinuation: true,
       })
     }
   }
@@ -192,6 +255,7 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
     examTypes: examProfile.examTypes.length ? examProfile.examTypes : [examProfile.examType],
     examDate: examProfile.examDate.toISOString(),
     todayTopics,
+    dailyScheduleCompleted,
     streak,
     xp,
     weakestTopics,

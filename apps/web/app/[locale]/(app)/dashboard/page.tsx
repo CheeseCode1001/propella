@@ -107,9 +107,13 @@ function GenericSkeleton({ colSpan }: { colSpan: string }) {
 }
 
 // Today's Focus card
-function TodayFocusCard({ topics }: { topics: TodayTopic[] }) {
-  const firstReady = topics.findIndex((t) => t.status === 'ready' || t.status === 'in-progress')
-
+function TodayFocusCard({
+  topics,
+  dailyScheduleCompleted,
+}: {
+  topics: TodayTopic[]
+  dailyScheduleCompleted?: boolean | undefined
+}) {
   return (
     <Card className="lg:col-span-8">
       <CardHeader>
@@ -123,12 +127,12 @@ function TodayFocusCard({ topics }: { topics: TodayTopic[] }) {
             marginBottom: 6,
           }}
         >
-          Today
+          {dailyScheduleCompleted ? 'Daily Schedule Covered · Continue Ahead' : 'Today'}
         </p>
         <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: 16 }}>
-          {topics.length} topic{topics.length !== 1 ? 's' : ''} scheduled
-          {' · '}
-          {topics.reduce((a, t) => a + t.estimatedMinutes, 0)} min planned
+          {dailyScheduleCompleted
+            ? `Great job finishing today's target! ${topics.length} next topic${topics.length !== 1 ? 's' : ''} ready if you want to do more`
+            : `${topics.length} topic${topics.length !== 1 ? 's' : ''} scheduled · ${topics.reduce((a, t) => a + t.estimatedMinutes, 0)} min planned`}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -145,7 +149,7 @@ function TodayFocusCard({ topics }: { topics: TodayTopic[] }) {
           />
         ) : (
           <div className="flex flex-col divide-y divide-[var(--color-rule)]">
-            {topics.map((topic, idx) => (
+            {topics.map((topic) => (
               <div key={`${topic.subjectSlug}-${topic.topicSlug}`} className="flex items-center gap-3 py-3">
                 <div
                   style={{
@@ -156,7 +160,9 @@ function TodayFocusCard({ topics }: { topics: TodayTopic[] }) {
                     flexShrink: 0,
                   }}
                 />
-                <span
+                <Link
+                  href={`/topics/${topic.subjectSlug}/${topic.topicSlug}`}
+                  className="no-underline hover:underline"
                   style={{
                     fontFamily: 'var(--font-sans)',
                     fontWeight: 500,
@@ -170,7 +176,7 @@ function TodayFocusCard({ topics }: { topics: TodayTopic[] }) {
                   }}
                 >
                   {topic.topicName}
-                </span>
+                </Link>
                 <Badge variant={statusBadgeVariant(topic.status)}>{statusLabel(topic.status)}</Badge>
                 <span
                   style={{
@@ -182,19 +188,24 @@ function TodayFocusCard({ topics }: { topics: TodayTopic[] }) {
                 >
                   {topic.estimatedMinutes} min
                 </span>
-                {idx === firstReady && (
-                  <Button variant="accent" size="sm" asChild>
-                    <Link href={`/study/new?subject=${topic.subjectSlug}&topic=${topic.topicSlug}`}>Start</Link>
-                  </Button>
-                )}
+                <Button variant="accent" size="sm" asChild>
+                  <Link href={`/topics/${topic.subjectSlug}/${topic.topicSlug}`}>
+                    {topic.status === 'in-progress' ? 'Continue' : 'Start'}
+                  </Link>
+                </Button>
               </div>
             ))}
           </div>
         )}
-        <div className="mt-4 pt-3 border-t border-[var(--color-rule)]">
+        <div className="mt-4 pt-3 border-t border-[var(--color-rule)] flex items-center justify-between gap-2 flex-wrap">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/planner" className="flex items-center gap-1.5">
               View full planner <ArrowRight size={13} strokeWidth={1.5} />
+            </Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/roadmap" className="flex items-center gap-1.5">
+              Continue on roadmap <ArrowRight size={13} strokeWidth={1.5} />
             </Link>
           </Button>
         </div>
@@ -718,7 +729,10 @@ export default function DashboardPage() {
         ) : data ? (
           <>
             {/* Today's focus - 8 cols */}
-            <TodayFocusCard topics={data.todayTopics} />
+            <TodayFocusCard
+              topics={data.todayTopics}
+              dailyScheduleCompleted={data.dailyScheduleCompleted}
+            />
 
             {/* Streak - 4 cols */}
             <StreakCard

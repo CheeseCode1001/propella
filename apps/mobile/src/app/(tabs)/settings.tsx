@@ -254,7 +254,7 @@ export default function SettingsScreen() {
             <View style={styles.toggleTextWrap}>
               <Text style={styles.toggleTitle}>Sound Effects & Haptics</Text>
               <Text style={styles.toggleDesc}>
-                Audio and haptic cues during quizzes and marathon
+                Audio and haptic cues during quizzes
               </Text>
             </View>
             <Switch

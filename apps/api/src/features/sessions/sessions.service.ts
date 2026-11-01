@@ -1,13 +1,10 @@
 import type { StudySession } from '../../config/db'
 import { prisma } from '../../config/db'
 import { AppError, NotFoundError } from '../../middleware/error-handler'
-import { notify } from '../notifications/notification.service'
 import { jsonArray, type RoadmapNodeJson } from '../../models/types'
 import { recordStreakActivity } from '../gamification/streak'
 import { XP } from '@propella/shared'
 import { logger } from '../../config/logger'
-
-const STREAK_MILESTONES = new Set([7, 14, 30, 60, 100])
 
 interface TopicRef {
   subjectSlug: string
@@ -17,14 +14,13 @@ interface TopicRef {
 export async function startSession(
   userId: string,
   topicRef: TopicRef,
-  isMarathon: boolean,
 ): Promise<StudySession> {
   return prisma.studySession.create({
     data: {
       userId,
       subjectSlug: topicRef.subjectSlug,
       topicSlug: topicRef.topicSlug,
-      isMarathon,
+      isMarathon: false,
       startedAt: new Date(),
       status: 'in-progress',
     },

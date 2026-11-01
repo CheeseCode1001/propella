@@ -222,65 +222,7 @@ export async function sendInactivityReminderEmail(
 }
 
 /**
- * 2. Study Marathon Completed
- * Celebrates student finishing a marathon pomodoro session with stats and praise.
- */
-export async function sendMarathonCompletedEmail(
-  to: string,
-  params: {
-    name: string
-    pomodorosCompleted: number
-    durationMinutes: number
-    xpAwarded: number
-    topicsCovered?: string[] | undefined
-  },
-): Promise<void> {
-  if (!canSend()) return
-  const firstName = params.name.split(' ')[0] || 'Scholar'
-  const bannerUrl = 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80'
-  const topicsHtml = params.topicsCovered && params.topicsCovered.length > 0
-    ? `<p style="font-size:13px;color:#4A463E;margin-top:12px;"><strong>Topics covered:</strong> ${params.topicsCovered.slice(0, 4).join(', ')}</p>`
-    : ''
-
-  try {
-    await resend.emails.send({
-      from: FROM,
-      ...(REPLY_TO ? { replyTo: REPLY_TO } : {}),
-      to,
-      subject: `Incredible Focus, ${firstName}! You just crushed a Study Marathon! 🏃💨`,
-      html: base(`
-        <img class="banner-img" src="${bannerUrl}" alt="Celebration of achievement" />
-        <h1>You crushed your Study Marathon! 🏃💨</h1>
-        <p>Incredible dedication, ${firstName}! You powered through a deep study marathon and stayed locked in from start to finish. Few students show this caliber of discipline.</p>
-        <table class="stat-table">
-          <tr>
-            <td class="stat-cell" style="width:33%;">
-              <div class="stat-val">${params.durationMinutes}m</div>
-              <div class="stat-lbl">Focus Time</div>
-            </td>
-            <td class="stat-cell" style="width:33%;">
-              <div class="stat-val">${params.pomodorosCompleted}</div>
-              <div class="stat-lbl">Pomodoros</div>
-            </td>
-            <td class="stat-cell" style="width:33%;">
-              <div class="stat-val">+${params.xpAwarded}</div>
-              <div class="stat-lbl">XP Earned</div>
-            </td>
-          </tr>
-        </table>
-        ${topicsHtml}
-        <p>Take a well-deserved breather, hydrate, and celebrate your progress today!</p>
-        ${renderButton('View Marathon History', `${env.FRONTEND_URL}/marathon`)}
-      `),
-    })
-    logger.info({ to, pomodoros: params.pomodorosCompleted }, 'Marathon completed email sent')
-  } catch (err) {
-    logger.error({ err, to }, 'Failed to send marathon completed email')
-  }
-}
-
-/**
- * 3. Milestone or Badge Achieved
+ * 2. Milestone or Badge Achieved
  * Celebrates student earning an achievement badge or hitting a major milestone.
  */
 export async function sendMilestoneBadgeEmail(
@@ -779,7 +721,7 @@ export async function sendSubscriptionReceiptEmail(params: {
           <div class="check-item">&#10003; 6,994+ CBT past questions with step-by-step solutions</div>
           <div class="check-item">&#10003; Timed JAMB, WAEC &amp; NECO mock simulators</div>
           <div class="check-item">&#10003; Unlimited AI tutor messages &amp; document parsing</div>
-          <div class="check-item">&#10003; 50-minute Pomodoro sessions in Marathon mode</div>
+          <div class="check-item">&#10003; Personalized adaptive study roadmap &amp; progress tracking</div>
         </div>
         ${renderButton('Go to Dashboard', `${env.FRONTEND_URL}/dashboard`)}
       `),

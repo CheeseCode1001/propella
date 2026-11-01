@@ -1,0 +1,2188 @@
+{
+  "questions": [
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "environmental-hazards",
+      "question": "The following are natural resources except",
+      "options": [
+        {
+          "id": "A",
+          "text": "rubber"
+        },
+        {
+          "id": "B",
+          "text": "soil"
+        },
+        {
+          "id": "C",
+          "text": "water"
+        },
+        {
+          "id": "D",
+          "text": "cellophane"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Cellophane is a synthetic manufactured material, not a natural resource.",
+      "source": "JAMB UTME 2015 Q1"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "landforms-processes",
+      "question": "All these are examples of fold mountains except",
+      "options": [
+        {
+          "id": "A",
+          "text": "Himalayas"
+        },
+        {
+          "id": "B",
+          "text": "Rockies"
+        },
+        {
+          "id": "C",
+          "text": "Andes"
+        },
+        {
+          "id": "D",
+          "text": "Vosges Mountain"
+        }
+      ],
+      "answer": "D",
+      "explanation": "The Vosges Mountains are an example of block mountains (horsts), not fold mountains.",
+      "source": "JAMB UTME 2015 Q2"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "landforms-processes",
+      "question": "All the following are fertile plains except",
+      "options": [
+        {
+          "id": "A",
+          "text": "loess plains"
+        },
+        {
+          "id": "B",
+          "text": "alluvial plains"
+        },
+        {
+          "id": "C",
+          "text": "erosional plains"
+        },
+        {
+          "id": "D",
+          "text": "flood plains"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Erosional plains are formed by the wearing away of topsoil and rock, leaving thin, less fertile soils.",
+      "source": "JAMB UTME 2015 Q3"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "population-geography",
+      "question": "The world population in 2015 was estimated at about",
+      "options": [
+        {
+          "id": "A",
+          "text": "2.0 billion"
+        },
+        {
+          "id": "B",
+          "text": "7.0 billion"
+        },
+        {
+          "id": "C",
+          "text": "6.0 billion"
+        },
+        {
+          "id": "D",
+          "text": "4.0 billion"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The world population is approximately 7.3 billion.",
+      "source": "JAMB UTME 2015 Q4"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Soil factors in an ecosystem are referred to as",
+      "options": [
+        {
+          "id": "A",
+          "text": "topographic"
+        },
+        {
+          "id": "B",
+          "text": "climatic"
+        },
+        {
+          "id": "C",
+          "text": "biotic"
+        },
+        {
+          "id": "D",
+          "text": "edaphic"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Soil factors in an ecosystem are known as edaphic factors.",
+      "source": "JAMB UTME 2015 Q5"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-africa",
+      "question": "West Africa is located between latitudes _____ and _____ of the Equator.",
+      "options": [
+        {
+          "id": "A",
+          "text": "4°N and 20°N"
+        },
+        {
+          "id": "B",
+          "text": "3°N and 15°N"
+        },
+        {
+          "id": "C",
+          "text": "2°N and 10°N"
+        },
+        {
+          "id": "D",
+          "text": "10°N and 15°N"
+        }
+      ],
+      "answer": "A",
+      "explanation": "West Africa lies approximately between latitudes 4°N and 20°N north of the Equator.",
+      "source": "JAMB UTME 2015 Q8"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "agriculture-geography",
+      "question": "All the following crops are grown in plantation agriculture in West Africa except",
+      "options": [
+        {
+          "id": "A",
+          "text": "rubber"
+        },
+        {
+          "id": "B",
+          "text": "wheat"
+        },
+        {
+          "id": "C",
+          "text": "cocoa"
+        },
+        {
+          "id": "D",
+          "text": "oil palm"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Wheat is a temperate/irrigated cereal grain crop rather than a tropical tree plantation crop.",
+      "source": "JAMB UTME 2015 Q9"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "In a food chain, the position occupied by an organism is called",
+      "options": [
+        {
+          "id": "A",
+          "text": "the trophic level"
+        },
+        {
+          "id": "B",
+          "text": "the energy level"
+        },
+        {
+          "id": "C",
+          "text": "the feeding level"
+        },
+        {
+          "id": "D",
+          "text": "the habitat level"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A trophic level is the specific feeding position occupied by an organism in a food chain.",
+      "source": "JAMB UTME 2015 Q10"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "environmental-hazards",
+      "question": "Tropical rainforests can be conserved by the following practices except",
+      "options": [
+        {
+          "id": "A",
+          "text": "agroforestry"
+        },
+        {
+          "id": "B",
+          "text": "deforestation"
+        },
+        {
+          "id": "C",
+          "text": "afforestation"
+        },
+        {
+          "id": "D",
+          "text": "selective exploration"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Deforestation is the indiscriminate felling of trees, which destroys rather than conserves tropical rainforests.",
+      "source": "JAMB UTME 2015 Q11"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "population-geography",
+      "question": "Population growth rate may be defined as the",
+      "options": [
+        {
+          "id": "A",
+          "text": "mortality rate per unit area over a period"
+        },
+        {
+          "id": "B",
+          "text": "number of times an organism occurs within a given period"
+        },
+        {
+          "id": "C",
+          "text": "number of a particular species per unit area"
+        },
+        {
+          "id": "D",
+          "text": "net rate of change in population over a given period"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Population growth rate measures the net rate of change in population size over a given period of time.",
+      "source": "JAMB UTME 2015 Q12"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Tall trees with buttress roots are associated with",
+      "options": [
+        {
+          "id": "A",
+          "text": "tropical rainforest"
+        },
+        {
+          "id": "B",
+          "text": "Guinea savanna"
+        },
+        {
+          "id": "C",
+          "text": "Sudan savanna"
+        },
+        {
+          "id": "D",
+          "text": "Sahel savanna"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Tall emergent trees supported by heavy buttress roots are characteristic of the tropical rainforest.",
+      "source": "JAMB UTME 2015 Q13"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "environmental-hazards",
+      "question": "Which of the following resources is non-renewable?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Livestock"
+        },
+        {
+          "id": "B",
+          "text": "Mineral"
+        },
+        {
+          "id": "C",
+          "text": "Forest"
+        },
+        {
+          "id": "D",
+          "text": "Soil"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Mineral resources are finite and non-renewable on human timescales, unlike biological resources.",
+      "source": "JAMB UTME 2015 Q14"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "The classical solar system comprises the Sun and its",
+      "options": [
+        {
+          "id": "A",
+          "text": "seven planets"
+        },
+        {
+          "id": "B",
+          "text": "eight planets"
+        },
+        {
+          "id": "C",
+          "text": "nine planets"
+        },
+        {
+          "id": "D",
+          "text": "six planets"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The solar system consists of the Sun and eight major planets (or nine in older traditional classifications including Pluto).",
+      "source": "JAMB UTME 2015 Q15"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "On September 23rd, towns and cities in the northern hemisphere experience",
+      "options": [
+        {
+          "id": "A",
+          "text": "equal length of day and night"
+        },
+        {
+          "id": "B",
+          "text": "complete daylight"
+        },
+        {
+          "id": "C",
+          "text": "longer nights and shorter days"
+        },
+        {
+          "id": "D",
+          "text": "longer days and shorter nights"
+        }
+      ],
+      "answer": "A",
+      "explanation": "September 23rd is the autumnal equinox, when all places on Earth experience 12 hours of daylight and 12 hours of night.",
+      "source": "JAMB UTME 2015 Q16"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "population-geography",
+      "question": "Density, mortality and birth rate are factors that affect",
+      "options": [
+        {
+          "id": "A",
+          "text": "population"
+        },
+        {
+          "id": "B",
+          "text": "dominance"
+        },
+        {
+          "id": "C",
+          "text": "cover"
+        },
+        {
+          "id": "D",
+          "text": "habitat"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Population size and structure are directly governed by birth rate, mortality rate, migration, and density.",
+      "source": "JAMB UTME 2015 Q17"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "agriculture-geography",
+      "question": "The predominant system of agriculture among traditional rural farmers in Nigeria is",
+      "options": [
+        {
+          "id": "A",
+          "text": "terrace farming"
+        },
+        {
+          "id": "B",
+          "text": "irrigation farming"
+        },
+        {
+          "id": "C",
+          "text": "plantation agriculture"
+        },
+        {
+          "id": "D",
+          "text": "bush fallowing"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Bush fallowing (rotational cultivation allowing fallow periods to restore soil fertility) is the most widespread traditional farming system in rural Nigeria.",
+      "source": "JAMB UTME 2015 Q18"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "landforms-processes",
+      "question": "What type of mountain is associated with synclines and anticlines?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Block mountain"
+        },
+        {
+          "id": "B",
+          "text": "Fold mountain"
+        },
+        {
+          "id": "C",
+          "text": "Volcanic mountain"
+        },
+        {
+          "id": "D",
+          "text": "Residual mountain"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Fold mountains are formed by compressional forces that bend rock strata into upfolds (anticlines) and downfolds (synclines).",
+      "source": "JAMB UTME 2015 Q19"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "landforms-processes",
+      "question": "The instrument used for recording the vibrations of an earthquake is called a",
+      "options": [
+        {
+          "id": "A",
+          "text": "barograph"
+        },
+        {
+          "id": "B",
+          "text": "hygrograph"
+        },
+        {
+          "id": "C",
+          "text": "thermometer"
+        },
+        {
+          "id": "D",
+          "text": "seismograph"
+        }
+      ],
+      "answer": "D",
+      "explanation": "A seismograph detects and records the seismic waves produced by earthquakes.",
+      "source": "JAMB UTME 2015 Q20"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "mining-manufacturing",
+      "question": "All of these are major traditional industrial zones in Nigeria except",
+      "options": [
+        {
+          "id": "A",
+          "text": "the Western industrial zone"
+        },
+        {
+          "id": "B",
+          "text": "the South-East industrial zone"
+        },
+        {
+          "id": "C",
+          "text": "the North-Central industrial zone"
+        },
+        {
+          "id": "D",
+          "text": "the North-East industrial zone"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Nigeria's four major industrial zones are the Western (Lagos-Ibadan), South-East (Onitsha-Nnewi-Aba-Port Harcourt), North-Central (Kano-Kaduna-Jos), and Mid-West (Benin-Sapele-Warri) zones.",
+      "source": "JAMB UTME 2015 Q21"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "latitude-longitude",
+      "question": "Lines of longitude can best be described as",
+      "options": [
+        {
+          "id": "A",
+          "text": "imaginary lines on the Earth's surface joining the North and South Poles"
+        },
+        {
+          "id": "B",
+          "text": "the linear distance of a place east or west of the Equator"
+        },
+        {
+          "id": "C",
+          "text": "the angular distance of a place north or south of the Equator"
+        },
+        {
+          "id": "D",
+          "text": "parallel circles numbered from 0° to 90°"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Meridians of longitude are imaginary semi-great circles running from the North Pole to the South Pole.",
+      "source": "JAMB UTME 2015 Q22"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "The largest planet in the solar system, marked by alternating light and dark bands, is",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mercury"
+        },
+        {
+          "id": "B",
+          "text": "Neptune"
+        },
+        {
+          "id": "C",
+          "text": "Jupiter"
+        },
+        {
+          "id": "D",
+          "text": "Mars"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Jupiter is the largest planet in the solar system and features prominent alternating light and dark cloud bands.",
+      "source": "JAMB UTME 2015 Q23"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-nigeria",
+      "question": "Which of the following is the largest and longest river in Nigeria?",
+      "options": [
+        {
+          "id": "A",
+          "text": "River Niger"
+        },
+        {
+          "id": "B",
+          "text": "River Benue"
+        },
+        {
+          "id": "C",
+          "text": "River Ogun"
+        },
+        {
+          "id": "D",
+          "text": "River Osun"
+        }
+      ],
+      "answer": "A",
+      "explanation": "River Niger is the longest and largest river in Nigeria and West Africa, rising in the Fouta Djallon highlands of Guinea.",
+      "source": "JAMB UTME 2015 Q24"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "map-reading",
+      "question": "All these are methods of representing relief on maps except",
+      "options": [
+        {
+          "id": "A",
+          "text": "contours"
+        },
+        {
+          "id": "B",
+          "text": "form lines"
+        },
+        {
+          "id": "C",
+          "text": "dot maps"
+        },
+        {
+          "id": "D",
+          "text": "hachures"
+        }
+      ],
+      "answer": "C",
+      "explanation": "A dot map is a statistical map used to show distribution of population or commodities, not topographic relief.",
+      "source": "JAMB UTME 2015 Q25"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-africa",
+      "question": "Which of the following is the longest river in West Africa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "River Benue"
+        },
+        {
+          "id": "B",
+          "text": "River Niger"
+        },
+        {
+          "id": "C",
+          "text": "River Volta"
+        },
+        {
+          "id": "D",
+          "text": "River Senegal"
+        }
+      ],
+      "answer": "B",
+      "explanation": "River Niger (~4,180 km) is the longest river in West Africa.",
+      "source": "JAMB UTME 2015 Q26"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "environmental-hazards",
+      "question": "Which of the following is not a way of conserving natural resources?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Adopting good farming practices"
+        },
+        {
+          "id": "B",
+          "text": "Establishing forest reserves"
+        },
+        {
+          "id": "C",
+          "text": "Establishing game reserves"
+        },
+        {
+          "id": "D",
+          "text": "Encouraging poaching"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Poaching is the illegal hunting of wildlife, which depletes rather than conserves natural resources.",
+      "source": "JAMB UTME 2015 Q27"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "denudation",
+      "question": "The downslope movement of weathered rock materials under the direct force of gravity is called",
+      "options": [
+        {
+          "id": "A",
+          "text": "weathering"
+        },
+        {
+          "id": "B",
+          "text": "mass movement"
+        },
+        {
+          "id": "C",
+          "text": "vulcanicity"
+        },
+        {
+          "id": "D",
+          "text": "folding"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Mass movement (or mass wasting) is the movement of weathered regolith down a slope under gravity.",
+      "source": "JAMB UTME 2015 Q28"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "landforms-processes",
+      "question": "A horizontal intrusion of magma along a bedding plane of sedimentary rocks is called a",
+      "options": [
+        {
+          "id": "A",
+          "text": "batholith"
+        },
+        {
+          "id": "B",
+          "text": "dyke"
+        },
+        {
+          "id": "C",
+          "text": "lava plain"
+        },
+        {
+          "id": "D",
+          "text": "sill"
+        }
+      ],
+      "answer": "D",
+      "explanation": "A sill is a tabular sheet intrusion of magma solidified parallel to the bedding planes of enclosing rock strata.",
+      "source": "JAMB UTME 2015 Q29"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "In the northern hemisphere, the autumnal equinox occurs on",
+      "options": [
+        {
+          "id": "A",
+          "text": "21st March"
+        },
+        {
+          "id": "B",
+          "text": "23rd September"
+        },
+        {
+          "id": "C",
+          "text": "22nd December"
+        },
+        {
+          "id": "D",
+          "text": "21st June"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The September equinox occurs around 22–23 September each year.",
+      "source": "JAMB UTME 2015 Q30"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "The natural satellite of the Earth is",
+      "options": [
+        {
+          "id": "A",
+          "text": "the Sun"
+        },
+        {
+          "id": "B",
+          "text": "the Moon"
+        },
+        {
+          "id": "C",
+          "text": "Mars"
+        },
+        {
+          "id": "D",
+          "text": "Saturn"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The Moon is the Earth's only natural satellite.",
+      "source": "JAMB UTME 2015 Q31"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "environmental-hazards",
+      "question": "The following are direct environmental effects of overgrazing except",
+      "options": [
+        {
+          "id": "A",
+          "text": "depletion of useful fodder crops"
+        },
+        {
+          "id": "B",
+          "text": "soil and wind erosion of pasture land"
+        },
+        {
+          "id": "C",
+          "text": "destruction of vegetation cover"
+        },
+        {
+          "id": "D",
+          "text": "abundance of lush pasture land"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Overgrazing strips vegetation cover, depletes fodder species, and exposes soil to erosion.",
+      "source": "JAMB UTME 2015 Q32"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "denudation",
+      "question": "Sharp, slender, downward-growing calcite pinnacles hanging from the roof of a limestone cave are called",
+      "options": [
+        {
+          "id": "A",
+          "text": "limestone gorges"
+        },
+        {
+          "id": "B",
+          "text": "uvalas"
+        },
+        {
+          "id": "C",
+          "text": "poljes"
+        },
+        {
+          "id": "D",
+          "text": "stalactites"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Stalactites hang downward from the ceiling of karst caves, whereas stalagmites grow upward from the floor.",
+      "source": "JAMB UTME 2015 Q33"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-africa",
+      "question": "Which of the following West African countries is landlocked?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Burkina Faso"
+        },
+        {
+          "id": "B",
+          "text": "Guinea"
+        },
+        {
+          "id": "C",
+          "text": "Nigeria"
+        },
+        {
+          "id": "D",
+          "text": "Ghana"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Burkina Faso is completely surrounded by land and has no coastline.",
+      "source": "JAMB UTME 2015 Q34"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-africa",
+      "question": "The most important cash crop cultivated in the irrigated Nile Basin is",
+      "options": [
+        {
+          "id": "A",
+          "text": "cotton"
+        },
+        {
+          "id": "B",
+          "text": "millet"
+        },
+        {
+          "id": "C",
+          "text": "sugarcane"
+        },
+        {
+          "id": "D",
+          "text": "groundnut"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Long-staple cotton is the premier cash crop produced under perennial irrigation in the Nile Valley and Delta.",
+      "source": "JAMB UTME 2015 Q35"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-structure-rocks",
+      "question": "The average density of the continental crust (sial) is approximately",
+      "options": [
+        {
+          "id": "A",
+          "text": "2.0 g/cm³"
+        },
+        {
+          "id": "B",
+          "text": "2.7 g/cm³"
+        },
+        {
+          "id": "C",
+          "text": "3.0 g/cm³"
+        },
+        {
+          "id": "D",
+          "text": "5.0 g/cm³"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Sial (silica and aluminium) forms the upper continental crust and has an average density of about 2.7 g/cm³.",
+      "source": "JAMB UTME 2015 Q36"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "latitude-longitude",
+      "question": "The angular distance of a point on the Earth's surface north or south of the Equator, measured in degrees from the centre of the Earth, is known as",
+      "options": [
+        {
+          "id": "A",
+          "text": "orbit"
+        },
+        {
+          "id": "B",
+          "text": "latitude"
+        },
+        {
+          "id": "C",
+          "text": "axis"
+        },
+        {
+          "id": "D",
+          "text": "longitude"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Latitude is the angular distance north or south of the Equator measured in degrees.",
+      "source": "JAMB UTME 2015 Q37"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-africa",
+      "question": "Hot desert conditions in West Africa are found in",
+      "options": [
+        {
+          "id": "A",
+          "text": "the southern coast"
+        },
+        {
+          "id": "B",
+          "text": "northern Mali"
+        },
+        {
+          "id": "C",
+          "text": "southern Nigeria"
+        },
+        {
+          "id": "D",
+          "text": "coastal Senegal"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Northern Mali extends deep into the Sahara Desert.",
+      "source": "JAMB UTME 2015 Q38"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "weather-climate",
+      "question": "All of these are elements of weather and climate except",
+      "options": [
+        {
+          "id": "A",
+          "text": "temperature"
+        },
+        {
+          "id": "B",
+          "text": "altitude"
+        },
+        {
+          "id": "C",
+          "text": "rainfall"
+        },
+        {
+          "id": "D",
+          "text": "sunshine"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Altitude is a factor that modifies climate, whereas temperature, rainfall, and sunshine are elements of weather and climate.",
+      "source": "JAMB UTME 2015 Q39"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "population-geography",
+      "question": "Which of the following is a major reason for high population density?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Fertile alluvial soil"
+        },
+        {
+          "id": "B",
+          "text": "High unemployment"
+        },
+        {
+          "id": "C",
+          "text": "Harsh, unfavourable climate"
+        },
+        {
+          "id": "D",
+          "text": "Prevalence of disease vectors"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Fertile soils support intensive agriculture and attract dense human settlement.",
+      "source": "JAMB UTME 2015 Q40"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "map-reading",
+      "question": "A given map with an original scale of 1 : 150,000 is enlarged 3 times its original size. What will be the new scale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 : 50,000"
+        },
+        {
+          "id": "B",
+          "text": "1 : 75,000"
+        },
+        {
+          "id": "C",
+          "text": "1 : 100,000"
+        },
+        {
+          "id": "D",
+          "text": "1 : 450,000"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Enlarging a map 3 times divides the denominator of the representative fraction by 3: 150,000 / 3 = 1 : 50,000.",
+      "source": "JAMB UTME 2015 Q41"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Which of the following is not a biotic factor in an ecosystem?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Parasite"
+        },
+        {
+          "id": "B",
+          "text": "Predator"
+        },
+        {
+          "id": "C",
+          "text": "Grazer"
+        },
+        {
+          "id": "D",
+          "text": "Atmospheric pressure"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Atmospheric pressure is a physical (abiotic) factor, while parasites, predators, and grazers are living (biotic) factors.",
+      "source": "JAMB UTME 2015 Q42"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "environmental-hazards",
+      "question": "Water pollution is caused by all the following except",
+      "options": [
+        {
+          "id": "A",
+          "text": "oil spillage"
+        },
+        {
+          "id": "B",
+          "text": "raw sewage disposal"
+        },
+        {
+          "id": "C",
+          "text": "clean rainwater harvesting"
+        },
+        {
+          "id": "D",
+          "text": "industrial effluent discharge"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Oil spills, sewage, and industrial effluents pollute water bodies, whereas rainwater harvesting collects clean precipitation.",
+      "source": "JAMB UTME 2015 Q43"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "denudation",
+      "question": "Which of the following represents the correct sequence in which denudation occurs?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Weathering -> deposition -> erosion"
+        },
+        {
+          "id": "B",
+          "text": "Weathering -> erosion -> deposition"
+        },
+        {
+          "id": "C",
+          "text": "Erosion -> weathering -> deposition"
+        },
+        {
+          "id": "D",
+          "text": "Deposition -> erosion -> weathering"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Denudation proceeds from weathering (breakdown in situ) to erosion/transportation, and finally deposition.",
+      "source": "JAMB UTME 2015 Q44"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "Because of its oblate shape, the Earth is best described as a",
+      "options": [
+        {
+          "id": "A",
+          "text": "geoid"
+        },
+        {
+          "id": "B",
+          "text": "geosphere"
+        },
+        {
+          "id": "C",
+          "text": "perfect sphere"
+        },
+        {
+          "id": "D",
+          "text": "flat circle"
+        }
+      ],
+      "answer": "A",
+      "explanation": "The Earth is flattened at the poles and bulges at the Equator, a unique Earth-shape termed a geoid.",
+      "source": "JAMB UTME 2015 Q45"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "The following are abiotic components of an ecosystem except",
+      "options": [
+        {
+          "id": "A",
+          "text": "bacteria"
+        },
+        {
+          "id": "B",
+          "text": "topography"
+        },
+        {
+          "id": "C",
+          "text": "water"
+        },
+        {
+          "id": "D",
+          "text": "wind"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Bacteria are living microorganisms (biotic decomposer component), whereas topography, water, and wind are abiotic.",
+      "source": "JAMB UTME 2015 Q46"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Which of the following human activities has a beneficial effect on soil conservation?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Overgrazing"
+        },
+        {
+          "id": "B",
+          "text": "Strip cultivation"
+        },
+        {
+          "id": "C",
+          "text": "Bush burning"
+        },
+        {
+          "id": "D",
+          "text": "Over-cropping"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Strip cultivation checks surface runoff and soil erosion, helping conserve soil fertility.",
+      "source": "JAMB UTME 2015 Q47"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "weather-climate",
+      "question": "The degree of saltiness or concentration of dissolved salts in oceans and seas is referred to as",
+      "options": [
+        {
+          "id": "A",
+          "text": "ocean deep"
+        },
+        {
+          "id": "B",
+          "text": "ocean ridge"
+        },
+        {
+          "id": "C",
+          "text": "abyssal plain"
+        },
+        {
+          "id": "D",
+          "text": "salinity of the ocean"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Salinity measures the concentration of dissolved salts in seawater, usually expressed in parts per thousand (‰).",
+      "source": "JAMB UTME 2015 Q48"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-structure-rocks",
+      "question": "Stratified rocks are also known as",
+      "options": [
+        {
+          "id": "A",
+          "text": "metamorphic rocks"
+        },
+        {
+          "id": "B",
+          "text": "plutonic rocks"
+        },
+        {
+          "id": "C",
+          "text": "igneous rocks"
+        },
+        {
+          "id": "D",
+          "text": "sedimentary rocks"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Sedimentary rocks are deposited in distinct layers (strata) separated by bedding planes, so they are called stratified rocks.",
+      "source": "JAMB UTME 2015 Q49"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Which of the following physical properties is used directly in classifying soil into sand, clay and loam?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Colour"
+        },
+        {
+          "id": "B",
+          "text": "Capillarity"
+        },
+        {
+          "id": "C",
+          "text": "Permeability"
+        },
+        {
+          "id": "D",
+          "text": "Texture"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Soil texture refers to the relative proportions of sand, silt, and clay particles in a soil.",
+      "source": "JAMB UTME 2015 Q50"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-structure-rocks",
+      "question": "The zone of the Earth where life activities take place is referred to as the",
+      "options": [
+        {
+          "id": "A",
+          "text": "biosphere"
+        },
+        {
+          "id": "B",
+          "text": "lithosphere"
+        },
+        {
+          "id": "C",
+          "text": "barysphere"
+        },
+        {
+          "id": "D",
+          "text": "asthenosphere"
+        }
+      ],
+      "answer": "A",
+      "explanation": "The biosphere encompasses all parts of the Earth's crust, waters, and atmosphere that support living organisms.",
+      "source": "JAMB UTME 2015 Q51"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-nigeria",
+      "question": "Nigeria is located in which subregion of Africa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "East Africa"
+        },
+        {
+          "id": "B",
+          "text": "North Africa"
+        },
+        {
+          "id": "C",
+          "text": "West Africa"
+        },
+        {
+          "id": "D",
+          "text": "Southern Africa"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Nigeria is one of the 16 countries located in the West African subregion.",
+      "source": "JAMB UTME 2015 Q52"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "transport-trade-geography",
+      "question": "The mode of transport that is most sensitive to poor visibility and adverse weather conditions is",
+      "options": [
+        {
+          "id": "A",
+          "text": "rail transport"
+        },
+        {
+          "id": "B",
+          "text": "pipeline transport"
+        },
+        {
+          "id": "C",
+          "text": "road transport"
+        },
+        {
+          "id": "D",
+          "text": "air transport"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Air transport is heavily affected by fog, thunderstorms, cloud cover, and crosswinds.",
+      "source": "JAMB UTME 2015 Q53"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "latitude-longitude",
+      "question": "A great circle can best be described as",
+      "options": [
+        {
+          "id": "A",
+          "text": "any circle whose plane passes through the centre of the globe, dividing it into two equal hemispheres"
+        },
+        {
+          "id": "B",
+          "text": "a single meridian of longitude"
+        },
+        {
+          "id": "C",
+          "text": "the Tropic of Cancer"
+        },
+        {
+          "id": "D",
+          "text": "the Arctic Circle"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A great circle is any circle on the Earth's surface whose plane passes through the centre of the Earth, bisecting it into two equal halves and tracing the shortest distance between two points.",
+      "source": "JAMB UTME 2015 Q54"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "landforms-processes",
+      "question": "The catastrophic Bam earthquake that killed about 30,000 people occurred in the year",
+      "options": [
+        {
+          "id": "A",
+          "text": "1755"
+        },
+        {
+          "id": "B",
+          "text": "1906"
+        },
+        {
+          "id": "C",
+          "text": "1920"
+        },
+        {
+          "id": "D",
+          "text": "2003"
+        }
+      ],
+      "answer": "D",
+      "explanation": "The devastating Bam earthquake occurred in December 2003.",
+      "source": "JAMB UTME 2015 Q55"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-nigeria",
+      "question": "The longitudinal extent of Nigeria (from approximately 3°E to 15°E) is about",
+      "options": [
+        {
+          "id": "A",
+          "text": "5°"
+        },
+        {
+          "id": "B",
+          "text": "10°"
+        },
+        {
+          "id": "C",
+          "text": "20°"
+        },
+        {
+          "id": "D",
+          "text": "12°"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Nigeria extends from about longitude 3°E to 15°E, giving a longitudinal span of 15° - 3° = 12°.",
+      "source": "JAMB UTME 2015 Q56"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-structure-rocks",
+      "question": "The liquid water portion of the Earth's surface is called the",
+      "options": [
+        {
+          "id": "A",
+          "text": "biosphere"
+        },
+        {
+          "id": "B",
+          "text": "hydrosphere"
+        },
+        {
+          "id": "C",
+          "text": "mesosphere"
+        },
+        {
+          "id": "D",
+          "text": "atmosphere"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The hydrosphere comprises all liquid and frozen surface waters (oceans, seas, lakes, rivers) on Earth.",
+      "source": "JAMB UTME 2015 Q57"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-africa",
+      "question": "In which of the following African countries is Mediterranean fruit farming least important?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Morocco"
+        },
+        {
+          "id": "B",
+          "text": "Egypt"
+        },
+        {
+          "id": "C",
+          "text": "Algeria"
+        },
+        {
+          "id": "D",
+          "text": "Uganda"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Morocco, Algeria, and northern Egypt border the Mediterranean Sea and practice Mediterranean orchard farming, whereas Uganda has an equatorial plateau climate.",
+      "source": "JAMB UTME 2015 Q58"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "transport-trade-geography",
+      "question": "The ship canal that connects the Atlantic Ocean directly to the Pacific Ocean across Central America is the",
+      "options": [
+        {
+          "id": "A",
+          "text": "Suez Canal"
+        },
+        {
+          "id": "B",
+          "text": "Panama Canal"
+        },
+        {
+          "id": "C",
+          "text": "Soo Canal"
+        },
+        {
+          "id": "D",
+          "text": "Kiel Canal"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The Panama Canal links the Atlantic and Pacific Oceans across the Isthmus of Panama.",
+      "source": "JAMB UTME 2015 Q59"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "population-geography",
+      "question": "The most urbanized geopolitical zone of Nigeria is the",
+      "options": [
+        {
+          "id": "A",
+          "text": "North-Central"
+        },
+        {
+          "id": "B",
+          "text": "North-East"
+        },
+        {
+          "id": "C",
+          "text": "South-West"
+        },
+        {
+          "id": "D",
+          "text": "South-South"
+        }
+      ],
+      "answer": "C",
+      "explanation": "South-West Nigeria (including Lagos, Ibadan, Abeokuta, Akure, Osogbo, and Ilorin corridor) has the highest concentration of large urban centres.",
+      "source": "JAMB UTME 2015 Q60"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-nigeria",
+      "question": "All these are typical characteristics of Nigerian rivers except",
+      "options": [
+        {
+          "id": "A",
+          "text": "seasonal fluctuation in volume and flooding"
+        },
+        {
+          "id": "B",
+          "text": "presence of rapids and cataracts"
+        },
+        {
+          "id": "C",
+          "text": "shallowness and siltation in the dry season"
+        },
+        {
+          "id": "D",
+          "text": "year-round uniform volume without seasonal change"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Nigerian rivers experience marked seasonal variations in volume between the wet and dry seasons.",
+      "source": "JAMB UTME 2015 Q61"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "agriculture-geography",
+      "question": "All the following are forms of smallholder farming in West Africa except",
+      "options": [
+        {
+          "id": "A",
+          "text": "rotational bush fallowing"
+        },
+        {
+          "id": "B",
+          "text": "shifting cultivation"
+        },
+        {
+          "id": "C",
+          "text": "plantation agriculture"
+        },
+        {
+          "id": "D",
+          "text": "mixed farming"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Plantation agriculture is a large-scale commercial monoculture system, not a smallholder subsistence practice.",
+      "source": "JAMB UTME 2015 Q62"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Plants specially adapted to survive in dry desert environments are called",
+      "options": [
+        {
+          "id": "A",
+          "text": "hydrophytes"
+        },
+        {
+          "id": "B",
+          "text": "mesophytes"
+        },
+        {
+          "id": "C",
+          "text": "xerophytes"
+        },
+        {
+          "id": "D",
+          "text": "epiphytes"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Xerophytes possess adaptations such as thick cuticles, sunken stomata, and deep roots to withstand prolonged drought.",
+      "source": "JAMB UTME 2015 Q63"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "climate-types",
+      "question": "Very low annual rainfall, sparse vegetation, high daytime temperatures and cold nights are characteristics of a",
+      "options": [
+        {
+          "id": "A",
+          "text": "mangrove swamp"
+        },
+        {
+          "id": "B",
+          "text": "tropical rainforest"
+        },
+        {
+          "id": "C",
+          "text": "southern Guinea savanna"
+        },
+        {
+          "id": "D",
+          "text": "hot desert"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Hot deserts receive less than 250 mm of annual rainfall, have sparse xerophytic vegetation, and experience wide diurnal temperature ranges.",
+      "source": "JAMB UTME 2015 Q64"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "denudation",
+      "question": "Which of the following is a type of rapid mass movement (mass wasting)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Barchan"
+        },
+        {
+          "id": "B",
+          "text": "Landslide"
+        },
+        {
+          "id": "C",
+          "text": "Inselberg"
+        },
+        {
+          "id": "D",
+          "text": "Plateau"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Landslides are rapid downslope movements of rock debris and soil under gravity.",
+      "source": "JAMB UTME 2015 Q65"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "mining-manufacturing",
+      "question": "The method used in extracting crude petroleum oil from underground reservoirs is",
+      "options": [
+        {
+          "id": "A",
+          "text": "open-cast mining"
+        },
+        {
+          "id": "B",
+          "text": "adit mining"
+        },
+        {
+          "id": "C",
+          "text": "panning"
+        },
+        {
+          "id": "D",
+          "text": "drilling"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Crude oil is extracted by sinking wells with a drilling rig into oil-bearing sedimentary rock strata.",
+      "source": "JAMB UTME 2015 Q66"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "weather-climate",
+      "question": "Which of the following instruments is used for measuring rainfall?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Rain gauge"
+        },
+        {
+          "id": "B",
+          "text": "Thermometer"
+        },
+        {
+          "id": "C",
+          "text": "Hygrometer"
+        },
+        {
+          "id": "D",
+          "text": "Barometer"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A rain gauge collects and measures liquid precipitation in millimetres.",
+      "source": "JAMB UTME 2015 Q67"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Natural factors that directly determine the type of climax vegetation in a habitat include all the following except",
+      "options": [
+        {
+          "id": "A",
+          "text": "nature of the soil particles"
+        },
+        {
+          "id": "B",
+          "text": "amount of rainfall"
+        },
+        {
+          "id": "C",
+          "text": "temporary bush clearing"
+        },
+        {
+          "id": "D",
+          "text": "temperature and sunlight"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Climatic and edaphic factors determine natural vegetation, whereas farming is an anthropogenic interference.",
+      "source": "JAMB UTME 2015 Q68"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "map-reading",
+      "question": "On a topographical map, water features such as rivers, streams and lakes are collectively referred to as",
+      "options": [
+        {
+          "id": "A",
+          "text": "relief"
+        },
+        {
+          "id": "B",
+          "text": "settlement"
+        },
+        {
+          "id": "C",
+          "text": "drainage"
+        },
+        {
+          "id": "D",
+          "text": "communications"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Drainage refers to the network of surface water bodies (rivers, streams, lakes, swamps) in an area.",
+      "source": "JAMB UTME 2015 Q69"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "regional-geography-africa",
+      "question": "All the following are important timber-producing countries in West Africa except",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ghana"
+        },
+        {
+          "id": "B",
+          "text": "Côte d'Ivoire"
+        },
+        {
+          "id": "C",
+          "text": "Nigeria"
+        },
+        {
+          "id": "D",
+          "text": "Mauritania"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Mauritania is predominantly desert (Sahara/Sahel) and lacks tropical rainforest timber resources.",
+      "source": "JAMB UTME 2015 Q70"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "denudation",
+      "question": "All of these are features of the lower course (old stage) of a river except",
+      "options": [
+        {
+          "id": "A",
+          "text": "floodplain"
+        },
+        {
+          "id": "B",
+          "text": "deep V-shaped valley"
+        },
+        {
+          "id": "C",
+          "text": "natural levees"
+        },
+        {
+          "id": "D",
+          "text": "ox-bow lake"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A deep V-shaped valley is a feature of the upper (youthful) course of a river where vertical corrasion dominates.",
+      "source": "JAMB UTME 2015 Q71"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "landforms-processes",
+      "question": "The point within the Earth's crust where earthquake seismic waves originate is called the",
+      "options": [
+        {
+          "id": "A",
+          "text": "focus"
+        },
+        {
+          "id": "B",
+          "text": "vent"
+        },
+        {
+          "id": "C",
+          "text": "caldera"
+        },
+        {
+          "id": "D",
+          "text": "crater"
+        }
+      ],
+      "answer": "A",
+      "explanation": "The focus (or hypocentre) is the subterranean point of origin of an earthquake, while the point directly above it on the surface is the epicentre.",
+      "source": "JAMB UTME 2015 Q72"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "denudation",
+      "question": "A natural spring is an outlet on the Earth's surface for",
+      "options": [
+        {
+          "id": "A",
+          "text": "ocean currents"
+        },
+        {
+          "id": "B",
+          "text": "surface runoff"
+        },
+        {
+          "id": "C",
+          "text": "underground water"
+        },
+        {
+          "id": "D",
+          "text": "tidal waves"
+        }
+      ],
+      "answer": "C",
+      "explanation": "A spring forms where the water table intersects the ground surface, allowing underground water to flow out naturally.",
+      "source": "JAMB UTME 2015 Q74"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "vegetation-soils",
+      "question": "Loam is the best type of soil for crop production because it",
+      "options": [
+        {
+          "id": "A",
+          "text": "has a very high percentage of clay that prevents water percolation"
+        },
+        {
+          "id": "B",
+          "text": "contains balanced proportions of sand, silt, clay and humus with good water retention and aeration"
+        },
+        {
+          "id": "C",
+          "text": "consists purely of coarse sand grains"
+        },
+        {
+          "id": "D",
+          "text": "contains no microorganisms"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Loamy soil combines adequate drainage and aeration with high humus content and nutrient retention.",
+      "source": "JAMB UTME 2015 Q75"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "Which of the following planets has no natural satellite (moon)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Venus"
+        },
+        {
+          "id": "B",
+          "text": "Uranus"
+        },
+        {
+          "id": "C",
+          "text": "Neptune"
+        },
+        {
+          "id": "D",
+          "text": "Jupiter"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Mercury and Venus are the only two planets in the solar system with no natural moons.",
+      "source": "JAMB UTME 2015 Q76"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "latitude-longitude",
+      "question": "When it is 9:00 a.m. in Munich, Germany (longitude 11°E), what is the local time at longitude 96°E?",
+      "options": [
+        {
+          "id": "A",
+          "text": "4:20 a.m."
+        },
+        {
+          "id": "B",
+          "text": "2:40 a.m."
+        },
+        {
+          "id": "C",
+          "text": "2:40 p.m."
+        },
+        {
+          "id": "D",
+          "text": "5:40 p.m."
+        }
+      ],
+      "answer": "C",
+      "explanation": "Longitude difference = 96°E - 11°E = 85°. Time difference = 85° / 15° per hour = 5 hours 40 minutes ahead. 9:00 a.m. + 5 hr 40 min = 2:40 p.m.",
+      "source": "JAMB UTME 2015 Q77"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "Which of the following statements is not true about the solar system?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Rays from the Sun provide energy to the system"
+        },
+        {
+          "id": "B",
+          "text": "All planets have the exact same period of revolution"
+        },
+        {
+          "id": "C",
+          "text": "The planets revolve around the Sun in elliptical orbits"
+        },
+        {
+          "id": "D",
+          "text": "The Sun is at the centre of the solar system"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Each planet revolves around the Sun at a different distance and has its own distinct orbital period.",
+      "source": "JAMB UTME 2015 Q78"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "earth-solar-system",
+      "question": "The spinning movement of the Earth from west to east on its axis once every 24 hours is known as",
+      "options": [
+        {
+          "id": "A",
+          "text": "precession"
+        },
+        {
+          "id": "B",
+          "text": "revolution"
+        },
+        {
+          "id": "C",
+          "text": "gravitation"
+        },
+        {
+          "id": "D",
+          "text": "rotation"
+        }
+      ],
+      "answer": "D",
+      "explanation": "The Earth's daily spin on its axis from west to east is called rotation and causes day and night.",
+      "source": "JAMB UTME 2015 Q79"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "weather-climate",
+      "question": "Which of the following instruments is used to measure wind speed?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thermometer"
+        },
+        {
+          "id": "B",
+          "text": "Barometer"
+        },
+        {
+          "id": "C",
+          "text": "Hygrometer"
+        },
+        {
+          "id": "D",
+          "text": "Anemometer"
+        }
+      ],
+      "answer": "D",
+      "explanation": "A cup anemometer measures wind speed, while a wind vane indicates wind direction.",
+      "source": "JAMB UTME 2015 Q80"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "geography",
+      "topic": "population-geography",
+      "question": "All these are examples of urban settlements except a",
+      "options": [
+        {
+          "id": "A",
+          "text": "town"
+        },
+        {
+          "id": "B",
+          "text": "village"
+        },
+        {
+          "id": "C",
+          "text": "conurbation"
+        },
+        {
+          "id": "D",
+          "text": "megalopolis"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A village is a rural settlement, whereas towns, cities, conurbations, and megalopolises are urban settlements.",
+      "source": "JAMB UTME 2015 Q81"
+    }
+  ]
+}

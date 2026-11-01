@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Crown1,
@@ -10,20 +10,26 @@ import {
   Book1,
   Flash,
   DocumentText1,
+  Timer1,
 } from 'iconsax-reactjs'
-import { ArrowLeft, Check, X, Loader2, Sparkles, Heart } from 'lucide-react'
+import { ArrowLeft, Check, Loader2 } from 'lucide-react'
 import { useRouter } from '@/lib/i18n/navigation'
 import { usePaywallStore } from '@/lib/stores/paywall-store'
+import { useAuthStore } from '@/lib/stores/auth-store'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { SUBSCRIPTION_PLANS, type SubscriptionPlanId } from '@propella/shared'
+import {
+  SUBSCRIPTION_PLANS,
+  WELCOME_DISCOUNT_WINDOW_MS,
+  type SubscriptionPlanId,
+} from '@propella/shared'
 import { startPaystackCheckout } from '@/lib/paystack'
 
 const SUMMARY_FEATURES = [
   {
     icon: Book1,
     title: 'All Topics & Syllabuses',
-    desc: 'Full access across all 12 secondary subjects without locks',
+    desc: 'Full access across all secondary subjects without locks',
   },
   {
     icon: MagicStar,
@@ -48,14 +54,14 @@ const FREE_FEATURES = [
   { text: 'Basic AI tutor explanations (3 queries/day)', included: true },
   { text: 'Standard progress tracker', included: true },
   { text: 'Full timed CBT mock exam simulations', included: false },
-  { text: '6,994 verified past questions library', included: false },
+  { text: '10,000+ verified past questions library', included: false },
   { text: 'Undergraduate Course Files & Document AI', included: false },
   { text: 'Predictive score engine & pacing metrics', included: false },
 ]
 
 const BASIC_FEATURES = [
   { text: 'Full access for 1 student account (30 days)', included: true },
-  { text: '6,994+ CBT past questions with detailed solutions', included: true },
+  { text: '10,000+ CBT past questions with detailed solutions', included: true },
   { text: 'Unlimited timed JAMB, WAEC & NECO mocks', included: true },
   { text: 'AI tutor explanations & hints on difficult concepts', included: true },
   { text: 'Performance analytics & speed statistics', included: true },
@@ -65,15 +71,14 @@ const BASIC_FEATURES = [
 const SHARED_FEATURES = [
   { text: '👥 Full Scholar access for 2 separate accounts', included: true },
   { text: 'Buy once and share with your friend or family', included: true },
-  { text: 'Save 25% (costs only ₦1,500/student)', included: true },
+  { text: 'Save extra per student on 2 accounts', included: true },
   { text: 'Independent progress, scores, and analytics for each', included: true },
-  { text: 'All 6,994+ CBT past questions & timed mock exams', included: true },
+  { text: 'All 10,000+ CBT past questions & timed mock exams', included: true },
   { text: 'Unlimited AI tutor explanations on every device', included: true },
 ]
 
 const TILL_EXAM_FEATURES = [
   { text: '⭐ Complete access right up until your exam day', included: true },
-  { text: 'One-time payment — zero recurring renewal worries', included: true },
   { text: 'All 3 major exam tracks (JAMB, WAEC & NECO)', included: true },
   { text: 'Undergraduate Course Files (100L–500L) included', included: true },
   { text: 'Priority AI tutor responses & exam prediction engine', included: true },
@@ -81,13 +86,37 @@ const TILL_EXAM_FEATURES = [
 ]
 
 export function PaywallModal() {
-  const { isOpen, feature, message, closePaywall } = usePaywallStore()
+  const { isOpen, message, closePaywall } = usePaywallStore()
+  const user = useAuthStore((s) => s.user)
   const router = useRouter()
   const [view, setView] = useState<'unlock' | 'compare'>('unlock')
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionPlanId>('scholar_basic')
   const [checkoutLoading, setCheckoutLoading] = useState<SubscriptionPlanId | boolean>(false)
 
+  // Determine if user is within the 3-day (72-hour) 50% welcome discount window
+  const discountInfo = useMemo(() => {
+    if (user?.entitlements?.discountEligible !== undefined) {
+      const expiresAtMs = user.entitlements.discountExpiresAt
+        ? new Date(user.entitlements.discountExpiresAt).getTime()
+        : 0
+      const hoursLeft = Math.max(0, Math.ceil((expiresAtMs - Date.now()) / (1000 * 60 * 60)))
+      return {
+        eligible: user.entitlements.discountEligible,
+        hoursLeft,
+      }
+    }
+    if (user?.createdAt) {
+      const expiresAtMs = new Date(user.createdAt).getTime() + WELCOME_DISCOUNT_WINDOW_MS
+      const eligible = user.plan === 'free' && Date.now() < expiresAtMs
+      const hoursLeft = Math.max(0, Math.ceil((expiresAtMs - Date.now()) / (1000 * 60 * 60)))
+      return { eligible, hoursLeft }
+    }
+    return { eligible: true, hoursLeft: 72 }
+  }, [user])
+
   if (!isOpen) return null
+
+  const isDiscount = discountInfo.eligible
 
   async function handleCheckout(planToCheckout?: SubscriptionPlanId) {
     const plan = planToCheckout || selectedPlan
@@ -115,6 +144,9 @@ export function PaywallModal() {
     setView('unlock')
     closePaywall()
   }
+
+  const activePlanObj = SUBSCRIPTION_PLANS[selectedPlan]
+  const displayPrice = isDiscount ? activePlanObj.discountPrice : activePlanObj.price
 
   return (
     <AnimatePresence>
@@ -155,24 +187,30 @@ export function PaywallModal() {
           {view === 'unlock' && (
             <div>
               {/* Header pill & badge */}
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex flex-wrap items-center gap-2 mb-3">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 shadow-sm">
                   <Crown1 size={14} variant="Bold" />
                   Propella Scholar Access
                 </span>
+                {isDiscount && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    <Timer1 size={13} variant="Bold" />
+                    50% Welcome Discount · {discountInfo.hoursLeft}h left
+                  </span>
+                )}
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-ink)] tracking-tight">
-                Unlock Full Access
+                {isDiscount ? 'Start Scholar for Just ₦999 (50% Off)' : 'Unlock Full Access'}
               </h2>
 
               <p className="mt-2 text-sm sm:text-base text-[var(--color-ink-2)] leading-relaxed">
                 {message ||
-                  'You have reached your Free Trial limit. Upgrade to Scholar to continue studying with unlimited access to all topics, AI step-by-step tutoring, and mock examinations.'}
+                  'Upgrade to Scholar to continue studying with unlimited access to all topics, AI step-by-step tutoring, and mock examinations.'}
               </p>
 
               {/* Features grid */}
-              <div className="my-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="my-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {SUMMARY_FEATURES.map((f, i) => {
                   const Icon = f.icon
                   return (
@@ -195,31 +233,34 @@ export function PaywallModal() {
               </div>
 
               {/* Plan selection selector */}
-              <div className="mb-6">
+              <div className="mb-5">
                 <label className="block text-xs font-bold text-[var(--color-ink-3)] uppercase tracking-wider mb-2">
-                  Select Your Plan
+                  Select Your Plan {isDiscount ? '(50% Off First Month — Auto-Renews at Standard Rate)' : ''}
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     {
                       id: 'scholar_basic' as SubscriptionPlanId,
                       name: 'Monthly',
-                      price: '₦1,999',
-                      duration: '30 days',
-                      badge: null,
+                      price: isDiscount ? '₦999' : '₦1,999',
+                      originalPrice: isDiscount ? '₦1,999' : null,
+                      duration: isDiscount ? 'Then ₦1,999/mo' : '30 days',
+                      badge: isDiscount ? '50% OFF' : null,
                     },
                     {
                       id: 'scholar_shared' as SubscriptionPlanId,
                       name: 'Shared (2)',
-                      price: '₦2,999',
-                      duration: '₦1,500 each',
+                      price: isDiscount ? '₦1,499' : '₦2,999',
+                      originalPrice: isDiscount ? '₦2,999' : null,
+                      duration: isDiscount ? 'Then ₦2,999/mo' : '₦1,500 each',
                       badge: 'POPULAR',
                     },
                     {
                       id: 'scholar_full' as SubscriptionPlanId,
                       name: 'Till Exam',
-                      price: '₦9,999',
-                      duration: 'Full year',
+                      price: isDiscount ? '₦4,999' : '₦9,999',
+                      originalPrice: isDiscount ? '₦9,999' : null,
+                      duration: isDiscount ? '50% Welcome Off' : 'Full season',
                       badge: 'BEST VALUE',
                     },
                   ].map((p) => {
@@ -241,8 +282,15 @@ export function PaywallModal() {
                           </span>
                         )}
                         <div className="text-xs font-semibold text-[var(--color-ink)] mt-0.5">{p.name}</div>
-                        <div className="text-base font-extrabold text-[var(--color-ink)] mt-1 tracking-tight">
-                          {p.price}
+                        <div className="flex items-baseline gap-1 mt-1">
+                          <span className="text-base font-extrabold text-[var(--color-ink)] tracking-tight">
+                            {p.price}
+                          </span>
+                          {p.originalPrice && (
+                            <span className="text-[10px] text-[var(--color-ink-3)] line-through">
+                              {p.originalPrice}
+                            </span>
+                          )}
                         </div>
                         <div className="text-[10px] text-[var(--color-ink-3)] mt-0.5">
                           {p.duration}
@@ -268,7 +316,7 @@ export function PaywallModal() {
                   <Crown1 size={18} variant="Bold" />
                   {checkoutLoading
                     ? 'Opening Checkout...'
-                    : `Subscribe for ${SUBSCRIPTION_PLANS[selectedPlan]?.price ? `₦${SUBSCRIPTION_PLANS[selectedPlan].price.toLocaleString()}` : ''}`}
+                    : `Subscribe for ₦${displayPrice.toLocaleString()}${isDiscount ? ' (50% Off)' : ''}`}
                 </Button>
 
                 <button
@@ -282,7 +330,7 @@ export function PaywallModal() {
 
               <div className="mt-4 pt-3 border-t border-[var(--color-rule)] text-center">
                 <p className="text-[11px] text-[var(--color-ink-3)]">
-                  🔒 Instant Activation · Secure Checkout via Paystack · 100% Satisfaction
+                  🔒 Card Checkout via Paystack · Auto-renews next month at standard price (₦{activePlanObj.price.toLocaleString()}) · Cancel anytime
                 </p>
               </div>
             </div>
@@ -303,7 +351,7 @@ export function PaywallModal() {
                 </button>
 
                 <Badge variant="accent" className="text-[11px] font-mono">
-                  All Subscription Plans
+                  {isDiscount ? '50% Welcome Discount Active (3-Day Window)' : 'All Subscription Plans'}
                 </Badge>
               </div>
 
@@ -312,7 +360,9 @@ export function PaywallModal() {
                   Compare Propella Plans
                 </h2>
                 <p className="text-xs sm:text-sm text-[var(--color-ink-2)] mt-1">
-                  Full feature breakdown across all plans. Select any plan below to proceed directly to Paystack checkout.
+                  {isDiscount
+                    ? 'New student 3-day offer: Get 50% off your first billing cycle across all plans (auto-renews next month at standard price).'
+                    : 'Full feature breakdown across all plans. Select any plan below to proceed directly to Paystack checkout.'}
                 </p>
               </div>
 
@@ -326,7 +376,7 @@ export function PaywallModal() {
                     </p>
                     <div className="flex items-baseline gap-1 mb-1">
                       <span className="text-2xl font-extrabold text-[var(--color-ink)]">₦0</span>
-                      <span className="text-xs text-[var(--color-ink-3)]">/ forever</span>
+                      <span className="text-xs text-[var(--color-ink-3)]">/ sample</span>
                     </div>
                     <p className="text-[11px] text-[var(--color-ink-3)] mb-4">
                       Explore official syllabus topics &amp; baseline testing.
@@ -362,12 +412,19 @@ export function PaywallModal() {
                     <p className="text-[11px] font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-1">
                       Basic Plan
                     </p>
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-2xl font-extrabold text-[var(--color-ink)]">₦1,999</span>
-                      <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
+                    <div className="flex items-baseline gap-1.5 mb-1">
+                      <span className="text-2xl font-extrabold text-[var(--color-ink)]">
+                        {isDiscount ? '₦999' : '₦1,999'}
+                      </span>
+                      {isDiscount && (
+                        <span className="text-xs text-[var(--color-ink-3)] line-through">₦1,999</span>
+                      )}
+                      <span className="text-xs text-[var(--color-ink-3)]">/ month</span>
                     </div>
                     <p className="text-[11px] text-[var(--color-ink-3)] mb-4">
-                      Full Scholar access for 1 student for a 30-day sprint.
+                      {isDiscount
+                        ? '50% off first month, auto-renews at ₦1,999/mo.'
+                        : 'Full Scholar access for 1 student for a 30-day sprint.'}
                     </p>
 
                     <div className="h-px bg-[var(--color-rule)] mb-4" />
@@ -395,7 +452,7 @@ export function PaywallModal() {
                           Connecting…
                         </>
                       ) : (
-                        'Choose Basic (₦1,999)'
+                        `Choose Basic (${isDiscount ? '₦999' : '₦1,999'})`
                       )}
                     </Button>
                   </div>
@@ -411,12 +468,19 @@ export function PaywallModal() {
                     <p className="text-[11px] font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-1">
                       Shared Plan
                     </p>
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-2xl font-extrabold text-[var(--color-ink)]">₦2,999</span>
-                      <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
+                    <div className="flex items-baseline gap-1.5 mb-1">
+                      <span className="text-2xl font-extrabold text-[var(--color-ink)]">
+                        {isDiscount ? '₦1,499' : '₦2,999'}
+                      </span>
+                      {isDiscount && (
+                        <span className="text-xs text-[var(--color-ink-3)] line-through">₦2,999</span>
+                      )}
+                      <span className="text-xs text-[var(--color-ink-3)]">/ month</span>
                     </div>
                     <p className="text-[11px] text-[var(--color-ink-3)] mb-4">
-                      Share with friend/family. 2 accounts get full Scholar access! (₦1,500 each)
+                      {isDiscount
+                        ? '50% off first month for 2 accounts! Auto-renews at ₦2,999/mo.'
+                        : 'Share with friend/family. 2 accounts get full Scholar access!'}
                     </p>
 
                     <div className="h-px bg-[var(--color-rule)] mb-4" />
@@ -444,7 +508,7 @@ export function PaywallModal() {
                           Connecting…
                         </>
                       ) : (
-                        'Get Shared (₦2,999)'
+                        `Get Shared (${isDiscount ? '₦1,499' : '₦2,999'})`
                       )}
                     </Button>
                   </div>
@@ -460,12 +524,19 @@ export function PaywallModal() {
                     <p className="text-[11px] font-mono font-bold tracking-wider uppercase text-amber-600 dark:text-amber-400 mb-1">
                       Pay Once Till Exam
                     </p>
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-2xl font-extrabold text-[var(--color-ink)]">₦9,999</span>
-                      <span className="text-xs text-[var(--color-ink-3)]">/ one-time</span>
+                    <div className="flex items-baseline gap-1.5 mb-1">
+                      <span className="text-2xl font-extrabold text-[var(--color-ink)]">
+                        {isDiscount ? '₦4,999' : '₦9,999'}
+                      </span>
+                      {isDiscount && (
+                        <span className="text-xs text-[var(--color-ink-3)] line-through">₦9,999</span>
+                      )}
+                      <span className="text-xs text-[var(--color-ink-3)]">/ pass</span>
                     </div>
                     <p className="text-[11px] text-[var(--color-ink-3)] mb-4">
-                      Complete access right up until your exam day — zero recurring renewals.
+                      {isDiscount
+                        ? '50% welcome discount! Auto-renews at standard rate after term.'
+                        : 'Complete access right up until your exam day.'}
                     </p>
 
                     <div className="h-px bg-[var(--color-rule)] mb-4" />
@@ -492,7 +563,7 @@ export function PaywallModal() {
                           Connecting…
                         </>
                       ) : (
-                        'Get Till Exam (₦9,999)'
+                        `Get Till Exam (${isDiscount ? '₦4,999' : '₦9,999'})`
                       )}
                     </Button>
                   </div>
@@ -502,7 +573,7 @@ export function PaywallModal() {
               {/* Footer info & toggle back */}
               <div className="pt-3 border-t border-[var(--color-rule)] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
                 <p className="text-[11px] text-[var(--color-ink-3)]">
-                  🔒 Instant Activation · Secure Paystack Checkout · All 3 Major Exam Tracks Included
+                  🔒 Instant Activation · Secure Card Checkout via Paystack · Auto-renews at standard price
                 </p>
                 <button
                   type="button"

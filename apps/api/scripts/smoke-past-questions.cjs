@@ -79,8 +79,8 @@ const db = new Client({
 async function seedUser(email, role) {
   const id = crypto.randomUUID()
   await db.query(
-    `INSERT INTO users (id, email, "passwordHash", name, role, "emailVerifiedAt", "updatedAt")
-     VALUES ($1, $2, $3, $4, $5::"UserRole", now(), now())`,
+    `INSERT INTO users (id, email, "passwordHash", name, role, plan, "planExpiresAt", "emailVerifiedAt", "updatedAt")
+     VALUES ($1, $2, $3, $4, $5::"UserRole", 'scholar', now() + interval '30 days', now(), now())`,
     [id, email, bcrypt.hashSync(PASSWORD, 10), 'Bank smoke', role],
   )
   const login = await call('POST', '/api/auth/login', { email, password: PASSWORD })

@@ -144,7 +144,7 @@ export default function PlannerScreen() {
 
         {/* Task list */}
         <View style={styles.tasksList}>
-          {activeDay.tasks.map((task) => (
+          {activeDay.tasks.map((task: any) => (
             <TouchableOpacity
               key={task.id}
               style={[
@@ -152,7 +152,19 @@ export default function PlannerScreen() {
                 task.done && styles.taskCardDone,
               ]}
               activeOpacity={0.8}
-              onPress={() => toggleTaskDone(task.id)}
+              onPress={() =>
+                router.push({
+                  pathname: '/topic-detail',
+                  params: {
+                    subjectSlug:
+                      task.subjectSlug ||
+                      task.subject?.toLowerCase().replace(/\s+/g, '-') ||
+                      'mathematics',
+                    topicSlug: task.topicSlug || '',
+                    title: task.title,
+                  },
+                })
+              }
             >
               <TouchableOpacity
                 style={[
@@ -182,6 +194,8 @@ export default function PlannerScreen() {
                   {task.title}
                 </Text>
               </View>
+
+              <Ionicons name="chevron-forward" size={16} color={Palette.ink3} />
             </TouchableOpacity>
           ))}
         </View>

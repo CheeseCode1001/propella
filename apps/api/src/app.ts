@@ -17,7 +17,6 @@ import gamificationRouter from './features/gamification/gamification.routes'
 import usersRouter from './features/users/users.routes'
 import progressRouter from './features/progress/progress.routes'
 import quizzesRouter from './features/quizzes/quizzes.routes'
-import marathonRouter from './features/marathon/marathon.routes'
 import assistantRouter from './features/assistant/assistant.routes'
 import mocksRouter from './features/mocks/mocks.routes'
 import leaderboardRouter from './features/leaderboard/leaderboard.routes'
@@ -62,14 +61,6 @@ app.use(
     res.status(404).end()
   },
 )
-// app.use(
-//   cors({
-//     origin: env.FRONTEND_URL,
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//   }),
-// )
 
 /**
  * Origins allowed to call the API with credentials.
@@ -133,9 +124,6 @@ app.use(
 app.use(express.urlencoded({ extended: false, limit: '25mb' }))
 app.use(cookieParser())
 
-// NoSQL-injection sanitisation is gone with MongoDB — Prisma parameterises
-// every query, so string operators cannot be smuggled in through request bodies.
-
 // Health check (before auth)
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok', timestamp: Date.now() })
@@ -153,7 +141,6 @@ app.use('/api/users', authenticate, usersRouter)
 app.use('/api/progress', authenticate, progressRouter)
 
 app.use('/api/quizzes', authenticate, quizzesRouter)
-app.use('/api/marathon', authenticate, marathonRouter)
 app.use('/api/assistant', authenticate, assistantRouter)
 app.use('/api/mocks', authenticate, mocksRouter)
 app.use('/api/leaderboard', authenticate, leaderboardRouter)

@@ -15,12 +15,11 @@ export async function startSession(
 ): Promise<void> {
   try {
     const userId = requireUser(req)
-    const { subjectSlug, topicSlug, isMarathon } = req.body
+    const { subjectSlug, topicSlug } = req.body
 
     const session = await sessionsService.startSession(
       userId,
       { subjectSlug, topicSlug },
-      isMarathon ?? false,
     )
 
     res.status(201).json({
@@ -105,7 +104,6 @@ export async function getSessions(
           durationSec: s.durationSec,
           status: s.status,
           xpAwarded: s.xpAwarded,
-          isMarathon: s.isMarathon,
         })),
         total: result.total,
         page: result.page,

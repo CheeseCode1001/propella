@@ -11,7 +11,6 @@ import {
   Sparkles,
   Clock,
   Target,
-  Flame,
   Trophy,
 } from 'lucide-react'
 import { Providers } from './providers'
@@ -25,7 +24,6 @@ interface Metrics {
   activity: {
     studySessions: number
     quizAttempts: number
-    marathonRuns: number
     xpAwarded: number
   }
   pastQuestionsByExam: Array<{ exam: string; count: number }>
@@ -236,14 +234,6 @@ function Overview() {
           value={data.activity.quizAttempts}
           icon={Target}
           hint="Completed topic drills"
-        />
-        <Stat
-          label="Marathon Runs"
-          value={data.activity.marathonRuns}
-          icon={Flame}
-          badge="Pomodoro"
-          badgeType="warning"
-          hint="Endurance study streaks"
         />
         <Stat
           label="XP Awarded"

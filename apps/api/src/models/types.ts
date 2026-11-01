@@ -117,17 +117,9 @@ export type ByTopicResult = {
   masteryDelta: number
 }
 
-// ── MarathonRun.topicsCovered / MarathonRun.pauses ───────────────────
-
 export type TopicCovered = {
   subjectSlug: string
   topicSlug: string
-  durationSec: number
-}
-
-export type MarathonPause = {
-  /** ISO-8601 */
-  at: string
   durationSec: number
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useRouter } from '@/lib/i18n/navigation'
 import {
   startOfWeek,
@@ -18,9 +18,9 @@ import {
   RefreshCw,
   Plus,
   Bell,
-  Calendar as CalendarIcon,
   CheckCircle2,
-  AlertCircle,
+  ArrowRight,
+  Sparkles,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useQueryClient } from '@tanstack/react-query'
@@ -64,7 +64,6 @@ export default function PlannerPage() {
   )
   const [viewMode, setViewMode] = useState<'week' | 'day'>('week')
   const [selectedDayIndex, setSelectedDayIndex] = useState(0)
-  const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null)
 
   // Readjustment state
   const [isReadjusting, setIsReadjusting] = useState(false)
@@ -97,6 +96,33 @@ export default function PlannerPage() {
     })
   }
 
+  // Next unlocked / ready topics across the roadmap so students can continue
+  // studying even after completing their daily schedule!
+  const continuationNodes = useMemo(() => {
+    if (!roadmap?.nodes) return []
+    const today = new Date()
+    const todayNodes = roadmap.nodes.filter((n) => {
+      try {
+        return isSameDay(parseISO(n.plannedStartDate), today)
+      } catch {
+        return false
+      }
+    })
+    const todayActive = todayNodes.filter(
+      (n) => n.status === 'ready' || n.status === 'in-progress' || n.status === 'needs-revision',
+    )
+    if (todayActive.length > 0) return []
+
+    // Today's scheduled items are all completed (or none scheduled today) — surface next ready/in-progress nodes
+    return roadmap.nodes
+      .filter(
+        (n) =>
+          (n.status === 'ready' || n.status === 'in-progress' || n.status === 'needs-revision') &&
+          !todayNodes.some((tn) => tn.subjectSlug === n.subjectSlug && tn.topicSlug === n.topicSlug),
+      )
+      .slice(0, 4)
+  }, [roadmap])
+
   // Get user-created custom tasks for this day (for undergrads / custom planner)
   function getTasksForDay(day: Date): PlannerTask[] {
     return plannerTasks.filter((task) => {
@@ -108,6 +134,10 @@ export default function PlannerPage() {
         return false
       }
     })
+  }
+
+  function handleOpenNode(node: RoadmapNode) {
+    router.push(`/topics/${node.subjectSlug}/${node.topicSlug}`)
   }
 
   function handlePrevWeek() {
@@ -276,6 +306,41 @@ export default function PlannerPage() {
         </div>
       )}
 
+      {/* Continue Ahead Banner when daily schedule is completed */}
+      {!isUndergrad && continuationNodes.length > 0 && (
+        <div className="mb-5 rounded-xl border border-[var(--color-accent)]/30 bg-[var(--color-accent-tint)] p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <Sparkles size={18} className="text-[var(--color-accent)] shrink-0" />
+              <div>
+                <p className="text-sm font-semibold text-[var(--color-ink)]">
+                  Daily schedule covered — keep going ahead!
+                </p>
+                <p className="text-xs text-[var(--color-ink-2)]">
+                  Click any unlocked topic below to continue studying ahead on your roadmap.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {continuationNodes.slice(0, 3).map((node) => (
+                <button
+                  key={`cont-${node.subjectSlug}-${node.topicSlug}`}
+                  onClick={() => handleOpenNode(node)}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--color-rule)] bg-[var(--color-card)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:border-[var(--color-accent)] transition-colors cursor-pointer"
+                >
+                  <span
+                    className="h-2 w-2 rounded-full"
+                    style={{ backgroundColor: getSubjectColor(node.subjectSlug) }}
+                  />
+                  <span>{node.topicName ?? node.topicSlug}</span>
+                  <ArrowRight size={12} className="text-[var(--color-accent)]" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Day navigation for day view (mobile-style) */}
       {viewMode === 'day' && (
         <div
@@ -353,6 +418,8 @@ export default function PlannerPage() {
               const customTasks = getTasksForDay(day)
               const dayLabel = DAY_NAMES[viewMode === 'day' ? selectedDayIndex : idx] ?? ''
               const isToday = isSameDay(day, new Date())
+              const showContinuationInToday =
+                isToday && !isUndergrad && continuationNodes.length > 0
 
               return (
                 <div key={day.toISOString()}>
@@ -390,7 +457,9 @@ export default function PlannerPage() {
 
                   {/* Session blocks */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    {nodes.length === 0 && customTasks.length === 0 ? (
+                    {nodes.length === 0 &&
+                    customTasks.length === 0 &&
+                    !showContinuationInToday ? (
                       <p
                         style={{
                           fontFamily: 'var(--font-sans)',
@@ -404,12 +473,12 @@ export default function PlannerPage() {
                       </p>
                     ) : (
                       <>
-                        {/* Secondary Syllabus Roadmap nodes */}
+                        {/* Secondary Syllabus Roadmap nodes — clicking opens topic directly */}
                         {!isUndergrad &&
                           nodes.map((node) => (
                             <button
                               key={`${node.subjectSlug}-${node.topicSlug}`}
-                              onClick={() => setSelectedNode(node)}
+                              onClick={() => handleOpenNode(node)}
                               style={{
                                 display: 'block',
                                 width: '100%',
@@ -446,57 +515,117 @@ export default function PlannerPage() {
                               </div>
                               <div
                                 style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
                                   fontFamily: 'var(--font-mono)',
                                   fontSize: 10,
                                   color: 'var(--color-ink-3)',
                                   marginTop: 2,
                                 }}
                               >
-                                {t('duration', { minutes: node.estimatedMinutes ?? 30 })}
+                                <span>{t('duration', { minutes: node.estimatedMinutes ?? 30 })}</span>
+                                {node.status === 'completed' && (
+                                  <span style={{ color: 'var(--color-success)' }}>✓ Done</span>
+                                )}
+                              </div>
+                            </button>
+                          ))}
+
+                        {/* Continuation topics in Today's column when daily schedule is done */}
+                        {showContinuationInToday &&
+                          continuationNodes.map((node) => (
+                            <button
+                              key={`today-cont-${node.subjectSlug}-${node.topicSlug}`}
+                              onClick={() => handleOpenNode(node)}
+                              style={{
+                                display: 'block',
+                                width: '100%',
+                                textAlign: 'left',
+                                backgroundColor: 'var(--color-card)',
+                                border: '1px dashed var(--color-accent)',
+                                borderLeft: `4px solid ${getSubjectColor(node.subjectSlug)}`,
+                                borderRadius: 'var(--radius-sm)',
+                                padding: '6px 8px',
+                                cursor: 'pointer',
+                                transition: 'background-color 0.1s',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontFamily: 'var(--font-sans)',
+                                  fontSize: 12,
+                                  fontWeight: 500,
+                                  color: 'var(--color-ink)',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                }}
+                              >
+                                {node.topicName ?? node.topicSlug}
+                              </div>
+                              <div
+                                style={{
+                                  fontFamily: 'var(--font-mono)',
+                                  fontSize: 10,
+                                  color: 'var(--color-accent)',
+                                  marginTop: 2,
+                                }}
+                              >
+                                Next up · {t('duration', { minutes: node.estimatedMinutes ?? 30 })}
                               </div>
                             </button>
                           ))}
 
                         {/* Custom Tasks / University Study Blocks */}
-                        {customTasks.map((task) => (
-                          <div
-                            key={task.id}
-                            style={{
-                              backgroundColor: 'var(--color-card)',
-                              border: '1px solid var(--color-rule)',
-                              borderLeft: '4px solid var(--color-accent)',
-                              borderRadius: 'var(--radius-sm)',
-                              padding: '6px 8px',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontFamily: 'var(--font-sans)',
-                                fontSize: 12,
-                                fontWeight: 500,
-                                color: 'var(--color-ink)',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              {task.title}
-                            </p>
+                        {customTasks.map((task) => {
+                          const hasTopicLink = Boolean(task.subjectSlug && task.topicSlug)
+                          return (
                             <div
+                              key={task.id}
+                              onClick={
+                                hasTopicLink
+                                  ? () => router.push(`/topics/${task.subjectSlug}/${task.topicSlug}`)
+                                  : undefined
+                              }
                               style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 4,
-                                marginTop: 2,
-                                fontSize: 10,
-                                color: 'var(--color-ink-3)',
+                                backgroundColor: 'var(--color-card)',
+                                border: '1px solid var(--color-rule)',
+                                borderLeft: '4px solid var(--color-accent)',
+                                borderRadius: 'var(--radius-sm)',
+                                padding: '6px 8px',
+                                cursor: hasTopicLink ? 'pointer' : 'default',
                               }}
                             >
-                              <Bell size={10} className="text-[var(--color-accent)]" />
-                              <span>Reminder active</span>
+                              <p
+                                style={{
+                                  fontFamily: 'var(--font-sans)',
+                                  fontSize: 12,
+                                  fontWeight: 500,
+                                  color: 'var(--color-ink)',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                }}
+                              >
+                                {task.title}
+                              </p>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: 4,
+                                  marginTop: 2,
+                                  fontSize: 10,
+                                  color: 'var(--color-ink-3)',
+                                }}
+                              >
+                                <Bell size={10} className="text-[var(--color-accent)]" />
+                                <span>{hasTopicLink ? 'Open topic →' : 'Reminder active'}</span>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          )
+                        })}
                       </>
                     )}
                   </div>
@@ -517,7 +646,7 @@ export default function PlannerPage() {
             {isUndergrad ? 'University Study Tasks & Deadlines' : 'Your tasks'}
           </h2>
           <p className="text-[13px] text-[var(--color-ink-3)]">
-            Drag a card between columns as you work through it.
+            Click a topic card to open it directly, or drag between columns as you work through it.
           </p>
         </div>
         <KanbanBoard />
@@ -596,78 +725,6 @@ export default function PlannerPage() {
           </div>
         </form>
       </Modal>
-
-      {/* Session detail panel (Secondary syllabus) */}
-      {selectedNode && (
-        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4">
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
-            onClick={() => setSelectedNode(null)}
-          />
-          <div className="relative w-full max-w-[480px] rounded-t-3xl sm:rounded-2xl bg-[var(--color-paper)] p-6 shadow-2xl border border-[var(--color-rule)] transition-all">
-            <div
-              style={{
-                borderLeft: `4px solid ${getSubjectColor(selectedNode.subjectSlug)}`,
-                paddingLeft: 12,
-                marginBottom: 16,
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 11,
-                  color: 'var(--color-ink-3)',
-                  marginBottom: 4,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                }}
-              >
-                {selectedNode.subjectName ?? selectedNode.subjectSlug}
-              </p>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 20,
-                  fontWeight: 500,
-                  color: 'var(--color-ink)',
-                  margin: 0,
-                }}
-              >
-                {selectedNode.topicName ?? selectedNode.topicSlug}
-              </h3>
-            </div>
-
-            <p
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 13,
-                color: 'var(--color-ink-3)',
-                marginBottom: 20,
-              }}
-            >
-              {t('duration', { minutes: selectedNode.estimatedMinutes ?? 30 })}
-              {' · '}
-              Mastery {selectedNode.mastery}%
-            </p>
-
-            <div style={{ display: 'flex', gap: 8 }}>
-              <Button
-                variant="accent"
-                onClick={() => {
-                  router.push(
-                    `/study/new?subject=${selectedNode.subjectSlug}&topic=${selectedNode.topicSlug}`,
-                  )
-                }}
-              >
-                Start session
-              </Button>
-              <Button variant="secondary" onClick={() => setSelectedNode(null)}>
-                Skip
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

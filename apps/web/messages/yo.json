@@ -26,7 +26,6 @@
     "planner": "Ètò",
     "quizzes": "Àdánwò",
     "mocks": "Ìdánwò Àkópọ̀",
-    "marathon": "Marathon",
     "assistant": "Olùrànlọ́wọ́ AI",
     "progress": "Ìlọsíwájú",
     "leaderboard": "Ìgbésẹ̀",
@@ -158,23 +157,6 @@
     "viewResults": "Wo àbájáde",
     "noMocks": "Kò sí ìdánwò àkópọ̀.",
     "generateFirst": "Ṣẹda ìdánwò àkópọ̀ àkọ́kọ́ rẹ."
-  },
-  "marathon": {
-    "title": "Marathon",
-    "subtitle": "Kíkàwé gígùn",
-    "start": "Bẹ̀rẹ̀ marathon",
-    "pause": "Dúró",
-    "resume": "Tẹsiwaju",
-    "end": "Parí marathon",
-    "pomodoro": "Pomodoro",
-    "pomodorosCompleted": "{count} pomodoros parí",
-    "timeRemaining": "Àkókò tó ku",
-    "xpMultiplier": "2× XP",
-    "topicsCovered": "Àwọn àkọlé tí a gbé",
-    "totalTime": "Àkókò àpapọ̀",
-    "xpEarned": "+{xp} XP",
-    "great": "Àkókò dára.",
-    "noActiveMarathon": "Kò sí marathon tí ó ṣiṣẹ́."
   },
   "assistant": {
     "title": "Olùrànlọ́wọ́ AI",

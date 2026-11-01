@@ -6,11 +6,10 @@ import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api-client'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { DocumentText } from 'iconsax-reactjs'
+import { DocumentText, Play, PauseCircle } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Badge } from '@/components/ui/badge'
-import { useAuthStore } from '@/lib/stores/auth-store'
 import { useSubjects } from '@/lib/hooks/use-subjects'
 
 interface MockHistoryItem {
@@ -18,6 +17,8 @@ interface MockHistoryItem {
   attemptId: string | null
   score: number | null
   questionCount: number
+  answeredCount?: number
+  durationSec?: number
   timeLimit: number
   createdAt: string
   completedAt: string | null
@@ -38,6 +39,9 @@ const FALLBACK_SUBJECTS = [
   { slug: 'government', name: 'Government' },
   { slug: 'economics', name: 'Economics' },
   { slug: 'literature', name: 'Literature' },
+  { slug: 'crk', name: 'Christian Religious Studies' },
+  { slug: 'irk', name: 'Islamic Religious Studies' },
+  { slug: 'history', name: 'History' },
 ]
 
 function formatDuration(seconds: number): string {
@@ -68,8 +72,6 @@ export default function MocksPage() {
 
   const examType = examProfile?.examType ?? 'jamb'
 
-  // Every subject the platform teaches for this exam, so a newly added one
-  // (e.g. Principles of Accounts) can be sat as a mock without a code change.
   const { data: allSubjects } = useSubjects()
   const subjectOptions = allSubjects
     ? allSubjects
@@ -132,7 +134,7 @@ export default function MocksPage() {
             {t('title')}
           </h1>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--color-ink-2)' }}>
-            Full-length practice papers from the real syllabus.
+            Full-length practice papers from the real syllabus. Pause anytime and resume right where you left off.
           </p>
         </div>
         <Button variant="accent" onClick={() => setShowModal(true)}>
@@ -274,78 +276,100 @@ export default function MocksPage() {
         />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {history.map((mock) => (
-            <div
-              key={mock.mockId}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
-                padding: '16px 20px',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--color-rule)',
-                backgroundColor: 'var(--color-card)',
-              }}
-            >
-              <div style={{ flex: 1 }}>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: 15,
-                    fontWeight: 500,
-                    color: 'var(--color-ink)',
-                    marginBottom: 4,
-                  }}
-                >
-                  {t('questions', { count: mock.questionCount })} · {formatDuration(mock.timeLimit)} allowed
-                </p>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 11,
-                    color: 'var(--color-ink-3)',
-                  }}
-                >
-                  {new Date(mock.createdAt).toLocaleDateString()}
-                  {mock.completedAt ? ` · Completed ${new Date(mock.completedAt).toLocaleDateString()}` : ''}
-                </p>
+          {history.map((mock) => {
+            const isPaused = mock.score === null && Boolean(mock.attemptId)
+            const remainingSec = Math.max(0, mock.timeLimit - (mock.durationSec ?? 0))
+            return (
+              <div
+                key={mock.mockId}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                  padding: '16px 20px',
+                  borderRadius: 'var(--radius-md)',
+                  border: isPaused
+                    ? '1.5px solid var(--color-accent)'
+                    : '1px solid var(--color-rule)',
+                  backgroundColor: 'var(--color-card)',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <div style={{ flex: 1, minWidth: 200 }}>
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: 15,
+                        fontWeight: 600,
+                        color: 'var(--color-ink)',
+                        margin: 0,
+                      }}
+                    >
+                      {t('questions', { count: mock.questionCount })} · {formatDuration(mock.timeLimit)} allowed
+                    </p>
+                    {isPaused && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400">
+                        <PauseCircle size={13} variant="Bold" />
+                        Paused · {mock.answeredCount ?? 0}/{mock.questionCount} answered · {formatDuration(remainingSec)} left
+                      </span>
+                    )}
+                  </div>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 11,
+                      color: 'var(--color-ink-3)',
+                      margin: 0,
+                    }}
+                  >
+                    {new Date(mock.createdAt).toLocaleDateString()}
+                    {mock.completedAt
+                      ? ` · Completed ${new Date(mock.completedAt).toLocaleDateString()}`
+                      : isPaused
+                      ? ' · Saved in progress — ready to resume'
+                      : ' · Not started yet'}
+                  </p>
+                </div>
+                {mock.score !== null ? (
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 24,
+                      fontWeight: 500,
+                      color:
+                        mock.score >= 60
+                          ? 'var(--color-success)'
+                          : mock.score >= 40
+                            ? 'var(--color-warning)'
+                            : 'var(--color-danger)',
+                    }}
+                  >
+                    {mock.score}%
+                  </span>
+                ) : (
+                  <Button
+                    variant="accent"
+                    size="sm"
+                    onClick={() => router.push(`/mocks/${mock.mockId}`)}
+                    className="gap-1.5"
+                  >
+                    <Play size={14} variant="Bold" />
+                    {isPaused ? 'Resume Exam' : 'Start Exam'}
+                  </Button>
+                )}
+                {mock.score !== null && mock.attemptId && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => router.push(`/mocks/${mock.mockId}/results/${mock.attemptId}`)}
+                  >
+                    Review
+                  </Button>
+                )}
               </div>
-              {mock.score !== null ? (
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 24,
-                    fontWeight: 500,
-                    color:
-                      mock.score >= 60
-                        ? 'var(--color-success)'
-                        : mock.score >= 40
-                          ? 'var(--color-warning)'
-                          : 'var(--color-danger)',
-                  }}
-                >
-                  {mock.score}%
-                </span>
-              ) : (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => router.push(`/mocks/${mock.mockId}`)}
-                >
-                  Continue
-                </Button>
-              )}
-              {mock.score !== null && mock.attemptId && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => router.push(`/mocks/${mock.mockId}/results/${mock.attemptId}`)}
-                >
-                  Review
-                </Button>
-              )}
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
     </div>

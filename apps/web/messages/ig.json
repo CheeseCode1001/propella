@@ -26,7 +26,6 @@
     "planner": "Onye nhazi",
     "quizzes": "Nnwale",
     "mocks": "Nnwale zuru ezu",
-    "marathon": "Marathon",
     "assistant": "Onye inyeaka AI",
     "progress": "Ọganihu",
     "leaderboard": "Ndepụta ndị ọzụzụ",
@@ -158,23 +157,6 @@
     "viewResults": "Hụ nsonaazụ",
     "noMocks": "Enweghị nnwale zuru ezu.",
     "generateFirst": "Mepụta nnwale zuru ezu gị nke mbụ."
-  },
-  "marathon": {
-    "title": "Marathon",
-    "subtitle": "Ọmụmụ ogologo oge",
-    "start": "Bido marathon",
-    "pause": "Kwụsị",
-    "resume": "Gaa n'ihu",
-    "end": "Mechie marathon",
-    "pomodoro": "Pomodoro",
-    "pomodorosCompleted": "Pomodoros {count} emechara",
-    "timeRemaining": "Oge fọdụrụ",
-    "xpMultiplier": "2× XP",
-    "topicsCovered": "Isiokwu ndị a koboro",
-    "totalTime": "Oge niile",
-    "xpEarned": "+{xp} XP",
-    "great": "Oge ọma.",
-    "noActiveMarathon": "Enweghị marathon na-arụ ọrụ."
   },
   "assistant": {
     "title": "Onye inyeaka AI",

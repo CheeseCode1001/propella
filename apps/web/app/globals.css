@@ -7,22 +7,36 @@
   }
 }
 
+/*
+ * Propella design system — modelled on the Joyloo system
+ * (warm cream paper, charcoal ink, coral-orange accent, playful colour blocks,
+ * Parkinsans display + Source Sans 3 body + Caveat Brush hand accents).
+ */
 @theme {
   /* Surfaces (light) */
-  --color-paper: #FBF9F4;
-  --color-paper-2: #F4F1EA;
-  --color-paper-3: #ECE7DD;
+  --color-paper: #F8F6F1;
+  --color-paper-2: #F1EDE4;
+  --color-paper-3: #E6E0D3;
   --color-card: #FFFFFF;
-  --color-ink: #1A1814;
-  --color-ink-2: #4A463E;
-  --color-ink-3: #7C766B;
-  --color-rule: #E5DFD2;
-  --color-rule-2: #D9D2C2;
+  --color-ink: #1A1917;
+  --color-ink-2: #4A4742;
+  --color-ink-3: #78736A;
+  --color-rule: #E4DFD5;
+  --color-rule-2: #D5CFC2;
 
-  /* Accent - Warm Aubergine */
-  --color-accent: #6E3A5F;
-  --color-accent-2: #56294A;
-  --color-accent-tint: #F2E8EE;
+  /* Accent - Joyloo coral orange */
+  --color-accent: #F8642B;
+  --color-accent-2: #E04F18;
+  --color-accent-tint: #FFF0EA;
+
+  /* Joyloo playful colour blocks */
+  --color-joy-orange: #FF8555;
+  --color-joy-green: #2EBB5E;
+  --color-joy-blue: #58A5EF;
+  --color-joy-yellow: #FFE494;
+  --color-joy-amber: #FFAD28;
+  --color-joy-brown: #381D0F;
+  --color-joy-lime: #D6F48F;
 
   /* Functional */
   --color-success: #2F6B3F;
@@ -44,21 +58,24 @@
   --color-subj-default: #7C766B;
 
   /* Typography */
-  --font-display: var(--font-fraunces), var(--font-noto-serif), ui-serif, Georgia, serif;
-  --font-sans: var(--font-geist), var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-parkinsans), var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-source-sans), var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat-brush), cursive;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
   /* Radii */
   --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 30px;
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 0 0 rgba(26,24,20,0.04), 0 1px 3px rgba(26,24,20,0.06);
-  --shadow-md: 0 2px 4px rgba(26,24,20,0.06), 0 4px 12px rgba(26,24,20,0.08);
-  --shadow-lg: 0 8px 24px rgba(26,24,20,0.12), 0 2px 6px rgba(26,24,20,0.08);
+  --shadow-sm: 0 1px 0 0 rgba(26,25,23,0.04), 0 1px 3px rgba(26,25,23,0.06);
+  --shadow-md: 0 2px 4px rgba(26,25,23,0.06), 0 4px 12px rgba(26,25,23,0.08);
+  --shadow-lg: 0 8px 24px rgba(26,25,23,0.12), 0 2px 6px rgba(26,25,23,0.08);
   --shadow-inset: inset 0 1px 0 0 rgba(255,255,255,0.6);
 }
 
@@ -74,9 +91,9 @@ html.dark {
   --color-ink-3: #7C766B;
   --color-rule: #2D2A23;
   --color-rule-2: #3A362D;
-  --color-accent: #B07A9D;
-  --color-accent-2: #99668A;
-  --color-accent-tint: #2A1E25;
+  --color-accent: #FF7A45;
+  --color-accent-2: #F8642B;
+  --color-accent-tint: #2E1A10;
   --color-success-tint: #1A2E1E;
   --color-warning-tint: #2E2210;
   --color-danger-tint: #2E1414;
@@ -93,6 +110,10 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
 }
 
 @keyframes accordion-down {
@@ -113,10 +134,29 @@ body {
   animation: accordion-up 0.2s ease-out;
 }
 
-/* Noto Sans leads for locales where Geist lacks full diacritic coverage */
+/* Joyloo-style gentle float for decorative doodles */
+@keyframes joy-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-8px) rotate(-3deg); }
+}
+
+@utility animate-joy-float {
+  animation: joy-float 5s ease-in-out infinite;
+}
+
+@keyframes joy-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@utility animate-joy-marquee {
+  animation: joy-marquee 40s linear infinite;
+}
+
+/* Noto Sans leads for locales where Source Sans lacks full diacritic coverage */
 html[data-locale="yo"],
 html[data-locale="ig"] {
-  --font-sans: var(--font-noto-sans), var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-noto-sans), var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 @media (prefers-reduced-motion: reduce) {

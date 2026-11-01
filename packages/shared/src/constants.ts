@@ -4,15 +4,23 @@ export type ExamType = (typeof EXAM_TYPES)[number]
 export const PLAN_TYPES = ['free', 'scholar'] as const
 export type PlanType = (typeof PLAN_TYPES)[number]
 
+/** 3-day welcome discount window (72 hours from registration) */
+export const WELCOME_DISCOUNT_WINDOW_HOURS = 72
+export const WELCOME_DISCOUNT_WINDOW_MS = WELCOME_DISCOUNT_WINDOW_HOURS * 60 * 60 * 1000
+export const WELCOME_DISCOUNT_PERCENT = 50
+
 export const SUBSCRIPTION_PLANS = {
   scholar_basic: {
     id: 'scholar_basic',
     name: 'Basic Plan',
     price: 1999,
     priceKobo: 199900,
+    discountPrice: 999,
+    discountPriceKobo: 99900,
     durationDays: 30,
     currency: 'NGN',
     interval: 'monthly',
+    autoRenews: true,
     description: 'Full Scholar access for 1 student for 30 days',
   },
   scholar_shared: {
@@ -20,9 +28,12 @@ export const SUBSCRIPTION_PLANS = {
     name: 'Shared Plan (Two Accounts)',
     price: 2999,
     priceKobo: 299900,
+    discountPrice: 1499,
+    discountPriceKobo: 149900,
     durationDays: 30,
     currency: 'NGN',
     interval: 'monthly',
+    autoRenews: true,
     description: 'Buy one plan and share with your friend or family (2 accounts get full Scholar access for 30 days)',
   },
   scholar_full: {
@@ -30,19 +41,25 @@ export const SUBSCRIPTION_PLANS = {
     name: 'Pay Once Till Exam',
     price: 9999,
     priceKobo: 999900,
+    discountPrice: 4999,
+    discountPriceKobo: 499900,
     durationDays: 365,
     currency: 'NGN',
     interval: 'exam_season',
-    description: 'One-time payment for full Scholar access right up until your exam',
+    autoRenews: true,
+    description: 'Full Scholar access right up until your exam',
   },
   scholar_monthly: {
     id: 'scholar_monthly',
     name: 'Basic Plan',
     price: 1999,
     priceKobo: 199900,
+    discountPrice: 999,
+    discountPriceKobo: 99900,
     durationDays: 30,
     currency: 'NGN',
     interval: 'monthly',
+    autoRenews: true,
     description: 'Full Scholar access for 1 student for 30 days',
   },
 } as const
@@ -70,8 +87,6 @@ export const XP = {
   QUIZ_MAX: 50,
   MOCK_BASE: 100,
   MOCK_PER_PERCENT: 1,
-  MARATHON_PER_POMODORO: 30,
-  MARATHON_4_PLUS_BONUS: 150,
   STREAK_DAILY_BASE: 15,
   STREAK_DAILY_MAX_MULTIPLIER: 5,
   TOPIC_COMPLETED: 75,
@@ -125,6 +140,9 @@ export const SUBJECT_SLUGS = [
   'commerce',
   'principles-of-accounts',
   'agricultural-science',
+  'crk',
+  'irk',
+  'history',
 ] as const
 export type SubjectSlug = (typeof SUBJECT_SLUGS)[number]
 

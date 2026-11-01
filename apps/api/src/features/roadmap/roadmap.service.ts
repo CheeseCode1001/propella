@@ -27,6 +27,41 @@ export async function getRoadmap(userId: string): Promise<Roadmap> {
 
   const nodes = jsonArray<RoadmapNodeJson>(roadmap.nodes)
 
+  // Ensure that for every subject, if all previous topics are completed or no topic is currently active,
+  // the next topic in that subject is automatically unlocked ('ready') so students can always continue
+  // even after covering their daily schedule.
+  let mutated = false
+  const bySubject = new Map<string, RoadmapNodeJson[]>()
+  for (const node of nodes) {
+    const list = bySubject.get(node.subjectSlug) ?? []
+    list.push(node)
+    bySubject.set(node.subjectSlug, list)
+  }
+
+  for (const [, subjectNodes] of bySubject) {
+    const hasActive = subjectNodes.some(
+      (n) => n.status === 'ready' || n.status === 'in-progress' || n.status === 'needs-revision',
+    )
+    if (!hasActive) {
+      const nextLocked = subjectNodes.find((n) => n.status === 'locked')
+      if (nextLocked) {
+        nextLocked.status = 'ready'
+        mutated = true
+      }
+    }
+    // Also ensure any topic immediately following a completed topic is at least 'ready'
+    for (let i = 0; i < subjectNodes.length - 1; i++) {
+      if (subjectNodes[i]!.status === 'completed' && subjectNodes[i + 1]!.status === 'locked') {
+        subjectNodes[i + 1]!.status = 'ready'
+        mutated = true
+      }
+    }
+  }
+
+  if (mutated) {
+    await prisma.roadmap.update({ where: { userId }, data: { nodes } }).catch(() => {})
+  }
+
   // Load all subjects referenced by the roadmap nodes
   const subjectSlugs = [...new Set(nodes.map((n) => n.subjectSlug))]
   const subjects = await prisma.subject.findMany({

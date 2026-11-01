@@ -50,6 +50,9 @@ export interface SubmitQuizInput {
   durationSec: number
 }
 
+/** Exam mode enforces 90 seconds per question (CBT timed conditions); Study mode is untimed. */
+const EXAM_MODE_SECONDS_PER_QUESTION = 90
+
 export async function generateQuiz(
   userId: string,
   input: GenerateQuizInput,
@@ -85,6 +88,7 @@ export async function generateQuiz(
         subjectSlug: input.subjectSlug ?? 'notes',
         difficulty: input.difficulty,
         mode: input.mode,
+        timeLimit: input.mode === 'exam' ? questions.length * EXAM_MODE_SECONDS_PER_QUESTION : null,
         questionCount: questions.length,
         questions: shuffle(questions),
         generatedByModel: QUIZ_MODEL,
@@ -181,6 +185,7 @@ export async function generateQuiz(
       subjectSlug: input.subjectSlug ?? null,
       difficulty: input.difficulty,
       mode: input.mode,
+      timeLimit: input.mode === 'exam' ? questions.length * EXAM_MODE_SECONDS_PER_QUESTION : null,
       questionCount: questions.length,
       questions: shuffle(questions),
       generatedByModel: usedAi ? QUIZ_MODEL : PAST_QUESTION_BANK,
@@ -268,19 +273,20 @@ export async function submitAttempt(
     }
   })
 
-  // Calculate overall score
+  // Calculate overall score against total questions in the quiz
   const correctCount = gradedAnswers.filter((a) => a.isCorrect).length
-  const totalCount = gradedAnswers.length
+  const totalCount = questions.length > 0 ? questions.length : gradedAnswers.length
   const score = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0
 
-  // Group by topic
+  // Group by topic across all quiz questions so unanswered questions count toward total
+  const answeredByQuestionId = new Map(gradedAnswers.map((a) => [a.questionId, a]))
   const topicGroups = new Map<string, { correct: number; total: number }>()
-  for (const answer of gradedAnswers) {
-    const question = questionMap.get(answer.questionId)
-    const topicSlug = question?.topicSlug ?? quiz.topicTopicSlug ?? 'unknown'
+  for (const question of questions) {
+    const topicSlug = question.topicSlug ?? quiz.topicTopicSlug ?? 'unknown'
     const group = topicGroups.get(topicSlug) ?? { correct: 0, total: 0 }
     group.total += 1
-    if (answer.isCorrect) group.correct += 1
+    const ans = answeredByQuestionId.get(question.id)
+    if (ans?.isCorrect) group.correct += 1
     topicGroups.set(topicSlug, group)
   }
 

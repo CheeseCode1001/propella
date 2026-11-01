@@ -17,46 +17,56 @@ export function PaywallModal() {
   const feature = usePaywallStore((s) => s.feature);
   const closePaywall = usePaywallStore((s) => s.closePaywall);
 
-  const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'full'>('monthly');
+  const [selectedPlan, setSelectedPlan] = useState<'basic' | 'shared' | 'full'>('basic');
 
   const plans = [
     {
-      id: 'monthly' as const,
-      name: 'Scholar Monthly',
-      price: '₦3,500',
-      period: 'per month',
-      badge: 'Popular',
-      desc: 'Full access for 30 days',
+      id: 'basic' as const,
+      name: 'Basic Plan (50% Welcome Offer)',
+      price: '₦999',
+      originalPrice: '₦1,999',
+      period: 'first 30 days · renews at ₦1,999/mo',
+      badge: '🔥 50% Off (3-Day Offer)',
+      desc: 'Full Scholar access for 1 student account',
+    },
+    {
+      id: 'shared' as const,
+      name: 'Shared Plan (2 Accounts)',
+      price: '₦1,499',
+      originalPrice: '₦2,999',
+      period: 'first 30 days · renews at ₦2,999/mo',
+      badge: '👥 2 Accounts (50% Off)',
+      desc: 'Share full Scholar access with a friend or sibling',
     },
     {
       id: 'full' as const,
-      name: 'Full Season Pass',
-      price: '₦9,500',
-      period: 'until exam day',
-      badge: 'Best Value (Save 40%)',
-      desc: 'All subjects + unlimited mocks & AI',
+      name: 'Full Exam Season Pass',
+      price: '₦4,999',
+      originalPrice: '₦9,999',
+      period: 'welcome offer · standard ₦9,999',
+      badge: '⭐ Best Value (50% Off)',
+      desc: 'All subjects + unlimited mocks & AI till exam day',
     },
   ];
 
   const features = [
-    '6,994+ Authentic JAMB & WAEC CBT Past Questions',
-    'Unlimited Timed Exam Mode CBT Simulations',
-    '24/7 AI Tutor with Step-by-Step Solutions',
-    'Complete Syllabus Roadmaps for All 12 Subjects',
-    'Undergraduate 100L-500L Course Vault & Notes',
+    'Verified JAMB & WAEC CBT Past Questions Library',
+    'Study Mode (Instant Solutions) & Timed Exam Mode CBT',
+    'Pause & Resume Mock Exams Anytime Without Losing Progress',
+    '24/7 AI Tutor with Step-by-Step Explanations',
+    'Complete Syllabus Roadmaps Across All Subjects',
     'Predictive JAMB Score & Performance Analytics',
   ];
 
   function handleSubscribe() {
+    const chosen = plans.find((p) => p.id === selectedPlan) || plans[0];
     Alert.alert(
-      'Paystack Checkout',
-      `Proceed to Paystack secure payment for ${
-        selectedPlan === 'monthly' ? 'Scholar Monthly (₦3,500)' : 'Full Season Pass (₦9,500)'
-      }?`,
+      'Paystack Secure Card Checkout',
+      `Proceed to Paystack card payment for ${chosen.name} (${chosen.price} today, auto-renews next month at ${chosen.originalPrice})?`,
       [
         { text: 'Cancel', style: 'cancel' },
         {
-          text: 'Pay with Paystack',
+          text: 'Pay with Card (Paystack)',
           onPress: () => {
             closePaywall();
             Alert.alert('Success', 'Welcome to Propella Scholar! Full access unlocked.');
@@ -86,6 +96,13 @@ export function PaywallModal() {
           </View>
 
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
+            <View style={styles.discountBanner}>
+              <Ionicons name="time-outline" size={16} color={Palette.success} />
+              <Text style={styles.discountBannerText}>
+                50% Off 3-Day Welcome Window! Start from ₦999 today. Auto-renews next month at standard price.
+              </Text>
+            </View>
+
             <Text style={styles.title}>
               {feature ? `Unlock ${feature}` : 'Upgrade to Propella Scholar'}
             </Text>
@@ -108,7 +125,8 @@ export function PaywallModal() {
                     onPress={() => setSelectedPlan(p.id)}
                   >
                     <View style={styles.planTopRow}>
-                      <View>
+                      <View style={{ flex: 1, paddingRight: 8 }}>
+                        <Text style={styles.planBadgeText}>{p.badge}</Text>
                         <Text style={styles.planName}>{p.name}</Text>
                         <Text style={styles.planDesc}>{p.desc}</Text>
                       </View>
@@ -118,6 +136,7 @@ export function PaywallModal() {
                     </View>
                     <View style={styles.planPriceRow}>
                       <Text style={styles.planPrice}>{p.price}</Text>
+                      <Text style={styles.planOriginalPrice}>{p.originalPrice}</Text>
                       <Text style={styles.planPeriod}>/ {p.period}</Text>
                     </View>
                   </TouchableOpacity>
@@ -138,13 +157,13 @@ export function PaywallModal() {
 
             <TouchableOpacity style={styles.checkoutBtn} activeOpacity={0.85} onPress={handleSubscribe}>
               <Text style={styles.checkoutBtnText}>
-                Subscribe with Paystack
+                Subscribe with Card ({plans.find((p) => p.id === selectedPlan)?.price})
               </Text>
               <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
             </TouchableOpacity>
 
             <Text style={styles.secureText}>
-              🔒 Secured by Paystack. Card, Bank Transfer, USSD & Apple Pay supported.
+              🔒 Secured by Paystack Card Checkout. Auto-renews next month at standard rate (cancel anytime). One card per welcome discount.
             </Text>
           </ScrollView>
         </View>
@@ -163,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: Palette.paper,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    maxHeight: '90%',
+    maxHeight: '92%',
     paddingBottom: 24,
   },
   header: {
@@ -193,7 +212,24 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 20,
     paddingBottom: 20,
-    gap: 16,
+    gap: 14,
+  },
+  discountBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: Palette.successTint,
+    borderRadius: 12,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: Palette.success,
+  },
+  discountBannerText: {
+    flex: 1,
+    fontSize: 11.5,
+    fontWeight: '700',
+    color: Palette.success,
+    lineHeight: 16,
   },
   title: {
     fontFamily: Fonts?.serif ?? 'serif',
@@ -226,6 +262,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  planBadgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Palette.accent,
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
   planName: {
     fontSize: 15,
     fontWeight: '700',
@@ -254,7 +297,8 @@ const styles = StyleSheet.create({
   planPriceRow: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    gap: 4,
+    flexWrap: 'wrap',
+    gap: 6,
   },
   planPrice: {
     fontFamily: Fonts?.serif ?? 'serif',
@@ -262,8 +306,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Palette.ink,
   },
+  planOriginalPrice: {
+    fontSize: 13,
+    color: Palette.ink3,
+    textDecorationLine: 'line-through',
+  },
   planPeriod: {
-    fontSize: 12,
+    fontSize: 11,
     color: Palette.ink3,
   },
   featureBox: {
@@ -306,7 +355,8 @@ const styles = StyleSheet.create({
   },
   secureText: {
     fontSize: 11,
-    textAlign: 'center',
     color: Palette.ink3,
+    textAlign: 'center',
+    lineHeight: 16,
   },
 });

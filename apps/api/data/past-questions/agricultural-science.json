@@ -1,0 +1,1300 @@
+{
+  "questions": [
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "The process of grafting in crop production involves",
+      "options": [
+        {
+          "id": "A",
+          "text": "the fusion of gametes of two crops"
+        },
+        {
+          "id": "B",
+          "text": "inducing rooting from stems"
+        },
+        {
+          "id": "C",
+          "text": "the transfer of a bud from one crop to another"
+        },
+        {
+          "id": "D",
+          "text": "the joining of two parts from related crops"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q1"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "If the recommended spacing for a tree crop is 2.5 m by 4.0 m, determine the number of seedlings required to plant a 2-hectare farmland.",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,000"
+        },
+        {
+          "id": "B",
+          "text": "2,000"
+        },
+        {
+          "id": "C",
+          "text": "10,000"
+        },
+        {
+          "id": "D",
+          "text": "20,000"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q2"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "pests-diseases-crops",
+      "question": "A regulatory control of diseases in crop production is",
+      "options": [
+        {
+          "id": "A",
+          "text": "roguing"
+        },
+        {
+          "id": "B",
+          "text": "quarantine"
+        },
+        {
+          "id": "C",
+          "text": "crop rotation"
+        },
+        {
+          "id": "D",
+          "text": "soil tillage"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q3"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-science",
+      "question": "Which of the following statements about soil organisms is false?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Soil pH will affect the population of soil organisms"
+        },
+        {
+          "id": "B",
+          "text": "Population of soil living organisms is increased with increase in soil organic matter"
+        },
+        {
+          "id": "C",
+          "text": "Soil with good texture and structure cannot harbour soil microbes"
+        },
+        {
+          "id": "D",
+          "text": "Soil temperature affects the activities of soil organisms"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2015 Q4"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-nutrition-agric",
+      "question": "The data for feed consumption and weight gain of four farm animals labelled P, Q, R and S are shown below: P — 50 kg feed consumed and 20 kg weight gained; Q — 90 kg feed consumed and 30 kg weight gained; R — 100 kg feed consumed and 25 kg weight gained; S — 150 kg feed consumed and 30 kg weight gained. Which of the following is the most efficient feed converter?",
+      "options": [
+        {
+          "id": "A",
+          "text": "P"
+        },
+        {
+          "id": "B",
+          "text": "Q"
+        },
+        {
+          "id": "C",
+          "text": "R"
+        },
+        {
+          "id": "D",
+          "text": "S"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q5"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-improvement",
+      "question": "In preparing for parturition of a sow, warmth should be provided to",
+      "options": [
+        {
+          "id": "A",
+          "text": "promote growth of hair of the young"
+        },
+        {
+          "id": "B",
+          "text": "make the young suckle colostrum"
+        },
+        {
+          "id": "C",
+          "text": "prevent anaemia in the young"
+        },
+        {
+          "id": "D",
+          "text": "prevent chilling of the young"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q6"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-science",
+      "question": "In which layer of the soil profile do most biological activities occur?",
+      "options": [
+        {
+          "id": "A",
+          "text": "D-horizon"
+        },
+        {
+          "id": "B",
+          "text": "C-horizon"
+        },
+        {
+          "id": "C",
+          "text": "B-horizon"
+        },
+        {
+          "id": "D",
+          "text": "A-horizon"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q7"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "meaning-scope-agriculture",
+      "question": "Which of the following statements about agricultural development are true? It leads to:\nI. Increased processing of produce\nII. Increased food production\nIII. High productivity\nIV. Increased agricultural labour force",
+      "options": [
+        {
+          "id": "A",
+          "text": "I, II and III only"
+        },
+        {
+          "id": "B",
+          "text": "I, II and IV only"
+        },
+        {
+          "id": "C",
+          "text": "I, III and IV only"
+        },
+        {
+          "id": "D",
+          "text": "II, III and IV only"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q8"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "farm-management",
+      "question": "Under the communal land tenure system, farmers find it difficult to secure loans because",
+      "options": [
+        {
+          "id": "A",
+          "text": "land holdings are small and fragmented"
+        },
+        {
+          "id": "B",
+          "text": "they are poor"
+        },
+        {
+          "id": "C",
+          "text": "land holdings cannot be used as security"
+        },
+        {
+          "id": "D",
+          "text": "they are mostly illiterate"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2015 Q9"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "Pineapple is widely propagated using",
+      "options": [
+        {
+          "id": "A",
+          "text": "seeds"
+        },
+        {
+          "id": "B",
+          "text": "suckers"
+        },
+        {
+          "id": "C",
+          "text": "slips"
+        },
+        {
+          "id": "D",
+          "text": "cuttings"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q10"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "farm-machinery",
+      "question": "The correct sequence for the use of coupled implements for land preparation is",
+      "options": [
+        {
+          "id": "A",
+          "text": "plough, harrow and ridger"
+        },
+        {
+          "id": "B",
+          "text": "harrow, ridger and plough"
+        },
+        {
+          "id": "C",
+          "text": "plough, ridger and harrow"
+        },
+        {
+          "id": "D",
+          "text": "ridger, harrow and plough"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q11"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-nutrition-agric",
+      "question": "The correct sequence of feed utilization in farm animals is",
+      "options": [
+        {
+          "id": "A",
+          "text": "digestion - ingestion - absorption - assimilation"
+        },
+        {
+          "id": "B",
+          "text": "ingestion - digestion - assimilation - absorption"
+        },
+        {
+          "id": "C",
+          "text": "ingestion - digestion - absorption - assimilation"
+        },
+        {
+          "id": "D",
+          "text": "digestion - assimilation - ingestion - absorption"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2015 Q12"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "farm-machinery",
+      "question": "Which of the following statements is a disadvantage of human power? It",
+      "options": [
+        {
+          "id": "A",
+          "text": "controls other sources of farm power"
+        },
+        {
+          "id": "B",
+          "text": "brings about least damage"
+        },
+        {
+          "id": "C",
+          "text": "is easily available and controlled"
+        },
+        {
+          "id": "D",
+          "text": "has low output"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q13"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "forestry",
+      "question": "Which of the following factors are causes of deforestation in West Africa?\nI. Expansion of cultivated land\nII. High population growth rate\nIII. Conservation of wildlife in game reserves\nIV. Urban growth",
+      "options": [
+        {
+          "id": "A",
+          "text": "I, II and III only"
+        },
+        {
+          "id": "B",
+          "text": "II, III and IV only"
+        },
+        {
+          "id": "C",
+          "text": "I, II and IV only"
+        },
+        {
+          "id": "D",
+          "text": "I, II, III and IV"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2015 Q14"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-science",
+      "question": "Which of the following properties of soil determines its water-holding capacity?\nI. Texture\nII. pH\nIII. Colour\nIV. Structure",
+      "options": [
+        {
+          "id": "A",
+          "text": "I and II only"
+        },
+        {
+          "id": "B",
+          "text": "I and IV only"
+        },
+        {
+          "id": "C",
+          "text": "II and III only"
+        },
+        {
+          "id": "D",
+          "text": "III and IV only"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q15"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-health",
+      "question": "Which of the following diseases commonly occur during brooding?\nI. Yolk sac infection\nII. Coccidiosis\nIII. Fowl pox\nIV. Pullorum",
+      "options": [
+        {
+          "id": "A",
+          "text": "I, II and III only"
+        },
+        {
+          "id": "B",
+          "text": "I, II and IV only"
+        },
+        {
+          "id": "C",
+          "text": "I, III and IV only"
+        },
+        {
+          "id": "D",
+          "text": "II, III and IV only"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q16"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-fertility",
+      "question": "A detrimental effect of bush burning is that it",
+      "options": [
+        {
+          "id": "A",
+          "text": "destroys soil organic matter"
+        },
+        {
+          "id": "B",
+          "text": "destroys weed seeds"
+        },
+        {
+          "id": "C",
+          "text": "sterilizes the soil"
+        },
+        {
+          "id": "D",
+          "text": "adds potash to the soil"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q17"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "agricultural-extension",
+      "question": "Government plays roles in the development of agriculture through the following means except",
+      "options": [
+        {
+          "id": "A",
+          "text": "provision of subsidies"
+        },
+        {
+          "id": "B",
+          "text": "training of farmers' children"
+        },
+        {
+          "id": "C",
+          "text": "establishment of agricultural development programmes"
+        },
+        {
+          "id": "D",
+          "text": "establishment of farm settlements"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q18"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-improvement",
+      "question": "Sexual maturity in farm animals is not influenced by their",
+      "options": [
+        {
+          "id": "A",
+          "text": "breed"
+        },
+        {
+          "id": "B",
+          "text": "sex"
+        },
+        {
+          "id": "C",
+          "text": "nutrition"
+        },
+        {
+          "id": "D",
+          "text": "weaning age"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q19"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-production",
+      "question": "Which of the following factors does not influence the distribution of cattle in West Africa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Pastures"
+        },
+        {
+          "id": "B",
+          "text": "Light"
+        },
+        {
+          "id": "C",
+          "text": "Diseases"
+        },
+        {
+          "id": "D",
+          "text": "Rainfall"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q20"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "Close to the time of harvesting of cotton, sunshine is needed to ensure the production of bolls that are",
+      "options": [
+        {
+          "id": "A",
+          "text": "big"
+        },
+        {
+          "id": "B",
+          "text": "bright"
+        },
+        {
+          "id": "C",
+          "text": "not mouldy"
+        },
+        {
+          "id": "D",
+          "text": "not open"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q21"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "meaning-scope-agriculture",
+      "question": "Agriculture contributes to the economy of West African countries through the following means except",
+      "options": [
+        {
+          "id": "A",
+          "text": "reduction of poverty through job creation"
+        },
+        {
+          "id": "B",
+          "text": "supply of armament for territorial defence"
+        },
+        {
+          "id": "C",
+          "text": "provision of foreign exchange"
+        },
+        {
+          "id": "D",
+          "text": "supply of raw materials to industries"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q22"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-production",
+      "question": "In animal production, newly-born rabbits are called",
+      "options": [
+        {
+          "id": "A",
+          "text": "bunnies"
+        },
+        {
+          "id": "B",
+          "text": "kids"
+        },
+        {
+          "id": "C",
+          "text": "poults"
+        },
+        {
+          "id": "D",
+          "text": "lambs"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q23"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "Which of the following crops has a fibrous root system?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cotton"
+        },
+        {
+          "id": "B",
+          "text": "Coffee"
+        },
+        {
+          "id": "C",
+          "text": "Cowpea"
+        },
+        {
+          "id": "D",
+          "text": "Sugarcane"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q24"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "pests-diseases-crops",
+      "question": "Which of the following insects transmits swollen shoot disease of cocoa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Stem borer"
+        },
+        {
+          "id": "B",
+          "text": "Mealybug"
+        },
+        {
+          "id": "C",
+          "text": "Whitefly"
+        },
+        {
+          "id": "D",
+          "text": "Scale insect"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q25"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-science",
+      "question": "Soil water that is available for root absorption at field capacity is",
+      "options": [
+        {
+          "id": "A",
+          "text": "capillary water"
+        },
+        {
+          "id": "B",
+          "text": "hygroscopic water"
+        },
+        {
+          "id": "C",
+          "text": "gravitational water"
+        },
+        {
+          "id": "D",
+          "text": "superfluous water"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q26"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-nutrition-agric",
+      "question": "The weight of a sheep increased from 25 kg to 45 kg in two months. If the total feed consumption during the period was 60 kg, determine the feed conversion ratio.",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 : 1"
+        },
+        {
+          "id": "B",
+          "text": "1 : 2"
+        },
+        {
+          "id": "C",
+          "text": "3 : 1"
+        },
+        {
+          "id": "D",
+          "text": "4 : 1"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2015 Q27"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-fertility",
+      "question": "Which of the following statements is correct about micro-nutrients? They",
+      "options": [
+        {
+          "id": "A",
+          "text": "promote formation of only root nodules"
+        },
+        {
+          "id": "B",
+          "text": "are required by plants in very small quantities"
+        },
+        {
+          "id": "C",
+          "text": "are fixed into the soil through microbial activity"
+        },
+        {
+          "id": "D",
+          "text": "increase crop tolerance to pest attack"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q28"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-fertility",
+      "question": "Yellow colouration of the lower leaves of a growing maize plant may be due to deficiency in",
+      "options": [
+        {
+          "id": "A",
+          "text": "potassium"
+        },
+        {
+          "id": "B",
+          "text": "phosphorus"
+        },
+        {
+          "id": "C",
+          "text": "zinc"
+        },
+        {
+          "id": "D",
+          "text": "nitrogen"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q29"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-fertility",
+      "question": "The following crops will enrich the soil with nitrates except",
+      "options": [
+        {
+          "id": "A",
+          "text": "Calopogonium"
+        },
+        {
+          "id": "B",
+          "text": "Pueraria"
+        },
+        {
+          "id": "C",
+          "text": "Centrosema"
+        },
+        {
+          "id": "D",
+          "text": "Axonopus"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q30"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "farm-structures",
+      "question": "The instrument which enables a surveyor to find the direction of a baseline is",
+      "options": [
+        {
+          "id": "A",
+          "text": "Abney level"
+        },
+        {
+          "id": "B",
+          "text": "ranging pole"
+        },
+        {
+          "id": "C",
+          "text": "plumb bob"
+        },
+        {
+          "id": "D",
+          "text": "magnetic compass"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q31"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "In crop production, ginger is propagated by",
+      "options": [
+        {
+          "id": "A",
+          "text": "seeds"
+        },
+        {
+          "id": "B",
+          "text": "bulbs"
+        },
+        {
+          "id": "C",
+          "text": "rhizome"
+        },
+        {
+          "id": "D",
+          "text": "corm"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2015 Q32"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "Tomatoes are staked in order to",
+      "options": [
+        {
+          "id": "A",
+          "text": "accelerate their growth"
+        },
+        {
+          "id": "B",
+          "text": "induce flowering"
+        },
+        {
+          "id": "C",
+          "text": "accelerate fruit ripening"
+        },
+        {
+          "id": "D",
+          "text": "prevent rotting of fruits"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q33"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "pests-diseases-crops",
+      "question": "Crop rotation decreases the incidence of pests by",
+      "options": [
+        {
+          "id": "A",
+          "text": "breaking life cycles of pests"
+        },
+        {
+          "id": "B",
+          "text": "attracting pest predators"
+        },
+        {
+          "id": "C",
+          "text": "sterilizing the soil"
+        },
+        {
+          "id": "D",
+          "text": "maintaining soil fertility"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q34"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "irrigation-drainage",
+      "question": "The following are advantages of sub-surface irrigation except that",
+      "options": [
+        {
+          "id": "A",
+          "text": "it is suitable for soils with low water holding capacity"
+        },
+        {
+          "id": "B",
+          "text": "it can be used only for specific types of crops"
+        },
+        {
+          "id": "C",
+          "text": "the rate of evaporation is greatly reduced"
+        },
+        {
+          "id": "D",
+          "text": "it reduces the incidence of pests"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q35"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "soil-science",
+      "question": "Which of the following groups of rocks is formed as a result of volcanic eruption?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Limestone, basalt and shale"
+        },
+        {
+          "id": "B",
+          "text": "Basalt, granite and pumice"
+        },
+        {
+          "id": "C",
+          "text": "Sandstone, granite and quartzite"
+        },
+        {
+          "id": "D",
+          "text": "Marble, gneiss and shale"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q36"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "forestry",
+      "question": "Poaching is prohibited in game reserves to",
+      "options": [
+        {
+          "id": "A",
+          "text": "reduce wildlife population"
+        },
+        {
+          "id": "B",
+          "text": "conserve wildlife"
+        },
+        {
+          "id": "C",
+          "text": "starve hunters"
+        },
+        {
+          "id": "D",
+          "text": "protect hunters from wild animals"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q37"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-improvement",
+      "question": "If T represents the gene for tallness while t represents dwarfness, the genotypic ratio of the second filial generation will be",
+      "options": [
+        {
+          "id": "A",
+          "text": "3 : 1"
+        },
+        {
+          "id": "B",
+          "text": "1 : 2 : 1"
+        },
+        {
+          "id": "C",
+          "text": "2 : 2"
+        },
+        {
+          "id": "D",
+          "text": "4 : 0"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q38"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "forestry",
+      "question": "The forest management system which involves the planting of both food crops and forest trees on the same piece of land at the same time is known as",
+      "options": [
+        {
+          "id": "A",
+          "text": "selective exploitation"
+        },
+        {
+          "id": "B",
+          "text": "taungya"
+        },
+        {
+          "id": "C",
+          "text": "afforestation"
+        },
+        {
+          "id": "D",
+          "text": "regeneration"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q39"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-improvement",
+      "question": "If T represents the gene for tallness while t represents dwarfness, when a tall (TT) crop is crossed with a dwarf (tt) crop, the resultant crops will be",
+      "options": [
+        {
+          "id": "A",
+          "text": "100% dwarf"
+        },
+        {
+          "id": "B",
+          "text": "100% tall"
+        },
+        {
+          "id": "C",
+          "text": "50% tall and 50% dwarf"
+        },
+        {
+          "id": "D",
+          "text": "75% tall and 25% dwarf"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q40"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "crop-production",
+      "question": "Corms, rhizomes and tubers are examples of",
+      "options": [
+        {
+          "id": "A",
+          "text": "underground stems"
+        },
+        {
+          "id": "B",
+          "text": "underground roots"
+        },
+        {
+          "id": "C",
+          "text": "modified leaves"
+        },
+        {
+          "id": "D",
+          "text": "aerial stems"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q41"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-improvement",
+      "question": "A sow that is not producing milk after farrowing should be given",
+      "options": [
+        {
+          "id": "A",
+          "text": "oxytocin"
+        },
+        {
+          "id": "B",
+          "text": "antibiotic"
+        },
+        {
+          "id": "C",
+          "text": "anthelmintic drug"
+        },
+        {
+          "id": "D",
+          "text": "sulphaquinoxaline"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q42"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "forestry",
+      "question": "The main objective of establishing forests in the arid region is to",
+      "options": [
+        {
+          "id": "A",
+          "text": "check desert encroachment"
+        },
+        {
+          "id": "B",
+          "text": "provide firewood for cooking"
+        },
+        {
+          "id": "C",
+          "text": "provide bush-meat"
+        },
+        {
+          "id": "D",
+          "text": "improve the beauty of the environment"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2015 Q43"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-nutrition-agric",
+      "question": "The data for feed consumption and weight gain of four farm animals labelled P, Q, R and S are shown below: P — 50 kg feed consumed and 20 kg weight gained; Q — 90 kg feed consumed and 30 kg weight gained; R — 100 kg feed consumed and 25 kg weight gained; S — 150 kg feed consumed and 30 kg weight gained. The feed conversion efficiency of the poorest weight gainer is",
+      "options": [
+        {
+          "id": "A",
+          "text": "0.40"
+        },
+        {
+          "id": "B",
+          "text": "0.33"
+        },
+        {
+          "id": "C",
+          "text": "0.25"
+        },
+        {
+          "id": "D",
+          "text": "0.20"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q44"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-health",
+      "question": "Piglet anaemia can be controlled by using",
+      "options": [
+        {
+          "id": "A",
+          "text": "sulpha drugs"
+        },
+        {
+          "id": "B",
+          "text": "iron drugs"
+        },
+        {
+          "id": "C",
+          "text": "anthelmintics"
+        },
+        {
+          "id": "D",
+          "text": "antibiotics"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q45"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "farm-machinery",
+      "question": "Limitations of farm mechanization in West Africa do not include",
+      "options": [
+        {
+          "id": "A",
+          "text": "land fragmentation"
+        },
+        {
+          "id": "B",
+          "text": "high capital investment"
+        },
+        {
+          "id": "C",
+          "text": "availability of spare parts"
+        },
+        {
+          "id": "D",
+          "text": "high cost of purchasing machines"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2015 Q46"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "animal-improvement",
+      "question": "The device which helps to stabilize heat in an incubator is the",
+      "options": [
+        {
+          "id": "A",
+          "text": "thermometer"
+        },
+        {
+          "id": "B",
+          "text": "hygrometer"
+        },
+        {
+          "id": "C",
+          "text": "barometer"
+        },
+        {
+          "id": "D",
+          "text": "thermostat"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2015 Q47"
+    },
+    {
+      "exam": "jamb",
+      "year": 2015,
+      "subject": "agricultural-science",
+      "topic": "farm-machinery",
+      "question": "The use of animal traction is limited in the forest zones of West Africa because of the",
+      "options": [
+        {
+          "id": "A",
+          "text": "topography of the forest land"
+        },
+        {
+          "id": "B",
+          "text": "presence of tsetse flies"
+        },
+        {
+          "id": "C",
+          "text": "high amount of rainfall"
+        },
+        {
+          "id": "D",
+          "text": "culture of the people"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2015 Q48"
+    }
+  ]
+}

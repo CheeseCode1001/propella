@@ -1,36 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Palette, Fonts, getSubjectColor } from '@/constants/theme';
-import { mockQuizQuestions, type QuizQuestion } from '@/lib/mock-data';
+import { mockQuizQuestions } from '@/lib/mock-data';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+type QuizMode = 'study' | 'exam';
+
+function formatClock(sec: number): string {
+  const safe = Math.max(0, sec);
+  const mins = Math.floor(safe / 60);
+  const secs = safe % 60;
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
 
 export default function QuizzesScreen() {
   const router = useRouter();
+  const [mode, setMode] = useState<QuizMode>('study');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
 
+  // Exam mode state
+  const [examAnswers, setExamAnswers] = useState<Record<string, string>>({});
+  const [flagged, setFlagged] = useState<Record<string, boolean>>({});
+  const [remainingSec, setRemainingSec] = useState<number>(mockQuizQuestions.length * 90);
+
   const question = mockQuizQuestions[currentIndex];
   const subjectColor = getSubjectColor(question?.subjectSlug ?? 'physics');
 
+  // Exam mode countdown timer
+  useEffect(() => {
+    if (mode !== 'exam' || isCompleted) return;
+    if (remainingSec <= 0) {
+      handleFinishExam();
+      return;
+    }
+    const timer = setInterval(() => {
+      setRemainingSec((prev) => Math.max(0, prev - 1));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [mode, isCompleted, remainingSec]);
+
+  function handleSwitchMode(nextMode: QuizMode) {
+    if (nextMode === mode) return;
+    setMode(nextMode);
+    setCurrentIndex(0);
+    setSelectedOption(null);
+    setIsSubmitted(false);
+    setScore(0);
+    setIsCompleted(false);
+    setExamAnswers({});
+    setFlagged({});
+    setRemainingSec(mockQuizQuestions.length * 90);
+  }
+
   function handleSelectOption(label: string) {
-    if (isSubmitted) return;
-    setSelectedOption(label);
+    if (mode === 'study') {
+      if (isSubmitted) return;
+      setSelectedOption(label);
+    } else {
+      if (!question) return;
+      setExamAnswers((prev) => ({ ...prev, [question.id]: label }));
+    }
   }
 
   function handleCheckAnswer() {
-    if (!selectedOption) return;
+    if (!selectedOption || !question) return;
     setIsSubmitted(true);
     if (selectedOption === question.correctOption) {
       setScore((prev) => prev + 1);
@@ -47,13 +92,30 @@ export default function QuizzesScreen() {
     }
   }
 
+  function handleFinishExam() {
+    let correct = 0;
+    for (const q of mockQuizQuestions) {
+      if (examAnswers[q.id] === q.correctOption) {
+        correct += 1;
+      }
+    }
+    setScore(correct);
+    setIsCompleted(true);
+  }
+
   function handleRestart() {
     setCurrentIndex(0);
     setSelectedOption(null);
     setIsSubmitted(false);
     setScore(0);
     setIsCompleted(false);
+    setExamAnswers({});
+    setFlagged({});
+    setRemainingSec(mockQuizQuestions.length * 90);
   }
+
+  const activeSelection =
+    mode === 'study' ? selectedOption : question ? examAnswers[question.id] ?? null : null;
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -70,11 +132,82 @@ export default function QuizzesScreen() {
           <Text style={styles.topBarSubject}>{question?.subjectName ?? 'Quiz'}</Text>
           <Text style={styles.topBarTopic}>{question?.topicName}</Text>
         </View>
-        <View style={styles.counterBadge}>
-          <Text style={styles.counterText}>
-            {currentIndex + 1}/{mockQuizQuestions.length}
+        {mode === 'exam' && !isCompleted ? (
+          <View
+            style={[
+              styles.timerBadge,
+              remainingSec <= 60 && styles.timerBadgeCritical,
+            ]}
+          >
+            <Ionicons
+              name="timer-outline"
+              size={14}
+              color={remainingSec <= 60 ? '#FFFFFF' : '#D97706'}
+            />
+            <Text
+              style={[
+                styles.timerText,
+                remainingSec <= 60 && { color: '#FFFFFF' },
+              ]}
+            >
+              {formatClock(remainingSec)}
+            </Text>
+          </View>
+        ) : (
+          <View style={styles.counterBadge}>
+            <Text style={styles.counterText}>
+              {currentIndex + 1}/{mockQuizQuestions.length}
+            </Text>
+          </View>
+        )}
+      </View>
+
+      {/* Study Mode vs Exam Mode Switcher */}
+      <View style={styles.modeToggleBar}>
+        <TouchableOpacity
+          style={[
+            styles.modeToggleButton,
+            mode === 'study' && styles.modeToggleButtonActive,
+          ]}
+          onPress={() => handleSwitchMode('study')}
+          activeOpacity={0.8}
+        >
+          <Ionicons
+            name="book-outline"
+            size={15}
+            color={mode === 'study' ? '#FFFFFF' : Palette.ink2}
+          />
+          <Text
+            style={[
+              styles.modeToggleText,
+              mode === 'study' && styles.modeToggleTextActive,
+            ]}
+          >
+            Study Mode (Instant)
           </Text>
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.modeToggleButton,
+            mode === 'exam' && styles.modeToggleButtonExamActive,
+          ]}
+          onPress={() => handleSwitchMode('exam')}
+          activeOpacity={0.8}
+        >
+          <Ionicons
+            name="stopwatch-outline"
+            size={15}
+            color={mode === 'exam' ? '#FFFFFF' : Palette.ink2}
+          />
+          <Text
+            style={[
+              styles.modeToggleText,
+              mode === 'exam' && styles.modeToggleTextActive,
+            ]}
+          >
+            Exam Mode (Timed CBT)
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {/* Progress Track */}
@@ -84,7 +217,7 @@ export default function QuizzesScreen() {
             styles.progressFill,
             {
               width: `${((currentIndex + 1) / mockQuizQuestions.length) * 100}%`,
-              backgroundColor: subjectColor,
+              backgroundColor: mode === 'exam' ? '#D97706' : subjectColor,
             },
           ]}
         />
@@ -109,7 +242,33 @@ export default function QuizzesScreen() {
                   {question.year ?? 'Past Question'}
                 </Text>
               </View>
-              <Text style={styles.pointsText}>+10 XP</Text>
+              {mode === 'exam' ? (
+                <TouchableOpacity
+                  style={styles.flagButton}
+                  onPress={() =>
+                    setFlagged((prev) => ({
+                      ...prev,
+                      [question.id]: !prev[question.id],
+                    }))
+                  }
+                >
+                  <Ionicons
+                    name={flagged[question.id] ? 'flag' : 'flag-outline'}
+                    size={14}
+                    color={flagged[question.id] ? '#D97706' : Palette.ink3}
+                  />
+                  <Text
+                    style={[
+                      styles.flagText,
+                      flagged[question.id] && { color: '#D97706', fontWeight: '700' },
+                    ]}
+                  >
+                    {flagged[question.id] ? 'Flagged' : 'Flag'}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <Text style={styles.pointsText}>+10 XP</Text>
+              )}
             </View>
 
             <Text style={styles.questionText}>{question.question}</Text>
@@ -118,10 +277,14 @@ export default function QuizzesScreen() {
           {/* Options */}
           <View style={styles.optionsList}>
             {question.options.map((opt) => {
-              const isSelected = selectedOption === opt.label;
-              const isCorrect = isSubmitted && opt.label === question.correctOption;
+              const isSelected = activeSelection === opt.label;
+              const isCorrect =
+                mode === 'study' && isSubmitted && opt.label === question.correctOption;
               const isWrong =
-                isSubmitted && isSelected && opt.label !== question.correctOption;
+                mode === 'study' &&
+                isSubmitted &&
+                isSelected &&
+                opt.label !== question.correctOption;
 
               return (
                 <TouchableOpacity
@@ -158,8 +321,8 @@ export default function QuizzesScreen() {
             })}
           </View>
 
-          {/* Explanation Alert when submitted */}
-          {isSubmitted && (
+          {/* Explanation Alert when submitted in Study Mode */}
+          {mode === 'study' && isSubmitted && (
             <View
               style={[
                 styles.explanationCard,
@@ -202,35 +365,76 @@ export default function QuizzesScreen() {
             </View>
           )}
 
-          {/* Action Button */}
-          <View style={styles.bottomBar}>
-            {!isSubmitted ? (
+          {/* Action Bar */}
+          {mode === 'study' ? (
+            <View style={styles.bottomBar}>
+              {!isSubmitted ? (
+                <TouchableOpacity
+                  style={[
+                    styles.submitButton,
+                    !selectedOption && styles.submitButtonDisabled,
+                  ]}
+                  disabled={!selectedOption}
+                  onPress={handleCheckAnswer}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.submitButtonText}>Check Answer</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.submitButton}
+                  onPress={handleNextQuestion}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.submitButtonText}>
+                    {currentIndex + 1 < mockQuizQuestions.length
+                      ? 'Next Question'
+                      : 'View Results'}
+                  </Text>
+                  <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
+                </TouchableOpacity>
+              )}
+            </View>
+          ) : (
+            <View style={styles.examControls}>
+              <View style={styles.examNavRow}>
+                <TouchableOpacity
+                  style={[
+                    styles.outlineButton,
+                    { flex: 1 },
+                    currentIndex === 0 && styles.submitButtonDisabled,
+                  ]}
+                  disabled={currentIndex === 0}
+                  onPress={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+                >
+                  <Text style={styles.outlineButtonText}>Previous</Text>
+                </TouchableOpacity>
+
+                {currentIndex + 1 < mockQuizQuestions.length ? (
+                  <TouchableOpacity
+                    style={[styles.submitButton, { flex: 1 }]}
+                    onPress={() =>
+                      setCurrentIndex((i) => Math.min(mockQuizQuestions.length - 1, i + 1))
+                    }
+                  >
+                    <Text style={styles.submitButtonText}>
+                      {activeSelection ? 'Next' : 'Skip'}
+                    </Text>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
               <TouchableOpacity
-                style={[
-                  styles.submitButton,
-                  !selectedOption && styles.submitButtonDisabled,
-                ]}
-                disabled={!selectedOption}
-                onPress={handleCheckAnswer}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.submitButtonText}>Check Answer</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.submitButton}
-                onPress={handleNextQuestion}
+                style={[styles.submitButton, { backgroundColor: '#D97706' }]}
+                onPress={handleFinishExam}
                 activeOpacity={0.8}
               >
                 <Text style={styles.submitButtonText}>
-                  {currentIndex + 1 < mockQuizQuestions.length
-                    ? 'Next Question'
-                    : 'View Results'}
+                  Submit Exam ({Object.keys(examAnswers).length}/{mockQuizQuestions.length} Answered)
                 </Text>
-                <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
               </TouchableOpacity>
-            )}
-          </View>
+            </View>
+          )}
         </ScrollView>
       ) : (
         /* Results Screen */
@@ -238,13 +442,15 @@ export default function QuizzesScreen() {
           <View style={styles.resultsBadge}>
             <Ionicons name="trophy" size={48} color={Palette.accent} />
           </View>
-          <Text style={styles.resultsTitle}>Quiz Completed!</Text>
+          <Text style={styles.resultsTitle}>
+            {mode === 'exam' ? 'Exam Submitted!' : 'Quiz Completed!'}
+          </Text>
           <Text style={styles.resultsScore}>
             {score} / {mockQuizQuestions.length} Correct
           </Text>
           <Text style={styles.resultsSubtitle}>
-            You scored {Math.round((score / mockQuizQuestions.length) * 100)}% and earned +
-            {score * 10} XP towards your JAMB goal!
+            You scored {Math.round((score / mockQuizQuestions.length) * 100)}% in{' '}
+            {mode === 'exam' ? 'Exam Mode' : 'Study Mode'} and earned +{score * 10} XP!
           </Text>
 
           <View style={styles.resultsButtonGroup}>
@@ -321,6 +527,58 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Palette.ink2,
   },
+  timerBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: 'rgba(217, 119, 6, 0.12)',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 12,
+  },
+  timerBadgeCritical: {
+    backgroundColor: Palette.danger,
+  },
+  timerText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#D97706',
+  },
+  modeToggleBar: {
+    flexDirection: 'row',
+    gap: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: Palette.paper,
+  },
+  modeToggleButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 8,
+    borderRadius: 10,
+    backgroundColor: Palette.paper2,
+    borderWidth: 1,
+    borderColor: Palette.rule,
+  },
+  modeToggleButtonActive: {
+    backgroundColor: Palette.accent,
+    borderColor: Palette.accent,
+  },
+  modeToggleButtonExamActive: {
+    backgroundColor: '#D97706',
+    borderColor: '#D97706',
+  },
+  modeToggleText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: Palette.ink2,
+  },
+  modeToggleTextActive: {
+    color: '#FFFFFF',
+  },
   progressTrack: {
     height: 4,
     backgroundColor: Palette.paper2,
@@ -357,6 +615,19 @@ const styles = StyleSheet.create({
   subjectPillText: {
     fontSize: 11,
     fontWeight: '700',
+  },
+  flagButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    backgroundColor: Palette.paper2,
+  },
+  flagText: {
+    fontSize: 11,
+    color: Palette.ink3,
   },
   pointsText: {
     fontSize: 12,
@@ -457,6 +728,14 @@ const styles = StyleSheet.create({
   bottomBar: {
     marginTop: 8,
   },
+  examControls: {
+    marginTop: 8,
+    gap: 10,
+  },
+  examNavRow: {
+    flexDirection: 'row',
+    gap: 10,
+  },
   submitButton: {
     backgroundColor: Palette.accent,
     borderRadius: 12,
@@ -518,6 +797,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Palette.rule2,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   outlineButtonText: {
     fontSize: 14,

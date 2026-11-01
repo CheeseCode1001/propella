@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Modal,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,13 +14,31 @@ import { Palette, Fonts } from '@/constants/theme';
 import { mockQuizQuestions } from '@/lib/mock-data';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+interface SavedMobileMockState {
+  currentQIndex: number;
+  answers: Record<number, string>;
+  flagged: Record<number, boolean>;
+  timeLeftSeconds: number;
+  hasInProgress: boolean;
+}
+
+// Persistent session state across screen mounts so leaving halfway never loses progress
+let persistedMockSession: SavedMobileMockState = {
+  currentQIndex: 0,
+  answers: {},
+  flagged: {},
+  timeLeftSeconds: 45 * 60,
+  hasInProgress: false,
+};
+
 export default function MocksScreen() {
   const router = useRouter();
   const [examStarted, setExamStarted] = useState(false);
-  const [currentQIndex, setCurrentQIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [flagged, setFlagged] = useState<Record<number, boolean>>({});
-  const [timeLeftSeconds, setTimeLeftSeconds] = useState(45 * 60); // 45 minutes
+  const [isPaused, setIsPaused] = useState(false);
+  const [currentQIndex, setCurrentQIndex] = useState(persistedMockSession.currentQIndex);
+  const [answers, setAnswers] = useState<Record<number, string>>(persistedMockSession.answers);
+  const [flagged, setFlagged] = useState<Record<number, boolean>>(persistedMockSession.flagged);
+  const [timeLeftSeconds, setTimeLeftSeconds] = useState(persistedMockSession.timeLeftSeconds);
   const [isFinished, setIsFinished] = useState(false);
 
   // Mock exam questions duplicated to create 20 questions
@@ -30,20 +49,34 @@ export default function MocksScreen() {
     ...mockQuizQuestions.map((q, idx) => ({ ...q, id: `mock-${idx}-d` })),
   ];
 
+  // Keep persistedMockSession updated whenever answers, question index, or timer changes
   useEffect(() => {
-    if (!examStarted || isFinished) return;
+    if (examStarted && !isFinished) {
+      persistedMockSession = {
+        currentQIndex,
+        answers,
+        flagged,
+        timeLeftSeconds,
+        hasInProgress: true,
+      };
+    }
+  }, [examStarted, isFinished, currentQIndex, answers, flagged, timeLeftSeconds]);
+
+  useEffect(() => {
+    if (!examStarted || isFinished || isPaused) return;
     const timer = setInterval(() => {
       setTimeLeftSeconds((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          handleSubmitExam();
+          persistedMockSession.hasInProgress = false;
+          setIsFinished(true);
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [examStarted, isFinished]);
+  }, [examStarted, isFinished, isPaused]);
 
   const formatTimer = (totalSeconds: number) => {
     const mins = Math.floor(totalSeconds / 60);
@@ -59,6 +92,46 @@ export default function MocksScreen() {
     setFlagged((prev) => ({ ...prev, [currentQIndex]: !prev[currentQIndex] }));
   }
 
+  function handlePauseAndExit() {
+    persistedMockSession = {
+      currentQIndex,
+      answers,
+      flagged,
+      timeLeftSeconds,
+      hasInProgress: true,
+    };
+    setIsPaused(false);
+    setExamStarted(false);
+    router.back();
+  }
+
+  function handleStartFresh() {
+    persistedMockSession = {
+      currentQIndex: 0,
+      answers: {},
+      flagged: {},
+      timeLeftSeconds: 45 * 60,
+      hasInProgress: true,
+    };
+    setCurrentQIndex(0);
+    setAnswers({});
+    setFlagged({});
+    setTimeLeftSeconds(45 * 60);
+    setIsPaused(false);
+    setIsFinished(false);
+    setExamStarted(true);
+  }
+
+  function handleResumeSaved() {
+    setCurrentQIndex(persistedMockSession.currentQIndex);
+    setAnswers(persistedMockSession.answers);
+    setFlagged(persistedMockSession.flagged);
+    setTimeLeftSeconds(persistedMockSession.timeLeftSeconds);
+    setIsPaused(false);
+    setIsFinished(false);
+    setExamStarted(true);
+  }
+
   function handleSubmitExam() {
     Alert.alert(
       'Submit Mock Exam',
@@ -68,9 +141,12 @@ export default function MocksScreen() {
         {
           text: 'Submit Exam',
           style: 'default',
-          onPress: () => setIsFinished(true),
+          onPress: () => {
+            persistedMockSession.hasInProgress = false;
+            setIsFinished(true);
+          },
         },
-      ]
+      ],
     );
   }
 
@@ -90,10 +166,7 @@ export default function MocksScreen() {
           style={styles.backButton}
           onPress={() => {
             if (examStarted && !isFinished) {
-              Alert.alert('Leave Exam?', 'Your current mock progress will be lost.', [
-                { text: 'Stay', style: 'cancel' },
-                { text: 'Exit', style: 'destructive', onPress: () => router.back() },
-              ]);
+              setIsPaused(true);
             } else {
               router.back();
             }
@@ -108,18 +181,29 @@ export default function MocksScreen() {
           {examStarted && !isFinished && (
             <View style={styles.timerBadge}>
               <Ionicons name="time" size={14} color={Palette.warning} />
-              <Text style={styles.timerText}>{formatTimer(timeLeftSeconds)}</Text>
+              <Text style={styles.timerText}>
+                {formatTimer(timeLeftSeconds)} {isPaused ? '(PAUSED)' : ''}
+              </Text>
             </View>
           )}
         </View>
 
         {examStarted && !isFinished ? (
-          <TouchableOpacity
-            style={styles.submitHeaderBtn}
-            onPress={handleSubmitExam}
-          >
-            <Text style={styles.submitHeaderBtnText}>Submit</Text>
-          </TouchableOpacity>
+          <View style={styles.headerActions}>
+            <TouchableOpacity
+              style={styles.pauseHeaderBtn}
+              onPress={() => setIsPaused(true)}
+            >
+              <Ionicons name="pause" size={14} color={Palette.ink} />
+              <Text style={styles.pauseHeaderBtnText}>Pause</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.submitHeaderBtn}
+              onPress={handleSubmitExam}
+            >
+              <Text style={styles.submitHeaderBtnText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
         ) : (
           <View style={{ width: 36 }} />
         )}
@@ -133,7 +217,7 @@ export default function MocksScreen() {
           </View>
           <Text style={styles.introTitle}>Full JAMB Mock Simulator</Text>
           <Text style={styles.introDesc}>
-            Experience standard JAMB CBT conditions with accurate pacing, countdown clock, and multi-question review palette.
+            Experience standard JAMB CBT conditions with accurate pacing, countdown clock, and pause & resume support so you never lose progress.
           </Text>
 
           <View style={styles.rulesCard}>
@@ -146,19 +230,47 @@ export default function MocksScreen() {
               <Text style={styles.ruleText}>45 Minutes Duration</Text>
             </View>
             <View style={styles.ruleRow}>
-              <Ionicons name="flag-outline" size={18} color={Palette.accent} />
-              <Text style={styles.ruleText}>Flag questions to return later</Text>
+              <Ionicons name="pause-circle-outline" size={18} color={Palette.accent} />
+              <Text style={styles.ruleText}>Pause anytime & resume right where you stopped</Text>
             </View>
           </View>
 
-          <TouchableOpacity
-            style={styles.startExamButton}
-            onPress={() => setExamStarted(true)}
-            activeOpacity={0.85}
-          >
-            <Text style={styles.startExamButtonText}>Begin Simulation</Text>
-            <Ionicons name="play" size={16} color="#FFFFFF" />
-          </TouchableOpacity>
+          {persistedMockSession.hasInProgress ? (
+            <View style={{ width: '100%', gap: 10 }}>
+              <View style={styles.savedBanner}>
+                <Text style={styles.savedBannerTitle}>Paused Mock Exam Found</Text>
+                <Text style={styles.savedBannerSub}>
+                  Question {persistedMockSession.currentQIndex + 1} of {questions.length} •{' '}
+                  {Object.keys(persistedMockSession.answers).length} Answered •{' '}
+                  {formatTimer(persistedMockSession.timeLeftSeconds)} remaining
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={styles.startExamButton}
+                onPress={handleResumeSaved}
+                activeOpacity={0.85}
+              >
+                <Ionicons name="play" size={16} color="#FFFFFF" />
+                <Text style={styles.startExamButtonText}>Continue Where You Stopped</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.secondaryExamButton}
+                onPress={handleStartFresh}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.secondaryExamButtonText}>Start Over Fresh</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={styles.startExamButton}
+              onPress={handleStartFresh}
+              activeOpacity={0.85}
+            >
+              <Text style={styles.startExamButtonText}>Begin Simulation</Text>
+              <Ionicons name="play" size={16} color="#FFFFFF" />
+            </TouchableOpacity>
+          )}
         </ScrollView>
       ) : !isFinished ? (
         /* Live Exam Screen */
@@ -201,7 +313,9 @@ export default function MocksScreen() {
           {/* Active Question Box */}
           <ScrollView style={styles.scroll} contentContainerStyle={styles.qContent}>
             <View style={styles.qHeaderRow}>
-              <Text style={styles.qNumber}>Question {currentQIndex + 1} of {questions.length}</Text>
+              <Text style={styles.qNumber}>
+                Question {currentQIndex + 1} of {questions.length}
+              </Text>
               <TouchableOpacity style={styles.flagButton} onPress={toggleFlag}>
                 <Ionicons
                   name={flagged[currentQIndex] ? 'flag' : 'flag-outline'}
@@ -284,6 +398,36 @@ export default function MocksScreen() {
               </TouchableOpacity>
             </View>
           </ScrollView>
+
+          {/* Pause Overlay Modal */}
+          <Modal visible={isPaused} transparent animationType="fade">
+            <View style={styles.pauseModalBackdrop}>
+              <View style={styles.pauseModalCard}>
+                <View style={styles.pauseIconWrap}>
+                  <Ionicons name="pause-circle" size={40} color={Palette.warning} />
+                </View>
+                <Text style={styles.pauseModalTitle}>Mock Exam Paused</Text>
+                <Text style={styles.pauseModalDesc}>
+                  Your timer is paused at {formatTimer(timeLeftSeconds)} and your progress (
+                  {Object.keys(answers).length}/{questions.length} answered, Question{' '}
+                  {currentQIndex + 1}) is saved.
+                </Text>
+                <TouchableOpacity
+                  style={styles.startExamButton}
+                  onPress={() => setIsPaused(false)}
+                >
+                  <Ionicons name="play" size={16} color="#FFFFFF" />
+                  <Text style={styles.startExamButtonText}>Resume Exam</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.secondaryExamButton, { marginTop: 8, width: '100%' }]}
+                  onPress={handlePauseAndExit}
+                >
+                  <Text style={styles.secondaryExamButtonText}>Save & Continue Later</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </View>
       ) : (
         /* Exam Report Screen */
@@ -302,13 +446,18 @@ export default function MocksScreen() {
           <View style={styles.breakdownCard}>
             <Text style={styles.breakdownTitle}>Estimated JAMB Score Projection</Text>
             <Text style={styles.projectionText}>
-              {correctCount >= 16 ? 'Excellent! 320+ Projected Score' : correctCount >= 12 ? 'Good! 260+ Projected Score' : 'Needs Practice (Focus on weak topics)'}
+              {correctCount >= 16
+                ? 'Excellent! 320+ Projected Score'
+                : correctCount >= 12
+                ? 'Good! 260+ Projected Score'
+                : 'Needs Practice (Focus on weak topics)'}
             </Text>
           </View>
 
           <TouchableOpacity
             style={styles.startExamButton}
             onPress={() => {
+              persistedMockSession.hasInProgress = false;
               setExamStarted(false);
               setIsFinished(false);
               setAnswers({});
@@ -355,7 +504,7 @@ const styles = StyleSheet.create({
   },
   examTitle: {
     fontFamily: Fonts?.serif ?? 'serif',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
     color: Palette.ink,
   },
@@ -374,6 +523,27 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Palette.warning,
     fontFamily: Fonts?.mono ?? 'monospace',
+  },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  pauseHeaderBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: Palette.paper2,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Palette.rule,
+  },
+  pauseHeaderBtnText: {
+    color: Palette.ink,
+    fontSize: 12,
+    fontWeight: '600',
   },
   submitHeaderBtn: {
     backgroundColor: Palette.accent,
@@ -436,6 +606,23 @@ const styles = StyleSheet.create({
     color: Palette.ink,
     fontWeight: '500',
   },
+  savedBanner: {
+    backgroundColor: Palette.warningTint,
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: Palette.warning,
+  },
+  savedBannerTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: Palette.ink,
+    marginBottom: 2,
+  },
+  savedBannerSub: {
+    fontSize: 12,
+    color: Palette.ink2,
+  },
   startExamButton: {
     backgroundColor: Palette.accent,
     borderRadius: 12,
@@ -451,6 +638,21 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 15,
     fontWeight: '700',
+  },
+  secondaryExamButton: {
+    backgroundColor: Palette.card,
+    borderRadius: 12,
+    paddingVertical: 13,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: Palette.rule2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  secondaryExamButtonText: {
+    color: Palette.ink,
+    fontSize: 14,
+    fontWeight: '600',
   },
   liveContainer: {
     flex: 1,
@@ -599,6 +801,45 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '600',
     color: Palette.ink,
+  },
+  pauseModalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.65)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 24,
+  },
+  pauseModalCard: {
+    width: '100%',
+    backgroundColor: Palette.card,
+    borderRadius: 20,
+    padding: 24,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Palette.rule,
+  },
+  pauseIconWrap: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: Palette.warningTint,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+  pauseModalTitle: {
+    fontFamily: Fonts?.serif ?? 'serif',
+    fontSize: 20,
+    fontWeight: '700',
+    color: Palette.ink,
+    marginBottom: 8,
+  },
+  pauseModalDesc: {
+    fontSize: 13,
+    color: Palette.ink2,
+    textAlign: 'center',
+    lineHeight: 19,
+    marginBottom: 20,
   },
   reportContainer: {
     padding: 24,

@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'Can I use Propella offline?',
-    a: 'Partially. Once a topic\'s content loads, you can read it offline. Study sessions and the marathon timer work offline and sync when you reconnect. AI assistant, quiz generation, and mocks require an internet connection.',
+    a: 'Partially. Once a topic\'s content loads, you can read it offline. Study sessions work offline and sync when you reconnect. AI assistant, quiz generation, and mocks require an internet connection.',
   },
   {
     q: 'How do I cancel my Scholar subscription?',

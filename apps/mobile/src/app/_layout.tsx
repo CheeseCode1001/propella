@@ -7,7 +7,6 @@ import { Palette } from '@/constants/theme';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import { useAuthStore } from '@/lib/auth-store';
-import { MarathonWidget } from '@/components/marathon-widget';
 import { PaywallModal } from '@/components/paywall-modal';
 
 SplashScreen.preventAutoHideAsync();
@@ -60,7 +59,6 @@ export default function RootLayout() {
             <Stack.Screen name="files" options={{ headerShown: false }} />
             <Stack.Screen name="quizzes" options={{ headerShown: false }} />
             <Stack.Screen name="mocks" options={{ headerShown: false }} />
-            <Stack.Screen name="marathon" options={{ headerShown: false }} />
             <Stack.Screen name="assistant" options={{ headerShown: false }} />
             <Stack.Screen name="planner" options={{ headerShown: false }} />
             <Stack.Screen name="progress" options={{ headerShown: false }} />
@@ -73,9 +71,6 @@ export default function RootLayout() {
               }}
             />
           </Stack>
-
-          {/* Floating Pomodoro Marathon Timer */}
-          <MarathonWidget />
 
           {/* Global Scholar Paywall Modal */}
           <PaywallModal />

@@ -1017,7 +1017,7 @@ function Step2Waec({
 
 type StudentTrack = 'science' | 'social_science' | 'art' | null
 
-const ART_AND_COMMERCIAL_SLUGS = ['literature', 'government', 'commerce', 'principles-of-accounts']
+const ART_AND_COMMERCIAL_SLUGS = ['literature', 'government', 'commerce', 'principles-of-accounts', 'crk', 'irk', 'history']
 const LAB_SCIENCE_SLUGS = ['physics', 'chemistry']
 const PURE_SCIENCE_SLUGS = ['physics', 'chemistry', 'biology']
 
@@ -1173,7 +1173,7 @@ function Step3({
       return ['english', 'mathematics', 'economics', 'government', 'commerce']
     }
     if (studentTrack === 'art') {
-      return ['english', 'literature', 'government', 'economics']
+      return ['english', 'literature', 'government', 'crk', 'irk', 'history', 'economics']
     }
     return []
   }, [courseObj, studentTrack, subjects])
@@ -1860,7 +1860,7 @@ function Step7Generating({
         particleCount: 85,
         spread: 80,
         origin: { y: 0.55 },
-        colors: ['#6E3A5F', '#E0A838', '#10B981', '#3B82F6', '#EC4899'],
+        colors: ['#F8642B', '#E0A838', '#10B981', '#3B82F6', '#EC4899'],
         ticks: 250,
       })
       // Left cannon
@@ -1870,7 +1870,7 @@ function Step7Generating({
           angle: 60,
           spread: 65,
           origin: { x: 0.05, y: 0.65 },
-          colors: ['#E0A838', '#6E3A5F', '#10B981'],
+          colors: ['#E0A838', '#F8642B', '#10B981'],
         })
       }, 200)
       // Right cannon
@@ -1880,7 +1880,7 @@ function Step7Generating({
           angle: 120,
           spread: 65,
           origin: { x: 0.95, y: 0.65 },
-          colors: ['#3B82F6', '#E0A838', '#6E3A5F'],
+          colors: ['#3B82F6', '#E0A838', '#F8642B'],
         })
       }, 350)
     } catch {
@@ -1999,7 +1999,7 @@ function Step7Generating({
               width: `${progressPercent}%`,
               background: isFinished
                 ? 'linear-gradient(90deg, #10B981, #059669)'
-                : 'linear-gradient(90deg, #6E3A5F, #E0A838, #10B981)',
+                : 'linear-gradient(90deg, #F8642B, #E0A838, #10B981)',
               borderRadius: 'var(--radius-full)',
               transition: 'width 500ms cubic-bezier(0.4, 0, 0.2, 1)',
             }}

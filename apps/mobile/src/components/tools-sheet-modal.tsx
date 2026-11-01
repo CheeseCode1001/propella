@@ -43,13 +43,6 @@ export function ToolsSheetModal({ visible, onClose }: ToolsSheetModalProps) {
       href: '/mocks',
     },
     {
-      id: 'marathon',
-      title: 'Marathon',
-      description: 'Long focused runs',
-      icon: 'flash-outline' as const,
-      href: '/marathon',
-    },
-    {
       id: 'assistant',
       title: 'AI Assistant',
       description: 'Ask anything from your syllabus',
@@ -254,4 +247,3 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 });
-

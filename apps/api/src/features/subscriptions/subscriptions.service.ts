@@ -12,10 +12,12 @@ import {
 import {
   initializePaystackTransaction,
   verifyPaystackTransaction,
-  type PaystackVerifyResponse,
+  chargePaystackAuthorization,
 } from './paystack.service'
 import {
   SUBSCRIPTION_PLANS,
+  WELCOME_DISCOUNT_WINDOW_MS,
+  WELCOME_DISCOUNT_PERCENT,
   type SubscriptionPlanId,
 } from '@propella/shared'
 
@@ -34,11 +36,19 @@ export interface CurrentSubscriptionResponse {
   planExpiresAt: string | null
   isActive: boolean
   daysRemaining: number
+  discountEligible: boolean
+  discountExpiresAt: string | null
+  discountPercent: number
   activeSubscription: {
     id: string
     plan: SubscriptionPlanId
     planName: string
     amount: number
+    renewalAmount: number
+    isDiscounted: boolean
+    autoRenew: boolean
+    cardLast4?: string | null
+    cardBrand?: string | null
     status: string
     startDate: string
     expiresAt: string
@@ -59,8 +69,61 @@ export interface CurrentSubscriptionResponse {
   }>
 }
 
+interface StoredPaymentMetadata {
+  userId?: string
+  plan?: SubscriptionPlanId
+  isGift?: boolean
+  giftRecipientEmail?: string | null
+  giftRecipientName?: string | null
+  giftMessage?: string | null
+  isShared?: boolean
+  sharedWithEmail?: string | null
+  isDiscounted?: boolean
+  standardPrice?: number
+  renewalAmount?: number
+  autoRenew?: boolean
+  authorizationCode?: string | null
+  cardSignature?: string | null
+  cardLast4?: string | null
+  cardBrand?: string | null
+  reusable?: boolean
+}
+
 /**
- * Initializes a new checkout session with Paystack
+ * Checks whether a user is within the 3-day (72-hour) welcome discount window
+ * from registration and has not previously activated a subscription.
+ */
+export async function checkWelcomeDiscountEligibility(userId: string): Promise<{
+  eligible: boolean
+  expiresAt: Date
+}> {
+  const [user, priorSubs] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { createdAt: true, plan: true, planExpiresAt: true },
+    }),
+    prisma.subscription.count({ where: { userId } }),
+  ])
+
+  if (!user) throw new NotFoundError('User not found')
+
+  const expiresAt = new Date(user.createdAt.getTime() + WELCOME_DISCOUNT_WINDOW_MS)
+  const now = new Date()
+  const isCurrentlyScholar =
+    user.plan === 'scholar' &&
+    Boolean(user.planExpiresAt && user.planExpiresAt.getTime() > now.getTime())
+
+  const eligible =
+    !isCurrentlyScholar && priorSubs === 0 && now.getTime() < expiresAt.getTime()
+
+  return { eligible, expiresAt }
+}
+
+/**
+ * Initializes a new checkout session with Paystack.
+ * - Within 3 days of registration, applies the 50% welcome discount (₦999 Basic, ₦1,499 Shared, ₦4,999 Full).
+ * - Strategically forces `channels: ['card']` on non-gift plans so a reusable card authorization
+ *   is captured to auto-renew next month at the standard price and prevent multi-account discount abuse.
  */
 export async function initializeSubscription(
   userId: string,
@@ -68,7 +131,7 @@ export async function initializeSubscription(
 ) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: { id: true, email: true, name: true, plan: true, planExpiresAt: true },
+    select: { id: true, email: true, name: true, plan: true, planExpiresAt: true, createdAt: true },
   })
   if (!user) throw new NotFoundError('User not found')
 
@@ -85,8 +148,18 @@ export async function initializeSubscription(
     throw new AppError(400, 'Recipient email is required for a gift subscription')
   }
 
+  // Check 3-day welcome discount eligibility (applies to personal/shared subscriptions, not gifts)
+  const discountCheck = isGift
+    ? { eligible: false, expiresAt: new Date(0) }
+    : await checkWelcomeDiscountEligibility(userId)
+
+  const isDiscounted = discountCheck.eligible
+  const chargeAmount = isDiscounted ? planConfig.discountPrice : planConfig.price
+  const chargeAmountKobo = isDiscounted ? planConfig.discountPriceKobo : planConfig.priceKobo
+  const renewalAmount = planConfig.price
+
   // Create unique reference for tracking
-  const prefix = isGift ? 'prp_gift' : isShared ? 'prp_share' : 'prp_sub'
+  const prefix = isGift ? 'prp_gift' : isShared ? 'prp_share' : isDiscounted ? 'prp_disc' : 'prp_sub'
   const reference = `${prefix}_${nanoid(16)}`
 
   // Base frontend URL for callback
@@ -100,7 +173,7 @@ export async function initializeSubscription(
     data: {
       userId,
       reference,
-      amount: planConfig.price,
+      amount: chargeAmount,
       currency: 'NGN',
       status: 'pending',
       metadata: {
@@ -112,13 +185,18 @@ export async function initializeSubscription(
         giftMessage: input.giftMessage?.trim() || null,
         isShared,
         sharedWithEmail,
+        isDiscounted,
+        standardPrice: planConfig.price,
+        renewalAmount,
+        autoRenew: !isGift,
       },
     },
   })
 
-  // Optional recurring plan code from environment if monthly
+  // Only pass Paystack planCode on non-discounted monthly transactions; on discounted
+  // transactions we charge the 50% intro price via card and auto-renew at standard price.
   const planCode =
-    input.plan === 'scholar_monthly' && env.PAYSTACK_PLAN_MONTHLY_CODE
+    !isDiscounted && input.plan === 'scholar_monthly' && env.PAYSTACK_PLAN_MONTHLY_CODE
       ? env.PAYSTACK_PLAN_MONTHLY_CODE
       : undefined
 
@@ -127,17 +205,25 @@ export async function initializeSubscription(
     throw new AppError(400, 'Your account does not have a valid email address configured for payment.')
   }
 
+  // Force reusable card channel on personal/discounted plans so auto-renewal at standard price is guaranteed
+  const channels = isGift ? undefined : ['card']
+
   const paystackData = await initializePaystackTransaction({
     email,
-    amount: planConfig.priceKobo,
+    amount: chargeAmountKobo,
     reference,
     callbackUrl,
-    planCode: isGift ? undefined : planCode, // Don't subscribe the gift sender to a recurring auto-debit
+    planCode: isGift ? undefined : planCode,
+    channels,
     metadata: {
       userId,
       purchaserName: user.name,
       plan: input.plan,
       isGift,
+      isDiscounted,
+      standardPrice: planConfig.price,
+      renewalAmount,
+      autoRenew: !isGift,
       giftRecipientEmail: input.giftRecipientEmail?.trim()?.toLowerCase() || null,
       giftRecipientName: input.giftRecipientName?.trim() || null,
       giftMessage: input.giftMessage?.trim() || null,
@@ -150,7 +236,9 @@ export async function initializeSubscription(
         {
           display_name: 'Plan',
           variable_name: 'plan',
-          value: planConfig.name,
+          value: isDiscounted
+            ? `${planConfig.name} (50% Welcome Offer — Renews at ₦${planConfig.price.toLocaleString()})`
+            : planConfig.name,
         },
         ...(isGift
           ? [
@@ -169,7 +257,11 @@ export async function initializeSubscription(
     authorizationUrl: paystackData.authorization_url,
     accessCode: paystackData.access_code,
     reference,
-    amount: planConfig.price,
+    amount: chargeAmount,
+    standardPrice: planConfig.price,
+    renewalAmount,
+    isDiscounted,
+    autoRenew: !isGift,
     plan: input.plan,
     email,
   }
@@ -194,7 +286,9 @@ function calculateExpirationDate(
 }
 
 /**
- * Verifies transaction with Paystack and activates the subscription
+ * Verifies transaction with Paystack and activates the subscription.
+ * Also enforces anti-abuse checks using Paystack's card signature so users cannot
+ * open multiple accounts with the same card to repeatedly claim the 3-day 50% discount.
  */
 export async function verifyAndActivateSubscription(
   reference: string,
@@ -204,7 +298,6 @@ export async function verifyAndActivateSubscription(
   const verified = await verifyPaystackTransaction(reference)
 
   if (verified.status !== 'success') {
-    // Update transaction record if found
     await prisma.paymentTransaction
       .updateMany({
         where: { reference },
@@ -216,7 +309,7 @@ export async function verifyAndActivateSubscription(
   }
 
   // 2. Fetch or create transaction record
-  let tx = await prisma.paymentTransaction.findUnique({
+  const tx = await prisma.paymentTransaction.findUnique({
     where: { reference },
     include: { subscription: true },
   })
@@ -231,16 +324,9 @@ export async function verifyAndActivateSubscription(
     }
   }
 
-  const meta = (verified.metadata || tx?.metadata || {}) as {
-    userId?: string
-    plan?: SubscriptionPlanId
-    isGift?: boolean
-    giftRecipientEmail?: string | null
-    giftRecipientName?: string | null
-    giftMessage?: string | null
-    isShared?: boolean
-    sharedWithEmail?: string | null
-  }
+  const txMeta = (tx?.metadata ?? {}) as StoredPaymentMetadata
+  const verifiedMeta = (verified.metadata ?? {}) as StoredPaymentMetadata
+  const meta: StoredPaymentMetadata = { ...txMeta, ...verifiedMeta }
 
   const userId = meta.userId || actingUserId || tx?.userId
   if (!userId) {
@@ -250,11 +336,47 @@ export async function verifyAndActivateSubscription(
   const planId: SubscriptionPlanId = meta.plan || 'scholar_basic'
   const planConfig = SUBSCRIPTION_PLANS[planId] || SUBSCRIPTION_PLANS.scholar_basic
   const isGift = Boolean(meta.isGift)
+  const isDiscounted = Boolean(meta.isDiscounted)
   const isShared = planId === 'scholar_shared' || Boolean(meta.isShared)
   const sharedWithEmail = meta.sharedWithEmail?.trim()?.toLowerCase() || null
   const recipientEmail = meta.giftRecipientEmail?.trim()?.toLowerCase()
   const recipientName = meta.giftRecipientName?.trim()
   const giftMessage = meta.giftMessage?.trim()
+
+  const authorizationCode = verified.authorization?.authorization_code || null
+  const cardSignature = verified.authorization?.signature || null
+  const cardLast4 = verified.authorization?.last4 || null
+  const cardBrand = verified.authorization?.card_type || null
+  const reusable = Boolean(verified.authorization?.reusable)
+
+  // Anti-abuse check: if this is a discounted purchase and Paystack returned a card signature,
+  // verify this card signature hasn't already been used on a DIFFERENT account for a discounted plan.
+  if (isDiscounted && cardSignature) {
+    const priorDiscountTxs = await prisma.paymentTransaction.findMany({
+      where: {
+        status: 'success',
+        userId: { not: userId },
+      },
+      select: { id: true, userId: true, metadata: true },
+      take: 500,
+    })
+
+    const abusedOnOtherAccount = priorDiscountTxs.some((otherTx) => {
+      const m = (otherTx.metadata ?? {}) as StoredPaymentMetadata
+      return m.isDiscounted === true && m.cardSignature === cardSignature
+    })
+
+    if (abusedOnOtherAccount) {
+      logger.warn(
+        { userId, reference, cardSignature },
+        'Blocked multi-account 50% welcome discount abuse using the same card signature',
+      )
+      throw new AppError(
+        403,
+        'This payment card has already been used to claim the 3-day 50% welcome discount on another Propella account. Please use your original account or subscribe at the standard rate.',
+      )
+    }
+  }
 
   const purchaser = await prisma.user.findUnique({ where: { id: userId } })
   if (!purchaser) throw new NotFoundError('Purchaser account not found')
@@ -274,9 +396,27 @@ export async function verifyAndActivateSubscription(
     planConfig.durationDays,
   )
 
+  const paidAmountNaira = Math.round(verified.amount / 100)
+  const enrichedMetadata: StoredPaymentMetadata = {
+    ...meta,
+    userId,
+    plan: planId,
+    isGift,
+    isShared,
+    sharedWithEmail,
+    isDiscounted,
+    standardPrice: planConfig.price,
+    renewalAmount: planConfig.price,
+    autoRenew: !isGift,
+    authorizationCode,
+    cardSignature,
+    cardLast4,
+    cardBrand,
+    reusable,
+  }
+
   // 3. Atomically activate in transaction
   const result = await prisma.$transaction(async (db) => {
-    // If beneficiary is an existing user, upgrade them
     if (beneficiaryUser) {
       await db.user.update({
         where: { id: beneficiaryUser.id },
@@ -305,14 +445,13 @@ export async function verifyAndActivateSubscription(
       }
     }
 
-    // Upsert subscription row
     const subscription = await db.subscription.upsert({
       where: { reference },
       create: {
         userId: beneficiaryUser ? beneficiaryUser.id : purchaser.id,
         plan: planId,
         status: 'active',
-        amount: Math.round(verified.amount / 100),
+        amount: paidAmountNaira,
         reference,
         paystackSubscriptionCode: (verified as any).subscription?.subscription_code || null,
         paystackCustomerCode: verified.customer?.customer_code || null,
@@ -334,25 +473,26 @@ export async function verifyAndActivateSubscription(
       },
     })
 
-    // Upsert payment transaction
     await db.paymentTransaction.upsert({
       where: { reference },
       create: {
         userId: purchaser.id,
         subscriptionId: subscription.id,
         reference,
-        amount: Math.round(verified.amount / 100),
+        amount: paidAmountNaira,
         currency: verified.currency || 'NGN',
         status: 'success',
         channel: verified.channel || 'card',
         paidAt: verified.paid_at ? new Date(verified.paid_at) : new Date(),
-        metadata: (verified.metadata as any) ?? {},
+        metadata: enrichedMetadata as any,
       },
       update: {
         status: 'success',
+        amount: paidAmountNaira,
         channel: verified.channel || 'card',
         paidAt: verified.paid_at ? new Date(verified.paid_at) : new Date(),
         subscriptionId: subscription.id,
+        metadata: enrichedMetadata as any,
       },
     })
 
@@ -362,7 +502,6 @@ export async function verifyAndActivateSubscription(
   // 4. Send Notifications & Emails
   try {
     if (isGift && recipientEmail) {
-      // In-app notification for recipient if they exist
       if (beneficiaryUser && beneficiaryUser.id !== purchaser.id) {
         await notify(beneficiaryUser.id, 'plan_change', {
           title: 'You received a Scholar Gift Subscription! 🎁',
@@ -372,7 +511,6 @@ export async function verifyAndActivateSubscription(
         })
       }
 
-      // Email to recipient celebrating gift
       await sendGiftSubscriptionEmail({
         to: recipientEmail,
         recipientName: recipientName || undefined,
@@ -382,7 +520,6 @@ export async function verifyAndActivateSubscription(
         expiresAt: newExpiresAt,
       })
 
-      // Notification to purchaser
       await notify(purchaser.id, 'system', {
         title: 'Gift Subscription Activated! 🎁',
         body: `Your gift of ${planConfig.name} to ${recipientEmail} has been activated successfully.`,
@@ -390,25 +527,24 @@ export async function verifyAndActivateSubscription(
         metadata: { subscriptionId: result.id },
       })
     } else {
-      // Personal subscription
       await notify(purchaser.id, 'plan_change', {
         title: 'Welcome to Scholar Plan! 🎉',
-        body: `Your ${planConfig.name} is now active until ${newExpiresAt.toLocaleDateString()}. Enjoy unlimited AI, full mock tests, and courses!`,
+        body: isDiscounted
+          ? `Your ${planConfig.name} (50% Welcome Offer — ₦${paidAmountNaira.toLocaleString()}) is active until ${newExpiresAt.toLocaleDateString()}. Auto-renews next month at standard rate (₦${planConfig.price.toLocaleString()}).`
+          : `Your ${planConfig.name} is now active until ${newExpiresAt.toLocaleDateString()}. Enjoy unlimited AI, full mock tests, and courses!`,
         deeplink: '/dashboard',
-        metadata: { subscriptionId: result.id },
+        metadata: { subscriptionId: result.id, isDiscounted, renewalAmount: planConfig.price },
       })
 
-      // Send receipt email
       await sendSubscriptionReceiptEmail({
         to: purchaser.email,
         name: purchaser.name,
         planName: planConfig.name,
-        amount: planConfig.price,
+        amount: paidAmountNaira,
         reference,
         expiresAt: newExpiresAt,
       })
 
-      // If shared plan, send invite email to partner
       if (isShared && sharedWithEmail) {
         await sendSharedPlanInviteEmail({
           to: sharedWithEmail,
@@ -425,8 +561,150 @@ export async function verifyAndActivateSubscription(
     success: true,
     subscription: result,
     planExpiresAt: newExpiresAt.toISOString(),
-    message: 'Subscription successfully activated!',
+    message: isDiscounted
+      ? `50% Welcome Offer activated! Your plan will auto-renew on ${newExpiresAt.toLocaleDateString()} at the standard rate of ₦${planConfig.price.toLocaleString()}.`
+      : 'Subscription successfully activated!',
   }
+}
+
+/**
+ * Processes due subscription auto-renewals at the STANDARD plan price using the saved Paystack
+ * reusable card authorization code. Called by the background scheduler and lazily when checking status.
+ */
+export async function processDueSubscriptionRenewals(): Promise<number> {
+  const now = new Date()
+  const dueSubs = await prisma.subscription.findMany({
+    where: {
+      status: 'active',
+      isGift: false,
+      expiresAt: { lte: now },
+    },
+    include: {
+      user: { select: { id: true, email: true, name: true, planExpiresAt: true } },
+      payments: {
+        where: { status: 'success' },
+        orderBy: { createdAt: 'desc' },
+        take: 1,
+      },
+    },
+    take: 50,
+  })
+
+  let renewedCount = 0
+
+  for (const sub of dueSubs) {
+    const latestPayment = sub.payments[0]
+    const meta = (latestPayment?.metadata ?? {}) as StoredPaymentMetadata
+    const planId = (sub.plan as SubscriptionPlanId) || 'scholar_basic'
+    const planConfig = SUBSCRIPTION_PLANS[planId] || SUBSCRIPTION_PLANS.scholar_basic
+
+    // If autoRenew was explicitly disabled or no authorization code was saved, expire the subscription
+    if (meta.autoRenew === false || !meta.authorizationCode) {
+      await prisma.$transaction([
+        prisma.subscription.update({
+          where: { id: sub.id },
+          data: { status: 'expired' },
+        }),
+        prisma.user.update({
+          where: { id: sub.userId },
+          data: { plan: 'free' },
+        }),
+      ])
+      continue
+    }
+
+    const renewalRef = `prp_renew_${nanoid(16)}`
+    const standardPriceNaira = planConfig.price
+    const standardPriceKobo = planConfig.priceKobo
+
+    try {
+      const chargeResult = await chargePaystackAuthorization({
+        email: sub.user.email,
+        amount: standardPriceKobo,
+        authorizationCode: meta.authorizationCode,
+        reference: renewalRef,
+        metadata: {
+          userId: sub.userId,
+          plan: planId,
+          isRenewal: true,
+          previousSubscriptionId: sub.id,
+        },
+      })
+
+      if (chargeResult.status === 'success') {
+        const nextExpiresAt = calculateExpirationDate(now, planConfig.durationDays)
+        const nextAuthCode =
+          chargeResult.authorization?.authorization_code || meta.authorizationCode
+
+        await prisma.$transaction([
+          prisma.user.update({
+            where: { id: sub.userId },
+            data: { plan: 'scholar', planExpiresAt: nextExpiresAt },
+          }),
+          ...(sub.sharedWithUserId
+            ? [
+                prisma.user.update({
+                  where: { id: sub.sharedWithUserId },
+                  data: { plan: 'scholar', planExpiresAt: nextExpiresAt },
+                }),
+              ]
+            : []),
+          prisma.subscription.update({
+            where: { id: sub.id },
+            data: {
+              amount: standardPriceNaira,
+              expiresAt: nextExpiresAt,
+              status: 'active',
+            },
+          }),
+          prisma.paymentTransaction.create({
+            data: {
+              userId: sub.userId,
+              subscriptionId: sub.id,
+              reference: renewalRef,
+              amount: standardPriceNaira,
+              currency: 'NGN',
+              status: 'success',
+              channel: 'card',
+              paidAt: new Date(),
+              metadata: {
+                ...meta,
+                isDiscounted: false,
+                standardPrice: standardPriceNaira,
+                renewalAmount: standardPriceNaira,
+                autoRenew: true,
+                authorizationCode: nextAuthCode,
+              } as any,
+            },
+          }),
+        ])
+
+        await notify(sub.userId, 'plan_change', {
+          title: 'Scholar Subscription Auto-Renewed 🔄',
+          body: `Your ${planConfig.name} has been renewed at the standard rate of ₦${standardPriceNaira.toLocaleString()} until ${nextExpiresAt.toLocaleDateString()}.`,
+          deeplink: '/settings?tab=plan',
+        })
+
+        renewedCount += 1
+      } else {
+        throw new Error(`Renewal charge returned status: ${chargeResult.status}`)
+      }
+    } catch (err) {
+      logger.warn({ err, subscriptionId: sub.id, userId: sub.userId }, 'Auto-renewal charge failed; marking expired')
+      await prisma.$transaction([
+        prisma.subscription.update({
+          where: { id: sub.id },
+          data: { status: 'expired' },
+        }),
+        prisma.user.update({
+          where: { id: sub.userId },
+          data: { plan: 'free' },
+        }),
+      ])
+    }
+  }
+
+  return renewedCount
 }
 
 /**
@@ -437,11 +715,25 @@ export async function getCurrentSubscription(
 ): Promise<CurrentSubscriptionResponse> {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: { plan: true, planExpiresAt: true },
+    select: { plan: true, planExpiresAt: true, createdAt: true },
   })
   if (!user) throw new NotFoundError('User not found')
 
   const now = new Date()
+
+  // If expired, attempt auto-renewal first before downgrading
+  if (user.plan === 'scholar' && user.planExpiresAt && user.planExpiresAt.getTime() <= now.getTime()) {
+    await processDueSubscriptionRenewals().catch(() => {})
+    const refreshed = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { plan: true, planExpiresAt: true },
+    })
+    if (refreshed) {
+      user.plan = refreshed.plan
+      user.planExpiresAt = refreshed.planExpiresAt
+    }
+  }
+
   const isActive =
     user.plan === 'scholar' &&
     Boolean(user.planExpiresAt && user.planExpiresAt.getTime() > now.getTime())
@@ -452,16 +744,7 @@ export async function getCurrentSubscription(
     daysRemaining = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)))
   }
 
-  // If expired, lazily downgrade user plan in DB
-  if (user.plan === 'scholar' && user.planExpiresAt && user.planExpiresAt.getTime() <= now.getTime()) {
-    await prisma.user.update({
-      where: { id: userId },
-      data: { plan: 'free' },
-    })
-    user.plan = 'free'
-  }
-
-  const [activeSub, history] = await Promise.all([
+  const [activeSub, history, discountCheck] = await Promise.all([
     prisma.subscription.findFirst({
       where: {
         userId,
@@ -469,27 +752,45 @@ export async function getCurrentSubscription(
         expiresAt: { gt: now },
       },
       orderBy: { expiresAt: 'desc' },
+      include: {
+        payments: {
+          where: { status: 'success' },
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+        },
+      },
     }),
     prisma.paymentTransaction.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       take: 20,
     }),
+    checkWelcomeDiscountEligibility(userId),
   ])
+
+  const activePlanId = (activeSub?.plan as SubscriptionPlanId) || 'scholar_basic'
+  const activePlanConfig = SUBSCRIPTION_PLANS[activePlanId] || SUBSCRIPTION_PLANS.scholar_basic
+  const latestMeta = (activeSub?.payments?.[0]?.metadata ?? {}) as StoredPaymentMetadata
 
   return {
     plan: user.plan,
     planExpiresAt: user.planExpiresAt ? user.planExpiresAt.toISOString() : null,
     isActive,
     daysRemaining,
+    discountEligible: discountCheck.eligible,
+    discountExpiresAt: discountCheck.eligible ? discountCheck.expiresAt.toISOString() : null,
+    discountPercent: WELCOME_DISCOUNT_PERCENT,
     activeSubscription: activeSub
       ? {
           id: activeSub.id,
-          plan: activeSub.plan as SubscriptionPlanId,
-          planName:
-            SUBSCRIPTION_PLANS[activeSub.plan as SubscriptionPlanId]?.name ||
-            activeSub.plan,
+          plan: activePlanId,
+          planName: activePlanConfig.name || activeSub.plan,
           amount: activeSub.amount,
+          renewalAmount: latestMeta.renewalAmount ?? activePlanConfig.price,
+          isDiscounted: Boolean(latestMeta.isDiscounted),
+          autoRenew: latestMeta.autoRenew ?? !activeSub.isGift,
+          cardLast4: latestMeta.cardLast4 ?? null,
+          cardBrand: latestMeta.cardBrand ?? null,
           status: activeSub.status,
           startDate: activeSub.startDate.toISOString(),
           expiresAt: activeSub.expiresAt.toISOString(),
@@ -519,6 +820,13 @@ export async function cancelSubscription(userId: string) {
   const activeSub = await prisma.subscription.findFirst({
     where: { userId, status: 'active' },
     orderBy: { expiresAt: 'desc' },
+    include: {
+      payments: {
+        where: { status: 'success' },
+        orderBy: { createdAt: 'desc' },
+        take: 1,
+      },
+    },
   })
 
   if (!activeSub) {
@@ -533,15 +841,25 @@ export async function cancelSubscription(userId: string) {
     },
   })
 
+  if (activeSub.payments[0]) {
+    const prevMeta = (activeSub.payments[0].metadata ?? {}) as StoredPaymentMetadata
+    await prisma.paymentTransaction.update({
+      where: { id: activeSub.payments[0].id },
+      data: {
+        metadata: { ...prevMeta, autoRenew: false } as any,
+      },
+    })
+  }
+
   await notify(userId, 'plan_change', {
     title: 'Subscription Cancelled',
-    body: `Your Scholar subscription has been cancelled. You will retain Scholar access until ${activeSub.expiresAt.toLocaleDateString()}.`,
+    body: `Your Scholar subscription auto-renewal has been cancelled. You will retain Scholar access until ${activeSub.expiresAt.toLocaleDateString()}.`,
     deeplink: '/settings?tab=plan',
   })
 
   return {
     success: true,
-    message: 'Subscription has been cancelled. Your access will continue until the end of your billing cycle.',
+    message: 'Subscription auto-renewal has been cancelled. Your access will continue until the end of your billing cycle.',
     expiresAt: activeSub.expiresAt.toISOString(),
   }
 }
@@ -602,7 +920,6 @@ export async function linkSharedAccount(userId: string, partnerEmail: string) {
     })
   })
 
-  // Send email and in-app notification
   try {
     await sendSharedPlanInviteEmail({
       to: normalizedEmail,

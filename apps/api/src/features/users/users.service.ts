@@ -52,6 +52,7 @@ export function buildAuthUser(user: User): AuthUser {
     email: user.email,
     plan: user.plan,
     planExpiresAt: user.planExpiresAt ? user.planExpiresAt.toISOString() : null,
+    createdAt: user.createdAt ? user.createdAt.toISOString() : new Date().toISOString(),
     onboardingCompleted: user.onboardingCompleted,
     onboardingStep: user.onboardingStep,
     theme: user.theme,

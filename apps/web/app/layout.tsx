@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Fraunces, Geist, JetBrains_Mono, Noto_Sans, Noto_Serif } from 'next/font/google'
+import { Caveat_Brush, JetBrains_Mono, Noto_Sans, Noto_Serif, Parkinsans, Source_Sans_3 } from 'next/font/google'
 import './globals.css'
 import { PWARegister } from '@/components/common/pwa-register'
 
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#6E3A5F' },
+    { media: '(prefers-color-scheme: light)', color: '#F8F6F1' },
     { media: '(prefers-color-scheme: dark)', color: '#14120F' },
   ],
   width: 'device-width',
@@ -30,16 +30,25 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
-const fraunces = Fraunces({
+// Joyloo design system typography
+const parkinsans = Parkinsans({
   subsets: ['latin'],
-  axes: ['opsz', 'SOFT', 'WONK'],
-  variable: '--font-fraunces',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-parkinsans',
   display: 'swap',
 })
 
-const geist = Geist({
+const sourceSans = Source_Sans_3({
   subsets: ['latin'],
-  variable: '--font-geist',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-source-sans',
+  display: 'swap',
+})
+
+const caveatBrush = Caveat_Brush({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-caveat-brush',
   display: 'swap',
 })
 
@@ -64,8 +73,9 @@ const notoSerif = Noto_Serif({
 })
 
 const fontVars = [
-  fraunces.variable,
-  geist.variable,
+  parkinsans.variable,
+  sourceSans.variable,
+  caveatBrush.variable,
   jetbrainsMono.variable,
   notoSans.variable,
   notoSerif.variable,

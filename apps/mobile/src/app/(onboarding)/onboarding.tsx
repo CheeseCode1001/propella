@@ -46,6 +46,13 @@ export default function OnboardingScreen() {
     { slug: 'economics', name: 'Economics' },
     { slug: 'government', name: 'Government' },
     { slug: 'literature', name: 'Literature in English' },
+    { slug: 'geography', name: 'Geography' },
+    { slug: 'commerce', name: 'Commerce' },
+    { slug: 'principles-of-accounts', name: 'Principles of Accounts' },
+    { slug: 'agricultural-science', name: 'Agricultural Science' },
+    { slug: 'crk', name: 'Christian Religious Knowledge' },
+    { slug: 'irk', name: 'Islamic Religious Studies' },
+    { slug: 'history', name: 'History' },
   ];
 
   function toggleSubject(slug: string) {

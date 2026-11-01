@@ -1,20 +1,18 @@
 'use client'
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState } from 'react'
 import { Link, useRouter } from '@/lib/i18n/navigation'
 import { useTranslations } from 'next-intl'
-import { Trophy, Check, Lock } from 'lucide-react'
+import { Trophy, Check, ArrowRight } from 'lucide-react'
 import { format } from 'date-fns'
 import { useRoadmap } from '@/lib/hooks/use-roadmap'
 import { useSubjects } from '@/lib/hooks/use-subjects'
 import { useDashboard } from '@/lib/hooks/use-dashboard'
-import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { EmptyState } from '@/components/common/empty-state'
 import { FilterPills } from '@/components/common/filter-pills'
 import { BookSquare } from 'iconsax-reactjs'
-import { useAuthStore } from '@/lib/stores/auth-store'
 import type { ExamType, RoadmapNode } from '@propella/shared'
 
 // Exams are shown in the order candidates normally sit them.
@@ -85,14 +83,6 @@ function statusBadgeVariant(status: RoadmapNode['status']) {
   return 'default' as const
 }
 
-function statusLabel(status: RoadmapNode['status']) {
-  if (status === 'in-progress') return 'In Progress'
-  if (status === 'needs-revision') return 'Needs Revision'
-  if (status === 'completed') return 'Completed'
-  if (status === 'ready') return 'Ready'
-  return 'Locked'
-}
-
 function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => void }) {
   const t = useTranslations('roadmap')
   const subjectColor = getSubjectColor(node.subjectSlug)
@@ -104,12 +94,12 @@ function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => 
         borderRadius: 'var(--radius-md)',
         padding: 16,
         backgroundColor: 'var(--color-card)',
-        cursor: node.status !== 'locked' ? 'pointer' : 'default',
+        cursor: 'pointer',
         borderTop: node.isMilestone ? `2px solid var(--color-accent)` : undefined,
         overflow: 'hidden',
         position: 'relative',
       }}
-      onClick={node.status !== 'locked' ? onClick : undefined}
+      onClick={onClick}
     >
       {/* Left subject color bar */}
       <div
@@ -172,7 +162,7 @@ function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => 
               : node.status === 'needs-revision' ? t('needsRevision')
               : node.status === 'completed' ? t('completed')
               : node.status === 'ready' ? t('ready')
-              : t('locked')}
+              : 'Up Next'}
           </Badge>
 
           {node.status === 'completed' && (
@@ -237,25 +227,41 @@ function RoadmapNodeCard({ node, onClick }: { node: RoadmapNode; onClick: () => 
               asChild
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Opens the reader, which is untimed — a timed session is
-                  something the student starts deliberately, not by tapping a topic. */}
               <Link href={`/topics/${node.subjectSlug}/${node.topicSlug}`}>Read</Link>
             </Button>
           )}
 
           {node.status === 'locked' && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <Lock size={12} strokeWidth={1.5} style={{ color: 'var(--color-ink-3)' }} />
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--color-ink-3)' }}>
-                Unlocks after previous topics
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Link href={`/topics/${node.subjectSlug}/${node.topicSlug}`} className="inline-flex items-center gap-1">
+                  Study Ahead <ArrowRight size={12} />
+                </Link>
+              </Button>
             </div>
           )}
 
-          {node.status === 'needs-revision' && node.nextRevisionAt && (
-            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--color-warning)' }}>
-              Due {format(new Date(node.nextRevisionAt), 'MMM d')}
-            </span>
+          {node.status === 'needs-revision' && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              {node.nextRevisionAt && (
+                <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--color-warning)' }}>
+                  Due {format(new Date(node.nextRevisionAt), 'MMM d')}
+                </span>
+              )}
+              <Button
+                variant="accent"
+                size="sm"
+                asChild
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Link href={`/topics/${node.subjectSlug}/${node.topicSlug}`}>Revise</Link>
+              </Button>
+            </div>
           )}
         </div>
       </div>
@@ -267,13 +273,11 @@ function TimelineNodeRow({ node, isLast }: { node: RoadmapNode; isLast: boolean 
   const router = useRouter()
 
   function handleClick() {
-    // Straight to the reader. The old /roadmap/[subject]/[topic] page only ever
-    // filled two of its four tabs, which is why some topics opened blank.
     router.push(`/topics/${node.subjectSlug}/${node.topicSlug}`)
   }
 
   return (
-    <div style={{display: 'flex', gap: 16, position: 'relative' }}>
+    <div style={{ display: 'flex', gap: 16, position: 'relative' }}>
       {/* Timeline line + dot column */}
       <div
         style={{
@@ -318,7 +322,7 @@ function TimelineNodeRow({ node, isLast }: { node: RoadmapNode; isLast: boolean 
 
 function SkeletonNode({ isLast }: { isLast: boolean }) {
   return (
-    <div style={{width:"100%", display: 'flex', gap: 16, position: 'relative' }}>
+    <div style={{ width: '100%', display: 'flex', gap: 16, position: 'relative' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: 24, paddingTop: 16 }}>
         <Skeleton className="rounded-full" style={{ width: 12, height: 12 }} />
         {!isLast && (
@@ -340,19 +344,13 @@ function SkeletonNode({ isLast }: { isLast: boolean }) {
 }
 
 export default function RoadmapPage() {
-  const user = useAuthStore((s) => s.user)
-  const router = useRouter()
   const { data, isLoading } = useRoadmap()
   const { data: subjectsData } = useSubjects()
   const t = useTranslations('roadmap')
 
-  // Null means "whatever the first available board is". Deriving the effective
-  // value instead of storing it keeps the selection correct when the student's
-  // subjects change, with no effect to sync it back.
   const [chosenExam, setChosenExam] = useState<ExamType | null>(null)
   const [chosenSubject, setChosenSubject] = useState<string>('all')
 
-  // Which exams each subject belongs to, so the syllabus can be split by board.
   const examsBySubject = useMemo(
     () => new Map<string, ExamType[]>((subjectsData ?? []).map((s) => [s.slug, s.examTypes])),
     [subjectsData],
@@ -369,7 +367,6 @@ export default function RoadmapPage() {
     return ['jamb' as ExamType]
   }, [dashboardData])
 
-  // Only offer boards the student actually registered for in their profile/settings!
   const availableExams = useMemo(
     () =>
       EXAM_ORDER.filter(
@@ -380,7 +377,6 @@ export default function RoadmapPage() {
     [data, examsBySubject, registeredExams],
   )
 
-  // Number of topics mapped under each exam type
   const examTopicCounts = useMemo(() => {
     const counts: Record<string, number> = {}
     for (const exam of EXAM_ORDER) {
@@ -391,11 +387,9 @@ export default function RoadmapPage() {
     return counts
   }, [data, examsBySubject])
 
-  // Fall back to the first board whenever the chosen one is not on offer.
   const activeExam: ExamType | null =
     chosenExam && availableExams.includes(chosenExam) ? chosenExam : (availableExams[0] ?? null)
 
-  // Board first, then subject — the subject pills only list what this board has.
   const examNodes = useMemo(
     () =>
       (data?.nodes ?? []).filter((n) =>
@@ -412,8 +406,6 @@ export default function RoadmapPage() {
     [examNodes],
   )
 
-  // A subject carried over from another board would filter down to nothing, so
-  // it falls back to "all" rather than showing an empty syllabus.
   const activeSubject =
     chosenSubject !== 'all' && !subjects.some((s) => s.slug === chosenSubject)
       ? 'all'
@@ -423,35 +415,49 @@ export default function RoadmapPage() {
     activeSubject === 'all' ? examNodes : examNodes.filter((n) => n.subjectSlug === activeSubject)
 
   const completedCount = filteredNodes.filter((n) => n.status === 'completed').length
+  const nextUpNode = filteredNodes.find(
+    (n) => n.status === 'in-progress' || n.status === 'ready' || n.status === 'needs-revision',
+  ) ?? filteredNodes.find((n) => n.status !== 'completed')
 
   return (
     <div>
       {/* Header */}
-      <div style={{ marginBottom: 24 }}>
-        <h1
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 500,
-            fontSize: 32,
-            color: 'var(--color-ink)',
-            marginBottom: 6,
-          }}
-        >
-          {t('title')}
-        </h1>
-        {isLoading ? (
-          <Skeleton className="h-4 w-48" />
-        ) : data ? (
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-ink-3)' }}>
-            {activeExam ? `${EXAM_LABELS[activeExam]}: ` : ''}
-            {completedCount} of {filteredNodes.length} topics completed
-            {filteredNodes.length > 0 ? ` (${Math.round((completedCount / filteredNodes.length) * 100)}%)` : ''}
-          </p>
-        ) : null}
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 500,
+              fontSize: 32,
+              color: 'var(--color-ink)',
+              marginBottom: 6,
+            }}
+          >
+            {t('title')}
+          </h1>
+          {isLoading ? (
+            <Skeleton className="h-4 w-48" />
+          ) : data ? (
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-ink-3)' }}>
+              {activeExam ? `${EXAM_LABELS[activeExam]}: ` : ''}
+              {completedCount} of {filteredNodes.length} topics completed
+              {filteredNodes.length > 0 ? ` (${Math.round((completedCount / filteredNodes.length) * 100)}%)` : ''}
+            </p>
+          ) : null}
+        </div>
+
+        {nextUpNode && (
+          <Button variant="accent" size="sm" asChild>
+            <Link
+              href={`/topics/${nextUpNode.subjectSlug}/${nextUpNode.topicSlug}`}
+              className="inline-flex items-center gap-1.5"
+            >
+              Continue: {nextUpNode.topicName} <ArrowRight size={14} />
+            </Link>
+          </Button>
+        )}
       </div>
 
-      {/* Board, then subject. Picking the board first keeps each syllabus short
-          enough to scan instead of scrolling past every other exam. */}
       <div className="mb-8 flex flex-col gap-4">
         <FilterPills
           label="Exam"
@@ -474,7 +480,7 @@ export default function RoadmapPage() {
       </div>
 
       {/* Vertical timeline */}
-      <div style={{ width: "100%", margin: '0 auto' }}>
+      <div style={{ width: '100%', margin: '0 auto' }}>
         {isLoading ? (
           <>
             {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -482,9 +488,6 @@ export default function RoadmapPage() {
             ))}
           </>
         ) : (data?.nodes?.length ?? 0) === 0 ? (
-          // No roadmap at all. Almost always means onboarding was never
-          // finished — the plan is built from the subjects chosen there — so
-          // say that rather than showing a blank page.
           <EmptyState
             icon={BookSquare}
             title="Your syllabus is not built yet"

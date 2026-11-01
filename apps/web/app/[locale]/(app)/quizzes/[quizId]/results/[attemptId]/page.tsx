@@ -31,13 +31,14 @@ interface QuizData {
   id: string
   type: string
   difficulty: string
+  mode?: 'study' | 'exam'
   topicRef?: { subjectSlug: string; topicSlug: string | null }
   questions: QuizQuestion[]
 }
 
 interface AnswerResult {
   questionId: string
-  selectedOptionId: 'A' | 'B' | 'C' | 'D'
+  selectedOptionId: 'A' | 'B' | 'C' | 'D' | null
   correctOptionId: 'A' | 'B' | 'C' | 'D'
   isCorrect: boolean
   timeSpentSec: number
@@ -46,12 +47,14 @@ interface AnswerResult {
 interface AttemptData {
   id: string
   score: number
-  correctCount: number
-  totalCount: number
+  correct?: number
+  total?: number
+  correctCount?: number
+  totalCount?: number
   durationSec: number
   xpAwarded: number
   answers: AnswerResult[]
-  byTopic: Record<string, { correct: number; total: number }>
+  byTopic: Record<string, { correct: number; total: number }> | Array<{ topicSlug: string; correct: number; total: number }>
 }
 
 interface ResultData {
@@ -133,6 +136,11 @@ function QuestionReviewItem({
         >
           {index + 1}. {question.stem}
         </span>
+        {!result.selectedOptionId && (
+          <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-amber-500/15 text-amber-600">
+            Skipped
+          </span>
+        )}
         <span
           style={{
             fontFamily: 'var(--font-mono)',
@@ -174,7 +182,7 @@ function QuestionReviewItem({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {question.options.map((opt) => {
               const isSelected = opt.id === result.selectedOptionId
-              const isCorrect = opt.id === result.correctOptionId
+              const isCorrect = opt.id === (result.correctOptionId || question.correctOptionId)
               const isWrongSelection = isSelected && !isCorrect
 
               let bg = 'transparent'
@@ -226,6 +234,7 @@ function QuestionReviewItem({
                       fontSize: 13,
                       color: textColor,
                       lineHeight: 1.5,
+                      flex: 1,
                     }}
                   >
                     {opt.text}
@@ -280,7 +289,6 @@ export default function QuizResultsPage() {
   const router = useRouter()
   const locale = useLocale()
   const t = useTranslations('quiz')
-  const quizId = params.quizId as string
   const attemptId = params.attemptId as string
 
   const [data, setData] = useState<ResultData | null>(null)
@@ -308,12 +316,10 @@ export default function QuizResultsPage() {
     }
   }, [attemptId])
 
-  async function handlePracticeAgain() {
+  async function handlePracticeAgain(overrideMode?: 'study' | 'exam') {
     if (!data) return
     setRegenerating(true)
     try {
-      // A whole-subject quiz has no topic of its own; its questions each carry
-      // their own, so only a topic quiz falls back to the first question's.
       const wholeSubject = data.quiz.type === 'subject' && !data.quiz.topicRef?.topicSlug
       const topicSlug = data.quiz.topicRef?.topicSlug || data.quiz.questions[0]?.topicSlug || ''
       const subjectSlug = data.quiz.topicRef?.subjectSlug ?? ''
@@ -322,6 +328,7 @@ export default function QuizResultsPage() {
         ...(wholeSubject ? {} : { topicSlug }),
         type: wholeSubject ? 'subject' : 'topic',
         difficulty: data.quiz.difficulty,
+        mode: overrideMode ?? data.quiz.mode ?? 'study',
         questionCount: data.quiz.questions.length,
         locale,
       })
@@ -356,9 +363,18 @@ export default function QuizResultsPage() {
   }
 
   const { attempt, quiz } = data
+  const correctCount =
+    attempt.correctCount ?? attempt.correct ?? attempt.answers.filter((a) => a.isCorrect).length
+  const totalCount = attempt.totalCount ?? attempt.total ?? quiz.questions.length
   const topicSlugsSet = new Set(quiz.questions.map((q) => q.topicSlug))
   const topicSlugs = Array.from(topicSlugsSet)
   const isMultiTopic = topicSlugs.length > 1
+
+  const byTopicEntries: Array<[string, { correct: number; total: number }]> = Array.isArray(
+    attempt.byTopic,
+  )
+    ? attempt.byTopic.map((item) => [item.topicSlug, { correct: item.correct, total: item.total }])
+    : Object.entries(attempt.byTopic || {})
 
   return (
     <div
@@ -379,11 +395,17 @@ export default function QuizResultsPage() {
           <ArrowLeft size={16} color="currentColor" variant="Linear" />
           <span>{t('backToQuizzes') || 'Back to Quizzes'}</span>
         </Button>
-        <Badge variant={attempt.score >= 70 ? 'success' : attempt.score >= 50 ? 'accent' : 'danger'}>
-          {quiz.difficulty ? `${quiz.difficulty.toUpperCase()} · ` : ''}
-          {quiz.type === 'subject' ? 'Subject Quiz' : 'Topic Quiz'}
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant="default">
+            {quiz.mode === 'exam' ? '⏱ Exam Mode' : '📖 Study Mode'}
+          </Badge>
+          <Badge variant={attempt.score >= 70 ? 'success' : attempt.score >= 50 ? 'accent' : 'danger'}>
+            {quiz.difficulty ? `${quiz.difficulty.toUpperCase()} · ` : ''}
+            {quiz.type === 'subject' ? 'Subject Quiz' : 'Topic Quiz'}
+          </Badge>
+        </div>
       </div>
+
       {/* Score hero */}
       <div
         style={{
@@ -416,8 +438,7 @@ export default function QuizResultsPage() {
             marginBottom: 16,
           }}
         >
-          {attempt.correctCount} of {attempt.totalCount} correct in{' '}
-          {formatDuration(attempt.durationSec)}
+          {correctCount} of {totalCount} correct in {formatDuration(attempt.durationSec)}
         </p>
 
         {attempt.xpAwarded > 0 && (
@@ -428,7 +449,7 @@ export default function QuizResultsPage() {
       </div>
 
       {/* Topic breakdown (only for multi-topic quizzes) */}
-      {isMultiTopic && Object.keys(attempt.byTopic).length > 0 && (
+      {isMultiTopic && byTopicEntries.length > 0 && (
         <div style={{ marginBottom: 28 }}>
           <h2
             style={{
@@ -444,8 +465,8 @@ export default function QuizResultsPage() {
             By Topic
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {Object.entries(attempt.byTopic).map(([topic, stats]) => {
-              const pct = Math.round((stats.correct / stats.total) * 100)
+            {byTopicEntries.map(([topic, stats]) => {
+              const pct = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0
               return (
                 <div
                   key={topic}
@@ -528,8 +549,13 @@ export default function QuizResultsPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {quiz.questions.map((question, idx) => {
-            const result = attempt.answers.find((a) => a.questionId === question.id)
-            if (!result) return null
+            const result: AnswerResult = attempt.answers.find((a) => a.questionId === question.id) ?? {
+              questionId: question.id,
+              selectedOptionId: null,
+              correctOptionId: question.correctOptionId,
+              isCorrect: false,
+              timeSpentSec: 0,
+            }
             return (
               <QuestionReviewItem
                 key={question.id}
@@ -556,10 +582,19 @@ export default function QuizResultsPage() {
         )}
         <Button
           variant={quiz.topicRef?.topicSlug ? 'secondary' : 'accent'}
-          onClick={handlePracticeAgain}
+          onClick={() => void handlePracticeAgain()}
           disabled={regenerating}
         >
-          {regenerating ? 'Generating...' : 'Practice again'}
+          {regenerating
+            ? 'Generating...'
+            : `Practice Again (${quiz.mode === 'exam' ? 'Exam Mode' : 'Study Mode'})`}
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() => void handlePracticeAgain(quiz.mode === 'exam' ? 'study' : 'exam')}
+          disabled={regenerating}
+        >
+          Try in {quiz.mode === 'exam' ? 'Study Mode' : 'Exam Mode'}
         </Button>
         <Button variant="secondary" onClick={() => router.push('/roadmap')}>
           Back to syllabus

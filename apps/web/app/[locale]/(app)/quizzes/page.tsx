@@ -12,20 +12,41 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import { TaskSquare } from 'iconsax-reactjs'
+import { TaskSquare, Timer1, Book1 } from 'iconsax-reactjs'
 import { EmptyState } from '@/components/common/empty-state'
-import { cn } from '@/lib/utils/cn'
 import { useAuthStore } from '@/lib/stores/auth-store'
-import { UploadCloud, FileText, X, Sparkles } from 'lucide-react'
+import { UploadCloud, FileText, X, Sparkles, CheckCircle2, Clock } from 'lucide-react'
 import type { QuizMode, Subject } from '@propella/shared'
 
 const QUIZ_MODE_OPTIONS: {
   value: QuizMode
   labelKey: 'studyMode' | 'examMode'
   descKey: 'studyModeDesc' | 'examModeDesc'
+  badge: string
+  highlights: string[]
 }[] = [
-  { value: 'study', labelKey: 'studyMode', descKey: 'studyModeDesc' },
-  { value: 'exam', labelKey: 'examMode', descKey: 'examModeDesc' },
+  {
+    value: 'study',
+    labelKey: 'studyMode',
+    descKey: 'studyModeDesc',
+    badge: 'Untimed · Instant Feedback',
+    highlights: [
+      'No countdown timer — learn at your own pace',
+      'Instant answer check & full explanation after each question',
+      'Step-by-step walkthroughs to fix weak spots immediately',
+    ],
+  },
+  {
+    value: 'exam',
+    labelKey: 'examMode',
+    descKey: 'examModeDesc',
+    badge: 'Timed CBT · Exam Simulation',
+    highlights: [
+      'Strict countdown timer (90s per question) with auto-submit',
+      'No hints or explanations until final submission',
+      'Skip, flag for review, and change answers freely before submitting',
+    ],
+  },
 ]
 
 /** Topic-select value for a quiz drawn from the whole subject's past questions. */
@@ -53,6 +74,15 @@ function getSubjectColor(slug: string): string {
     economics: 'var(--color-subj-economics, #f59e0b)',
     government: 'var(--color-subj-government, #6366f1)',
     literature: 'var(--color-subj-literature, #ec4899)',
+    crk: '#a855f7',
+    irk: '#14b8a6',
+    history: '#d97706',
+    commerce: '#0ea5e9',
+    accounting: '#84cc16',
+    geography: '#22c55e',
+    'agricultural-science': '#16a34a',
+    'civic-education': '#6366f1',
+    'further-mathematics': '#e11d48',
   }
   return map[slug] ?? 'var(--color-subj-default, var(--color-accent))'
 }
@@ -71,9 +101,10 @@ export default function QuizzesPage() {
   const searchParams = useSearchParams()
   const initialSubjectParam = searchParams.get('subject')
   const initialTopicParam = searchParams.get('topic')
+  const initialModeParam = searchParams.get('mode')
 
   const { data: subjects, isLoading: subjectsLoading } = useSubjects()
-  const { data: roadmap, isLoading: roadmapLoading } = useRoadmap()
+  const { data: roadmap } = useRoadmap()
   const { data: recentQuizzes, isLoading: quizzesLoading } = useRecentQuizzes()
 
   // Filter subjects to only those the student selected in onboarding / roadmap
@@ -93,7 +124,7 @@ export default function QuizzesPage() {
 
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [selectedTopic, setSelectedTopic] = useState<string>('')
-  const [mode, setMode] = useState<QuizMode>('study')
+  const [mode, setMode] = useState<QuizMode>(initialModeParam === 'exam' ? 'exam' : 'study')
   const [generating, setGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -111,11 +142,7 @@ export default function QuizzesPage() {
       setAttachedNote({ name: docName, content })
       setError(null)
     }
-    if (file.type.includes('text') || file.name.endsWith('.txt') || file.name.endsWith('.md')) {
-      reader.readAsText(file)
-    } else {
-      reader.readAsText(file)
-    }
+    reader.readAsText(file)
   }
 
   // Filter topics for the chosen subject strictly to the student's enrolled syllabus topics
@@ -221,7 +248,7 @@ export default function QuizzesPage() {
         >
           {isUndergrad
             ? 'Generate practice quizzes from your course lecture notes, textbooks, and past papers.'
-            : 'Practice your topics, one question at a time.'}
+            : 'Choose Study Mode for instant explanations or Exam Mode for timed CBT simulation.'}
         </p>
       </div>
 
@@ -233,7 +260,109 @@ export default function QuizzesPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+            {/* Prominent Mode Picker at the Top */}
+            <div>
+              <label
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: 'var(--color-ink-2)',
+                  marginBottom: 8,
+                  display: 'block',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                1. {t('selectMode')}
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {QUIZ_MODE_OPTIONS.map((m) => {
+                  const active = mode === m.value
+                  const isExam = m.value === 'exam'
+                  return (
+                    <button
+                      key={m.value}
+                      type="button"
+                      onClick={() => setMode(m.value)}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        gap: 8,
+                        textAlign: 'left',
+                        padding: '14px 16px',
+                        borderRadius: 'var(--radius-md)',
+                        border: active
+                          ? '2px solid var(--color-accent)'
+                          : '1.5px solid var(--color-rule-2)',
+                        backgroundColor: active
+                          ? 'var(--color-accent-tint)'
+                          : 'var(--color-paper-2)',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      <div className="flex items-center justify-between w-full gap-2">
+                        <div className="flex items-center gap-2">
+                          {isExam ? (
+                            <Timer1
+                              size={18}
+                              color={active ? 'var(--color-accent)' : 'var(--color-ink-2)'}
+                              variant={active ? 'Bold' : 'Linear'}
+                            />
+                          ) : (
+                            <Book1
+                              size={18}
+                              color={active ? 'var(--color-accent)' : 'var(--color-ink-2)'}
+                              variant={active ? 'Bold' : 'Linear'}
+                            />
+                          )}
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-sans)',
+                              fontSize: 14.5,
+                              fontWeight: 700,
+                              color: active ? 'var(--color-accent)' : 'var(--color-ink)',
+                            }}
+                          >
+                            {t(m.labelKey)}
+                          </span>
+                        </div>
+                        <span
+                          className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                          style={{
+                            backgroundColor: active ? 'var(--color-accent)' : 'var(--color-paper-3)',
+                            color: active ? '#fff' : 'var(--color-ink-2)',
+                          }}
+                        >
+                          {m.badge}
+                        </span>
+                      </div>
+
+                      <ul className="flex flex-col gap-1 pl-0 m-0 list-none">
+                        {m.highlights.map((item, idx) => (
+                          <li
+                            key={idx}
+                            className="flex items-start gap-1.5 text-[11.5px] leading-snug"
+                            style={{ color: 'var(--color-ink-2)' }}
+                          >
+                            <CheckCircle2
+                              size={13}
+                              className="shrink-0 mt-0.5"
+                              style={{ color: active ? 'var(--color-accent)' : 'var(--color-ink-3)' }}
+                            />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
             {/* Attached Note Display (When file is uploaded, Subject and Topic are hidden) */}
             {attachedNote ? (
               <div className="flex items-center justify-between p-3.5 rounded-lg border border-[var(--color-accent)] bg-[var(--color-accent-tint)]">
@@ -244,7 +373,8 @@ export default function QuizzesPage() {
                       {attachedNote.name}
                     </p>
                     <p className="text-[11px] text-[var(--color-ink-3)]">
-                      Quiz questions will be synthesized directly from this material.
+                      Quiz questions will be synthesized directly from this material in{' '}
+                      <strong>{mode === 'exam' ? 'Exam Mode' : 'Study Mode'}</strong>.
                     </p>
                   </div>
                 </div>
@@ -259,61 +389,27 @@ export default function QuizzesPage() {
               </div>
             ) : (
               <>
-                {/* File Upload Trigger */}
-                <div className="p-3 rounded-lg border border-dashed border-[var(--color-rule-2)] bg-[var(--color-paper-2)] flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <div className="flex items-center gap-2.5">
-                    <UploadCloud size={20} className="text-[var(--color-accent)]" />
-                    <div>
-                      <p className="text-xs font-semibold text-[var(--color-ink)]">
-                        Generate quiz from a document / note
-                      </p>
-                      <p className="text-[11px] text-[var(--color-ink-3)]">
-                        Upload PDF, DOCX, TXT or paste your lecture notes
-                      </p>
-                    </div>
-                  </div>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="file"
-                      accept=".pdf,.docx,.txt,.md"
-                      onChange={handleNoteFileUpload}
-                      className="hidden"
-                    />
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-[var(--color-accent)] text-white hover:opacity-90 transition-opacity">
-                      <Sparkles size={13} />
-                      <span>Upload Note</span>
-                    </span>
-                  </label>
-                </div>
-
                 {/* Only show Subject and Topic selectors when no note is uploaded and not restricted to undergraduate files */}
                 {!isUndergrad && (
-                  <>
-                    <div className="flex items-center gap-2 my-1">
-                      <div className="flex-1 h-px bg-[var(--color-rule)]" />
-                      <span className="text-[11px] uppercase font-semibold tracking-wider text-[var(--color-ink-3)]">
-                        Or pick from syllabus
-                      </span>
-                      <div className="flex-1 h-px bg-[var(--color-rule)]" />
-                    </div>
-
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Subject select */}
                     <div>
                       <label
                         style={{
                           fontFamily: 'var(--font-sans)',
                           fontSize: 12,
-                          fontWeight: 500,
+                          fontWeight: 600,
                           color: 'var(--color-ink-2)',
                           marginBottom: 6,
                           display: 'block',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
                         }}
                       >
-                        Subject
+                        2. Subject
                       </label>
                       {subjectsLoading ? (
-                        <Skeleton className="h-9 w-full" />
+                        <Skeleton className="h-10 w-full" />
                       ) : (
                         <select
                           value={selectedSubject?.slug ?? ''}
@@ -324,7 +420,7 @@ export default function QuizzesPage() {
                           }}
                           style={{
                             width: '100%',
-                            padding: '8px 12px',
+                            padding: '9px 12px',
                             borderRadius: 'var(--radius-sm)',
                             border: '1px solid var(--color-rule-2)',
                             backgroundColor: 'var(--color-paper-2)',
@@ -352,13 +448,15 @@ export default function QuizzesPage() {
                         style={{
                           fontFamily: 'var(--font-sans)',
                           fontSize: 12,
-                          fontWeight: 500,
+                          fontWeight: 600,
                           color: 'var(--color-ink-2)',
                           marginBottom: 6,
                           display: 'block',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
                         }}
                       >
-                        Topic
+                        3. Topic
                       </label>
                       <select
                         value={selectedTopic}
@@ -366,7 +464,7 @@ export default function QuizzesPage() {
                         disabled={!selectedSubject}
                         style={{
                           width: '100%',
-                          padding: '8px 12px',
+                          padding: '9px 12px',
                           borderRadius: 'var(--radius-sm)',
                           border: '1px solid var(--color-rule-2)',
                           backgroundColor: selectedSubject ? 'var(--color-paper-2)' : 'var(--color-paper-3)',
@@ -388,75 +486,38 @@ export default function QuizzesPage() {
                         ))}
                       </select>
                     </div>
-                  </>
+                  </div>
                 )}
+
+                {/* File Upload Trigger */}
+                <div className="p-3 rounded-lg border border-dashed border-[var(--color-rule-2)] bg-[var(--color-paper-2)] flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <UploadCloud size={20} className="text-[var(--color-accent)]" />
+                    <div>
+                      <p className="text-xs font-semibold text-[var(--color-ink)]">
+                        Or generate quiz from a document / note
+                      </p>
+                      <p className="text-[11px] text-[var(--color-ink-3)]">
+                        Upload PDF, DOCX, TXT or study notes
+                      </p>
+                    </div>
+                  </div>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="file"
+                      accept=".pdf,.docx,.txt,.md"
+                      onChange={handleNoteFileUpload}
+                      className="hidden"
+                    />
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-[var(--color-paper-3)] text-[var(--color-ink)] hover:bg-[var(--color-accent)] hover:text-white transition-colors">
+                      <Sparkles size={13} />
+                      <span>Upload Note</span>
+                    </span>
+                  </label>
+                </div>
               </>
             )}
-
-            {/* Mode picker */}
-            <div>
-              <label
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 12,
-                  fontWeight: 500,
-                  color: 'var(--color-ink-2)',
-                  marginBottom: 8,
-                  display: 'block',
-                }}
-              >
-                {t('selectMode')}
-              </label>
-              <div style={{ display: 'grid', gap: 8 }}>
-                {QUIZ_MODE_OPTIONS.map((m) => {
-                  const active = mode === m.value
-                  return (
-                    <button
-                      key={m.value}
-                      onClick={() => setMode(m.value)}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-start',
-                        gap: 2,
-                        textAlign: 'left',
-                        padding: '10px 14px',
-                        borderRadius: 'var(--radius-sm)',
-                        border: active
-                          ? '1.5px solid var(--color-accent)'
-                          : '1.5px solid var(--color-rule-2)',
-                        backgroundColor: active
-                          ? 'var(--color-accent-tint)'
-                          : 'var(--color-paper-2)',
-                        cursor: 'pointer',
-                        transition: 'all 0.15s',
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-sans)',
-                          fontSize: 13.5,
-                          fontWeight: 600,
-                          color: active ? 'var(--color-accent)' : 'var(--color-ink)',
-                        }}
-                      >
-                        {t(m.labelKey)}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-sans)',
-                          fontSize: 12,
-                          color: 'var(--color-ink-3)',
-                          lineHeight: 1.5,
-                        }}
-                      >
-                        {t(m.descKey)}
-                      </span>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
 
             {error && (
               <p
@@ -473,9 +534,15 @@ export default function QuizzesPage() {
             <Button
               variant="accent"
               onClick={handleGenerate}
-              disabled={generating || !selectedSubject || !selectedTopic}
+              disabled={generating || (!attachedNote && (!selectedSubject || !selectedTopic))}
+              className="gap-2"
             >
-              {generating ? 'Generating...' : t('generateQuiz')}
+              {mode === 'exam' ? <Clock size={16} /> : <Sparkles size={16} />}
+              {generating
+                ? 'Generating...'
+                : mode === 'exam'
+                ? 'Start Timed Exam Mode Quiz (15m)'
+                : 'Start Study Mode Quiz (Instant Feedback)'}
             </Button>
           </div>
         </CardContent>
@@ -531,8 +598,15 @@ export default function QuizzesPage() {
                       >
                         {quiz.subjectSlug.replace(/-/g, ' ')}
                       </span>
-                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-[var(--color-paper-3)] text-[var(--color-ink-2)] font-medium">
-                        {quiz.mode === 'exam' ? 'Exam Mode' : 'Study Mode'}
+                      <span
+                        className="text-[11px] px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1"
+                        style={{
+                          backgroundColor:
+                            quiz.mode === 'exam' ? 'rgba(245, 158, 11, 0.15)' : 'var(--color-accent-tint)',
+                          color: quiz.mode === 'exam' ? '#d97706' : 'var(--color-accent)',
+                        }}
+                      >
+                        {quiz.mode === 'exam' ? '⏱ Exam Mode' : '📖 Study Mode'}
                       </span>
                       {quiz.difficulty && (
                         <span className="text-[11px] px-2 py-0.5 rounded-full bg-[var(--color-paper-3)] text-[var(--color-ink-3)] font-mono capitalize">
@@ -583,7 +657,7 @@ export default function QuizzesPage() {
                     )}
 
                     <div className="flex items-center gap-1.5">
-                      {quiz.attemptId ? (
+                      {quiz.attemptId && quiz.score !== null ? (
                         <Button
                           variant="secondary"
                           size="sm"

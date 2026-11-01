@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { useRouter, Link } from '@/lib/i18n/navigation'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare, Crown1, TickCircle } from 'iconsax-reactjs'
+import { useQuery } from '@tanstack/react-query'
+import { ArrowLeft, ArrowRight, Book1, Lamp, TaskSquare, Crown1, TickCircle, Timer1 } from 'iconsax-reactjs'
 import { Lock } from 'lucide-react'
 import { format } from 'date-fns'
 import { useTranslations } from 'next-intl'
@@ -87,28 +87,27 @@ export default function TopicReaderPage() {
   const t = useTranslations('topics')
   const online = useOnlineStatus()
   const router = useRouter()
-  const queryClient = useQueryClient()
-  const [practicing, setPracticing] = useState(false)
+  const [practicingMode, setPracticingMode] = useState<'study' | 'exam' | null>(null)
   const openPaywall = usePaywallStore((s) => s.openPaywall)
 
-  async function handleStartPractice() {
+  async function handleStartPractice(mode: 'study' | 'exam' = 'study') {
     if (!data) return
-    setPracticing(true)
+    setPracticingMode(mode)
     try {
       const res = await api.post<{ data: { quizId: string } }>('/quizzes/generate', {
         subjectSlug: data.subjectSlug,
         topicSlug: data.topicSlug,
         type: 'topic',
         difficulty: 'adaptive',
-        mode: 'study',
+        mode,
         questionCount: 10,
         locale,
       })
       router.push('/quizzes/' + res.data.quizId)
     } catch {
-      router.push('/quizzes/new?subject=' + data.subjectSlug + '&topic=' + data.topicSlug)
+      router.push('/quizzes?subject=' + data.subjectSlug + '&topic=' + data.topicSlug + '&mode=' + mode)
     } finally {
-      setPracticing(false)
+      setPracticingMode(null)
     }
   }
 
@@ -146,7 +145,7 @@ export default function TopicReaderPage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 mb-3">
             <Crown1 size={14} variant="Bold" />
-            Scholar Plan Required
+            Scholar Plan Required · 50% Welcome Discount Available
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-ink)] tracking-tight">
@@ -163,7 +162,7 @@ export default function TopicReaderPage() {
             {[
               {
                 title: 'All Topics Unlocked',
-                desc: 'Full access to all 12 secondary subjects without locks',
+                desc: 'Full access to all secondary subjects without locks',
               },
               {
                 title: '24/7 AI Personal Tutor',
@@ -171,11 +170,11 @@ export default function TopicReaderPage() {
               },
               {
                 title: 'JAMB & WAEC CBT Mocks',
-                desc: 'Official exam-hall simulation with automatic marking',
+                desc: 'Official exam-hall simulation with pause & resume',
               },
               {
                 title: 'Adaptive Practice Quizzes',
-                desc: 'Over 10,000 curated past questions with instant answers',
+                desc: 'Study Mode & Timed Exam Mode with instant answers',
               },
             ].map((item, idx) => (
               <div
@@ -202,7 +201,7 @@ export default function TopicReaderPage() {
               className="w-full sm:w-auto h-12 px-7 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-2xl shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
             >
               <Crown1 size={18} variant="Bold" />
-              Upgrade to Scholar · From ₦1,999
+              Upgrade to Scholar · From ₦999 (50% Off)
             </Button>
             <Button
               variant="secondary"
@@ -214,7 +213,7 @@ export default function TopicReaderPage() {
           </div>
 
           <p className="mt-4 text-[11px] text-[var(--color-ink-muted)]">
-            Instant activation across all devices · Trusted by students nationwide
+            50% off within 3 days of registration · Auto-renews next month at standard rate
           </p>
         </div>
       )
@@ -233,8 +232,6 @@ export default function TopicReaderPage() {
 
   return (
     <article className="mx-auto w-full max-w-[720px] pb-4">
-      {/* Pinned to the top of the page, above everything, so the actions are
-          always one tap away while reading. */}
       <TopicActions topic={data} />
 
       {/* Breadcrumb */}
@@ -387,20 +384,30 @@ export default function TopicReaderPage() {
                 Latest Score: {data.quizResult.score}% ({data.quizResult.correctCount}/{data.quizResult.totalQuestions} Questions Correct)
               </h3>
               <p className="text-xs text-[var(--color-ink-muted)] mt-1">
-                You have completed this topic. The next topic on your syllabus is unlocked and ready.
+                You have completed this topic. You can continue to the next topic on your syllabus or retake in Study or Exam Mode.
               </p>
             </div>
 
-            <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+            <div className="flex items-center gap-2 shrink-0 flex-wrap">
               <Button
                 variant="accent"
                 size="sm"
-                disabled={practicing}
-                onClick={handleStartPractice}
+                disabled={practicingMode !== null}
+                onClick={() => handleStartPractice('study')}
                 className="gap-1.5"
               >
-                <TaskSquare size={15} />
-                {practicing ? t('preparingQuiz') : 'Retake Practice Test'}
+                <Book1 size={15} />
+                {practicingMode === 'study' ? t('preparingQuiz') : 'Study Mode'}
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={practicingMode !== null}
+                onClick={() => handleStartPractice('exam')}
+                className="gap-1.5"
+              >
+                <Timer1 size={15} />
+                {practicingMode === 'exam' ? t('preparingQuiz') : 'Exam Mode'}
               </Button>
               <Button variant="secondary" size="sm" asChild>
                 <Link href={`/quizzes/${data.quizResult.quizId}/results/${data.quizResult.attemptId}`}>
@@ -415,32 +422,42 @@ export default function TopicReaderPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-1">
-                <Lock size={14} />
-                Next Topic Locked
+                <TaskSquare size={14} />
+                Topic Practice Test (10 Questions)
               </div>
               <h3 className="text-base sm:text-lg font-bold text-[var(--color-ink)]">
-                Take the Practice Test to Unlock the Next Topic
+                Take a Practice Quiz on {data.topicName}
               </h3>
               <p className="text-xs sm:text-sm text-[var(--color-ink-muted)] mt-0.5 max-w-md">
-                Answer 10 practice questions on this topic to test your recall, mark the topic as completed, and unlock the next lesson.
+                Choose <strong>Study Mode</strong> for instant explanations after each question, or <strong>Exam Mode</strong> for a timed CBT test.
               </p>
             </div>
 
-            <Button
-              variant="accent"
-              disabled={practicing}
-              onClick={handleStartPractice}
-              className="shrink-0 gap-2 h-11 px-5 shadow-md"
-            >
-              <TaskSquare size={16} variant="Linear" />
-              {practicing ? t('preparingQuiz') : 'Start Practice Test (10 Qs)'}
-            </Button>
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <Button
+                variant="accent"
+                disabled={practicingMode !== null}
+                onClick={() => handleStartPractice('study')}
+                className="gap-2 h-11 px-4 shadow-md"
+              >
+                <Book1 size={16} variant="Linear" />
+                {practicingMode === 'study' ? t('preparingQuiz') : 'Study Mode (Untimed)'}
+              </Button>
+              <Button
+                variant="secondary"
+                disabled={practicingMode !== null}
+                onClick={() => handleStartPractice('exam')}
+                className="gap-2 h-11 px-4"
+              >
+                <Timer1 size={16} variant="Linear" />
+                {practicingMode === 'exam' ? t('preparingQuiz') : 'Exam Mode (Timed)'}
+              </Button>
+            </div>
           </div>
         </section>
       )}
 
-      {/* Move through the syllabus. Previous is always available so students can go back and re-read anytime.
-          Next is strictly locked until the practice quiz for this topic has been taken. */}
+      {/* Move through the syllabus — students can continue studying ahead on the roadmap anytime */}
       <nav className="flex flex-col gap-3 border-t border-[var(--color-rule)] pt-4 sm:flex-row sm:justify-between sm:items-center">
         {data.previous ? (
           <Button variant="secondary" size="sm" asChild>
@@ -454,30 +471,12 @@ export default function TopicReaderPage() {
         )}
 
         {data.next && (
-          (data.quizResult || data.isCompleted) ? (
-            <Button variant="accent" size="sm" asChild>
-              <Link href={`/topics/${data.next.subjectSlug}/${data.next.topicSlug}`}>
-                <span className="truncate">{data.next.topicName}</span>
-                <ArrowRight size={14} color="currentColor" variant="Linear" />
-              </Link>
-            </Button>
-          ) : (
-            <div className="flex items-center gap-2">
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled
-                className="opacity-50 cursor-not-allowed flex items-center gap-1.5"
-                title="Complete the practice test above to unlock this topic"
-              >
-                <Lock size={13} className="text-[var(--color-ink-muted)]" />
-                <span className="truncate">{data.next.topicName}</span>
-              </Button>
-              <span className="text-[11px] text-[var(--color-ink-3)] hidden sm:inline font-medium">
-                (Take practice test to unlock)
-              </span>
-            </div>
-          )
+          <Button variant={data.quizResult || data.isCompleted ? 'accent' : 'secondary'} size="sm" asChild>
+            <Link href={`/topics/${data.next.subjectSlug}/${data.next.topicSlug}`}>
+              <span className="truncate">Next: {data.next.topicName}</span>
+              <ArrowRight size={14} color="currentColor" variant="Linear" />
+            </Link>
+          </Button>
         )}
       </nav>
     </article>

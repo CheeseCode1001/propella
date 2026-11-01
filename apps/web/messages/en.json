@@ -26,7 +26,6 @@
     "planner": "Planner",
     "quizzes": "Quizzes",
     "mocks": "Mocks",
-    "marathon": "Marathon",
     "assistant": "AI Assistant",
     "progress": "Progress",
     "leaderboard": "Leaderboard",
@@ -168,23 +167,6 @@
     "viewResults": "View results",
     "noMocks": "No mock exams yet.",
     "generateFirst": "Generate your first mock exam."
-  },
-  "marathon": {
-    "title": "Marathon",
-    "subtitle": "Extended focused study",
-    "start": "Start marathon",
-    "pause": "Pause",
-    "resume": "Resume",
-    "end": "End marathon",
-    "pomodoro": "Pomodoro",
-    "pomodorosCompleted": "{count} pomodoros completed",
-    "timeRemaining": "Time remaining",
-    "xpMultiplier": "2× XP",
-    "topicsCovered": "Topics covered",
-    "totalTime": "Total time",
-    "xpEarned": "+{xp} XP earned",
-    "great": "Great session.",
-    "noActiveMarathon": "No active marathon."
   },
   "assistant": {
     "title": "AI Assistant",

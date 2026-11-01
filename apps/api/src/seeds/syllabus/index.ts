@@ -11,6 +11,9 @@ import { geography } from './geography'
 import { commerce } from './commerce'
 import { agriculturalScience } from './agricultural-science'
 import { principlesOfAccounts } from './principles-of-accounts'
+import { crk } from './crk'
+import { irk } from './irk'
+import { history } from './history'
 
 export type { SubjectSeedData, TopicSeedData, ExamTag } from './types'
 
@@ -36,6 +39,9 @@ export const subjects: SubjectSeedData[] = [
   commerce,
   principlesOfAccounts,
   agriculturalScience,
+  crk,
+  irk,
+  history,
 ]
 
 /** Guards against a typo creating an unreachable topic. */

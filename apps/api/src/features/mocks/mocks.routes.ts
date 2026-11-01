@@ -15,6 +15,7 @@ router.post(
   mocksController.generateMock,
 )
 router.post('/:id/attempt', mocksController.startMockAttempt)
+router.patch('/attempts/:attemptId/progress', mocksController.saveMockProgress)
 router.post('/attempts/:attemptId/submit', mocksController.submitMock)
 router.get('/attempts/:attemptId', mocksController.getMockAttemptResult)
 router.get('/:id', mocksController.getMock)

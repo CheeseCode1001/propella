@@ -42,7 +42,7 @@ export async function generateMock(
   }
 }
 
-/** Summary for the pre-start screen - the questions only arrive once an attempt starts. */
+/** Summary for the pre-start screen - includes any active/paused attempt so the student can resume. */
 export async function getMock(
   req: Request<{ id: string }>,
   res: Response,
@@ -50,7 +50,7 @@ export async function getMock(
 ): Promise<void> {
   try {
     const userId = requireUser(req)
-    const mock = await mocksService.getMock(userId, req.params.id)
+    const { mock, activeAttempt } = await mocksService.getMock(userId, req.params.id)
 
     res.status(200).json({
       data: {
@@ -59,6 +59,15 @@ export async function getMock(
         timeLimit: mock.timeLimit,
         type: mock.type,
         createdAt: mock.createdAt.toISOString(),
+        activeAttempt: activeAttempt
+          ? {
+              attemptId: activeAttempt.id,
+              startedAt: activeAttempt.startedAt.toISOString(),
+              durationSec: activeAttempt.durationSec,
+              answeredCount: Array.isArray(activeAttempt.answers) ? activeAttempt.answers.length : 0,
+              answers: activeAttempt.answers,
+            }
+          : null,
       },
     })
   } catch (err) {
@@ -73,12 +82,54 @@ export async function startMockAttempt(
 ): Promise<void> {
   try {
     const userId = requireUser(req)
-    const attempt = await mocksService.startMockAttempt(userId, req.params.id)
+    const { forceRestart } = (req.body ?? {}) as { forceRestart?: boolean }
+    const { attempt, resumed } = await mocksService.startMockAttempt(
+      userId,
+      req.params.id,
+      Boolean(forceRestart),
+    )
 
     res.status(201).json({
       data: {
         attemptId: attempt.id,
         startedAt: attempt.startedAt.toISOString(),
+        durationSec: attempt.durationSec,
+        answers: attempt.answers,
+        resumed,
+      },
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function saveMockProgress(
+  req: Request<{ attemptId: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const userId = requireUser(req)
+    const { answers, durationSec } = req.body as {
+      answers?: Array<{
+        questionId: string
+        selectedOptionId: string
+        timeSpentSec?: number
+      }>
+      durationSec?: number
+    }
+
+    const updated = await mocksService.saveMockProgress(userId, req.params.attemptId, {
+      answers: Array.isArray(answers) ? answers : [],
+      durationSec: typeof durationSec === 'number' ? Math.max(0, Math.round(durationSec)) : 0,
+    })
+
+    res.status(200).json({
+      data: {
+        attemptId: updated.id,
+        savedCount: Array.isArray(answers) ? answers.length : 0,
+        durationSec: updated.durationSec,
+        savedAt: new Date().toISOString(),
       },
     })
   } catch (err) {

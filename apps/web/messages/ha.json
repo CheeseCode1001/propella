@@ -26,7 +26,6 @@
     "planner": "Mai tsarawa",
     "quizzes": "Jarrabawa",
     "mocks": "Gwajin cikakke",
-    "marathon": "Marathon",
     "assistant": "Mataimakin AI",
     "progress": "Ci gaba",
     "leaderboard": "Jerin mafi kyau",
@@ -158,23 +157,6 @@
     "viewResults": "Duba sakamakon",
     "noMocks": "Babu gwaje-gwaje.",
     "generateFirst": "Ƙirƙiri gwajin farkonka."
-  },
-  "marathon": {
-    "title": "Marathon",
-    "subtitle": "Karatu na dogon lokaci",
-    "start": "Fara marathon",
-    "pause": "Tsaya",
-    "resume": "Ci gaba",
-    "end": "Ƙare marathon",
-    "pomodoro": "Pomodoro",
-    "pomodorosCompleted": "An kammala pomodoros {count}",
-    "timeRemaining": "Lokaci da ya rage",
-    "xpMultiplier": "2× XP",
-    "topicsCovered": "Batutuwa da aka rufe",
-    "totalTime": "Jimlar lokaci",
-    "xpEarned": "+{xp} XP",
-    "great": "Kyakkyawan zaman.",
-    "noActiveMarathon": "Babu marathon mai aiki."
   },
   "assistant": {
     "title": "Mataimakin AI",

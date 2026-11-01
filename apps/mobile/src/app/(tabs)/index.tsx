@@ -142,12 +142,12 @@ export default function DashboardScreen() {
           <TouchableOpacity
             style={styles.actionPill}
             activeOpacity={0.7}
-            onPress={() => router.push('/marathon')}
+            onPress={() => router.push('/planner')}
           >
             <View style={[styles.actionIconBox, { backgroundColor: Palette.warningTint }]}>
-              <Ionicons name="flash" size={17} color={Palette.warning} />
+              <Ionicons name="calendar-outline" size={17} color={Palette.warning} />
             </View>
-            <Text style={styles.actionPillText}>Marathon</Text>
+            <Text style={styles.actionPillText}>Planner</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -217,23 +217,24 @@ export default function DashboardScreen() {
                   </Text>
 
                   {/* Direct Start Action Button */}
-                  {isFirstReady && (
-                    <TouchableOpacity
-                      style={styles.startButton}
-                      activeOpacity={0.8}
-                      onPress={() =>
-                        router.push({
-                          pathname: '/topic-detail',
-                          params: {
-                            subjectSlug: item.subjectSlug,
-                            title: item.topicName,
-                          },
-                        })
-                      }
-                    >
-                      <Text style={styles.startButtonText}>Start</Text>
-                    </TouchableOpacity>
-                  )}
+                  <TouchableOpacity
+                    style={styles.startButton}
+                    activeOpacity={0.8}
+                    onPress={() =>
+                      router.push({
+                        pathname: '/topic-detail',
+                        params: {
+                          subjectSlug: item.subjectSlug,
+                          topicSlug: item.topicSlug,
+                          title: item.topicName,
+                        },
+                      })
+                    }
+                  >
+                    <Text style={styles.startButtonText}>
+                      {item.status === 'in-progress' ? 'Continue' : 'Start'}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               );
             })}

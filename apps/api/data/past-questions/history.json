@@ -1,0 +1,1300 @@
+{
+  "questions": [
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "land-peoples-early-civilizations-nigeria",
+      "question": "The Nok civilization suggests that",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nigeria passed through different stages of indigenous technological development"
+        },
+        {
+          "id": "B",
+          "text": "civilization in the area ended with the Early Stone Age"
+        },
+        {
+          "id": "C",
+          "text": "the people of Nigeria migrated from the Far East"
+        },
+        {
+          "id": "D",
+          "text": "Nigerian civilization was borrowed from Ancient Greece"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q1"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "land-peoples-early-civilizations-nigeria",
+      "question": "The development of microliths is associated with the",
+      "options": [
+        {
+          "id": "A",
+          "text": "Middle Stone Age"
+        },
+        {
+          "id": "B",
+          "text": "Late Stone Age"
+        },
+        {
+          "id": "C",
+          "text": "Iron Age"
+        },
+        {
+          "id": "D",
+          "text": "Early Stone Age"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q2"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "land-peoples-early-civilizations-nigeria",
+      "question": "In pre-colonial Nigeria, intergroup contacts were encouraged mostly by",
+      "options": [
+        {
+          "id": "A",
+          "text": "economic interdependence and trade"
+        },
+        {
+          "id": "B",
+          "text": "military alliances"
+        },
+        {
+          "id": "C",
+          "text": "marriage ties"
+        },
+        {
+          "id": "D",
+          "text": "political treaties"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q3"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "pre-colonial-states-northern-nigeria",
+      "question": "Which of the following is the most important written chronicle for the internal history of the Hausa states?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tarikh al-Sudan"
+        },
+        {
+          "id": "B",
+          "text": "The European explorers' accounts"
+        },
+        {
+          "id": "C",
+          "text": "The Kano Chronicle"
+        },
+        {
+          "id": "D",
+          "text": "The Arab traders' accounts"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q4"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "pre-colonial-states-southern-nigeria",
+      "question": "The Yoruba background to the Oba of Benin is emphasized by the",
+      "options": [
+        {
+          "id": "A",
+          "text": "similarities of Benin and Nok terracotta"
+        },
+        {
+          "id": "B",
+          "text": "identical military systems"
+        },
+        {
+          "id": "C",
+          "text": "conflict between the Uzama and Ogiso"
+        },
+        {
+          "id": "D",
+          "text": "Oranmiyan legend in Benin history"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q5"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "trans-saharan-and-trans-atlantic-trade",
+      "question": "European traders did not venture into the interior of Nigeria before the 19th century mainly because",
+      "options": [
+        {
+          "id": "A",
+          "text": "they were completely unaware of the interior"
+        },
+        {
+          "id": "B",
+          "text": "coastal African middlemen effectively supplied their trade needs"
+        },
+        {
+          "id": "C",
+          "text": "there were no navigable rivers"
+        },
+        {
+          "id": "D",
+          "text": "European governments prohibited inland trade"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q6"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "trans-saharan-and-trans-atlantic-trade",
+      "question": "The Africans transported across the Atlantic as slaves were mostly",
+      "options": [
+        {
+          "id": "A",
+          "text": "elderly people with criminal records"
+        },
+        {
+          "id": "B",
+          "text": "able-bodied young men and women"
+        },
+        {
+          "id": "C",
+          "text": "disabled persons"
+        },
+        {
+          "id": "D",
+          "text": "infants and children"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q7"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "sokoto-jihad-and-19th-century-north",
+      "question": "The jihadists emerged victorious in Gobir mainly because",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gobir had no army"
+        },
+        {
+          "id": "B",
+          "text": "the Hausa rulers refused to fight"
+        },
+        {
+          "id": "C",
+          "text": "they used European firearms"
+        },
+        {
+          "id": "D",
+          "text": "the oppressed masses supported them"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q8"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "sokoto-jihad-and-19th-century-north",
+      "question": "Rabeh's greatest challenge after conquering Borno was",
+      "options": [
+        {
+          "id": "A",
+          "text": "normalizing relations with the Sokoto Caliphate"
+        },
+        {
+          "id": "B",
+          "text": "disbanding his army"
+        },
+        {
+          "id": "C",
+          "text": "reviving the ailing economy"
+        },
+        {
+          "id": "D",
+          "text": "introducing Christianity"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q9"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "yoruba-wars-and-christian-missions",
+      "question": "Christianity spread fast in southern Nigeria mainly because it",
+      "options": [
+        {
+          "id": "A",
+          "text": "was closely associated with Western education"
+        },
+        {
+          "id": "B",
+          "text": "abolished all traditional institutions immediately"
+        },
+        {
+          "id": "C",
+          "text": "distributed free land to converts"
+        },
+        {
+          "id": "D",
+          "text": "was enforced by pre-colonial rulers"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q10"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "yoruba-wars-and-christian-missions",
+      "question": "Ibadan-Ijebu relations in the 19th century became hostile mainly as a result of",
+      "options": [
+        {
+          "id": "A",
+          "text": "boundary disputes over farmland"
+        },
+        {
+          "id": "B",
+          "text": "succession to the Awujale throne"
+        },
+        {
+          "id": "C",
+          "text": "the British annexation of Lagos"
+        },
+        {
+          "id": "D",
+          "text": "Ibadan's attempt to gain direct access to the coast for trade"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q11"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "yoruba-wars-and-christian-missions",
+      "question": "The Ekitiparapo confederacy was formed primarily with the aim of",
+      "options": [
+        {
+          "id": "A",
+          "text": "checking European inroads into Yorubaland"
+        },
+        {
+          "id": "B",
+          "text": "restoring the political supremacy of Old Oyo"
+        },
+        {
+          "id": "C",
+          "text": "throwing off Ibadan's imperial hegemony"
+        },
+        {
+          "id": "D",
+          "text": "establishing a Christian theocracy"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q12"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "pre-colonial-states-southern-nigeria",
+      "question": "The Uzama title holders in the Benin Kingdom were responsible for",
+      "options": [
+        {
+          "id": "A",
+          "text": "installing the Oba and advising him in the administration of the kingdom"
+        },
+        {
+          "id": "B",
+          "text": "collecting tribute from coastal European traders"
+        },
+        {
+          "id": "C",
+          "text": "commanding the naval fleet on the Niger"
+        },
+        {
+          "id": "D",
+          "text": "appointing village heads across Yorubaland"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q13"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "trans-saharan-and-trans-atlantic-trade",
+      "question": "Britain championed the suppression of the trans-Atlantic slave trade in the 19th century primarily because",
+      "options": [
+        {
+          "id": "A",
+          "text": "there was no longer any land in the Americas"
+        },
+        {
+          "id": "B",
+          "text": "African rulers petitioned the British Parliament"
+        },
+        {
+          "id": "C",
+          "text": "Portugal forced Britain to sign abolition treaties"
+        },
+        {
+          "id": "D",
+          "text": "the slave trade had become unfavourable to her industrial and legitimate trade interests"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q14"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "british-conquest-and-resistance",
+      "question": "The main goal of the British military expedition against the Aro (1901–1902) was to",
+      "options": [
+        {
+          "id": "A",
+          "text": "preserve the Ibini-Ukpabi oracle"
+        },
+        {
+          "id": "B",
+          "text": "eliminate Aro opposition and establish British control in the Igbo hinterland"
+        },
+        {
+          "id": "C",
+          "text": "hand over Igboland to the Royal Niger Company"
+        },
+        {
+          "id": "D",
+          "text": "recruit soldiers for the First World War"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q15"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "colonial-rule-and-amalgamation",
+      "question": "A major reason for the introduction of Indirect Rule in Northern Nigeria was to",
+      "options": [
+        {
+          "id": "A",
+          "text": "administer the vast territory cheaply and preserve existing administrative structures"
+        },
+        {
+          "id": "B",
+          "text": "weaken the authority of the Emirs in favour of educated elites"
+        },
+        {
+          "id": "C",
+          "text": "promote Christian missionary expansion into the emirates"
+        },
+        {
+          "id": "D",
+          "text": "secure forced labour for gold mining"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q16"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "nationalism-and-decolonization",
+      "question": "Nationalist activities developed earlier in British West Africa than in French West Africa because",
+      "options": [
+        {
+          "id": "A",
+          "text": "British colonies were represented in the British Parliament"
+        },
+        {
+          "id": "B",
+          "text": "Britain had a larger land area in West Africa than France"
+        },
+        {
+          "id": "C",
+          "text": "African chiefs in French colonies led nationalist parties"
+        },
+        {
+          "id": "D",
+          "text": "of the contrasting colonial administrative and educational policies adopted by the two powers"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q17"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "colonial-rule-and-amalgamation",
+      "question": "The immediate reason for the construction of the Eastern railway line from Port Harcourt to Enugu was the",
+      "options": [
+        {
+          "id": "A",
+          "text": "discovery of tin on the Jos Plateau"
+        },
+        {
+          "id": "B",
+          "text": "construction of the Kainji Dam"
+        },
+        {
+          "id": "C",
+          "text": "discovery of coal at Udi near Enugu"
+        },
+        {
+          "id": "D",
+          "text": "export of groundnuts from Kano"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q18"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "colonial-rule-and-amalgamation",
+      "question": "During the colonial period, agricultural policy in Nigeria was primarily designed to",
+      "options": [
+        {
+          "id": "A",
+          "text": "achieve domestic food security and industrialization"
+        },
+        {
+          "id": "B",
+          "text": "make Nigerian peasant farmers wealthy"
+        },
+        {
+          "id": "C",
+          "text": "produce cash crops and raw materials for British industries"
+        },
+        {
+          "id": "D",
+          "text": "replace cash crops with mechanized food crops"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q19"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "nationalism-and-decolonization",
+      "question": "The Nigerian Youth Movement (NYM) declined in 1941 mainly as a result of",
+      "options": [
+        {
+          "id": "A",
+          "text": "its proscription by the colonial governor"
+        },
+        {
+          "id": "B",
+          "text": "bankruptcy of its Lagos secretariat"
+        },
+        {
+          "id": "C",
+          "text": "imprisonment of Herbert Macaulay"
+        },
+        {
+          "id": "D",
+          "text": "internal leadership crisis and ethnic rivalry (the Ikoli–Akinsanya crisis)"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q20"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "nationalism-and-decolonization",
+      "question": "The 1947 NCNC delegation to London pressed mainly for",
+      "options": [
+        {
+          "id": "A",
+          "text": "the relocation of the federal capital to Abuja"
+        },
+        {
+          "id": "B",
+          "text": "the creation of twelve states"
+        },
+        {
+          "id": "C",
+          "text": "a revision of the obnoxious ordinances and the 1946 Richards Constitution"
+        },
+        {
+          "id": "D",
+          "text": "Nigeria's withdrawal from the British Commonwealth"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q21"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "nationalism-and-decolonization",
+      "question": "The 1954 Lyttleton Constitution is considered a landmark in the constitutional history of Nigeria because it",
+      "options": [
+        {
+          "id": "A",
+          "text": "established a formal federal structure of government for the country"
+        },
+        {
+          "id": "B",
+          "text": "introduced the elective principle for the first time"
+        },
+        {
+          "id": "C",
+          "text": "abolished the office of Regional Premier"
+        },
+        {
+          "id": "D",
+          "text": "granted Nigeria republican status"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q22"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "nationalism-and-decolonization",
+      "question": "Strikes and protests by trade unions in Nigeria during the colonial period were primarily aimed at",
+      "options": [
+        {
+          "id": "A",
+          "text": "overthrowing traditional rulers"
+        },
+        {
+          "id": "B",
+          "text": "nationalizing foreign banks"
+        },
+        {
+          "id": "C",
+          "text": "securing better wages, cost-of-living allowances and working conditions for members"
+        },
+        {
+          "id": "D",
+          "text": "stopping the construction of railways"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q23"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "post-independence-nigeria-civil-war-military",
+      "question": "Which of the following pairs served as prominent federal ministers under Prime Minister Sir Abubakar Tafawa Balewa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Alhaji Muhammadu Ribadu and Chief Festus Okotie-Eboh"
+        },
+        {
+          "id": "B",
+          "text": "Chief Obafemi Awolowo and Alhaji Ahmadu Bello"
+        },
+        {
+          "id": "C",
+          "text": "General Yakubu Gowon and Chief Odumegwu Ojukwu"
+        },
+        {
+          "id": "D",
+          "text": "Alhaji Shehu Shagari and Dr Alex Ekwueme"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q24"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "post-independence-nigeria-civil-war-military",
+      "question": "An important statutory function of FEDECO during the 1979 elections was",
+      "options": [
+        {
+          "id": "A",
+          "text": "funding political party campaigns"
+        },
+        {
+          "id": "B",
+          "text": "promulgating the 1979 Constitution into law"
+        },
+        {
+          "id": "C",
+          "text": "swearing in the President"
+        },
+        {
+          "id": "D",
+          "text": "delineating electoral constituencies and conducting elections"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q25"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "post-independence-nigeria-civil-war-military",
+      "question": "A major political crisis that precipitated military intervention in Nigeria in January 1966 was the",
+      "options": [
+        {
+          "id": "A",
+          "text": "rupture of diplomatic ties with Britain"
+        },
+        {
+          "id": "B",
+          "text": "coronation of new traditional rulers"
+        },
+        {
+          "id": "C",
+          "text": "nationalization of foreign oil companies"
+        },
+        {
+          "id": "D",
+          "text": "crises arising from the 1964 Federal Elections and 1965 Western Region election"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q26"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "post-independence-nigeria-civil-war-military",
+      "question": "Major-General J. T. U. Aguiyi-Ironsi promulgated Unification Decree No. 34 of 1966 introducing a unitary system mainly because",
+      "options": [
+        {
+          "id": "A",
+          "text": "all regions voted for it in a referendum"
+        },
+        {
+          "id": "B",
+          "text": "it reflected the unified command structure of the military and aimed to curb regionalism"
+        },
+        {
+          "id": "C",
+          "text": "it was demanded by the Northern Peoples' Congress"
+        },
+        {
+          "id": "D",
+          "text": "the British government recommended it"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q27"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "post-independence-nigeria-civil-war-military",
+      "question": "The agricultural programme (Operation Feed the Nation) launched by the Obasanjo regime in 1976 focused on",
+      "options": [
+        {
+          "id": "A",
+          "text": "exporting Timber to Europe"
+        },
+        {
+          "id": "B",
+          "text": "abolishing peasant farming"
+        },
+        {
+          "id": "C",
+          "text": "achieving national food self-sufficiency"
+        },
+        {
+          "id": "D",
+          "text": "re-establishing colonial marketing boards"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q28"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "west-and-north-africa-since-1800",
+      "question": "The Kunta scholar Shaykh Sidi al-Mukhtar contributed to the 19th-century West African jihads by",
+      "options": [
+        {
+          "id": "A",
+          "text": "commanding the cavalry of Seku Ahmadu at Noukouma"
+        },
+        {
+          "id": "B",
+          "text": "spreading Islamic scholarship and spiritual influence through the Qadiriyyah brotherhood"
+        },
+        {
+          "id": "C",
+          "text": "supplying firearms from Tripoli to Samori Toure"
+        },
+        {
+          "id": "D",
+          "text": "signing treaties with the French in Senegal"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q29"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "west-and-north-africa-since-1800",
+      "question": "The establishment of the colony of Sierra Leone (Freetown) originally facilitated",
+      "options": [
+        {
+          "id": "A",
+          "text": "the resettlement of freed slaves and recaptives"
+        },
+        {
+          "id": "B",
+          "text": "the trans-Atlantic slave trade"
+        },
+        {
+          "id": "C",
+          "text": "French expansion into the Western Sudan"
+        },
+        {
+          "id": "D",
+          "text": "gold mining by the Royal African Company"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q30"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "west-and-north-africa-since-1800",
+      "question": "Nineteenth-century Egyptian nationalism under Colonel Ahmed Urabi was principally aimed at",
+      "options": [
+        {
+          "id": "A",
+          "text": "digging the Suez Canal"
+        },
+        {
+          "id": "B",
+          "text": "replacing the Ottoman Sultan with a French governor"
+        },
+        {
+          "id": "C",
+          "text": "restoring Mamluk rule"
+        },
+        {
+          "id": "D",
+          "text": "ending foreign interference and ensuring Egyptian independence"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q31"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "west-and-north-africa-since-1800",
+      "question": "The Battle of Tel el-Kebir (1882) was fought between",
+      "options": [
+        {
+          "id": "A",
+          "text": "the British and the Urabists"
+        },
+        {
+          "id": "B",
+          "text": "Khedive Tawfiq and the Mahdists"
+        },
+        {
+          "id": "C",
+          "text": "the Ottomans and the Wafdists"
+        },
+        {
+          "id": "D",
+          "text": "Napoleon and the Mamluks"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q32"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "west-and-north-africa-since-1800",
+      "question": "Morocco was of great strategic importance to European powers in the late 19th and early 20th centuries because",
+      "options": [
+        {
+          "id": "A",
+          "text": "of its tropical climate"
+        },
+        {
+          "id": "B",
+          "text": "it was the most industrialized state in Africa"
+        },
+        {
+          "id": "C",
+          "text": "it possessed the world's largest diamond mines"
+        },
+        {
+          "id": "D",
+          "text": "it commanded the western entrance to the Mediterranean Sea (Strait of Gibraltar)"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q33"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "west-and-north-africa-since-1800",
+      "question": "The Mahdist revolt in the Sudan succeeded against Turco-Egyptian rule primarily because",
+      "options": [
+        {
+          "id": "A",
+          "text": "the Mahdists possessed modern European artillery"
+        },
+        {
+          "id": "B",
+          "text": "it united diverse Sudanese groups against oppressive taxation and foreign rule"
+        },
+        {
+          "id": "C",
+          "text": "Britain supported Muhammad Ahmad al-Mahdi"
+        },
+        {
+          "id": "D",
+          "text": "Egypt voluntarily withdrew from Khartoum"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q34"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "Seyyid Said promoted the commercial prosperity of Zanzibar in the 19th century by",
+      "options": [
+        {
+          "id": "A",
+          "text": "handing over clove plantations to British settlers"
+        },
+        {
+          "id": "B",
+          "text": "banning Indian financiers (Banyans) from the island"
+        },
+        {
+          "id": "C",
+          "text": "encouraging clove cultivation and signing commercial treaties allowing foreign consuls in Zanzibar"
+        },
+        {
+          "id": "D",
+          "text": "making English the official language of the Omani court"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q35"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "One of the main strategic aims of the British colonization of Buganda (Uganda) was to",
+      "options": [
+        {
+          "id": "A",
+          "text": "gain overland access to the Cape of Good Hope"
+        },
+        {
+          "id": "B",
+          "text": "control the diamond mines of Kimberley"
+        },
+        {
+          "id": "C",
+          "text": "secure the headwaters and source of the River Nile"
+        },
+        {
+          "id": "D",
+          "text": "expel the Portuguese from Mozambique"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q36"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "The survival of Ethiopia as an independent African state during the Scramble for Africa was aided by",
+      "options": [
+        {
+          "id": "A",
+          "text": "its rugged mountainous terrain, national unity and decisive victory at Adwa (1896)"
+        },
+        {
+          "id": "B",
+          "text": "its military alliance with Germany"
+        },
+        {
+          "id": "C",
+          "text": "its lack of agricultural land"
+        },
+        {
+          "id": "D",
+          "text": "Italy's refusal to send troops to East Africa"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q37"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "The Mfecane in early 19th-century Southern Africa resulted in the",
+      "options": [
+        {
+          "id": "A",
+          "text": "complete disappearance of the Zulu kingdom"
+        },
+        {
+          "id": "B",
+          "text": "emergence of new centralized states such as the Ndebele, Swazi, Sotho and Gaza kingdoms"
+        },
+        {
+          "id": "C",
+          "text": "immediate end of Boer migration"
+        },
+        {
+          "id": "D",
+          "text": "colonization of Natal by Portugal"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q38"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "The 1960 Sharpeville demonstration in South Africa was organized specifically to protest against",
+      "options": [
+        {
+          "id": "A",
+          "text": "trade union laws"
+        },
+        {
+          "id": "B",
+          "text": "Bantu education curricula"
+        },
+        {
+          "id": "C",
+          "text": "apartheid Pass Laws"
+        },
+        {
+          "id": "D",
+          "text": "customary marriage laws"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q39"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "A major consequence of the Boer Great Trek of the 1830s and 1840s was the",
+      "options": [
+        {
+          "id": "A",
+          "text": "confinement of Afrikaners to the Cape Peninsula"
+        },
+        {
+          "id": "B",
+          "text": "granting of equal voting rights to Africans in the Transvaal"
+        },
+        {
+          "id": "C",
+          "text": "incorporation of the Cape Colony into the Zulu Empire"
+        },
+        {
+          "id": "D",
+          "text": "expansion of white settler republics (Orange Free State and Transvaal) into the South African interior"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q40"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "british-conquest-and-resistance",
+      "question": "A key feature of European diplomacy during the Scramble for Africa at the Berlin Conference (1884–1885) was",
+      "options": [
+        {
+          "id": "A",
+          "text": "inviting African monarchs to vote on partition"
+        },
+        {
+          "id": "B",
+          "text": "paying compensation to African kingdoms"
+        },
+        {
+          "id": "C",
+          "text": "abolishing colonial boundaries"
+        },
+        {
+          "id": "D",
+          "text": "reconciling rival European territorial claims through the principle of effective occupation"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q41"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "west-and-north-africa-since-1800",
+      "question": "The French colonial policy of Assimilation failed in most of West Africa mainly because",
+      "options": [
+        {
+          "id": "A",
+          "text": "indigenous African cultures and institutions were deeply rooted and resilient"
+        },
+        {
+          "id": "B",
+          "text": "Senegalese deputies in Paris opposed French citizenship"
+        },
+        {
+          "id": "C",
+          "text": "France had no schools in Senegal"
+        },
+        {
+          "id": "D",
+          "text": "Britain blocked its implementation"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q42"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "nationalism-and-decolonization",
+      "question": "Which of the following was a major demand of the National Congress of British West Africa (NCBWA) in 1920?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Immediate military overthrow of colonial governors"
+        },
+        {
+          "id": "B",
+          "text": "Abolition of Western education in West Africa"
+        },
+        {
+          "id": "C",
+          "text": "Election of African representatives into colonial Legislative Councils and establishment of a West African university"
+        },
+        {
+          "id": "D",
+          "text": "Merger of British and French West African colonies"
+        }
+      ],
+      "answer": "C",
+      "source": "JAMB UTME 2012 Q43"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "nationalism-and-decolonization",
+      "question": "The nationalist movement in Nigeria after the Second World War was primarily led by",
+      "options": [
+        {
+          "id": "A",
+          "text": "foreign multinational companies"
+        },
+        {
+          "id": "B",
+          "text": "the Western-educated elite (intelligentsia)"
+        },
+        {
+          "id": "C",
+          "text": "colonial district officers"
+        },
+        {
+          "id": "D",
+          "text": "warrant chiefs"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q44"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "One of the main objectives for the formation of the South African Native National Congress (later ANC) in 1912 was to",
+      "options": [
+        {
+          "id": "A",
+          "text": "partition South Africa into ethnic homelands"
+        },
+        {
+          "id": "B",
+          "text": "support the 1913 Natives Land Act"
+        },
+        {
+          "id": "C",
+          "text": "campaign for South Africa to join Germany"
+        },
+        {
+          "id": "D",
+          "text": "unite and integrate the various African groups to defend their rights"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q45"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "eastern-southern-africa-and-african-unity",
+      "question": "In 1973, Nigeria and other OAU member states broke diplomatic relations with Israel because of Israel's",
+      "options": [
+        {
+          "id": "A",
+          "text": "occupation of Egyptian territory (Sinai) following the Arab-Israeli conflict"
+        },
+        {
+          "id": "B",
+          "text": "withdrawal from the United Nations"
+        },
+        {
+          "id": "C",
+          "text": "oil embargo against OPEC"
+        },
+        {
+          "id": "D",
+          "text": "raid on Entebbe airport in Uganda"
+        }
+      ],
+      "answer": "A",
+      "source": "JAMB UTME 2012 Q46"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "british-conquest-and-resistance",
+      "question": "King Leopold II's colonial ventures in the Congo Free State were primarily aimed at",
+      "options": [
+        {
+          "id": "A",
+          "text": "making the Congo an independent democracy"
+        },
+        {
+          "id": "B",
+          "text": "carving out a personal empire for economic exploitation of rubber and ivory"
+        },
+        {
+          "id": "C",
+          "text": "building universities for the Congolese people"
+        },
+        {
+          "id": "D",
+          "text": "handing the territory over to Britain"
+        }
+      ],
+      "answer": "B",
+      "source": "JAMB UTME 2012 Q47"
+    },
+    {
+      "exam": "jamb",
+      "year": 2012,
+      "subject": "history",
+      "topic": "colonial-rule-and-amalgamation",
+      "question": "In colonial Africa, European authorities constructed railways and harbours primarily in order to",
+      "options": [
+        {
+          "id": "A",
+          "text": "develop inter-village passenger travel"
+        },
+        {
+          "id": "B",
+          "text": "industrialize rural African communities"
+        },
+        {
+          "id": "C",
+          "text": "connect African capitals to one another"
+        },
+        {
+          "id": "D",
+          "text": "facilitate the evacuation of raw materials and promote import-export trade"
+        }
+      ],
+      "answer": "D",
+      "source": "JAMB UTME 2012 Q48"
+    }
+  ]
+}

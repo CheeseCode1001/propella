@@ -668,11 +668,19 @@ interface SubscriptionData {
   planExpiresAt: string | null
   isActive: boolean
   daysRemaining: number
+  discountEligible?: boolean
+  discountExpiresAt?: string | null
+  discountPercent?: number
   activeSubscription: {
     id: string
     plan: SubscriptionPlanId
     planName: string
     amount: number
+    renewalAmount?: number
+    isDiscounted?: boolean
+    autoRenew?: boolean
+    cardLast4?: string | null
+    cardBrand?: string | null
     status: string
     startDate: string
     expiresAt: string
@@ -856,6 +864,24 @@ function PlanTab() {
     subData?.activeSubscription?.plan === 'scholar_shared' ||
     Boolean(subData?.activeSubscription?.isShared)
 
+  const isDiscountEligible = (() => {
+    if (typeof subData?.discountEligible === 'boolean') return subData.discountEligible
+    if (isScholar) return false
+    if (!user?.createdAt) return true
+    const elapsedMs = Date.now() - new Date(user.createdAt).getTime()
+    return elapsedMs >= 0 && elapsedMs <= 72 * 60 * 60 * 1000
+  })()
+
+  const discountHoursLeft = (() => {
+    const expiryIso =
+      subData?.discountExpiresAt ||
+      (user?.createdAt
+        ? new Date(new Date(user.createdAt).getTime() + 72 * 60 * 60 * 1000).toISOString()
+        : null)
+    if (!expiryIso) return 72
+    return Math.max(1, Math.ceil((new Date(expiryIso).getTime() - Date.now()) / (60 * 60 * 1000)))
+  })()
+
   return (
     <div className="space-y-6">
       {/* Verification State Banner */}
@@ -1036,26 +1062,61 @@ function PlanTab() {
       {/* Plan Selection Grid (shown if Free or when Scholar clicks Extend) */}
       {(!isScholar || showPlans) && (
         <div className="space-y-4">
+          {isDiscountEligible && (
+            <div className="rounded-2xl bg-gradient-to-r from-emerald-500/15 via-amber-500/10 to-emerald-500/15 border border-emerald-500/40 p-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-sm font-extrabold text-[var(--color-ink)]">
+                    🎉 3-Day Welcome Discount Active: 50% OFF All Plans (Start at ₦999!)
+                  </span>
+                  <Badge className="bg-emerald-600 text-white text-[10px]">
+                    {discountHoursLeft}h remaining
+                  </Badge>
+                </div>
+                <p className="text-xs text-[var(--color-ink-2)] mt-0.5">
+                  Subscribe within your first 72 hours for 50% off. Automatically renews next month at standard price via Paystack card checkout (cancel anytime).
+                </p>
+              </div>
+            </div>
+          )}
+
           <div className="flex items-center justify-between">
             <h4 className="text-base font-bold text-[var(--color-ink)]">
               Choose Your Subscription Package
             </h4>
             <span className="text-xs text-[var(--color-ink-3)] font-mono">
-              Instant Nigerian Bank & Card Checkout
+              Instant Nigerian Card Checkout via Paystack
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Basic Plan */}
             <div className="relative rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm flex flex-col justify-between hover:border-[var(--color-accent)]/50 transition-colors">
+              {isDiscountEligible && (
+                <Badge className="absolute -top-2.5 right-6 bg-emerald-600 text-white text-[10px]">
+                  🔥 50% Off First Month
+                </Badge>
+              )}
               <div>
                 <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-1">
                   Basic Plan
                 </p>
-                <div className="flex items-baseline gap-1 mb-2">
-                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦1,999</span>
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">
+                    {isDiscountEligible ? '₦999' : '₦1,999'}
+                  </span>
+                  {isDiscountEligible && (
+                    <span className="text-sm text-[var(--color-ink-3)] line-through font-semibold">
+                      ₦1,999
+                    </span>
+                  )}
                   <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
                 </div>
+                <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mb-2">
+                  {isDiscountEligible
+                    ? 'Auto-renews next month at ₦1,999/mo · Cancel anytime'
+                    : 'Auto-renews monthly at ₦1,999/mo · Cancel anytime'}
+                </p>
                 <p className="text-xs text-[var(--color-ink-3)] mb-4">
                   Full Scholar access for 1 student account for an intense 30-day prep sprint.
                 </p>
@@ -1065,7 +1126,7 @@ function PlanTab() {
                     '6,994+ past questions with step-by-step solutions',
                     'Realistic timed CBT simulator (JAMB, WAEC, NECO)',
                     'Unlimited AI Assistant explanations',
-                    '50-minute Pomodoro focus in Marathon mode',
+                    'Personalized daily study planner & adaptive roadmap',
                     '1 Student account full access',
                   ].map((feat, i) => (
                     <li key={i} className="flex items-start gap-2">
@@ -1090,7 +1151,7 @@ function PlanTab() {
                 ) : (
                   <>
                     <CreditCard size={15} className="mr-2" />
-                    Choose Basic (₦1,999)
+                    Choose Basic ({isDiscountEligible ? '₦999' : '₦1,999'})
                   </>
                 )}
               </Button>
@@ -1099,17 +1160,29 @@ function PlanTab() {
             {/* Shared Plan (Two Accounts) */}
             <div className="relative rounded-2xl border-2 border-[var(--color-accent)] bg-[var(--color-paper)] p-6 shadow-md flex flex-col justify-between">
               <Badge variant="accent" className="absolute -top-2.5 right-6 text-[10px]">
-                👥 Two Accounts
+                👥 {isDiscountEligible ? '50% Off · Two Accounts' : 'Two Accounts'}
               </Badge>
 
               <div>
                 <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-1">
                   Shared Plan
                 </p>
-                <div className="flex items-baseline gap-1 mb-2">
-                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦2,999</span>
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">
+                    {isDiscountEligible ? '₦1,499' : '₦2,999'}
+                  </span>
+                  {isDiscountEligible && (
+                    <span className="text-sm text-[var(--color-ink-3)] line-through font-semibold">
+                      ₦2,999
+                    </span>
+                  )}
                   <span className="text-xs text-[var(--color-ink-3)]">/ 30 days</span>
                 </div>
+                <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mb-2">
+                  {isDiscountEligible
+                    ? 'Auto-renews next month at ₦2,999/mo · Cancel anytime'
+                    : 'Auto-renews monthly at ₦2,999/mo · Cancel anytime'}
+                </p>
                 <p className="text-xs text-[var(--color-ink-3)] mb-4">
                   Buy one plan and share with your friend or family. 2 accounts get full Scholar access!
                 </p>
@@ -1117,7 +1190,7 @@ function PlanTab() {
                 <ul className="space-y-2 mb-6 text-xs text-[var(--color-ink)] font-medium">
                   {[
                     'Full Scholar access for 2 separate accounts',
-                    'Save 25% (costs only ₦1,500/student)',
+                    'Save 25% (costs only ₦750/student in first month)',
                     '6,994+ past questions & timed CBT mocks for both',
                     'Independent progress, XP, and revision trackers',
                     'Unlimited AI tutor messages on every device',
@@ -1144,7 +1217,7 @@ function PlanTab() {
                 ) : (
                   <>
                     <Sparkles size={15} className="mr-2" />
-                    Get Shared Plan (₦2,999)
+                    Get Shared Plan ({isDiscountEligible ? '₦1,499' : '₦2,999'})
                   </>
                 )}
               </Button>
@@ -1153,19 +1226,31 @@ function PlanTab() {
             {/* Pay Once Till Exam */}
             <div className="relative rounded-2xl border border-emerald-500/40 bg-gradient-to-b from-[var(--color-paper)] to-emerald-500/5 p-6 shadow-sm flex flex-col justify-between">
               <Badge className="absolute -top-2.5 right-6 bg-emerald-600 text-white text-[10px]">
-                ⭐ Best Value Pass
+                ⭐ {isDiscountEligible ? '50% Off · Best Value' : 'Best Value Pass'}
               </Badge>
 
               <div>
                 <p className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-600 dark:text-emerald-400 mb-1">
                   Pay Once Till Exam
                 </p>
-                <div className="flex items-baseline gap-1 mb-2">
-                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦9,999</span>
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="text-3xl font-extrabold text-[var(--color-ink)]">
+                    {isDiscountEligible ? '₦4,999' : '₦9,999'}
+                  </span>
+                  {isDiscountEligible && (
+                    <span className="text-sm text-[var(--color-ink-3)] line-through font-semibold">
+                      ₦9,999
+                    </span>
+                  )}
                   <span className="text-xs text-[var(--color-ink-3)]">/ full pass</span>
                 </div>
+                <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mb-2">
+                  {isDiscountEligible
+                    ? '50% welcome discount · Standard rate ₦9,999 after first cycle'
+                    : 'Complete exam season coverage'}
+                </p>
                 <p className="text-xs text-[var(--color-ink-3)] mb-4">
-                  One-time payment covering your entire exam season and varsity year. Zero renewal worries.
+                  Complete Scholar access right up until your exam day.
                 </p>
 
                 <ul className="space-y-2 mb-6 text-xs text-[var(--color-ink)]">
@@ -1198,7 +1283,7 @@ function PlanTab() {
                 ) : (
                   <>
                     <CreditCard size={15} className="mr-2 text-emerald-600" />
-                    Get Pass (₦9,999)
+                    Get Pass ({isDiscountEligible ? '₦4,999' : '₦9,999'})
                   </>
                 )}
               </Button>
@@ -1210,7 +1295,7 @@ function PlanTab() {
             <div className="flex items-center gap-2">
               <ShieldCheck size={18} className="text-emerald-600 shrink-0" />
               <span>
-                Processed securely via <strong>Paystack</strong>. Accepts Debit Cards, USSD, Bank Transfer &amp; OPay.
+                Processed securely via <strong>Paystack Card Checkout</strong> (Mastercard, Visa, Verve). Automatic renewal at standard rate next cycle — cancel anytime.
               </span>
             </div>
             <span className="text-[11px] text-[var(--color-ink-3)] font-mono">

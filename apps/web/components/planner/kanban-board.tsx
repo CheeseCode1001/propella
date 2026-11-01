@@ -1,8 +1,9 @@
 'use client'
 
 import { useMemo, useRef, useState } from 'react'
-import { Add, Trash, TaskSquare, Calendar as CalendarIcon } from 'iconsax-reactjs'
+import { Add, Trash, TaskSquare, Calendar as CalendarIcon, ArrowRight } from 'iconsax-reactjs'
 import { format, isPast, isToday } from 'date-fns'
+import { useRouter } from '@/lib/i18n/navigation'
 import {
   usePlannerTasks,
   useCreateTask,
@@ -35,22 +36,27 @@ function TaskCard({
   task,
   onDelete,
   onDragStart,
+  onOpenTopic,
   dragging,
 }: {
   task: PlannerTask
   onDelete: () => void
   onDragStart: (e: React.DragEvent) => void
+  onOpenTopic?: () => void
   dragging: boolean
 }) {
   const due = task.dueDate ? dueLabel(task.dueDate) : null
+  const hasTopicLink = Boolean(task.subjectSlug && task.topicSlug)
 
   return (
     <div
       draggable
       onDragStart={onDragStart}
+      onClick={hasTopicLink ? onOpenTopic : undefined}
       className={cn(
-        'group cursor-grab rounded-[var(--radius-sm)] border border-[var(--color-rule)]',
+        'group rounded-[var(--radius-sm)] border border-[var(--color-rule)]',
         'bg-[var(--color-card)] p-3 transition-shadow active:cursor-grabbing',
+        hasTopicLink ? 'cursor-pointer hover:border-[var(--color-accent)]' : 'cursor-grab',
         dragging ? 'opacity-40' : 'hover:shadow-[var(--shadow-sm)]',
       )}
     >
@@ -82,23 +88,33 @@ function TaskCard({
         </button>
       </div>
 
-      {due && (
-        <p
-          className="mt-2 flex items-center gap-1 text-[11px]"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            color:
-              due.tone === 'late'
-                ? 'var(--color-danger)'
-                : due.tone === 'today'
-                  ? 'var(--color-warning)'
-                  : 'var(--color-ink-3)',
-          }}
-        >
-          <CalendarIcon size={12} color="currentColor" variant="Linear" />
-          {due.text}
-        </p>
-      )}
+      <div className="mt-2 flex items-center justify-between gap-2">
+        {due ? (
+          <p
+            className="flex items-center gap-1 text-[11px]"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              color:
+                due.tone === 'late'
+                  ? 'var(--color-danger)'
+                  : due.tone === 'today'
+                    ? 'var(--color-warning)'
+                    : 'var(--color-ink-3)',
+            }}
+          >
+            <CalendarIcon size={12} color="currentColor" variant="Linear" />
+            {due.text}
+          </p>
+        ) : (
+          <span />
+        )}
+
+        {hasTopicLink && (
+          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[var(--color-accent)]">
+            Open topic <ArrowRight size={12} color="currentColor" variant="Linear" />
+          </span>
+        )}
+      </div>
     </div>
   )
 }
@@ -117,7 +133,6 @@ function AddCard({ status, onAdd }: { status: TaskStatus; onAdd: (title: string)
     }
     onAdd(value)
     setTitle('')
-    // Stay open so several tasks can be added in a row.
     inputRef.current?.focus()
   }
 
@@ -166,14 +181,8 @@ function AddCard({ status, onAdd }: { status: TaskStatus; onAdd: (title: string)
   )
 }
 
-/**
- * A three-column to-do board under the calendar.
- *
- * Drag and drop uses the native HTML5 API rather than a drag library — the
- * board is small, and this keeps the bundle down. Each drop rewrites the order
- * of the destination column so positions cannot drift.
- */
 export function KanbanBoard() {
+  const router = useRouter()
   const online = useOnlineStatus()
   const { data, isLoading, isError, error, refetch } = usePlannerTasks()
   const createTask = useCreateTask()
@@ -202,7 +211,6 @@ export function KanbanBoard() {
     const task = (data ?? []).find((t) => t.id === id)
     if (!task) return
 
-    // Dropped back where it started — nothing to write.
     const target = byColumn[status]
     if (task.status === status && target[target.length - 1]?.id === id) return
 
@@ -234,7 +242,6 @@ export function KanbanBoard() {
               setOverColumn(column.status)
             }}
             onDragLeave={(e) => {
-              // Ignore moves between children of the same column.
               if (!e.currentTarget.contains(e.relatedTarget as Node)) setOverColumn(null)
             }}
             onDrop={(e) => {
@@ -284,9 +291,13 @@ export function KanbanBoard() {
                     onDragStart={(e) => {
                       setDraggingId(task.id)
                       e.dataTransfer.effectAllowed = 'move'
-                      // Firefox will not start a drag without payload data.
                       e.dataTransfer.setData('text/plain', task.id)
                     }}
+                    onOpenTopic={
+                      task.subjectSlug && task.topicSlug
+                        ? () => router.push(`/topics/${task.subjectSlug}/${task.topicSlug}`)
+                        : undefined
+                    }
                     onDelete={() => deleteTask.mutate(task.id)}
                   />
                 ))
@@ -302,7 +313,6 @@ export function KanbanBoard() {
               </div>
             )}
 
-            {/* Keyboard-reachable fallback for moving a card without dragging. */}
             {tasks.length > 0 && column.status !== 'done' && (
               <button
                 type="button"

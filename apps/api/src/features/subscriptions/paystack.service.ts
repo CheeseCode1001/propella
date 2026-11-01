@@ -11,6 +11,8 @@ export interface PaystackInitializeInput {
   reference: string
   callbackUrl: string
   planCode?: string | undefined
+  /** Restrict allowed payment channels (e.g. ['card'] to force reusable card for auto-renewal). */
+  channels?: string[] | undefined
   metadata?: Record<string, unknown> | undefined
 }
 
@@ -37,8 +39,12 @@ export interface PaystackVerifyResponse {
     authorization_code: string
     card_type: string
     last4: string
+    exp_month?: string
+    exp_year?: string
     bank?: string
     reusable?: boolean
+    /** Unique card fingerprint across transactions — used to prevent multi-account discount abuse. */
+    signature?: string
   }
   plan?: string
   metadata?: Record<string, unknown>
@@ -80,7 +86,14 @@ export async function initializePaystackTransaction(
     payload['plan'] = input.planCode
   }
 
-  logger.info({ reference: input.reference, email: input.email }, 'Initializing Paystack transaction')
+  if (input.channels && input.channels.length > 0) {
+    payload['channels'] = input.channels
+  }
+
+  logger.info(
+    { reference: input.reference, email: input.email, amount: input.amount, channels: input.channels },
+    'Initializing Paystack transaction',
+  )
 
   const res = await fetch(`${PAYSTACK_BASE_URL}/transaction/initialize`, {
     method: 'POST',
@@ -132,6 +145,50 @@ export async function verifyPaystackTransaction(
   if (!res.ok || !json.status || !json.data) {
     logger.error({ reference, resStatus: res.status, errorJson: json }, 'Paystack verification failed')
     throw new AppError(400, json.message || 'Payment verification failed')
+  }
+
+  return json.data
+}
+
+/**
+ * Charges a previously saved reusable card authorization for automatic monthly renewal at standard price
+ */
+export async function chargePaystackAuthorization(input: {
+  email: string
+  amount: number // in kobo (standard price * 100)
+  authorizationCode: string
+  reference: string
+  metadata?: Record<string, unknown> | undefined
+}): Promise<PaystackVerifyResponse> {
+  const secretKey = getSecretKey()
+
+  const res = await fetch(`${PAYSTACK_BASE_URL}/transaction/charge_authorization`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${secretKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: input.email.trim().toLowerCase(),
+      amount: input.amount,
+      authorization_code: input.authorizationCode,
+      reference: input.reference,
+      metadata: input.metadata ?? {},
+    }),
+  })
+
+  const json = (await res.json()) as {
+    status: boolean
+    message: string
+    data?: PaystackVerifyResponse
+  }
+
+  if (!res.ok || !json.status || !json.data) {
+    logger.error(
+      { reference: input.reference, resStatus: res.status, errorJson: json },
+      'Paystack charge_authorization failed',
+    )
+    throw new AppError(400, json.message || 'Automatic renewal charge failed')
   }
 
   return json.data

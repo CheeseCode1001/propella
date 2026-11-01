@@ -495,6 +495,21 @@ cron.schedule('30 20 * * *', async () => {
   }
 })
 
+// Hourly at :15: Process due Scholar subscription auto-renewals at standard price
+cron.schedule('15 * * * *', async () => {
+  try {
+    const { processDueSubscriptionRenewals } = await import(
+      '../features/subscriptions/subscriptions.service'
+    )
+    const renewed = await processDueSubscriptionRenewals()
+    if (renewed > 0) {
+      logger.info({ renewed }, 'Processed due subscription auto-renewals at standard price')
+    }
+  } catch (err) {
+    logger.error({ err }, 'Subscription auto-renewal scheduler error')
+  }
+})
+
 export function startScheduler(): void {
   logger.info('Scheduler started')
 }

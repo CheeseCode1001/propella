@@ -3,7 +3,7 @@ import type { Request } from 'express'
 
 export const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5,
+  max: process.env.NODE_ENV === 'production' ? 5 : 500,
   standardHeaders: true,
   legacyHeaders: false,
   validate: { xForwardedForHeader: false },
@@ -12,7 +12,7 @@ export const loginLimiter = rateLimit({
 
 export const signupLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10,
+  max: process.env.NODE_ENV === 'production' ? 10 : 500,
   standardHeaders: true,
   legacyHeaders: false,
   validate: { xForwardedForHeader: false },
