@@ -370,42 +370,6 @@ export default function ContactEnrollmentPage() {
         tone="paper-2"
       />
 
-      {/* ── 4. CTA Bottom Banner ────────────────────────────────────────────── */}
-      <section className="py-24">
-        <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
-          <JoyVideo
-            src={VIDEOS.classroom.src}
-            poster={VIDEOS.classroom.poster}
-            label="African students studying in an exam prep classroom"
-            className="rounded-[32px] min-h-[380px]"
-            overlay="linear-gradient(90deg, rgba(26,25,23,0.85) 0%, rgba(26,25,23,0.45) 55%, rgba(26,25,23,0.15) 100%)"
-          >
-            <div className="relative z-[1] flex h-full min-h-[380px] flex-col justify-end p-8 sm:p-14">
-              <JoyEyebrow tone="dark" className="self-start mb-4">Grow with Propella</JoyEyebrow>
-              <h2
-                className="max-w-[560px] text-white text-[32px] sm:text-[42px] font-semibold leading-tight tracking-tight"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Join thousands of scholars already preparing with joy and confidence.
-              </h2>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link
-                  href="/signup"
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-8 py-3.5 text-[15px] font-semibold text-white transition hover:bg-[var(--color-accent-2)] joy-btn-hover"
-                >
-                  Start Learning Free <ArrowRight size={16} />
-                </Link>
-                <Link
-                  href="/pricing"
-                  className="inline-flex items-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:bg-[#FFE494] joy-btn-hover"
-                >
-                  See Plans from ₦999
-                </Link>
-              </div>
-            </div>
-          </JoyVideo>
-        </div>
-      </section>
     </div>
   )
 }

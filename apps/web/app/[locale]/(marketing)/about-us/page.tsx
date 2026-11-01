@@ -170,7 +170,7 @@ export default function AboutUsPage() {
                 loading="lazy"
               />
             </div>
-            <div className="absolute -bottom-8 -left-4 rounded-[20px] bg-white px-5 py-4 text-[var(--color-ink)] shadow-xl sm:-left-8">
+            <div className="absolute -bottom-8 -left-4 rounded-[20px] bg-white px-5 py-4 shadow-xl sm:-left-8">
               <p className="text-[34px] font-semibold leading-none" style={{ fontFamily: 'var(--font-display)' }}>
                 5.0
               </p>

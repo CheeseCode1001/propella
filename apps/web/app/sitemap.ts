@@ -5,10 +5,15 @@ const BASE_URL = 'https://propellastudy.com'
 
 const STATIC_ROUTES = [
   { path: '', changeFrequency: 'daily' as const, priority: 1.0 },
-  { path: '/highschool', changeFrequency: 'daily' as const, priority: 0.9 },
-  { path: '/undergraduate', changeFrequency: 'daily' as const, priority: 0.9 },
+  { path: '/about-us', changeFrequency: 'weekly' as const, priority: 0.8 },
+  { path: '/programs', changeFrequency: 'daily' as const, priority: 0.9 },
+  { path: '/programs/jamb-utme', changeFrequency: 'daily' as const, priority: 0.9 },
+  { path: '/programs/waec-ssce', changeFrequency: 'daily' as const, priority: 0.9 },
+  { path: '/programs/undergraduate', changeFrequency: 'daily' as const, priority: 0.9 },
+  { path: '/programs/shared-plan', changeFrequency: 'weekly' as const, priority: 0.8 },
+  { path: '/parents-resource', changeFrequency: 'weekly' as const, priority: 0.8 },
   { path: '/pricing', changeFrequency: 'weekly' as const, priority: 0.8 },
-  { path: '/testimonials', changeFrequency: 'weekly' as const, priority: 0.7 },
+  { path: '/testimonials', changeFrequency: 'weekly' as const, priority: 0.8 },
   { path: '/contact', changeFrequency: 'monthly' as const, priority: 0.7 },
   { path: '/signup', changeFrequency: 'monthly' as const, priority: 0.8 },
   { path: '/login', changeFrequency: 'monthly' as const, priority: 0.6 },

@@ -137,13 +137,13 @@ export default function ProgramsPage() {
           {programs.map((p, idx) => (
             <div
               key={p.slug}
-              className={`rounded-[30px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 lg:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center joy-card-hover ${
+              className={`rounded-[30px] border border-[var(--color-rule)] bg-white p-8 lg:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center joy-card-hover ${
                 idx % 2 === 1 ? 'lg:flex-row-reverse' : ''
               }`}
             >
               <div className="lg:col-span-7">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className="rounded-full bg-[var(--color-paper-2)] px-3.5 py-1 text-[13px] font-semibold text-[var(--color-ink)]">
+                  <span className="rounded-full bg-[var(--color-paper-2)] px-3.5 py-1 text-[13px] font-semibold">
                     {p.age}
                   </span>
                   <JoyEyebrow tone="accent">{p.badge}</JoyEyebrow>
@@ -151,10 +151,10 @@ export default function ProgramsPage() {
                 <JoyHeading as="h2" size="h2" className="text-[28px] sm:text-[34px] leading-tight">
                   {p.title}
                 </JoyHeading>
-                <p className="mt-4 text-[16.5px] leading-[26px] text-[var(--color-ink)]/75">{p.desc}</p>
+                <p className="mt-4 text-[16.5px] leading-[26px]">{p.desc}</p>
                 <div className="mt-6 space-y-2.5">
                   {p.details.map((d, i) => (
-                    <div key={i} className="flex items-start gap-3 text-[15px] text-[var(--color-ink)]">
+                    <div key={i} className="flex items-start gap-3 text-[15px]">
                       <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-white">
                         <Check size={11} strokeWidth={3} />
                       </span>
@@ -171,7 +171,7 @@ export default function ProgramsPage() {
                   </Link>
                   <Link
                     href="/signup"
-                    className="inline-flex items-center gap-2 rounded-full border border-[var(--color-rule-2)] dark:border-[#3A362D] bg-white dark:bg-[#1A1813] px-6 py-3 text-[15px] font-semibold text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--color-rule-2)] bg-white px-6 py-3 text-[15px] font-semibold hover:border-[var(--color-ink)]"
                   >
                     Start Free Trial
                   </Link>

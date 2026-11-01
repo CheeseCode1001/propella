@@ -54,7 +54,7 @@ function SocialIcon({ label, d }: { label: string; d: string }) {
 /** Joyloo-style warm-yellow footer with an embedded video CTA banner. */
 export function MarketingFooter() {
   return (
-    <footer className="relative mt-[80px] text-[#1A1917] dark:text-[#F4F0E6] bg-[#FFE494] dark:bg-[#1A1710]">
+    <footer className="relative mt-[80px] text-[#1A1917] bg-[#FFE494]">
       <JoyEdge color="#FFE494" variant="b" />
 
       <div className="max-w-[1240px] mx-auto px-6 lg:px-8 pt-10 lg:pt-14">
@@ -86,7 +86,7 @@ export function MarketingFooter() {
               </Link>
               <Link
                 href="/pricing"
-                className="inline-flex items-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:bg-[#FFE494]"
+                className="inline-flex items-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold transition hover:bg-[#FFE494]"
               >
                 See plans from ₦999
               </Link>

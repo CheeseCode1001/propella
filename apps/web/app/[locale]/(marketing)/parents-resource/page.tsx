@@ -71,13 +71,13 @@ export default function ParentsResourcePage() {
       {/* ── 2. Stay Connected All Day ─────────────────────────────────────── */}
       <section className="pb-32">
         <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
-          <div className="rounded-[32px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 lg:p-14 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="rounded-[32px] border border-[var(--color-rule)] bg-white p-8 lg:p-14 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
               <JoyEyebrow tone="accent" className="mb-4">Live Supervision</JoyEyebrow>
               <JoyHeading as="h2" size="h2" className="text-[28px] sm:text-[36px] mb-5">
                 Stay connected all day
               </JoyHeading>
-              <p className="text-[17px] leading-[27px] text-[var(--color-ink)]/75 mb-8">
+              <p className="text-[17px] leading-[27px] mb-8">
                 You never have to wonder whether your child is actually studying or just scrolling on their phone.
                 Propella provides transparent metrics, daily completed topic logs, and instant mock exam alerts.
               </p>
@@ -88,10 +88,10 @@ export default function ParentsResourcePage() {
                     <Bell size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
+                    <h3 className="text-[18px] font-semibold " style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Daily Study Updates
                     </h3>
-                    <p className="text-[15px] leading-[23px] text-[var(--color-ink)]/70 mt-1">
+                    <p className="text-[15px] leading-[23px] mt-1">
                       See which syllabus topics were completed, number of questions answered, and accuracy rates.
                     </p>
                   </div>
@@ -102,10 +102,10 @@ export default function ParentsResourcePage() {
                     <Check size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
+                    <h3 className="text-[18px] font-semibold " style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Automated Mock Exam Scorecards
                     </h3>
-                    <p className="text-[15px] leading-[23px] text-[var(--color-ink)]/70 mt-1">
+                    <p className="text-[15px] leading-[23px] mt-1">
                       Receive detailed breakdown cards showing strengths and topics that need immediate attention.
                     </p>
                   </div>
@@ -116,10 +116,10 @@ export default function ParentsResourcePage() {
                     <Users size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
+                    <h3 className="text-[18px] font-semibold" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Shared Sibling &amp; Partner Accounts
                     </h3>
-                    <p className="text-[15px] leading-[23px] text-[var(--color-ink)]/70 mt-1">
+                    <p className="text-[15px] leading-[23px] mt-1">
                       Manage two children under one subscription while maintaining totally private profiles for each.
                     </p>
                   </div>

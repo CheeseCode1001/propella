@@ -2,7 +2,8 @@ import Image from 'next/image'
 import { Link } from '@/lib/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Star, Quote, CheckCircle2, TrendingUp, Award, Users } from 'lucide-react'
+import { Star, CheckCircle2, TrendingUp, Award, Users } from 'lucide-react'
+import { PHOTOS, px } from '@/components/marketing/joy'
 
 export const metadata = {
   title: 'Student Testimonials & Success Stories | Propella',
@@ -15,7 +16,7 @@ export default function TestimonialsPage() {
       name: 'Chidubem Okafor',
       role: 'JAMB Candidate → UNN Medicine',
       score: 'Score: 318 / 400',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: px(PHOTOS.studentFocused, 300),
       quote:
         'My first JAMB in 2024 was 214 and I missed medicine. I used Propella for 4 months, took 18 CBT mock simulations, and drilled past questions by topic. In 2025 I scored 318 (Maths 82, English 78, Physics 80, Chemistry 78). Today I am a 100L Medical student at UNN!',
     },
@@ -23,7 +24,7 @@ export default function TestimonialsPage() {
       name: 'Amina Bello',
       role: 'WAEC Science Candidate, Abuja',
       score: 'Result: 7 A1s, 2 B2s',
-      avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80',
+      avatar: px(PHOTOS.universityGirl, 300),
       quote:
         'The step-by-step marking rubrics on Propella are what set it apart. Most textbooks give only letters (A, B, C) without explaining why. Propella gave me complete working for physics and chemistry calculations. I breezed through my WAEC exams with straight distinctions.',
     },
@@ -31,7 +32,7 @@ export default function TestimonialsPage() {
       name: 'Femi Adeyemi',
       role: 'Undergraduate, Electrical Eng, Unilag',
       score: 'CGPA: 4.88 / 5.00',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: px(PHOTOS.highschoolBoy, 300),
       quote:
         'I switched to Undergraduate Mode as soon as I entered Unilag. Having all my 100L and 200L course slides organized in Course Files and being able to ask the AI tutor to summarize long 80-page handouts before semester tests has been an absolute game changer.',
     },
@@ -39,7 +40,7 @@ export default function TestimonialsPage() {
       name: 'Blessing Udoh',
       role: 'NECO Candidate & Top Referrer, Port Harcourt',
       score: 'Earned ₦24,000 + 9 NECO Credits',
-      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80',
+      avatar: px(PHOTOS.distinctionLady, 300),
       quote:
         'Not only did Propella help me clear NECO in one sitting, but the referral program actually works! I invited classmates in my tutorial center, reached my 5 referrals, and withdrew ₦24,000 to my GTBank account within 18 hours of approval. Best learning investment ever.',
     },
@@ -47,7 +48,7 @@ export default function TestimonialsPage() {
       name: 'Tunde Bakare',
       role: 'Commercial Candidate → OAU Accounting',
       score: 'Score: 294 / 400',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+      avatar: px(PHOTOS.boyStudying, 300),
       quote:
         'The Commerce and Accounts past question explanations were gold. The mock timer trained me not to panic during the 2-hour UTME exam. If you are serious about university admission, stop buying paper booklets and use Propella.',
     },
@@ -55,7 +56,7 @@ export default function TestimonialsPage() {
       name: 'Zainab Ibrahim',
       role: 'Arts & Law Aspirant, Kaduna',
       score: 'Literature in English: 84%',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+      avatar: px(PHOTOS.girlBooks, 300),
       quote:
         'The literary devices breakdowns and Government constitution past questions made revision so straightforward. The AI explained complex jurisprudence terms like rule of law and separation of powers using simple Nigerian everyday examples.',
     },
@@ -184,21 +185,6 @@ export default function TestimonialsPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Bottom */}
-      <section className="py-20 bg-[var(--color-paper-2)] text-center">
-        <div className="max-w-xl mx-auto px-6">
-          <h2 className="text-3xl font-bold tracking-tight text-[var(--color-ink)] mb-3">
-            Ready to Ace Your Next Exam?
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--color-ink-2)] mb-8">
-            Create an account in 30 seconds and test your readiness with our diagnostic CBT mock.
-          </p>
-          <Button size="lg" variant="accent" asChild>
-            <Link href="/signup">Get Started for Free</Link>
-          </Button>
         </div>
       </section>
     </div>

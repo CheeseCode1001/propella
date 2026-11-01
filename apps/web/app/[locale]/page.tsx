@@ -446,7 +446,7 @@ export default function HomePage() {
                 key={p.title}
                 className="flex w-[88%] shrink-0 snap-start flex-col items-center gap-6 sm:w-[600px] sm:flex-row"
               >
-                <div className="flex-1 rounded-[20px] bg-white p-6 text-[var(--color-ink)]">
+                <div className="flex-1 rounded-[20px] bg-white p-6 ">
                   <span className="inline-block rounded-full bg-[var(--color-paper-2)] px-3 py-1 text-[13px] font-semibold">
                     {p.age}
                   </span>
@@ -456,14 +456,14 @@ export default function HomePage() {
                   >
                     {p.title}
                   </h3>
-                  <p className="mt-2 text-[15px] leading-[23px] text-[var(--color-ink)]/70">{p.body}</p>
-                  <p className="mt-4 text-[13px] font-semibold uppercase tracking-[0.06em] text-[var(--color-ink)]/50">
+                  <p className="mt-2 text-[15px] leading-[23px]">{p.body}</p>
+                  <p className="mt-4 text-[13px] font-semibold uppercase tracking-[0.06em]">
                     Key focus
                   </p>
-                  <p className="text-[14px] text-[var(--color-ink)]/80">{p.focus}</p>
+                  <p className="text-[14px]">{p.focus}</p>
                   <Link
                     href={p.href}
-                    className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[var(--color-ink)] hover:text-[var(--color-accent)]"
+                    className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-semibold ver:text-[var(--color-accent)]"
                   >
                     Learn more <ArrowUpRight size={16} />
                   </Link>
@@ -580,7 +580,7 @@ export default function HomePage() {
                     style={{ backgroundColor: r.color, color: dark ? '#fff' : JOY.ink }}
                   >
                     <DoodleSwirl className={`absolute -bottom-10 -right-10 w-40 ${dark ? 'text-white/25' : 'text-black/10'}`} />
-                    <div>
+                    <div className="flex flex-col items-center justify-between w-full h-full">
                       <span
                         className={`relative inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[13px] font-semibold ${dark ? 'bg-white/20' : 'bg-black/10'}`}
                       >

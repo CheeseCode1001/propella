@@ -3,77 +3,348 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Offline — Propella</title>
+    <title>You are Offline — Propella</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Parkinsans:wght@400;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
         color-scheme: light dark;
-        --paper: #fbf9f4;
-        --ink: #1a1814;
-        --ink-2: #4a463e;
-        --accent: #6e3a5f;
-        --rule: #e5dfd2;
+        --paper: #F8F6F1;
+        --paper-2: #F1EDE4;
+        --card: #FFFFFF;
+        --ink: #1A1917;
+        --ink-2: #4A4742;
+        --ink-3: #78736A;
+        --rule: #E4DFD5;
+        --rule-2: #D5CFC2;
+        --accent: #F8642B;
+        --accent-hover: #E04F18;
+        --accent-tint: #FFF0EA;
+        --joy-green: #2EBB5E;
+        --joy-green-tint: #EAF8EE;
+        --font-display: 'Parkinsans', system-ui, -apple-system, sans-serif;
+        --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+        --font-hand: 'Caveat Brush', cursive, sans-serif;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --paper: #14120f;
-          --ink: #f2efe8;
-          --ink-2: #a7a196;
-          --rule: #2c2822;
+          --paper: #14130F;
+          --paper-2: #1C1A15;
+          --card: #1A1813;
+          --ink: #F4F0E6;
+          --ink-2: #BAB3A2;
+          --ink-3: #7C766B;
+          --rule: #2D2A23;
+          --rule-2: #3A362D;
+          --accent: #FF7A45;
+          --accent-hover: #F8642B;
+          --accent-tint: #2E1A10;
+          --joy-green: #34D399;
+          --joy-green-tint: #122A1A;
         }
       }
       * { box-sizing: border-box; }
       body {
         margin: 0;
         min-height: 100vh;
-        display: grid;
-        place-items: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 24px;
         background: var(--paper);
         color: var(--ink);
-        font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        font-family: var(--font-sans);
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        position: relative;
       }
-      .card {
-        max-width: 380px;
-        text-align: center;
+
+      /* Playful background doodles */
+      .doodle {
+        position: absolute;
+        pointer-events: none;
+        opacity: 0.75;
       }
-      .mark {
-        width: 52px;
-        height: 52px;
-        margin: 0 auto 20px;
-        border-radius: 12px;
-        background: var(--accent);
-        color: #fff;
-        display: grid;
-        place-items: center;
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 26px;
-        font-weight: 700;
+      .doodle-sun {
+        left: 8%;
+        top: 10%;
+        width: 80px;
+        height: 80px;
+        color: #FFAD28;
+        animation: joyFloat 6s ease-in-out infinite;
       }
-      h1 { font-size: 20px; margin: 0 0 8px; font-weight: 600; }
-      p { margin: 0 0 20px; color: var(--ink-2); font-size: 14px; line-height: 1.6; }
-      button {
-        font: inherit;
-        font-weight: 600;
-        padding: 10px 20px;
-        border-radius: 8px;
+      .doodle-swirl {
+        right: 8%;
+        top: 14%;
+        width: 75px;
+        height: 75px;
+        color: var(--accent);
+        animation: joyFloat 5s ease-in-out infinite 1s;
+      }
+      .doodle-star {
+        left: 10%;
+        bottom: 12%;
+        width: 70px;
+        height: 70px;
+        color: #58A5EF;
+        animation: joyFloat 7s ease-in-out infinite 2s;
+      }
+      .doodle-rays {
+        right: 10%;
+        bottom: 14%;
+        width: 65px;
+        height: 65px;
+        color: var(--joy-green);
+        animation: joyFloat 5.5s ease-in-out infinite 0.5s;
+      }
+
+      @keyframes joyFloat {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50%      { transform: translateY(-8px) rotate(-3deg); }
+      }
+
+      .container {
+        position: relative;
+        z-index: 10;
+        max-width: 540px;
+        width: 100%;
+        background: var(--card);
         border: 1px solid var(--rule);
-        background: var(--accent);
-        color: #fff;
-        cursor: pointer;
+        border-radius: 32px;
+        padding: 44px 36px;
+        text-align: center;
+        box-shadow: 0 10px 40px -10px rgba(26,25,23,0.08);
       }
-      .hint { margin-top: 18px; font-size: 12.5px; color: var(--ink-2); }
+      @media (max-width: 480px) {
+        .container {
+          padding: 32px 20px;
+          border-radius: 24px;
+        }
+      }
+
+      /* Eyebrow badge */
+      .joy-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 16px;
+        border-radius: 9999px;
+        background: var(--accent-tint);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        font-family: var(--font-hand);
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 20px;
+      }
+
+      /* Logo mark */
+      .brand-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .brand-circle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 22px;
+        box-shadow: 0 4px 12px rgba(248,100,43,0.3);
+      }
+      .brand-name {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 24px;
+        color: var(--ink);
+      }
+
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 1.25;
+        margin: 0 0 12px;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      @media (min-width: 480px) {
+        h1 { font-size: 32px; }
+      }
+
+      p.desc {
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--ink-2);
+        margin: 0 0 28px;
+      }
+
+      /* Actions */
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 26px;
+      }
+      .btn {
+        font-family: var(--font-sans);
+        font-size: 15px;
+        font-weight: 600;
+        padding: 13px 26px;
+        border-radius: 9999px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: transform 0.15s ease, background-color 0.15s ease;
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #FFFFFF;
+        border: none;
+        box-shadow: 0 4px 14px rgba(248,100,43,0.35);
+      }
+      .btn-primary:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px);
+      }
+      .btn-secondary {
+        background: var(--paper-2);
+        color: var(--ink);
+        border: 1px solid var(--rule-2);
+      }
+      .btn-secondary:hover {
+        border-color: var(--ink);
+      }
+
+      /* Reassurance card */
+      .reassurance {
+        background: var(--joy-green-tint);
+        border: 1px solid rgba(46,187,94,0.3);
+        border-radius: 18px;
+        padding: 14px 18px;
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+      .reassurance-icon {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--joy-green);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+        margin-top: 1px;
+      }
+
+      /* Footer note */
+      .footer-note {
+        margin-top: 24px;
+        font-size: 13px;
+        color: var(--ink-3);
+      }
     </style>
   </head>
   <body>
-    <div class="card">
-      <div class="mark">P</div>
-      <h1>You are offline</h1>
-      <p>
-        Propella needs a connection to load new topics and quizzes. Pages you have already
-        visited stay available.
+    <!-- Background SVG doodles -->
+    <svg class="doodle doodle-sun" viewBox="0 0 100 100" fill="currentColor">
+      <circle cx="50" cy="50" r="22" />
+      <path d="M50 8L50 20M50 80L50 92M8 50L20 50M80 50L92 50M20 20L28 28M72 72L80 80M20 80L28 72M72 28L80 20" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+    </svg>
+
+    <svg class="doodle doodle-swirl" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">
+      <path d="M50 15C30 15 15 30 15 50C15 70 30 85 50 85C70 85 85 70 85 50C85 36 74 27 60 27C46 27 37 36 37 50C37 60 44 67 52 67C60 67 66 61 66 53" />
+    </svg>
+
+    <svg class="doodle doodle-star" viewBox="0 0 100 100" fill="currentColor">
+      <path d="M50 5L62 38L95 50L62 62L50 95L38 62L5 50L38 38Z" />
+    </svg>
+
+    <svg class="doodle doodle-rays" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">
+      <path d="M15 50L40 50M25 25L42 42M50 15L50 40M75 25L58 42M85 50L60 50" />
+    </svg>
+
+    <div class="container">
+      <!-- Eyebrow -->
+      <div class="joy-eyebrow">
+        <span>✦</span> Offline Study Mode
+      </div>
+
+      <!-- Brand -->
+      <div class="brand-row">
+        <div class="brand-circle">P</div>
+        <div class="brand-name">Propella</div>
+      </div>
+
+      <!-- Heading -->
+      <h1>You&apos;re currently offline</h1>
+
+      <!-- Description -->
+      <p class="desc">
+        No internet connection detected right now. Don&apos;t worry — any notes, syllabus topics,
+        and past questions you&apos;ve opened are saved on your device and ready to revise.
       </p>
-      <button onclick="location.reload()">Try again</button>
-      <p class="hint">Your study progress is saved and will sync when you reconnect.</p>
+
+      <!-- Action buttons -->
+      <div class="actions">
+        <button onclick="location.reload()" class="btn btn-primary">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+            <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+            <path d="M16 21h5v-5" />
+          </svg>
+          Try Reconnecting
+        </button>
+
+        <button onclick="history.back()" class="btn btn-secondary">
+          Go to Saved Topic
+        </button>
+      </div>
+
+      <!-- Reassurance Card -->
+      <div class="reassurance">
+        <div class="reassurance-icon">✓</div>
+        <div>
+          <strong>Your study progress is saved.</strong>
+          Recent quiz answers and streak counters are stored locally and will automatically sync to your profile as soon as you reconnect.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Propella · Empowering African Scholars Anywhere, Online &amp; Offline.
     </div>
   </body>
 </html>

@@ -30,14 +30,14 @@ export function StickyNav() {
         )}
       >
         {/* Logo */}
-        <Logo href="/" size={34} className="text-[19px] shrink-0" />
+        <Logo href="/" size={34} className="text-[22px] shrink-0" />
 
         {/* Desktop nav links matching Joyloo floating pill */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
           <Link
             href="/"
             className={cn(
-              'rounded-full px-3.5 py-1.5 text-[15px] font-medium transition-colors',
+              'rounded-full px-3.5 py-1.5 text-[18px] font-medium transition-colors',
               pathname === '/'
                 ? 'text-[var(--color-accent)] font-semibold'
                 : 'text-[var(--color-ink)] hover:text-[var(--color-accent)]',
@@ -49,7 +49,7 @@ export function StickyNav() {
           <Link
             href="/about-us"
             className={cn(
-              'rounded-full px-3.5 py-1.5 text-[15px] font-medium transition-colors',
+              'rounded-full px-3.5 py-1.5 text-[18px] font-medium transition-colors',
               pathname === '/about-us'
                 ? 'text-[var(--color-accent)] font-semibold'
                 : 'text-[var(--color-ink)] hover:text-[var(--color-accent)]',
@@ -61,7 +61,7 @@ export function StickyNav() {
           <Link
             href="/programs"
             className={cn(
-              'rounded-full px-3.5 py-1.5 text-[15px] font-medium transition-colors',
+              'rounded-full px-3.5 py-1.5 text-[18px] font-medium transition-colors',
               pathname === '/programs'
                 ? 'text-[var(--color-accent)] font-semibold'
                 : 'text-[var(--color-ink)] hover:text-[var(--color-accent)]',
@@ -74,7 +74,7 @@ export function StickyNav() {
           <Link
             href="/parents-resource"
             className={cn(
-              'rounded-full px-3.5 py-1.5 text-[15px] font-medium transition-colors',
+              'rounded-full px-3.5 py-1.5 text-[18px] font-medium transition-colors',
               pathname.startsWith('/parents')
                 ? 'text-[var(--color-accent)] font-semibold'
                 : 'text-[var(--color-ink)] hover:text-[var(--color-accent)]',
@@ -86,7 +86,7 @@ export function StickyNav() {
           <Link
             href="/testimonials"
             className={cn(
-              'rounded-full px-3.5 py-1.5 text-[15px] font-medium transition-colors',
+              'rounded-full px-3.5 py-1.5 text-[18px] font-medium transition-colors',
               pathname === '/testimonials'
                 ? 'text-[var(--color-accent)] font-semibold'
                 : 'text-[var(--color-ink)] hover:text-[var(--color-accent)]',
@@ -98,7 +98,7 @@ export function StickyNav() {
           <Link
             href="/pricing"
             className={cn(
-              'rounded-full px-3.5 py-1.5 text-[15px] font-medium transition-colors',
+              'rounded-full px-3.5 py-1.5 text-[18px] font-medium transition-colors',
               pathname === '/pricing'
                 ? 'text-[var(--color-accent)] font-semibold'
                 : 'text-[var(--color-ink)] hover:text-[var(--color-accent)]',
@@ -113,13 +113,13 @@ export function StickyNav() {
           <ThemeToggle />
           <Link
             href="/login"
-            className="px-3.5 py-1.5 text-[15px] font-medium text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
+            className="px-3.5 py-1.5 text-[18px] font-medium text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
           >
             Sign in
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-full bg-[#1A1917] hover:bg-[var(--color-accent)] dark:bg-white dark:text-[#1A1917] dark:hover:bg-[var(--color-accent)] dark:hover:text-white px-6 py-2.5 text-[14.5px] font-semibold text-white transition-all duration-200 shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center rounded-full bg-[#1A1917] hover:bg-[var(--color-accent)] dark:bg-white dark:text-[#1A1917] dark:hover:bg-[var(--color-accent)] dark:hover:text-white px-6 py-2.5 text-[18px] font-semibold text-white transition-all duration-200 shadow-sm hover:scale-[1.02] active:scale-[0.98]"
           >
             Contact Us
           </Link>
