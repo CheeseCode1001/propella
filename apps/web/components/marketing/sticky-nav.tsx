@@ -9,8 +9,9 @@ import { cn } from '@/lib/utils/cn'
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/highschool', label: 'Highschool' },
-  { href: '/undergraduate', label: 'Undergraduate' },
+  { href: '/about-us', label: 'About Us' },
+  { href: '/programs', label: 'Programs' },
+  { href: '/parents-resource', label: 'Parents' },
   { href: '/testimonials', label: 'Testimonials' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/contact', label: 'Contact' },

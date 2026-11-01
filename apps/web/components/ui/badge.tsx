@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils/cn'
 
 const badgeVariants = cva(
-  'inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-mono font-medium tracking-wide uppercase',
+  'inline-flex items-center px-2.5 py-0.5 rounded-full font-[family-name:var(--font-hand)] text-[14px] leading-tight tracking-wide uppercase font-normal',
   {
     variants: {
       variant: {
@@ -20,5 +20,5 @@ const badgeVariants = cva(
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {}
 
 export function Badge({ className, variant, ...props }: BadgeProps) {
-  return <span className={cn(badgeVariants({ variant }), className)} {...props} />
+  return <span data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
 }

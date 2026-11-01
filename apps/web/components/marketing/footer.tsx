@@ -9,18 +9,21 @@ const columns = [
     title: 'Quick Links',
     links: [
       { label: 'Home', href: '/' },
+      { label: 'About Us', href: '/about-us' },
+      { label: 'Academic Programs', href: '/programs' },
       { label: 'Pricing & Plans', href: '/pricing' },
       { label: 'Student Testimonials', href: '/testimonials' },
       { label: 'Contact Us', href: '/contact' },
     ],
   },
   {
-    title: 'For Students',
+    title: 'For Students & Parents',
     links: [
-      { label: 'JAMB / UTME Prep', href: '/highschool' },
-      { label: 'WAEC & NECO Mocks', href: '/highschool' },
-      { label: 'Undergraduate (100L–500L)', href: '/undergraduate' },
-      { label: 'Referral Program', href: '/signup' },
+      { label: 'JAMB / UTME Prep', href: '/programs/jamb-utme' },
+      { label: 'WAEC & NECO Mocks', href: '/programs/waec-ssce' },
+      { label: 'Undergraduate (100L–500L)', href: '/programs/undergraduate' },
+      { label: 'Shared Study Plan', href: '/programs/shared-plan' },
+      { label: 'Parents Resource', href: '/parents-resource' },
     ],
   },
   {
@@ -30,6 +33,7 @@ const columns = [
       { label: 'Design System', href: '/design-system' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
+      { label: '404 Page', href: '/404' },
     ],
   },
 ]
@@ -152,6 +156,25 @@ export function MarketingFooter() {
         <div className="flex flex-col items-center justify-between gap-3 border-t border-[#1A1917]/15 py-7 text-[14px] text-[#1A1917]/70 sm:flex-row">
           <p>© {new Date().getFullYear()} Propella EdTech Ltd. Built for African scholars.</p>
           <p>Lagos, Nigeria · Mon–Sat 8am–7pm</p>
+        </div>
+
+        {/* ── Propella infinite scrolling ticker at bottom of footer ── */}
+        <div className="overflow-hidden border-t border-[#1A1917]/15 py-8 -mx-6 lg:-mx-8">
+          <div className="flex w-max animate-joy-marquee select-none items-center gap-12 whitespace-nowrap">
+            {Array.from({ length: 10 }, (_, i) => (
+              <div key={i} className="flex items-center gap-10 shrink-0">
+                <span
+                  className="text-[64px] sm:text-[88px] lg:text-[110px] font-extrabold uppercase tracking-tight text-[#1A1917]/20 hover:text-[var(--color-accent)] transition-colors duration-300"
+                  style={{ fontFamily: 'var(--font-display)', WebkitTextStroke: '1px rgba(26,25,23,0.35)' }}
+                >
+                  Propella
+                </span>
+                <span className="inline-flex h-8 w-8 sm:h-12 sm:w-12 rounded-full bg-[var(--color-accent)] items-center justify-center text-white font-bold text-xs sm:text-base shadow-sm">
+                  ★
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

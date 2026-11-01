@@ -180,14 +180,15 @@ export function JoyEyebrow({
   }
   return (
     <span
+      data-slot="badge"
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.08em]',
+        'inline-flex items-center gap-1.5 rounded-full px-4 py-1 font-[family-name:var(--font-hand)] text-[16px] leading-tight font-normal uppercase tracking-wide shadow-sm',
         tones[tone],
         className,
       )}
-      style={{ fontFamily: 'var(--font-display)' }}
+      style={{ fontFamily: 'var(--font-hand)' }}
     >
-      <SparkleWand className="h-3.5 w-3.5" />
+      <SparkleWand className="h-4 w-4 shrink-0" />
       {children}
     </span>
   )
