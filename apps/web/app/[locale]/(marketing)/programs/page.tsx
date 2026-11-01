@@ -36,7 +36,7 @@ const programs = [
       'Pause-and-resume mock tests anytime without losing answers',
       'Diagnostic baseline test to calculate readiness for your first-choice varsity',
     ],
-    photo: PHOTOS.studentsWalking,
+    photo: PHOTOS.examHall,
     shape: 'flower' as const,
   },
   {
@@ -51,7 +51,7 @@ const programs = [
       'Automated spaced revision reminders right before you forget earlier terms',
       'Worked solutions written strictly in WAEC/NECO marking scheme standards',
     ],
-    photo: PHOTOS.kidsHomework,
+    photo: PHOTOS.classroomLecture,
     shape: 'starburst' as const,
   },
   {
@@ -66,7 +66,7 @@ const programs = [
       'Instant study summaries and high-yield concept extraction',
       'Departmental study groups to collaborate and benchmark with classmates',
     ],
-    photo: PHOTOS.studentsChatting,
+    photo: PHOTOS.lectureHall,
     shape: 'cog' as const,
   },
   {
@@ -81,7 +81,7 @@ const programs = [
       'Full access to all 11,404+ past questions and timed CBT mock exams',
       'First 30 days welcome discount from ₦1,499 (only ₦750/student)',
     ],
-    photo: PHOTOS.familyStudy,
+    photo: PHOTOS.duoMath,
     shape: 'hexagon' as const,
   },
 ]

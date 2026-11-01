@@ -3,6 +3,7 @@ import { ThemeProvider } from 'next-themes'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { Providers } from '@/components/providers'
+import { SmoothScroll } from '@/components/common/smooth-scroll'
 import { Toaster } from '@/components/ui/toast'
 import { HtmlLang } from '@/components/common/html-lang'
 import { locales } from '@/lib/i18n/locales'
@@ -376,6 +377,7 @@ export default async function LocaleLayout({
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <NextIntlClientProvider messages={messages}>
           <Providers>
+            <SmoothScroll />
             {children}
             <Toaster />
           </Providers>

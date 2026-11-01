@@ -15,6 +15,7 @@ import {
   PHOTOS,
   px,
 } from '@/components/marketing/joy'
+import { JoyReveal, JoyStagger, JoyStaggerItem } from '@/components/marketing/joy-reveal'
 
 export const metadata = {
   title: 'Parents & Guardians Resource — Trusted Support for Your Scholar | Propella',

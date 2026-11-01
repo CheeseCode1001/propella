@@ -33,7 +33,6 @@ const columns = [
       { label: 'Design System', href: '/design-system' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
-      { label: '404 Page', href: '/404' },
     ],
   },
 ]

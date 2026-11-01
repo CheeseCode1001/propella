@@ -314,32 +314,43 @@ export default function PricingPage() {
         </div>
       </div>
 
-      {/* 4 Plan Cards */}
+      {/* 4 Plan Cards — Styled with Joyloo Design System */}
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full mb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {/* Free Tier */}
-          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm">
+          <div className="flex flex-col justify-between rounded-[28px] border border-[var(--color-rule)] bg-white dark:bg-[#1A1813] p-8 shadow-sm joy-card-hover">
             <div>
-              <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-ink-3)] mb-2">
+              <p
+                className="text-[18px] font-semibold text-[#1A1917] dark:text-white mb-2"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
                 Free Starter
               </p>
               <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-3xl font-extrabold text-[var(--color-ink)]">₦0</span>
-                <span className="text-xs text-[var(--color-ink-3)]">/ 3-day sample</span>
+                <span
+                  className="text-[38px] font-semibold leading-none text-[#1A1917] dark:text-white"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  ₦0
+                </span>
+                <span className="text-[14px] text-[var(--color-ink-3)]">/ forever sample</span>
               </div>
-              <p className="text-xs text-[var(--color-ink-3)] mb-5">
+              <p className="text-[14px] leading-relaxed text-[var(--color-ink-2)] mb-6">
                 Perfect for exploring the syllabus and testing baseline knowledge.
               </p>
 
-              <div className="h-px bg-[var(--color-rule)] mb-5" />
+              <div className="h-px bg-[var(--color-rule)] mb-6" />
 
-              <ul className="space-y-2.5 mb-6">
+              <ul className="space-y-3 mb-8">
                 {freeFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs">
-                    <Check
-                      size={14}
-                      className={f.included ? 'text-emerald-500 shrink-0 mt-0.5' : 'text-gray-300 dark:text-gray-600 shrink-0 mt-0.5'}
-                    />
+                  <li key={i} className="flex items-start gap-2.5 text-[14.5px]">
+                    <span
+                      className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                        f.included ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'
+                      }`}
+                    >
+                      <Check size={12} strokeWidth={3} />
+                    </span>
                     <span className={f.included ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-3)] line-through'}>
                       {f.text}
                     </span>
@@ -348,48 +359,60 @@ export default function PricingPage() {
               </ul>
             </div>
 
-            <Button variant="secondary" className="w-full font-semibold" asChild>
+            <Button
+              variant="secondary"
+              className="w-full rounded-full py-6 font-semibold border border-[var(--color-rule-2)] hover:border-[var(--color-ink)] joy-btn-hover"
+              asChild
+            >
               <Link href="/signup">Get Started Free</Link>
             </Button>
           </div>
 
           {/* Basic Plan */}
-          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-6 shadow-sm hover:border-[var(--color-accent)]/50 transition-colors relative">
+          <div className="flex flex-col justify-between rounded-[28px] border border-[var(--color-rule)] bg-white dark:bg-[#1A1813] p-8 shadow-sm hover:border-[var(--color-accent)]/50 transition-colors relative joy-card-hover">
             {isDiscountEligible && (
-              <Badge className="absolute -top-3 right-4 bg-emerald-600 text-white text-[10px]">
+              <span className="absolute -top-3.5 left-8 rounded-full bg-emerald-600 px-3.5 py-1 text-[13px] font-semibold text-white font-[family-name:var(--font-hand)]">
                 🔥 50% Off First Month
-              </Badge>
+              </span>
             )}
             <div>
-              <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-2">
+              <p
+                className="text-[18px] font-semibold text-[#1A1917] dark:text-white mb-2"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
                 Basic Plan
               </p>
               <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-3xl font-extrabold text-[var(--color-ink)]">
+                <span
+                  className="text-[38px] font-semibold leading-none text-[#1A1917] dark:text-white"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
                   {isDiscountEligible ? '₦999' : '₦1,999'}
                 </span>
                 {isDiscountEligible && (
-                  <span className="text-sm text-[var(--color-ink-3)] line-through font-semibold">
+                  <span className="text-[16px] text-[var(--color-ink-3)] line-through font-semibold">
                     ₦1,999
                   </span>
                 )}
-                <span className="text-xs text-[var(--color-ink-3)]">/ first 30 days</span>
+                <span className="text-[14px] text-[var(--color-ink-3)]">/ first 30 days</span>
               </div>
-              <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
+              <p className="text-[12px] font-semibold text-emerald-600 dark:text-emerald-400 mb-4">
                 {isDiscountEligible
                   ? 'Auto-renews next month at ₦1,999/mo · Cancel anytime'
                   : 'Auto-renews monthly at ₦1,999/mo · Cancel anytime'}
               </p>
-              <p className="text-xs text-[var(--color-ink-3)] mb-5">
+              <p className="text-[14px] leading-relaxed text-[var(--color-ink-2)] mb-6">
                 Full Scholar access for 1 student account for a productive 30-day sprint.
               </p>
 
-              <div className="h-px bg-[var(--color-rule)] mb-5" />
+              <div className="h-px bg-[var(--color-rule)] mb-6" />
 
-              <ul className="space-y-2.5 mb-6">
+              <ul className="space-y-3 mb-8">
                 {basicFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-ink)]">
-                    <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-2.5 text-[14.5px] text-[var(--color-ink)]">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-white">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
                     <span>{f.text}</span>
                   </li>
                 ))}
@@ -398,7 +421,7 @@ export default function PricingPage() {
 
             <Button
               variant="secondary"
-              className="w-full font-semibold border-[var(--color-accent)]/30 hover:bg-[var(--color-accent)]/10"
+              className="w-full rounded-full py-6 font-semibold border border-[var(--color-accent)]/40 hover:bg-[var(--color-accent-tint)] text-[var(--color-accent)] joy-btn-hover"
               disabled={checkoutLoading !== null}
               onClick={() => handlePlanCheckout('scholar_basic')}
             >
@@ -413,42 +436,53 @@ export default function PricingPage() {
             </Button>
           </div>
 
-          {/* Shared Plan (Two Accounts) */}
-          <div className="flex flex-col justify-between rounded-2xl border-2 border-[var(--color-accent)] bg-[var(--color-paper)] p-6 shadow-xl relative">
-            <Badge variant="accent" className="absolute -top-3 right-4 shadow-sm text-[10px]">
-              👥 {isDiscountEligible ? '50% Off · Two Accounts' : 'Two Accounts'}
-            </Badge>
+          {/* Shared Plan (Two Accounts) — Featured Joyloo Butter Yellow Card */}
+          <div
+            className="flex flex-col justify-between rounded-[28px] border-2 border-[var(--color-ink)] p-8 shadow-[6px_6px_0_0_#1A1917] relative joy-card-hover"
+            style={{ backgroundColor: '#FFE494', color: '#1A1917' }}
+          >
+            <span className="absolute -top-3.5 left-8 rounded-full bg-[var(--color-accent)] px-4 py-1 text-[13px] font-semibold text-white font-[family-name:var(--font-hand)] shadow-sm">
+              👥 {isDiscountEligible ? 'Most Popular · 50% Off' : 'Most Popular · Save 25%'}
+            </span>
 
             <div>
-              <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-accent)] mb-2">
-                Shared Plan
+              <p
+                className="text-[18px] font-semibold text-[#1A1917] mb-2"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                Shared Scholar Plan
               </p>
               <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-3xl font-extrabold text-[var(--color-ink)]">
+                <span
+                  className="text-[38px] font-semibold leading-none text-[#1A1917]"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
                   {isDiscountEligible ? '₦1,499' : '₦2,999'}
                 </span>
                 {isDiscountEligible && (
-                  <span className="text-sm text-[var(--color-ink-3)] line-through font-semibold">
+                  <span className="text-[16px] text-[#1A1917]/50 line-through font-semibold">
                     ₦2,999
                   </span>
                 )}
-                <span className="text-xs text-[var(--color-ink-3)]">/ first 30 days</span>
+                <span className="text-[14px] text-[#1A1917]/70">/ first 30 days</span>
               </div>
-              <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
+              <p className="text-[12px] font-semibold text-[#1A1917]/85 mb-4">
                 {isDiscountEligible
-                  ? 'Auto-renews next month at ₦2,999/mo · Cancel anytime'
-                  : 'Auto-renews monthly at ₦2,999/mo · Cancel anytime'}
+                  ? 'Only ₦750/student! Auto-renews next month at ₦2,999 · Cancel anytime'
+                  : 'Costs ₦1,500/student · Auto-renews monthly · Cancel anytime'}
               </p>
-              <p className="text-xs text-[var(--color-ink-3)] mb-5">
-                Buy one plan and share with your friend or family. 2 accounts get full Scholar access!
+              <p className="text-[14px] leading-relaxed text-[#1A1917]/80 mb-6">
+                Buy one plan and share with a friend or sibling. 2 accounts get full Scholar access!
               </p>
 
-              <div className="h-px bg-[var(--color-rule)] mb-5" />
+              <div className="h-px bg-[#1A1917]/20 mb-6" />
 
-              <ul className="space-y-2.5 mb-6">
+              <ul className="space-y-3 mb-8">
                 {sharedFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-ink)] font-medium">
-                    <Check size={14} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-2.5 text-[14.5px] text-[#1A1917] font-medium">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1A1917] text-white">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
                     <span>{f.text}</span>
                   </li>
                 ))}
@@ -456,8 +490,7 @@ export default function PricingPage() {
             </div>
 
             <Button
-              variant="accent"
-              className="w-full font-semibold shadow-md"
+              className="w-full rounded-full py-6 font-semibold bg-[#1A1917] text-white hover:bg-[var(--color-accent)] shadow-md joy-btn-hover"
               disabled={checkoutLoading !== null}
               onClick={() => handlePlanCheckout('scholar_shared')}
             >
@@ -473,40 +506,50 @@ export default function PricingPage() {
           </div>
 
           {/* Pay Once Till Exam */}
-          <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-rule)] bg-gradient-to-b from-[var(--color-paper)] to-[var(--color-paper-2)] p-6 shadow-sm hover:border-emerald-500/50 transition-colors">
+          <div className="flex flex-col justify-between rounded-[28px] border border-[var(--color-rule)] bg-white dark:bg-[#1A1813] p-8 shadow-sm hover:border-emerald-500/50 transition-colors relative joy-card-hover">
+            {isDiscountEligible && (
+              <span className="absolute -top-3.5 left-8 rounded-full bg-emerald-600 px-3.5 py-1 text-[13px] font-semibold text-white font-[family-name:var(--font-hand)]">
+                ⭐ 50% Off First Period
+              </span>
+            )}
             <div>
-              <Badge className="mb-2 bg-emerald-500/10 text-emerald-600 border border-emerald-500/30 text-[10px]">
-                ⭐ {isDiscountEligible ? '50% Off · Best Value' : 'Best Value'}
-              </Badge>
-              <p className="text-xs font-mono font-bold tracking-wider uppercase text-[var(--color-ink)] mb-2">
+              <p
+                className="text-[18px] font-semibold text-[#1A1917] dark:text-white mb-2"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
                 Pay Once Till Exam
               </p>
               <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-3xl font-extrabold text-[var(--color-ink)]">
+                <span
+                  className="text-[38px] font-semibold leading-none text-[#1A1917] dark:text-white"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
                   {isDiscountEligible ? '₦4,999' : '₦9,999'}
                 </span>
                 {isDiscountEligible && (
-                  <span className="text-sm text-[var(--color-ink-3)] line-through font-semibold">
+                  <span className="text-[16px] text-[var(--color-ink-3)] line-through font-semibold">
                     ₦9,999
                   </span>
                 )}
-                <span className="text-xs text-[var(--color-ink-3)]">/ exam pass</span>
+                <span className="text-[14px] text-[var(--color-ink-3)]">/ exam pass</span>
               </div>
-              <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
+              <p className="text-[12px] font-semibold text-emerald-600 dark:text-emerald-400 mb-4">
                 {isDiscountEligible
-                  ? '50% welcome discount · Standard rate ₦9,999 after first cycle'
+                  ? '50% welcome discount · Renews at standard ₦9,999 after first cycle'
                   : 'Complete exam season coverage'}
               </p>
-              <p className="text-xs text-[var(--color-ink-3)] mb-5">
-                Complete Scholar access right up until your exam.
+              <p className="text-[14px] leading-relaxed text-[var(--color-ink-2)] mb-6">
+                Complete Scholar access right up until your examination day.
               </p>
 
-              <div className="h-px bg-[var(--color-rule)] mb-5" />
+              <div className="h-px bg-[var(--color-rule)] mb-6" />
 
-              <ul className="space-y-2.5 mb-6">
+              <ul className="space-y-3 mb-8">
                 {tillExamFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-ink)] font-medium">
-                    <Check size={14} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-2.5 text-[14.5px] text-[var(--color-ink)] font-medium">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
                     <span>{f.text}</span>
                   </li>
                 ))}
@@ -515,7 +558,7 @@ export default function PricingPage() {
 
             <Button
               variant="secondary"
-              className="w-full font-semibold border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+              className="w-full rounded-full py-6 font-semibold border border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 joy-btn-hover"
               disabled={checkoutLoading !== null}
               onClick={() => handlePlanCheckout('scholar_full')}
             >
@@ -538,7 +581,7 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center p-8 sm:p-12">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[var(--color-rule)] shadow-xl">
               <Image
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80"
+                src="https://images.pexels.com/photos/6146961/pexels-photo-6146961.jpeg?auto=compress&cs=tinysrgb&w=1000"
                 alt="Nigerian and African students studying together for JAMB and university exams"
                 fill
                 className="object-cover"

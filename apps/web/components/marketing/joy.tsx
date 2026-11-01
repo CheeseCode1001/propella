@@ -19,6 +19,7 @@ export const pxVideoPoster = (id: number, w = 1600) =>
   `https://images.pexels.com/videos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`
 
 export const PHOTOS = {
+  // Campus & University students
   campusLaughing: 6146970, // students laughing & studying on campus lawn
   campusGroup: 6146978, // group studying on campus lawn
   pairStudying: 6147369, // two students working through notes
@@ -29,17 +30,75 @@ export const PHOTOS = {
   studentLaughing: 6146928, // student laughing with a friend
   studentsWalking: 6147160, // students walking to class
   studentsChatting: 6147240, // two students chatting on campus
+  universityGirl: 6146973, // female university student smiling with tablet
+  quadStudy: 6146961, // students gathered in quad
+  libraryGroup: 6146975, // students discussing in library
+  pathwayWalk: 6147000, // students walking on campus pathway
+  lectureHall: 6147111, // scholars attending a lecture
+  projectTeam: 6147120, // students collaborating on project
+  tutorCorner: 6147372, // student receiving guidance
+
+  // High school & Secondary scholars
   girlBooks: 3762800, // student holding books outside
   girlLaptop: 3769021, // smiling student at a laptop
   boyLaptop: 5905700, // young student learning on a laptop
   girlOnlineClass: 5905709, // student in an online class
   kidsStudying: 5905480, // children studying together
   kidsHomework: 5905850, // children doing homework at a table
+  teenNotebook: 5905710, // teenage scholar taking detailed notes
+  boyStudying: 5905701, // young boy studying attentively
+  girlDesk: 5905705, // young girl writing at desk
+  studentScreen: 5905708, // student looking at screen thoughtfully
+  duoMath: 5905488, // two students solving a problem together
+  classNotes: 5905497, // students sharing notes
+  studyDesk: 5905860, // scholar at study desk with books
+
+  // Secondary Classroom & Exams
+  classroomDiscussion: 7092614, // secondary school students discussing in classroom
+  examPrep: 7092336, // student practicing exam test paper
+  teacherBoard: 7092340, // teacher explaining formula on board
+  scienceLab: 7092615, // secondary students in science lab
+  groupProblem: 7092617, // students solving problem around table
+  examHall: 7092620, // students seated in timed test
+
+  // High school scholars & mentors
+  highschoolGirl: 5212345, // secondary school girl smiling with textbook
+  highschoolBoy: 5212348, // student listening attentively
+  teacherAfrican: 5212703, // African teacher mentoring student
+  classmatesSmile: 5212359, // friends smiling after successful mock test
+  classroomLecture: 5212361, // teacher presenting lesson to classroom
+
+  // Library & Achievement
+  libraryReading: 8199563, // quiet study at library desk
+  libraryDesk: 8199565, // student with reference books
+  bookStack: 8199600, // library book stack with student
+  readingJoy: 8199143, // student enjoying study progress
+  tutorSession: 8199166, // tutor helping scholar with tricky question
+  libraryCheer: 8199562, // students cheering in a library
+
+  // Distinction & Success
+  gradSmile: 4145153, // graduate holding certificate proudly
+  gradCheer: 4145155, // successful scholars celebrating
+  distinctionLady: 4145190, // smiling high-achiever
+  proudGraduate: 4144923, // scholar looking forward with confidence
+  honorsGroup: 4144222, // university honors students
+
+  // Digital Learning & Contact
+  headphonesStudy: 7972743, // student learning with headphones
+  onlineTutor: 7972740, // scholar interacting with tutor online
+  laptopSmiling: 7972738, // young Nigerian student smiling at laptop
+  studySupport: 7972742, // student receiving online study assistance
+
+  // Classroom Collaboration
+  activeHands: 8466775, // students raising hands in class
+  peerTutoring: 8466778, // students explaining concept to peer
+  mentorGuidance: 8466780, // teacher guiding a student
+
+  // Educators & Mentors
   tutorLaptop: 5905740, // educator working on a laptop
   teacherSmiling: 1181519, // smiling educator by a whiteboard
   teacherExam: 7092613, // teacher explaining exam rules
   mentorsTalking: 935949, // students in conversation at a study hall
-  libraryCheer: 8199562, // students cheering in a library
   familyStudy: 4260325, // parent helping a learner study
 } as const
 
@@ -51,6 +110,26 @@ export const VIDEOS = {
   classroom: {
     src: 'https://videos.pexels.com/video-files/7092068/7092068-hd_1280_720_30fps.mp4',
     poster: pxVideoPoster(7092068),
+  },
+  studyGroup: {
+    src: 'https://videos.pexels.com/video-files/8199325/8199325-hd_1280_720_25fps.mp4',
+    poster: pxVideoPoster(8199325),
+  },
+  library: {
+    src: 'https://videos.pexels.com/video-files/8199327/8199327-hd_1280_720_25fps.mp4',
+    poster: pxVideoPoster(8199327),
+  },
+  celebration: {
+    src: 'https://videos.pexels.com/video-files/8199329/8199329-hd_1280_720_25fps.mp4',
+    poster: pxVideoPoster(8199329),
+  },
+  teacher: {
+    src: 'https://videos.pexels.com/video-files/7092069/7092069-hd_1280_720_30fps.mp4',
+    poster: pxVideoPoster(7092069),
+  },
+  mentorship: {
+    src: 'https://videos.pexels.com/video-files/7092070/7092070-hd_1280_720_30fps.mp4',
+    poster: pxVideoPoster(7092070),
   },
 } as const
 

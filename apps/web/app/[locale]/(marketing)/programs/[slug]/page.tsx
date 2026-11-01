@@ -60,7 +60,7 @@ const programsData: Record<string, ProgramData> = {
       'Zero syllabus gaps — 100% of required topics revised and tested',
       'Realistic pace management: average 45 seconds per question without panic',
     ],
-    photo: PHOTOS.studentsWalking,
+    photo: PHOTOS.examPrep,
     shape: 'flower',
   },
   'waec-ssce': {
@@ -87,7 +87,7 @@ const programsData: Record<string, ProgramData> = {
       'Mastery of theory problem solving and diagram presentation',
       'Reduced pre-exam stress through automated weekly review cycles',
     ],
-    photo: PHOTOS.kidsHomework,
+    photo: PHOTOS.teenNotebook,
     shape: 'starburst',
   },
   undergraduate: {
@@ -114,7 +114,7 @@ const programsData: Record<string, ProgramData> = {
       'Significant time savings on summary writing and manual note making',
       'Higher GPA trajectories targeting First Class and Second Class Upper degrees',
     ],
-    photo: PHOTOS.studentsChatting,
+    photo: PHOTOS.honorsGroup,
     shape: 'cog',
   },
   'shared-plan': {
@@ -141,7 +141,7 @@ const programsData: Record<string, ProgramData> = {
       'High retention through peer accountability and shared streaks',
       'Independent records and individual preparation for separate exam targets',
     ],
-    photo: PHOTOS.familyStudy,
+    photo: PHOTOS.peerTutoring,
     shape: 'hexagon',
   },
   // Alias for reference URL
@@ -169,7 +169,7 @@ const programsData: Record<string, ProgramData> = {
       'A1 grade in WAEC / NECO English Language',
       'Strong communication confidence in university interviews and essays',
     ],
-    photo: PHOTOS.girlBooks,
+    photo: PHOTOS.readingJoy,
     shape: 'flower',
   },
 }

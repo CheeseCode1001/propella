@@ -18,6 +18,7 @@ import {
   px,
 } from '@/components/marketing/joy'
 import { JoyScroller, JoyVideo } from '@/components/marketing/joy-client'
+import { JoyReveal, JoyStagger, JoyStaggerItem } from '@/components/marketing/joy-reveal'
 
 export const metadata = {
   title: 'About Us — Where Care and Smart Learning Come Together | Propella',
@@ -26,30 +27,30 @@ export const metadata = {
 }
 
 const shapesRow = [
-  { photo: PHOTOS.campusLaughing, shape: 'scallop' as const, glow: JOY.green },
-  { photo: PHOTOS.girlBooks, shape: 'starburst' as const, glow: JOY.amber },
-  { photo: PHOTOS.kidsStudying, shape: 'cog' as const, glow: JOY.blue },
-  { photo: PHOTOS.campusGroup, shape: 'hexagon' as const, glow: JOY.orange },
+  { photo: PHOTOS.duoMath, shape: 'scallop' as const, glow: JOY.green },
+  { photo: PHOTOS.libraryReading, shape: 'starburst' as const, glow: JOY.amber },
+  { photo: PHOTOS.highschoolBoy, shape: 'cog' as const, glow: JOY.blue },
+  { photo: PHOTOS.activeHands, shape: 'hexagon' as const, glow: JOY.orange },
 ]
 
 const approach = [
   {
     color: JOY.orange,
-    photo: PHOTOS.studentFocused,
+    photo: PHOTOS.teenNotebook,
     title: 'Syllabus-First Roadmap',
     body: 'Your exam date and subjects become a day-by-day plan — and you can always keep going after today’s schedule.',
     offset: '',
   },
   {
     color: JOY.green,
-    photo: PHOTOS.pairStudying,
+    photo: PHOTOS.peerTutoring,
     title: 'Active Recall & CBT Practice',
     body: 'Study Mode explains every option; Exam Mode times you like the real CBT. Pause a mock and resume anytime.',
     offset: 'lg:mt-14',
   },
   {
     color: JOY.blue,
-    photo: PHOTOS.girlOnlineClass,
+    photo: PHOTOS.onlineTutor,
     title: 'Guided AI Discovery',
     body: 'Stuck on a formula at midnight? Your AI tutor breaks it down step by step, always within your syllabus.',
     offset: '',
@@ -69,30 +70,30 @@ const testimonials = [
     name: 'Chiamaka O.',
     role: 'JAMB candidate, Lagos',
     color: JOY.orange,
-    photo: PHOTOS.girlLaptop,
+    photo: PHOTOS.proudGraduate,
   },
   {
     quote: 'The revision reminders sent me back to topics I thought I knew. It helped me clear 7 A1s in WAEC.',
     name: 'Tunde A.',
     role: 'WAEC candidate, Ibadan',
     color: JOY.green,
-    photo: PHOTOS.studentLaughing,
+    photo: PHOTOS.readingJoy,
   },
   {
     quote: 'Pausing a mock and picking it up after church saved me. The AI tutor only answers from my syllabus — no distractions.',
     name: 'Blessing E.',
     role: 'NECO & JAMB, Jos',
     color: JOY.blue,
-    photo: PHOTOS.girlBooks,
+    photo: PHOTOS.honorsGroup,
   },
 ]
 
 const mentors = [
-  { name: 'Mrs. Adaeze N.', role: 'English & Literature Coach', color: JOY.green, photo: PHOTOS.teacherSmiling },
-  { name: 'Mr. Femi O.', role: 'CBT Exam Strategist', color: JOY.orange, photo: PHOTOS.teacherExam },
-  { name: 'Dr. Ngozi K.', role: 'Sciences Curriculum Lead', color: JOY.blue, photo: PHOTOS.tutorLaptop },
-  { name: 'Emeka U.', role: 'Student Success Mentor', color: JOY.yellow, photo: PHOTOS.studentLaughing },
-  { name: 'Kemi A.', role: 'Mathematics Coach', color: JOY.lime, photo: PHOTOS.girlBooks },
+  { name: 'Mrs. Adaeze N.', role: 'English & Literature Coach', color: JOY.green, photo: PHOTOS.teacherBoard },
+  { name: 'Mr. Femi O.', role: 'CBT Exam Strategist', color: JOY.orange, photo: PHOTOS.teacherAfrican },
+  { name: 'Dr. Ngozi K.', role: 'Sciences Curriculum Lead', color: JOY.blue, photo: PHOTOS.tutorSession },
+  { name: 'Emeka U.', role: 'Student Success Mentor', color: JOY.yellow, photo: PHOTOS.mentorGuidance },
+  { name: 'Kemi A.', role: 'Mathematics Coach', color: JOY.lime, photo: PHOTOS.tutorCorner },
 ]
 
 export default function AboutUsPage() {
@@ -163,7 +164,7 @@ export default function AboutUsPage() {
             <div className="rotate-[3deg] overflow-hidden rounded-[26px] border-[6px] border-white shadow-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={px(PHOTOS.mentorsTalking, 1000)}
+                src={px(PHOTOS.libraryDesk, 1000)}
                 alt="Nigerian scholars and mentors working through study materials"
                 className="aspect-[5/4] w-full object-cover"
                 loading="lazy"
@@ -276,9 +277,9 @@ export default function AboutUsPage() {
       <section className="pb-28">
         <div className="mx-auto max-w-[1400px] px-4 lg:px-6">
           <JoyVideo
-            src={VIDEOS.hero.src}
-            poster={VIDEOS.hero.poster}
-            label="Students studying in class"
+            src={VIDEOS.library.src}
+            poster={VIDEOS.library.poster}
+            label="Students studying in library"
             className="rounded-[30px]"
             overlay="linear-gradient(0deg, rgba(56,29,15,0.92) 0%, rgba(56,29,15,0.55) 60%, rgba(56,29,15,0.35) 100%)"
             controlsPosition="top-right"

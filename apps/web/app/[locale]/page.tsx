@@ -20,30 +20,31 @@ import {
   px,
 } from '@/components/marketing/joy'
 import { JoyScroller, JoyVideo } from '@/components/marketing/joy-client'
+import { JoyReveal, JoyStagger, JoyStaggerItem } from '@/components/marketing/joy-reveal'
 
 // ─── Content ─────────────────────────────────────────────────────────────────
 
 const features = [
   {
-    photo: PHOTOS.studentNotebooks,
+    photo: PHOTOS.universityGirl,
     shape: 'flower' as const,
     title: 'JAMB, WAEC & NECO',
     body: 'Every topic mapped to the official syllabus for all three boards.',
   },
   {
-    photo: PHOTOS.girlLaptop,
+    photo: PHOTOS.teenNotebook,
     shape: 'scallop' as const,
     title: '11,404+ Past Questions',
     body: 'Real CBT questions across 15 subjects with worked solutions.',
   },
   {
-    photo: PHOTOS.boyLaptop,
+    photo: PHOTOS.classroomDiscussion,
     shape: 'starburst' as const,
     title: '24/7 AI Tutor',
     body: 'Step-by-step help that stays strictly inside your syllabus.',
   },
   {
-    photo: PHOTOS.studentWriting,
+    photo: PHOTOS.examPrep,
     shape: 'cog' as const,
     title: 'Progress & Streaks',
     body: 'Daily roadmaps, mastery scores and streaks that keep you going.',
@@ -51,30 +52,30 @@ const features = [
 ]
 
 const shapesRow = [
-  { photo: PHOTOS.campusLaughing, shape: 'scallop' as const, glow: JOY.green },
-  { photo: PHOTOS.girlBooks, shape: 'starburst' as const, glow: JOY.amber },
-  { photo: PHOTOS.kidsStudying, shape: 'cog' as const, glow: JOY.blue },
-  { photo: PHOTOS.campusGroup, shape: 'hexagon' as const, glow: JOY.orange },
+  { photo: PHOTOS.pathwayWalk, shape: 'scallop' as const, glow: JOY.green },
+  { photo: PHOTOS.highschoolGirl, shape: 'starburst' as const, glow: JOY.amber },
+  { photo: PHOTOS.quadStudy, shape: 'cog' as const, glow: JOY.blue },
+  { photo: PHOTOS.libraryGroup, shape: 'hexagon' as const, glow: JOY.orange },
 ]
 
 const approach = [
   {
     color: JOY.orange,
-    photo: PHOTOS.studentFocused,
+    photo: PHOTOS.duoMath,
     title: 'Syllabus-First Roadmap',
     body: 'Your exam date and subjects become a day-by-day plan — and you can always keep going after today’s schedule.',
     offset: '',
   },
   {
     color: JOY.green,
-    photo: PHOTOS.pairStudying,
+    photo: PHOTOS.scienceLab,
     title: 'Active Recall & CBT Practice',
     body: 'Study Mode explains every option; Exam Mode times you like the real CBT. Pause a mock and resume anytime.',
     offset: 'lg:mt-14',
   },
   {
     color: JOY.blue,
-    photo: PHOTOS.girlOnlineClass,
+    photo: PHOTOS.headphonesStudy,
     title: 'Guided AI Discovery',
     body: 'Stuck on a formula at midnight? Your AI tutor breaks it down step by step, always within your syllabus.',
     offset: '',
@@ -87,27 +88,27 @@ const programs = [
     title: 'JAMB UTME & Post-UTME',
     body: 'Four-subject UTME roadmaps, timed CBT mocks and score predictions to target 300+.',
     focus: 'Use of English · Sciences · Arts · Commercial',
-    photo: PHOTOS.studentsWalking,
+    photo: PHOTOS.groupProblem,
     shape: 'flower' as const,
-    href: '/highschool',
+    href: '/programs/jamb-utme',
   },
   {
     age: 'SS1 – SS3',
     title: 'WAEC & NECO SSCE',
     body: 'Eight-subject theory and objective practice built around the exact board guidelines.',
     focus: 'Objectives · Theory · Practical revision',
-    photo: PHOTOS.kidsHomework,
+    photo: PHOTOS.classNotes,
     shape: 'starburst' as const,
-    href: '/highschool',
+    href: '/programs/waec-ssce',
   },
   {
     age: '100L – 500L',
     title: 'Undergraduate Courses',
     body: 'Upload course files, generate summaries and practise with AI-built questions for every course.',
     focus: 'Course files · Document AI · Exam prep',
-    photo: PHOTOS.studentsChatting,
+    photo: PHOTOS.projectTeam,
     shape: 'cog' as const,
-    href: '/undergraduate',
+    href: '/programs/undergraduate',
   },
   {
     age: 'Families & Friends',
@@ -116,7 +117,7 @@ const programs = [
     focus: 'Two accounts · Separate progress',
     photo: PHOTOS.familyStudy,
     shape: 'hexagon' as const,
-    href: '/pricing',
+    href: '/programs/shared-plan',
   },
 ]
 
@@ -211,30 +212,30 @@ const testimonials = [
     name: 'Chiamaka O.',
     role: 'JAMB candidate, Lagos',
     color: JOY.orange,
-    photo: PHOTOS.girlLaptop,
+    photo: PHOTOS.gradSmile,
   },
   {
     quote: 'The revision reminders sent me back to topics I thought I knew. It helped me clear 7 A1s in WAEC.',
     name: 'Tunde A.',
     role: 'WAEC candidate, Ibadan',
     color: JOY.green,
-    photo: PHOTOS.studentLaughing,
+    photo: PHOTOS.classmatesSmile,
   },
   {
     quote: 'Pausing a mock and picking it up after church saved me. The AI tutor only answers from my syllabus — no distractions.',
     name: 'Blessing E.',
     role: 'NECO & JAMB, Jos',
     color: JOY.blue,
-    photo: PHOTOS.girlBooks,
+    photo: PHOTOS.distinctionLady,
   },
 ]
 
 const mentors = [
-  { name: 'Mrs. Adaeze N.', role: 'English & Literature Coach', color: JOY.green, photo: PHOTOS.teacherSmiling },
-  { name: 'Mr. Femi O.', role: 'CBT Exam Strategist', color: JOY.orange, photo: PHOTOS.teacherExam },
-  { name: 'Dr. Ngozi K.', role: 'Sciences Curriculum Lead', color: JOY.blue, photo: PHOTOS.tutorLaptop },
-  { name: 'Emeka U.', role: 'Student Success Mentor', color: JOY.yellow, photo: PHOTOS.studentLaughing },
-  { name: 'Kemi A.', role: 'Mathematics Coach', color: JOY.lime, photo: PHOTOS.girlBooks },
+  { name: 'Mrs. Adaeze N.', role: 'English & Literature Coach', color: JOY.green, photo: PHOTOS.teacherBoard },
+  { name: 'Mr. Femi O.', role: 'CBT Exam Strategist', color: JOY.orange, photo: PHOTOS.teacherAfrican },
+  { name: 'Dr. Ngozi K.', role: 'Sciences Curriculum Lead', color: JOY.blue, photo: PHOTOS.tutorCorner },
+  { name: 'Emeka U.', role: 'Student Success Mentor', color: JOY.yellow, photo: PHOTOS.onlineTutor },
+  { name: 'Kemi A.', role: 'Mathematics Coach', color: JOY.lime, photo: PHOTOS.mentorGuidance },
 ]
 
 const faqs = [
@@ -564,35 +565,38 @@ export default function HomePage() {
       {/* ── 8. Daily routine ─────────────────────────────────────────────── */}
       <section className="pb-28">
         <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
-          <div className="mx-auto max-w-[680px] text-center">
+          <JoyReveal className="mx-auto max-w-[680px] text-center">
             <JoyEyebrow className="mb-5">A day with Propella</JoyEyebrow>
             <JoyHeading>Small daily habits that build big exam scores</JoyHeading>
-          </div>
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          </JoyReveal>
+          <JoyStagger className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
             {routine.map((r) => {
               const dark = r.color !== JOY.yellow
               return (
-                <div
-                  key={r.title}
-                  className="relative overflow-hidden rounded-[24px] p-7"
-                  style={{ backgroundColor: r.color, color: dark ? '#fff' : JOY.ink }}
-                >
-                  <DoodleSwirl className={`absolute -bottom-10 -right-10 w-40 ${dark ? 'text-white/30' : 'text-black/10'}`} />
-                  <span
-                    className={`relative inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[13px] font-semibold ${dark ? 'bg-white/20' : 'bg-black/10'}`}
+                <JoyStaggerItem key={r.title} className="h-full">
+                  <div
+                    className="relative overflow-hidden rounded-[28px] p-8 sm:p-10 lg:p-11 min-h-[340px] h-full flex flex-col justify-between joy-card-hover shadow-sm"
+                    style={{ backgroundColor: r.color, color: dark ? '#fff' : JOY.ink }}
                   >
-                    <Clock size={13} /> {r.time}
-                  </span>
-                  <h3 className="relative mt-8 text-[22px] font-semibold" style={{ fontFamily: 'var(--font-display)' }}>
-                    {r.title}
-                  </h3>
-                  <p className={`relative mt-2 text-[16px] leading-[24px] ${dark ? 'text-white/90' : 'text-black/70'}`}>
-                    {r.body}
-                  </p>
-                </div>
+                    <DoodleSwirl className={`absolute -bottom-10 -right-10 w-44 ${dark ? 'text-white/25' : 'text-black/10'}`} />
+                    <div>
+                      <span
+                        className={`relative inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[14px] font-semibold ${dark ? 'bg-white/20' : 'bg-black/10'}`}
+                      >
+                        <Clock size={14} /> {r.time}
+                      </span>
+                      <h3 className="relative mt-10 text-[24px] sm:text-[26px] leading-[32px] font-semibold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+                        {r.title}
+                      </h3>
+                      <p className={`relative mt-4 text-[16px] sm:text-[17px] leading-[26px] ${dark ? 'text-white/90' : 'text-black/75'}`}>
+                        {r.body}
+                      </p>
+                    </div>
+                  </div>
+                </JoyStaggerItem>
               )
             })}
-          </div>
+          </JoyStagger>
         </div>
       </section>
 
