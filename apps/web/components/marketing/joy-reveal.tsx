@@ -1,10 +1,10 @@
 'use client'
 
-import { type ReactNode } from 'react'
-import { motion, type HTMLMotionProps } from 'framer-motion'
+import { useEffect, useRef, type ReactNode, type HTMLAttributes } from 'react'
+import gsap from 'gsap'
 import { cn } from '@/lib/utils/cn'
 
-interface JoyRevealProps extends HTMLMotionProps<'div'> {
+interface JoyRevealProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
   delay?: number
   y?: number
@@ -13,86 +13,122 @@ interface JoyRevealProps extends HTMLMotionProps<'div'> {
   className?: string
 }
 
+/**
+ * GSAP-powered viewport reveal component.
+ * Uses hardware-accelerated transforms and power3.out easing for buttery smooth reveals.
+ */
 export function JoyReveal({
   children,
   delay = 0,
   y = 28,
   scale = 1,
-  duration = 0.6,
+  duration = 0.7,
   className,
   ...props
 }: JoyRevealProps) {
+  const elRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = elRef.current
+    if (!el) return
+
+    // Set initial GSAP state
+    gsap.set(el, { opacity: 0, y, scale })
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.to(el, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration,
+              delay,
+              ease: 'power3.out',
+              clearProps: 'transform',
+            })
+            observer.unobserve(el)
+          }
+        })
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [delay, y, scale, duration])
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y, scale }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      }}
-      className={cn(className)}
-      {...props}
-    >
+    <div ref={elRef} className={cn(className)} {...props}>
       {children}
-    </motion.div>
+    </div>
   )
 }
 
-interface JoyStaggerProps {
+interface JoyStaggerProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
   className?: string
   staggerDelay?: number
 }
 
-export function JoyStagger({ children, className, staggerDelay = 0.1 }: JoyStaggerProps) {
+/**
+ * GSAP-powered staggered animation container.
+ * Animates all child `JoyStaggerItem` elements in sequence when container enters viewport.
+ */
+export function JoyStagger({ children, className, staggerDelay = 0.1, ...props }: JoyStaggerProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const items = container.querySelectorAll<HTMLElement>('[data-joy-stagger-item]')
+    if (!items.length) return
+
+    gsap.set(items, { opacity: 0, y: 22 })
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.to(items, {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              stagger: staggerDelay,
+              ease: 'power3.out',
+              clearProps: 'transform',
+            })
+            observer.unobserve(container)
+          }
+        })
+      },
+      { threshold: 0.05, rootMargin: '0px 0px -20px 0px' },
+    )
+
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [staggerDelay])
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-40px' }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
-          },
-        },
-      }}
-      className={cn(className)}
-    >
+    <div ref={containerRef} className={cn(className)} {...props}>
       {children}
-    </motion.div>
+    </div>
   )
 }
 
 export function JoyStaggerItem({
   children,
   className,
-  y = 20,
 }: {
   children: ReactNode
   className?: string
   y?: number
 }) {
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.5,
-            ease: [0.21, 0.47, 0.32, 0.98],
-          },
-        },
-      }}
-      className={cn(className)}
-    >
+    <div data-joy-stagger-item className={cn(className)}>
       {children}
-    </motion.div>
+    </div>
   )
 }
-

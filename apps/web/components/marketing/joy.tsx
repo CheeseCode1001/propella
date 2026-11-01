@@ -261,11 +261,11 @@ export function JoyEyebrow({
     <span
       data-slot="badge"
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full px-4 py-1 font-[family-name:var(--font-hand)] text-[16px] leading-tight font-normal uppercase tracking-wide shadow-sm',
+        'inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[17px] leading-tight font-normal uppercase tracking-wide shadow-sm',
         tones[tone],
         className,
       )}
-      style={{ fontFamily: 'var(--font-hand)' }}
+      style={{ fontFamily: "'Caveat Brush', cursive" }}
     >
       <SparkleWand className="h-4 w-4 shrink-0" />
       {children}
@@ -293,8 +293,9 @@ export function JoyHeading({
   }
   return (
     <Tag
+      data-joy-heading="true"
       className={cn('font-semibold tracking-[-0.02em]', sizes[size], className)}
-      style={{ fontFamily: 'var(--font-display)' }}
+      style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}
     >
       {children}
     </Tag>

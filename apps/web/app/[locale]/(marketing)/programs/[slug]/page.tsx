@@ -219,7 +219,7 @@ export default async function ProgramDetailPage({
               </Link>
               <Link
                 href="/pricing"
-                className="inline-flex items-center rounded-full border border-[var(--color-rule-2)] bg-white px-7 py-3.5 text-[16px] font-semibold text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+                className="inline-flex items-center rounded-full border border-[var(--color-rule-2)] dark:border-[#3A362D] bg-white dark:bg-[#1A1813] px-7 py-3.5 text-[16px] font-semibold text-[var(--color-ink)] hover:border-[var(--color-ink)]"
               >
                 View Plans from ₦999
               </Link>
@@ -231,7 +231,7 @@ export default async function ProgramDetailPage({
       {/* ── 2. Hero Video / Media Showcase ──────────────────────────────────── */}
       <section className="pb-24">
         <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
-          <div className="rounded-[30px] overflow-hidden border border-[var(--color-rule)] shadow-xl bg-[var(--color-paper-2)]">
+          <div className="rounded-[30px] overflow-hidden border border-[var(--color-rule)] dark:border-[#2D2A23] shadow-xl bg-[var(--color-paper-2)]">
             <JoyVideo
               src={VIDEOS.classroom.src}
               poster={px(program.photo, 1400)}
@@ -247,7 +247,7 @@ export default async function ProgramDetailPage({
       <section className="pb-32">
         <div className="max-w-[1000px] mx-auto px-6 lg:px-8 space-y-16">
           {/* Overview */}
-          <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
+          <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 sm:p-12 shadow-sm">
             <JoyHeading as="h2" size="h2" className="text-[26px] sm:text-[32px] mb-4">
               Program Overview
             </JoyHeading>
@@ -255,7 +255,7 @@ export default async function ProgramDetailPage({
           </div>
 
           {/* What it means */}
-          <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
+          <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 sm:p-12 shadow-sm">
             <JoyHeading as="h2" size="h2" className="text-[26px] sm:text-[32px] mb-4">
               What Syllabus-First Learning Means
             </JoyHeading>
@@ -263,7 +263,7 @@ export default async function ProgramDetailPage({
           </div>
 
           {/* How Students Master Topics */}
-          <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
+          <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 sm:p-12 shadow-sm">
             <JoyHeading as="h2" size="h2" className="text-[26px] sm:text-[32px] mb-4">
               How Students Master Topics Through Active CBT Recall
             </JoyHeading>
@@ -292,7 +292,7 @@ export default async function ProgramDetailPage({
           </div>
 
           {/* Teaching Approach */}
-          <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
+          <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 sm:p-12 shadow-sm">
             <JoyHeading as="h2" size="h2" className="text-[26px] sm:text-[32px] mb-4">
               Our AI Teaching Approach
             </JoyHeading>
@@ -300,13 +300,13 @@ export default async function ProgramDetailPage({
           </div>
 
           {/* Expected Outcomes */}
-          <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
+          <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 sm:p-12 shadow-sm">
             <JoyHeading as="h2" size="h2" className="text-[26px] sm:text-[32px] mb-6">
               Expected Examination Outcomes
             </JoyHeading>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {program.outcomes.map((out, i) => (
-                <div key={i} className="flex items-start gap-3 rounded-2xl bg-[var(--color-paper-2)] p-4">
+                <div key={i} className="flex items-start gap-3 rounded-2xl bg-[var(--color-paper-2)] dark:bg-[#25221C] p-4">
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white mt-0.5">
                     <Check size={12} strokeWidth={3} />
                   </span>
@@ -319,7 +319,7 @@ export default async function ProgramDetailPage({
       </section>
 
       {/* ── 4. Discover More Programs ──────────────────────────────────────── */}
-      <section className="pb-32 bg-[var(--color-paper-2)] py-24 border-t border-[var(--color-rule)]">
+      <section className="pb-32 bg-[var(--color-paper-2)] py-24 border-t border-[var(--color-rule)] dark:border-[#2D2A23]">
         <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
           <div className="mx-auto max-w-[680px] text-center mb-16">
             <JoyEyebrow className="mb-4">Other pathways</JoyEyebrow>
@@ -333,7 +333,7 @@ export default async function ProgramDetailPage({
             {otherPrograms.map(([key, p]) => (
               <div
                 key={key}
-                className="rounded-[24px] border border-[var(--color-rule)] bg-white p-7 shadow-sm flex flex-col justify-between hover:shadow-md transition"
+                className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-7 shadow-sm flex flex-col justify-between hover:shadow-md transition joy-card-hover"
               >
                 <div>
                   <div className="w-[120px] mx-auto mb-6">

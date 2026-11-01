@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { api } from '@/lib/api-client'
 import { startPaystackCheckout } from '@/lib/paystack'
+import { JoyFaqSection } from '@/components/marketing/joy-faq'
 import type { AuthUser, SubscriptionPlanId } from '@propella/shared'
 
 interface PlanFeature {
@@ -56,6 +57,29 @@ const tillExamFeatures: PlanFeature[] = [
   { text: 'Priority AI tutor responses & exam prediction engine', included: true },
   { text: 'Offline practice mode & printable mock worksheets', included: true },
   { text: 'Full syllabus mastery & unlimited CBT simulations', included: true },
+]
+
+const pricingFaqs = [
+  {
+    q: 'How does the ₦999 / 50% Welcome Discount & Auto-Renewal work?',
+    a: 'Every newly registered student gets a 72-hour (3-day) window to subscribe at 50% off (₦999 for Basic, ₦1,499 for Shared, or ₦4,999 for Full Pass). Checkout uses a Nigerian debit card (Mastercard, Visa, or Verve) via Paystack so your subscription seamlessly auto-renews the following month at the standard price (₦1,999 / ₦2,999 / ₦9,999). Each card can only claim the welcome discount once to prevent abuse. You can cancel auto-renewal anytime in Settings before your next billing date.',
+  },
+  {
+    q: 'How does the "Subscribe for a Friend" feature work?',
+    a: 'Click "Subscribe for a Friend" above. Enter your friend or child\'s email address and select their plan. Once checkout is completed, they instantly receive a celebratory email notification with their pre-activated voucher and login credentials.',
+  },
+  {
+    q: 'Can I switch between JAMB and Undergraduate Mode?',
+    a: 'Yes, with a single account! When in high school mode you get the full JAMB/WAEC/NECO syllabus and mock test engine. When in undergraduate mode, you get university Course Files and Document AI. You can toggle between them in Settings anytime without losing any saved data.',
+  },
+  {
+    q: 'Can two students share a subscription?',
+    a: 'Yes! The Shared Scholar Plan (from ₦1,499 welcome / ₦2,999 standard) gives you two separate, independent accounts. Both learners get their own login credentials, private syllabus roadmap, individual streak tracker, and independent CBT test history.',
+  },
+  {
+    q: 'Can I pause a timed CBT mock exam if power cuts or network drops?',
+    a: 'Yes! All exam sessions save state in real time. If NEPA takes light or you lose internet connection, your question selections and countdown timer are securely preserved. When you return, you can resume exactly where you left off.',
+  },
 ]
 
 export default function PricingPage() {
@@ -635,39 +659,12 @@ export default function PricingPage() {
       </div>
 
       {/* Frequently Asked Questions */}
-      <div className="max-w-3xl mx-auto px-6">
-        <h2 className="text-2xl font-bold text-center text-[var(--color-ink)] mb-8">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-4">
-          <div className="p-5 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper)]">
-            <h4 className="font-bold text-sm text-[var(--color-ink)] mb-1">
-              How does the ₦999 / 50% Welcome Discount & Auto-Renewal work?
-            </h4>
-            <p className="text-xs text-[var(--color-ink-2)] leading-relaxed">
-              Every newly registered student gets a 72-hour (3-day) window to subscribe at 50% off (₦999 for Basic, ₦1,499 for Shared, or ₦4,999 for Full Pass). Checkout uses a Nigerian debit card (Mastercard, Visa, or Verve) via Paystack so your subscription seamlessly auto-renews the following month at the standard price (₦1,999 / ₦2,999 / ₦9,999). Each card can only claim the welcome discount once. You can cancel auto-renewal anytime in Settings.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper)]">
-            <h4 className="font-bold text-sm text-[var(--color-ink)] mb-1">
-              How does the &ldquo;Subscribe for a Friend&rdquo; feature work?
-            </h4>
-            <p className="text-xs text-[var(--color-ink-2)] leading-relaxed">
-              Click &ldquo;Subscribe for a Friend&rdquo; above. Enter your friend or child&apos;s email address and select their plan. Once completed, they instantly receive a celebratory email notification with their pre-activated voucher and login credentials.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper)]">
-            <h4 className="font-bold text-sm text-[var(--color-ink)] mb-1">
-              Can I switch between JAMB and Undergraduate Mode?
-            </h4>
-            <p className="text-xs text-[var(--color-ink-2)] leading-relaxed">
-              Yes, with a single account! When in highschool mode you get the full JAMB/WAEC/NECO syllabus and mock test engine. When in undergraduate mode, you get university Course Files and Document AI. You can toggle between them in Settings anytime without losing any saved data.
-            </p>
-          </div>
-        </div>
-      </div>
+      <JoyFaqSection
+        eyebrow="Pricing FAQs"
+        title="Frequently asked pricing & billing questions"
+        faqs={pricingFaqs}
+        tone="paper"
+      />
 
       {/* Subscribe for a Friend Modal */}
       {giftModalOpen && (

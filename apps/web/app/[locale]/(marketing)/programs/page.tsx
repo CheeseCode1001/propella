@@ -137,7 +137,7 @@ export default function ProgramsPage() {
           {programs.map((p, idx) => (
             <div
               key={p.slug}
-              className={`rounded-[30px] border border-[var(--color-rule)] bg-white p-8 lg:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center ${
+              className={`rounded-[30px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 lg:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center joy-card-hover ${
                 idx % 2 === 1 ? 'lg:flex-row-reverse' : ''
               }`}
             >
@@ -171,7 +171,7 @@ export default function ProgramsPage() {
                   </Link>
                   <Link
                     href="/signup"
-                    className="inline-flex items-center gap-2 rounded-full border border-[var(--color-rule-2)] bg-white px-6 py-3 text-[15px] font-semibold text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--color-rule-2)] dark:border-[#3A362D] bg-white dark:bg-[#1A1813] px-6 py-3 text-[15px] font-semibold text-[var(--color-ink)] hover:border-[var(--color-ink)]"
                   >
                     Start Free Trial
                   </Link>

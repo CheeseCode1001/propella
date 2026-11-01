@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Parkinsans:wght@300..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 @import "tailwindcss";
 
 @utility scrollbar-hide {
@@ -101,6 +102,15 @@ html.dark {
 
 @variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
 
+:root {
+  --font-parkinsans: 'Parkinsans', sans-serif;
+  --font-source-sans: 'Source Sans 3', sans-serif;
+  --font-caveat-brush: 'Caveat Brush', cursive;
+  --font-display: 'Parkinsans', sans-serif;
+  --font-sans: 'Source Sans 3', sans-serif;
+  --font-hand: 'Caveat Brush', cursive;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -108,28 +118,30 @@ html.dark {
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
-  font-family: var(--font-sans);
+  font-family: 'Source Sans 3', var(--font-source-sans), sans-serif !important;
   -webkit-font-smoothing: antialiased;
 }
 
 /* Headings across the entire project use Parkinsans Semibold (600) */
-h1, h2, h3, h4, h5, h6, .font-display, [data-heading] {
-  font-family: var(--font-display) !important;
+h1, h2, h3, h4, h5, h6, .font-display, [data-heading], [data-joy-heading] {
+  font-family: 'Parkinsans', var(--font-parkinsans), sans-serif !important;
   font-weight: 600 !important;
 }
 
 /* All paragraphs across the entire project use Source Sans 3 */
 p, .font-sans {
-  font-family: var(--font-sans) !important;
+  font-family: 'Source Sans 3', var(--font-source-sans), sans-serif !important;
 }
 
 /* All badges across the entire project use Caveat Brush font */
 [data-slot="badge"],
 .badge,
 .joy-eyebrow,
-.joy-badge {
-  font-family: var(--font-hand) !important;
+.joy-badge,
+[data-badge] {
+  font-family: 'Caveat Brush', var(--font-caveat-brush), cursive !important;
   font-weight: 400 !important;
+  letter-spacing: 0.04em;
 }
 
 /* Lenis smooth scroll */

@@ -21,6 +21,7 @@ import {
 } from '@/components/marketing/joy'
 import { JoyScroller, JoyVideo } from '@/components/marketing/joy-client'
 import { JoyReveal, JoyStagger, JoyStaggerItem } from '@/components/marketing/joy-reveal'
+import { JoyFaqSection } from '@/components/marketing/joy-faq'
 
 // ─── Content ─────────────────────────────────────────────────────────────────
 
@@ -575,20 +576,20 @@ export default function HomePage() {
               return (
                 <JoyStaggerItem key={r.title} className="h-full">
                   <div
-                    className="relative overflow-hidden rounded-[28px] p-8 sm:p-10 lg:p-11 min-h-[340px] h-full flex flex-col justify-between joy-card-hover shadow-sm"
+                    className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 min-h-[250px] h-full flex flex-col justify-between joy-card-hover shadow-sm"
                     style={{ backgroundColor: r.color, color: dark ? '#fff' : JOY.ink }}
                   >
-                    <DoodleSwirl className={`absolute -bottom-10 -right-10 w-44 ${dark ? 'text-white/25' : 'text-black/10'}`} />
+                    <DoodleSwirl className={`absolute -bottom-10 -right-10 w-40 ${dark ? 'text-white/25' : 'text-black/10'}`} />
                     <div>
                       <span
-                        className={`relative inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[14px] font-semibold ${dark ? 'bg-white/20' : 'bg-black/10'}`}
+                        className={`relative inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[13px] font-semibold ${dark ? 'bg-white/20' : 'bg-black/10'}`}
                       >
-                        <Clock size={14} /> {r.time}
+                        <Clock size={13} /> {r.time}
                       </span>
-                      <h3 className="relative mt-10 text-[24px] sm:text-[26px] leading-[32px] font-semibold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+                      <h3 className="relative mt-6 text-[21px] sm:text-[22px] leading-[28px] font-semibold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
                         {r.title}
                       </h3>
-                      <p className={`relative mt-4 text-[16px] sm:text-[17px] leading-[26px] ${dark ? 'text-white/90' : 'text-black/75'}`}>
+                      <p className={`relative mt-2.5 text-[15px] sm:text-[15.5px] leading-[23px] ${dark ? 'text-white/90' : 'text-black/75'}`}>
                         {r.body}
                       </p>
                     </div>
@@ -747,11 +748,11 @@ export default function HomePage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="-mt-10 relative mx-3 rounded-[16px] bg-white px-4 py-3 shadow-md">
-                  <p className="font-semibold text-[#1A1917]" style={{ fontFamily: 'var(--font-display)' }}>
+                <div className="-mt-10 relative mx-3 rounded-[16px] bg-white dark:bg-[#1A1813] border border-[var(--color-rule)] dark:border-[#2D2A23] px-4 py-3 shadow-md">
+                  <p className="font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                     {m.name}
                   </p>
-                  <p className="text-[14px] text-[#1A1917]/60">{m.role}</p>
+                  <p className="text-[14px] text-[var(--color-ink-3)]">{m.role}</p>
                 </div>
               </div>
             ))}
@@ -760,39 +761,11 @@ export default function HomePage() {
       </section>
 
       {/* ── 13. FAQ ──────────────────────────────────────────────────────── */}
-      <section className="pb-24">
-        <div className="max-w-[1240px] mx-auto px-6 lg:px-8 grid grid-cols-1 gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <JoyEyebrow className="mb-5">FAQ</JoyEyebrow>
-            <JoyHeading>Questions students and parents ask</JoyHeading>
-            <p className="mt-5 text-[17px] leading-[26px] text-[var(--color-ink)]/70">
-              Can&apos;t find what you need?{' '}
-              <Link href="/contact" className="font-semibold text-[var(--color-accent)] hover:underline">
-                Talk to our team
-              </Link>
-              .
-            </p>
-          </div>
-          <div className="space-y-4 lg:col-span-7">
-            {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="group rounded-[20px] border border-[var(--color-rule)] bg-white px-6 py-5 open:border-[var(--color-accent)]/40"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-                  <span className="text-[17px] font-semibold text-[#1A1917]" style={{ fontFamily: 'var(--font-display)' }}>
-                    {f.q}
-                  </span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-white transition-transform group-open:rotate-45">
-                    <Plus size={16} />
-                  </span>
-                </summary>
-                <p className="mt-3 text-[16px] leading-[25px] text-[#1A1917]/70">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <JoyFaqSection
+        eyebrow="FAQ"
+        title="Questions students and parents ask"
+        faqs={faqs}
+      />
 
       <MarketingFooter />
     </div>

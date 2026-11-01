@@ -355,11 +355,11 @@ export default function AboutUsPage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="-mt-10 relative mx-3 rounded-[16px] bg-white px-4 py-3 shadow-md">
-                  <p className="font-semibold text-[#1A1917]" style={{ fontFamily: 'var(--font-display)' }}>
+                <div className="-mt-10 relative mx-3 rounded-[16px] bg-white dark:bg-[#1A1813] border border-[var(--color-rule)] dark:border-[#2D2A23] px-4 py-3 shadow-md">
+                  <p className="font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                     {m.name}
                   </p>
-                  <p className="text-[14px] text-[#1A1917]/60">{m.role}</p>
+                  <p className="text-[14px] text-[var(--color-ink-3)]">{m.role}</p>
                 </div>
               </div>
             ))}

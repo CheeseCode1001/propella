@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Link } from '@/lib/i18n/navigation'
+import { cn } from '@/lib/utils/cn'
 import {
   Mail,
   Phone,
@@ -35,6 +36,7 @@ import {
 } from '@/components/marketing/joy'
 import { JoyVideo } from '@/components/marketing/joy-client'
 import { JoyReveal, JoyStagger, JoyStaggerItem } from '@/components/marketing/joy-reveal'
+import { JoyFaqSection } from '@/components/marketing/joy-faq'
 
 const supportChannels = [
   {
@@ -43,7 +45,10 @@ const supportChannels = [
     detail: '+234 (0) 812 345 6789',
     href: 'https://wa.me/2348123456789',
     badge: 'WhatsApp & Phone',
-    color: JOY.orange,
+    cardBg: 'bg-[#FFF0E6] border-[#FFD3BE] dark:bg-[#2C1910] dark:border-[#522D1B]',
+    iconBg: 'bg-[var(--color-accent)] text-white',
+    badgeClass: 'bg-white/90 dark:bg-white/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20',
+    linkClass: 'text-[var(--color-accent)]',
     icon: Phone,
   },
   {
@@ -52,7 +57,10 @@ const supportChannels = [
     detail: 'support@propellastudy.com',
     href: 'mailto:support@propellastudy.com',
     badge: 'Under 2-hour response',
-    color: JOY.green,
+    cardBg: 'bg-[#EAF8EE] border-[#BCE8CA] dark:bg-[#122A1A] dark:border-[#1E4D2C]',
+    iconBg: 'bg-[#2EBB5E] text-white',
+    badgeClass: 'bg-white/90 dark:bg-white/10 text-[#208341] dark:text-[#52D27E] border border-[#2EBB5E]/20',
+    linkClass: 'text-[#208341] dark:text-[#52D27E]',
     icon: Mail,
   },
   {
@@ -61,7 +69,10 @@ const supportChannels = [
     detail: 'Yaba Innovation Hub, Lagos',
     href: 'https://maps.google.com',
     badge: 'Learning Center',
-    color: JOY.blue,
+    cardBg: 'bg-[#EDF5FD] border-[#C4DEF8] dark:bg-[#112438] dark:border-[#1B3F63]',
+    iconBg: 'bg-[#58A5EF] text-white',
+    badgeClass: 'bg-white/90 dark:bg-white/10 text-[#2671BC] dark:text-[#76B5F4] border border-[#58A5EF]/20',
+    linkClass: 'text-[#2671BC] dark:text-[#76B5F4]',
     icon: MapPin,
   },
   {
@@ -70,7 +81,10 @@ const supportChannels = [
     detail: 'Open 6 Days a Week',
     href: '#faq',
     badge: 'Live Academic Staff',
-    color: JOY.yellow,
+    cardBg: 'bg-[#FFFBEA] border-[#FDE89A] dark:bg-[#2F260C] dark:border-[#534316]',
+    iconBg: 'bg-[#FFAD28] text-[#1A1917]',
+    badgeClass: 'bg-white/90 dark:bg-white/10 text-[#8F5E00] dark:text-[#F3BA50] border border-[#FFAD28]/30',
+    linkClass: 'text-[#8F5E00] dark:text-[#F3BA50]',
     icon: Clock,
   },
 ]
@@ -290,28 +304,29 @@ export default function ContactEnrollmentPage() {
               <JoyStagger className="space-y-5">
                 {supportChannels.map((c) => {
                   const Icon = c.icon
-                  const isYellow = c.color === JOY.yellow
                   return (
                     <JoyStaggerItem key={c.title}>
                       <div
-                        className="rounded-[24px] border border-[var(--color-rule)] bg-white dark:bg-[#1A1813] p-7 shadow-sm joy-card-hover"
+                        className={cn(
+                          'rounded-[26px] border p-7 shadow-sm joy-card-hover transition-all',
+                          c.cardBg,
+                        )}
                       >
                         <div className="flex items-start justify-between gap-4 mb-4">
                           <div
-                            className="h-12 w-12 rounded-2xl flex items-center justify-center font-bold shrink-0"
-                            style={{
-                              backgroundColor: c.color,
-                              color: isYellow ? JOY.ink : '#FFFFFF',
-                            }}
+                            className={cn(
+                              'h-12 w-12 rounded-2xl flex items-center justify-center font-bold shrink-0 shadow-sm',
+                              c.iconBg,
+                            )}
                           >
                             <Icon size={22} />
                           </div>
                           <span
-                            className="rounded-full px-3 py-1 text-[12px] font-semibold font-[family-name:var(--font-hand)] text-[14px]"
-                            style={{
-                              backgroundColor: isYellow ? '#FFF3D4' : `${c.color}20`,
-                              color: isYellow ? '#8A5500' : c.color,
-                            }}
+                            className={cn(
+                              'rounded-full px-3.5 py-1 text-[13.5px] font-normal tracking-wide',
+                              c.badgeClass,
+                            )}
+                            style={{ fontFamily: "'Caveat Brush', cursive" }}
                           >
                             {c.badge}
                           </span>
@@ -319,16 +334,19 @@ export default function ContactEnrollmentPage() {
 
                         <h3
                           className="text-[20px] font-semibold text-[var(--color-ink)] mb-1.5"
-                          style={{ fontFamily: 'var(--font-display)' }}
+                          style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}
                         >
                           {c.title}
                         </h3>
-                        <p className="text-[14.5px] text-[var(--color-ink)]/70 leading-relaxed mb-4">
+                        <p className="text-[14.5px] text-[var(--color-ink)]/75 leading-relaxed mb-4">
                           {c.description}
                         </p>
                         <a
                           href={c.href}
-                          className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--color-accent)] hover:underline"
+                          className={cn(
+                            'inline-flex items-center gap-2 text-[15px] font-semibold hover:underline',
+                            c.linkClass,
+                          )}
                         >
                           {c.detail} <ArrowRight size={15} />
                         </a>
@@ -342,50 +360,15 @@ export default function ContactEnrollmentPage() {
         </div>
       </section>
 
-      {/* ── 3. FAQ Section: Clear answers to help you feel confident ───────── */}
-      <section id="faq" className="pb-32 bg-[var(--color-paper-2)] py-24 border-y border-[var(--color-rule)]">
-        <div className="max-w-[1040px] mx-auto px-6 lg:px-8">
-          <JoyReveal className="mx-auto max-w-[680px] text-center mb-16">
-            <JoyEyebrow className="mb-4">Questions Scholars &amp; Parents Often Ask</JoyEyebrow>
-            <JoyHeading>Clear answers to help you feel confident.</JoyHeading>
-            <p className="mt-4 text-[17px] text-[var(--color-ink)]/75">
-              Everything you need to know about our CBT practice, 3-day welcome discount,
-              and syllabus roadmaps.
-            </p>
-          </JoyReveal>
-
-          <JoyStagger className="space-y-4">
-            {contactFaqs.map((faq, i) => {
-              const isOpen = openFaq === i
-              return (
-                <JoyStaggerItem key={faq.q}>
-                  <div className="rounded-[22px] border border-[var(--color-rule)] bg-white dark:bg-[#1A1813] overflow-hidden shadow-sm transition-all">
-                    <button
-                      type="button"
-                      onClick={() => setOpenFaq(isOpen ? null : i)}
-                      className="w-full p-6 text-left flex items-center justify-between gap-4 font-semibold text-[18px] text-[var(--color-ink)]"
-                      style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                      <span>{faq.q}</span>
-                      <ChevronDown
-                        size={20}
-                        className={`text-[var(--color-accent)] shrink-0 transition-transform duration-200 ${
-                          isOpen ? 'rotate-180' : ''
-                        }`}
-                      />
-                    </button>
-                    {isOpen && (
-                      <div className="px-6 pb-6 pt-1 text-[15.5px] leading-[26px] text-[var(--color-ink)]/75 border-t border-[var(--color-rule)]/50">
-                        {faq.a}
-                      </div>
-                    )}
-                  </div>
-                </JoyStaggerItem>
-              )
-            })}
-          </JoyStagger>
-        </div>
-      </section>
+      {/* ── 3. FAQ Section: Standardized unified Joyloo FAQ design ───────────── */}
+      <JoyFaqSection
+        id="faq"
+        eyebrow="Questions Scholars & Parents Often Ask"
+        title="Clear answers to help you feel confident."
+        subtitle="Everything you need to know about our CBT practice, 3-day welcome discount, and syllabus roadmaps."
+        faqs={contactFaqs}
+        tone="paper-2"
+      />
 
       {/* ── 4. CTA Bottom Banner ────────────────────────────────────────────── */}
       <section className="py-24">

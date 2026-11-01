@@ -19,6 +19,13 @@ const badgeVariants = cva(
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {}
 
-export function Badge({ className, variant, ...props }: BadgeProps) {
-  return <span data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+export function Badge({ className, variant, style, ...props }: BadgeProps) {
+  return (
+    <span
+      data-slot="badge"
+      className={cn(badgeVariants({ variant }), className)}
+      style={{ fontFamily: "'Caveat Brush', cursive", ...style }}
+      {...props}
+    />
+  )
 }

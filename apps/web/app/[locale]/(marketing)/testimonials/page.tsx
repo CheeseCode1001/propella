@@ -146,7 +146,7 @@ export default function TestimonialsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative rounded-2xl overflow-hidden border border-[var(--color-rule)] shadow-xl aspect-[4/3]">
               <Image
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80"
+                src="https://images.pexels.com/photos/4145155/pexels-photo-4145155.jpeg?auto=compress&cs=tinysrgb&w=1000"
                 alt="Happy African university students celebrating academic success"
                 fill
                 className="object-cover"

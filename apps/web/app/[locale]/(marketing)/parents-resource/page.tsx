@@ -16,6 +16,7 @@ import {
   px,
 } from '@/components/marketing/joy'
 import { JoyReveal, JoyStagger, JoyStaggerItem } from '@/components/marketing/joy-reveal'
+import { JoyFaqSection } from '@/components/marketing/joy-faq'
 
 export const metadata = {
   title: 'Parents & Guardians Resource — Trusted Support for Your Scholar | Propella',
@@ -70,7 +71,7 @@ export default function ParentsResourcePage() {
       {/* ── 2. Stay Connected All Day ─────────────────────────────────────── */}
       <section className="pb-32">
         <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
-          <div className="rounded-[32px] border border-[var(--color-rule)] bg-white p-8 lg:p-14 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="rounded-[32px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 lg:p-14 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
               <JoyEyebrow tone="accent" className="mb-4">Live Supervision</JoyEyebrow>
               <JoyHeading as="h2" size="h2" className="text-[28px] sm:text-[36px] mb-5">
@@ -87,7 +88,7 @@ export default function ParentsResourcePage() {
                     <Bell size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: 'var(--font-display)' }}>
+                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Daily Study Updates
                     </h3>
                     <p className="text-[15px] leading-[23px] text-[var(--color-ink)]/70 mt-1">
@@ -97,11 +98,11 @@ export default function ParentsResourcePage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                  <div className="h-10 w-10 shrink-0 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 flex items-center justify-center font-bold">
                     <Check size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: 'var(--font-display)' }}>
+                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Automated Mock Exam Scorecards
                     </h3>
                     <p className="text-[15px] leading-[23px] text-[var(--color-ink)]/70 mt-1">
@@ -111,11 +112,11 @@ export default function ParentsResourcePage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                  <div className="h-10 w-10 shrink-0 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400 flex items-center justify-center font-bold">
                     <Users size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: 'var(--font-display)' }}>
+                    <h3 className="text-[18px] font-semibold text-[var(--color-ink)]" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Shared Sibling &amp; Partner Accounts
                     </h3>
                     <p className="text-[15px] leading-[23px] text-[var(--color-ink)]/70 mt-1">
@@ -136,7 +137,7 @@ export default function ParentsResourcePage() {
       </section>
 
       {/* ── 3. Safety and Focus You Trust ─────────────────────────────────── */}
-      <section className="pb-32 bg-[var(--color-paper-2)] py-24 border-y border-[var(--color-rule)]">
+      <section className="pb-32 bg-[var(--color-paper-2)] py-24 border-y border-[var(--color-rule)] dark:border-[#2D2A23]">
         <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
           <div className="mx-auto max-w-[680px] text-center mb-16">
             <JoyEyebrow className="mb-4">Safety &amp; Focus</JoyEyebrow>
@@ -147,11 +148,11 @@ export default function ParentsResourcePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 shadow-sm">
+            <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 shadow-sm">
               <div className="h-12 w-12 rounded-2xl bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center mb-6">
                 <Lock size={22} />
               </div>
-              <h3 className="text-[20px] font-semibold text-[var(--color-ink)] mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+              <h3 className="text-[20px] font-semibold text-[var(--color-ink)] mb-3" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                 Closed Learning Garden
               </h3>
               <p className="text-[15px] leading-[24px] text-[var(--color-ink)]/70">
@@ -159,11 +160,11 @@ export default function ParentsResourcePage() {
               </p>
             </div>
 
-            <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 shadow-sm">
-              <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6">
+            <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 shadow-sm">
+              <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 flex items-center justify-center mb-6">
                 <ShieldCheck size={22} />
               </div>
-              <h3 className="text-[20px] font-semibold text-[var(--color-ink)] mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+              <h3 className="text-[20px] font-semibold text-[var(--color-ink)] mb-3" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                 Syllabus-Bounded AI
               </h3>
               <p className="text-[15px] leading-[24px] text-[var(--color-ink)]/70">
@@ -171,11 +172,11 @@ export default function ParentsResourcePage() {
               </p>
             </div>
 
-            <div className="rounded-[24px] border border-[var(--color-rule)] bg-white p-8 shadow-sm">
-              <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-6">
+            <div className="rounded-[24px] border border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#1A1813] p-8 shadow-sm">
+              <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 flex items-center justify-center mb-6">
                 <Smartphone size={22} />
               </div>
-              <h3 className="text-[20px] font-semibold text-[var(--color-ink)] mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+              <h3 className="text-[20px] font-semibold text-[var(--color-ink)] mb-3" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                 Bank-Grade Billing
               </h3>
               <p className="text-[15px] leading-[24px] text-[var(--color-ink)]/70">
@@ -187,43 +188,20 @@ export default function ParentsResourcePage() {
       </section>
 
       {/* ── 4. Clear Answers (FAQ) ────────────────────────────────────────── */}
-      <section className="py-32">
-        <div className="max-w-[1240px] mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-5">
-            <JoyEyebrow className="mb-4">Parent FAQs</JoyEyebrow>
-            <JoyHeading>Clear answers to help you feel confident</JoyHeading>
-            <p className="mt-5 text-[17px] leading-[26px] text-[var(--color-ink)]/75">
-              Have specific questions about sponsoring your child’s preparation or setting up multiple accounts?
-              Our family support desk is always ready to assist.
-            </p>
-            <div className="mt-8">
-              <a
-                href="mailto:support@propellastudy.com"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-[var(--color-accent)]"
-              >
-                Contact Parent Support <ArrowRight size={16} />
-              </a>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 space-y-4">
-            {parentFaqs.map((faq, idx) => (
-              <details
-                key={idx}
-                className="group rounded-[20px] border border-[var(--color-rule)] bg-white p-6 open:border-[var(--color-accent)]/50 transition-all"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-[17px] text-[var(--color-ink)]">
-                  <span style={{ fontFamily: 'var(--font-display)' }}>{faq.q}</span>
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent-tint)] text-[var(--color-accent)] text-lg group-open:rotate-45 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="mt-4 text-[15.5px] leading-[25px] text-[var(--color-ink)]/75">{faq.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <JoyFaqSection
+        eyebrow="Parent FAQs"
+        title="Clear answers to help you feel confident"
+        subtitle={
+          <>
+            Have specific questions about sponsoring your child’s preparation or setting up multiple accounts?{' '}
+            <a href="mailto:support@propellastudy.com" className="font-semibold text-[var(--color-accent)] hover:underline inline-flex items-center gap-1">
+              Contact Parent Support →
+            </a>
+          </>
+        }
+        faqs={parentFaqs}
+        tone="paper"
+      />
     </div>
   )
 }
