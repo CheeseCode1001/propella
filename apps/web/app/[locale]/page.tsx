@@ -446,12 +446,12 @@ export default function HomePage() {
                 key={p.title}
                 className="flex w-[88%] shrink-0 snap-start flex-col items-center gap-6 sm:w-[600px] sm:flex-row"
               >
-                <div className="flex-1 rounded-[20px] bg-white p-6 ">
-                  <span className="inline-block rounded-full bg-[var(--color-paper-2)] px-3 py-1 text-[13px] font-semibold">
+                <div className="flex-1 rounded-[20px] bg-white p-6 text-black/80">
+                  <span className="inline-block rounded-full bg-[var(--color-accent)] text-white px-3 py-1 text-[13px] font-semibold">
                     {p.age}
                   </span>
                   <h3
-                    className="mt-4 text-[22px] font-semibold leading-[30px]"
+                    className="mt-4 text-[22px] font-semibold leading-[30px] text-"
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
                     {p.title}
@@ -504,7 +504,7 @@ export default function HomePage() {
                 loading="lazy"
               />
             </div>
-            <div className="absolute -bottom-8 -left-4 rounded-[18px] bg-white px-5 py-4 text-[var(--color-ink)] shadow-xl sm:-left-10">
+            <div className="absolute -bottom-8 -left-4 rounded-[18px] bg-white px-5 py-4 shadow-xl sm:-left-10">
               <p className="text-[32px] font-semibold leading-none" style={{ fontFamily: 'var(--font-display)' }}>
                 5.0
               </p>
@@ -580,7 +580,7 @@ export default function HomePage() {
                     style={{ backgroundColor: r.color, color: dark ? '#fff' : JOY.ink }}
                   >
                     <DoodleSwirl className={`absolute -bottom-10 -right-10 w-40 ${dark ? 'text-white/25' : 'text-black/10'}`} />
-                    <div className="flex flex-col items-center justify-between w-full h-full">
+                    <div className="flex flex-col items-start justify-between w-full h-full">
                       <span
                         className={`relative inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[13px] font-semibold ${dark ? 'bg-white/20' : 'bg-black/10'}`}
                       >

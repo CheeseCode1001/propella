@@ -42,7 +42,7 @@ function SocialIcon({ label, d }: { label: string; d: string }) {
     <a
       href="#"
       aria-label={label}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-ink)] text-[#FFE494] transition hover:bg-[var(--color-accent)] hover:text-white"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-ink)] dark:text-black/80 text-[#FFE494] transition hover:bg-[var(--color-accent)] hover:text-white"
     >
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
         <path d={d} />
@@ -54,7 +54,7 @@ function SocialIcon({ label, d }: { label: string; d: string }) {
 /** Joyloo-style warm-yellow footer with an embedded video CTA banner. */
 export function MarketingFooter() {
   return (
-    <footer className="relative mt-[80px] text-[#1A1917] bg-[#FFE494]">
+    <footer className="relative mt-[80px] text-[#1A1917] dark:text-[#1A1917] bg-[#FFE494]">
       <JoyEdge color="#FFE494" variant="b" />
 
       <div className="max-w-[1240px] mx-auto px-6 lg:px-8 pt-10 lg:pt-14">
@@ -97,14 +97,14 @@ export function MarketingFooter() {
         {/* Link grid */}
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-12">
           <div className="md:col-span-2 lg:col-span-6">
-            <Logo href="/" size={36} className="text-[20px] [&_span]:text-[#1A1917] dark:[&_span]:text-[#F4F0E6]" />
-            <p className="mt-5 max-w-[380px] text-[16px] leading-[24px] text-[#1A1917]/75 dark:text-[#F4F0E6]/75">
+            <Logo href="/" size={36} className="text-[20px] [&_span]:text-[#1A1917]" />
+            <p className="mt-5 max-w-[380px] text-[16px] leading-[24px] text-[#1A1917]/75">
               Nigeria&apos;s joyful, syllabus-first study companion for JAMB, WAEC, NECO and
               undergraduate scholars — guided by AI, built for distinction.
             </p>
             <a
               href="mailto:support@propellastudy.com"
-              className="mt-5 inline-flex items-center gap-2 text-[15px] font-semibold text-[#1A1917] dark:text-[#F4F0E6] hover:text-[var(--color-accent)]"
+              className="mt-5 inline-flex items-center gap-2 text-[15px] font-semibold text-[#1A1917] hover:text-[var(--color-accent)]"
             >
               <Mail size={16} /> support@propellastudy.com
             </a>
@@ -131,7 +131,7 @@ export function MarketingFooter() {
           {columns.map((col) => (
             <div key={col.title} className="lg:col-span-2">
               <h4
-                className="mb-5 text-[18px] font-semibold text-[#1A1917] dark:text-[#F4F0E6]"
+                className="mb-5 text-[18px] font-semibold text-[#1A1917]"
                 style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}
               >
                 {col.title}
@@ -141,7 +141,7 @@ export function MarketingFooter() {
                   <li key={l.label}>
                     <Link
                       href={l.href}
-                      className="text-[15px] text-[#1A1917]/75 dark:text-[#F4F0E6]/75 transition-colors hover:text-[var(--color-accent)]"
+                      className="text-[15px] text-[#1A1917]/75 transition-colors hover:text-[var(--color-accent)]"
                     >
                       {l.label}
                     </Link>
@@ -152,18 +152,18 @@ export function MarketingFooter() {
           ))}
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-[#1A1917]/15 dark:border-white/15 py-7 text-[14px] text-[#1A1917]/70 dark:text-[#F4F0E6]/70 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-[#1A1917]/15 dark:border-white/15 py-7 text-[14px] text-[#1A1917]/70  sm:flex-row">
           <p>© {new Date().getFullYear()} Propella EdTech Ltd. Built for African scholars.</p>
           <p>Lagos, Nigeria · Mon–Sat 8am–7pm</p>
         </div>
 
         {/* ── Propella infinite scrolling ticker at bottom of footer ── */}
-        <div className="overflow-hidden border-t border-[#1A1917]/15 dark:border-white/15 py-8 -mx-6 lg:-mx-8">
+        <div className="overflow-hidden border-t border-[#1A1917]/15  py-8 -mx-6 lg:-mx-8">
           <div className="flex w-max animate-joy-marquee select-none items-center gap-12 whitespace-nowrap">
             {Array.from({ length: 10 }, (_, i) => (
               <div key={i} className="flex items-center gap-10 shrink-0">
                 <span
-                  className="text-[64px] sm:text-[88px] lg:text-[110px] font-extrabold uppercase tracking-tight text-[#1A1917]/20 dark:text-white/20 hover:text-[var(--color-accent)] transition-colors duration-300"
+                  className="text-[64px] sm:text-[88px] lg:text-[110px] font-extrabold uppercase tracking-tight text-[#1A1917]/20 hover:text-[var(--color-accent)] transition-colors duration-300"
                   style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 800 }}
                 >
                   Propella
