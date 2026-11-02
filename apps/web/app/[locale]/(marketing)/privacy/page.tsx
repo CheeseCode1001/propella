@@ -43,7 +43,7 @@ export default function PrivacyPage() {
         <div className="max-w-[960px] mx-auto px-6 lg:px-8 space-y-10">
           {/* Introduction */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               1. Introduction
             </h2>
             <p className="text-[16.5px] leading-[27px] text-black/80">
