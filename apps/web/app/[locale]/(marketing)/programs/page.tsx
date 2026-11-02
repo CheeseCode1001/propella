@@ -143,12 +143,12 @@ export default function ProgramsPage() {
             >
               <div className="lg:col-span-7">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className="rounded-full bg-[var(--color-paper-2)] px-3.5 py-1 text-[13px] font-semibold">
+                  <span className="rounded-full bg-gray-400 px-3.5 py-1 text-[13px] font-semibold">
                     {p.age}
                   </span>
                   <JoyEyebrow tone="accent">{p.badge}</JoyEyebrow>
                 </div>
-                <JoyHeading as="h2" size="h2" className="text-[28px] text-black/80 sm:text-[34px] leading-tight">
+                <JoyHeading as="h2" size="h2" className="text-[28px] text-black sm:text-[34px] leading-tight">
                   {p.title}
                 </JoyHeading>
                 <p className="mt-4 text-[16.5px] leading-[26px] text-black/80">{p.desc}</p>
@@ -165,13 +165,13 @@ export default function ProgramsPage() {
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Link
                     href={`/programs/${p.slug}`}
-                    className="inline-flex items-center gap-2 rounded-full bg-black/90 px-6 py-3 text-[15px] font-semibold text-[var(--color-paper)] transition hover:bg-[var(--color-accent)] hover:text-white"
+                    className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-[15px] font-semibold text-white transition hover:bg-[var(--color-accent)]"
                   >
                     Program Details <ArrowUpRight size={16} />
                   </Link>
                   <Link
                     href="/signup"
-                    className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3 text-[15px] text-black/8 0 font-semibold hover:border-[var(--color-ink)]"
+                    className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3 text-[15px] text-[var(--color-accent)] font-semibold"
                   >
                     Start Free Trial
                   </Link>
