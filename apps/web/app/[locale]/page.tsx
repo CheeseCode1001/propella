@@ -258,7 +258,7 @@ const faqs = [
   },
   {
     q: 'Does Propella cover JAMB, WAEC and NECO?',
-    a: 'All three, plus 100L–500L undergraduate courses. Each board has its own syllabus mapping, so topics, questions and mocks are fully aligned.',
+    a: 'All three, plus 100L–500L for undergraduates who want to study. Each board has its own syllabus mapping, so topics, questions and mocks are fully aligned.',
   },
   {
     q: 'Can I study on my phone?',
@@ -306,7 +306,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="#programs"
-                className="inline-flex items-center rounded-full border border-[var(--color-rule-2)] bg-white px-7 py-3.5 text-[16px] font-semibold text-[var(--color-ink)] transition hover:border-[var(--color-ink)]"
+                className="inline-flex items-center rounded-full border border-[var(--color-rule-2)] bg-white dark:bg-[#1A1813] text-[var(--color-ink)] px-7 py-3.5 text-[16px] font-semibold transition hover:border-[var(--color-ink)] joy-btn-hover"
               >
                 View Programs
               </Link>

@@ -340,7 +340,7 @@ export default function PricingPage() {
 
       {/* 4 Plan Cards — Styled with Joyloo Design System */}
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
           {/* Free Tier */}
           <div className="flex flex-col justify-between rounded-[28px] border border-[var(--color-rule)] bg-white dark:bg-[#1A1813] p-8 shadow-sm joy-card-hover">
             <div>
@@ -385,7 +385,7 @@ export default function PricingPage() {
 
             <Button
               variant="secondary"
-              className="w-full rounded-full py-6 font-semibold border border-[var(--color-rule-2)] hover:border-[var(--color-ink)] joy-btn-hover"
+              className="w-full rounded-full py-5 font-semibold border border-[var(--color-rule-2)] hover:border-[var(--color-ink)] joy-btn-hover"
               asChild
             >
               <Link href="/signup">Get Started Free</Link>
@@ -445,7 +445,7 @@ export default function PricingPage() {
 
             <Button
               variant="secondary"
-              className="w-full rounded-full py-6 font-semibold border border-[var(--color-accent)]/40 hover:bg-[var(--color-accent-tint)] text-[var(--color-accent)] joy-btn-hover"
+              className="w-full rounded-full py-5 font-semibold border border-[var(--color-accent)]/40 hover:bg-[var(--color-accent-tint)] text-[var(--color-accent)] joy-btn-hover"
               disabled={checkoutLoading !== null}
               onClick={() => handlePlanCheckout('scholar_basic')}
             >
@@ -514,7 +514,7 @@ export default function PricingPage() {
             </div>
 
             <Button
-              className="w-full rounded-full py-6 font-semibold bg-[#1A1917] text-white hover:bg-[var(--color-accent)] shadow-md joy-btn-hover"
+              className="w-full rounded-full py-5 font-semibold bg-[#1A1917] text-white hover:bg-[var(--color-accent)] shadow-md joy-btn-hover"
               disabled={checkoutLoading !== null}
               onClick={() => handlePlanCheckout('scholar_shared')}
             >
@@ -582,7 +582,7 @@ export default function PricingPage() {
 
             <Button
               variant="secondary"
-              className="w-full rounded-full py-6 font-semibold border border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 joy-btn-hover"
+              className="w-full rounded-full py-5 font-semibold border border-emerald-500/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 joy-btn-hover"
               disabled={checkoutLoading !== null}
               onClick={() => handlePlanCheckout('scholar_full')}
             >

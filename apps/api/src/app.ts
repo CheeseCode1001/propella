@@ -5,6 +5,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import 'express-async-errors'
 import { env } from './config/env'
+import { prisma } from './config/db'
 import { errorHandler, AppError } from './middleware/error-handler'
 import { authenticate } from './middleware/auth'
 import authRoutes from './features/auth/auth.routes'
@@ -124,10 +125,33 @@ app.use(
 app.use(express.urlencoded({ extended: false, limit: '25mb' }))
 app.use(cookieParser())
 
-// Health check (before auth)
-app.get('/health', (_req, res) => {
-  res.status(200).json({ status: 'ok', timestamp: Date.now() })
-})
+// Health & heartbeat check (before auth)
+// Crucial: Runs `SELECT 1` on PostgreSQL.
+// 1. Keeps Render backend awake (prevents spinning down after 15m of inactivity).
+// 2. Records active SQL traffic on Supabase (prevents Supabase from pausing after 7 days of inactivity).
+const healthCheckHandler = async (_req: express.Request, res: express.Response) => {
+  const start = Date.now()
+  try {
+    await prisma.$queryRaw`SELECT 1`
+    const latencyMs = Date.now() - start
+    res.status(200).json({
+      status: 'ok',
+      db: 'connected',
+      latencyMs,
+      timestamp: new Date().toISOString(),
+    })
+  } catch (error: any) {
+    res.status(503).json({
+      status: 'degraded',
+      db: 'disconnected',
+      error: error?.message ?? 'Database query failed',
+      timestamp: new Date().toISOString(),
+    })
+  }
+}
+
+app.get('/health', healthCheckHandler)
+app.get('/api/health', healthCheckHandler)
 
 // Feature routes
 app.use('/api/auth', authRoutes)

@@ -15,6 +15,7 @@
     "db:resolve": "prisma migrate resolve",
     "db:studio": "prisma studio",
     "dev": "tsx watch src/server.ts",
+    "keep-alive": "tsx scripts/keep-alive.ts",
     "postinstall": "prisma generate",
     "push:keys": "tsx scripts/generate-vapid-keys.ts",
     "seed": "tsx src/seeds/run-seed.ts",

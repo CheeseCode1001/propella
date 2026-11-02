@@ -19,7 +19,9 @@
     "db:push": "pnpm --filter @propella/api db:push",
     "db:studio": "pnpm --filter @propella/api db:studio",
     "seed": "pnpm --filter @propella/api seed",
-    "test": "pnpm --filter @propella/api test"
+    "test": "pnpm --filter @propella/api test",
+    "keep-alive": "node scripts/keep-alive.mjs",
+    "keep-alive:daemon": "node scripts/keep-alive.mjs --daemon"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

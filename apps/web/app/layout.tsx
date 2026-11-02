@@ -36,6 +36,7 @@ const parkinsans = Parkinsans({
   weight: ['400', '500', '600', '700'],
   variable: '--font-parkinsans',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 const sourceSans = Source_Sans_3({

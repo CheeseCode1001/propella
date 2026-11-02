@@ -1,0 +1,38 @@
+name: Keep-Alive 24/7 Heartbeat
+
+on:
+  schedule:
+    # Runs every 14 minutes to prevent Render free-tier from spinning down (15m inactivity timeout)
+    # and keeps Supabase PostgreSQL database active (prevents auto-pause after 7 days)
+    - cron: '*/14 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  heartbeat:
+    name: Ping Backend & Database
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Propella Keep-Alive Script
+        env:
+          API_URL: ${{ secrets.API_URL || 'https://propella-uo1q.onrender.com' }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          node scripts/keep-alive.mjs
+
+      - name: Fallback Direct Health Ping via Curl
+        if: always()
+        run: |
+          API_TARGET="${{ secrets.API_URL || 'https://propella-uo1q.onrender.com' }}"
+          echo "Verifying HTTP /health on $API_TARGET/health..."
+          curl -s -f -m 60 "$API_TARGET/health" || echo "Note: Ping attempted."
+

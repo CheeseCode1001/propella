@@ -45,11 +45,12 @@ const supportChannels = [
     detail: '+234 (0) 812 345 6789',
     href: 'https://wa.me/2348123456789',
     badge: 'WhatsApp & Phone',
-    cardBg: 'bg-[#FFF0E6] border-[#FFD3BE] dark:bg-[#2C1910] dark:border-[#522D1B]',
-    iconBg: 'bg-[var(--color-accent)] text-white',
-    badgeClass: 'bg-white/90 dark:bg-white/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20',
-    linkClass: 'text-[var(--color-accent)]',
+    cardBg: 'bg-[#F8642B] border-[#E0531D] text-white',
+    iconBg: 'bg-white text-[#F8642B]',
+    badgeClass: 'bg-white/20 text-white border border-white/30',
+    linkClass: 'text-white hover:text-white/90',
     icon: Phone,
+    dark: true,
   },
   {
     title: 'Email Address',
@@ -57,11 +58,12 @@ const supportChannels = [
     detail: 'support@propellastudy.com',
     href: 'mailto:support@propellastudy.com',
     badge: 'Under 2-hour response',
-    cardBg: 'bg-[#EAF8EE] border-[#BCE8CA] dark:bg-[#122A1A] dark:border-[#1E4D2C]',
-    iconBg: 'bg-[#2EBB5E] text-white',
-    badgeClass: 'bg-white/90 dark:bg-white/10 text-[#208341] dark:text-[#52D27E] border border-[#2EBB5E]/20',
-    linkClass: 'text-[#208341] dark:text-[#52D27E]',
+    cardBg: 'bg-[#2EBB5E] border-[#249B4C] text-white',
+    iconBg: 'bg-white text-[#2EBB5E]',
+    badgeClass: 'bg-white/20 text-white border border-white/30',
+    linkClass: 'text-white hover:text-white/90',
     icon: Mail,
+    dark: true,
   },
   {
     title: 'Visit Us',
@@ -69,11 +71,12 @@ const supportChannels = [
     detail: 'Yaba Innovation Hub, Lagos',
     href: 'https://maps.google.com',
     badge: 'Learning Center',
-    cardBg: 'bg-[#EDF5FD] border-[#C4DEF8] dark:bg-[#112438] dark:border-[#1B3F63]',
-    iconBg: 'bg-[#58A5EF] text-white',
-    badgeClass: 'bg-white/90 dark:bg-white/10 text-[#2671BC] dark:text-[#76B5F4] border border-[#58A5EF]/20',
-    linkClass: 'text-[#2671BC] dark:text-[#76B5F4]',
+    cardBg: 'bg-[#3B82F6] border-[#2563EB] text-white',
+    iconBg: 'bg-white text-[#3B82F6]',
+    badgeClass: 'bg-white/20 text-white border border-white/30',
+    linkClass: 'text-white hover:text-white/90',
     icon: MapPin,
+    dark: true,
   },
   {
     title: 'Operating Hours',
@@ -81,11 +84,12 @@ const supportChannels = [
     detail: 'Open 6 Days a Week',
     href: '#faq',
     badge: 'Live Academic Staff',
-    cardBg: 'bg-[#FFFBEA] border-[#FDE89A] dark:bg-[#2F260C] dark:border-[#534316]',
-    iconBg: 'bg-[#FFAD28] text-[#1A1917]',
-    badgeClass: 'bg-white/90 dark:bg-white/10 text-[#8F5E00] dark:text-[#F3BA50] border border-[#FFAD28]/30',
-    linkClass: 'text-[#8F5E00] dark:text-[#F3BA50]',
+    cardBg: 'bg-[#FFB800] border-[#E5A500] text-[#1A1917]',
+    iconBg: 'bg-[#1A1917] text-[#FFB800]',
+    badgeClass: 'bg-[#1A1917]/10 text-[#1A1917] border border-[#1A1917]/20',
+    linkClass: 'text-[#1A1917] hover:text-black',
     icon: Clock,
+    dark: false,
   },
 ]
 
@@ -308,48 +312,65 @@ export default function ContactEnrollmentPage() {
                     <JoyStaggerItem key={c.title}>
                       <div
                         className={cn(
-                          'rounded-[26px] border p-7 shadow-sm joy-card-hover transition-all',
+                          'relative overflow-hidden rounded-[26px] border p-7 shadow-sm joy-card-hover transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
                           c.cardBg,
                         )}
                       >
-                        <div className="flex items-start justify-between gap-4 mb-4">
-                          <div
-                            className={cn(
-                              'h-12 w-12 rounded-2xl flex items-center justify-center font-bold shrink-0 shadow-sm',
-                              c.iconBg,
-                            )}
-                          >
-                            <Icon size={22} />
-                          </div>
-                          <span
-                            className={cn(
-                              'rounded-full px-3.5 py-1 text-[13.5px] font-normal tracking-wide',
-                              c.badgeClass,
-                            )}
-                            style={{ fontFamily: "'Caveat Brush', cursive" }}
-                          >
-                            {c.badge}
-                          </span>
-                        </div>
+                        {/* Decorative Swirl matching Joyloo contact enrollment */}
+                        <DoodleSwirl
+                          className={`absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 hover:rotate-12 ${
+                            c.dark ? 'text-white/25' : 'text-black/10'
+                          }`}
+                        />
 
-                        <h3
-                          className="text-[20px] font-semibold text-[var(--color-ink)] mb-1.5"
-                          style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}
-                        >
-                          {c.title}
-                        </h3>
-                        <p className="text-[14.5px] text-[var(--color-ink)]/75 leading-relaxed mb-4">
-                          {c.description}
-                        </p>
-                        <a
-                          href={c.href}
-                          className={cn(
-                            'inline-flex items-center gap-2 text-[15px] font-semibold hover:underline',
-                            c.linkClass,
-                          )}
-                        >
-                          {c.detail} <ArrowRight size={15} />
-                        </a>
+                        <div className="relative z-10">
+                          <div className="flex items-start justify-between gap-4 mb-4">
+                            <div
+                              className={cn(
+                                'h-12 w-12 rounded-2xl flex items-center justify-center font-bold shrink-0 shadow-sm',
+                                c.iconBg,
+                              )}
+                            >
+                              <Icon size={22} />
+                            </div>
+                            <span
+                              className={cn(
+                                'rounded-full px-3.5 py-1 text-[13.5px] font-normal tracking-wide',
+                                c.badgeClass,
+                              )}
+                              style={{ fontFamily: "'Caveat Brush', cursive" }}
+                            >
+                              {c.badge}
+                            </span>
+                          </div>
+
+                          <h3
+                            className={cn(
+                              'text-[20px] font-semibold mb-1.5',
+                              c.dark ? 'text-white' : 'text-[#1A1917]',
+                            )}
+                            style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}
+                          >
+                            {c.title}
+                          </h3>
+                          <p
+                            className={cn(
+                              'text-[14.5px] leading-relaxed mb-4',
+                              c.dark ? 'text-white/90' : 'text-[#1A1917]/80',
+                            )}
+                          >
+                            {c.description}
+                          </p>
+                          <a
+                            href={c.href}
+                            className={cn(
+                              'inline-flex items-center gap-2 text-[15px] font-semibold hover:underline',
+                              c.linkClass,
+                            )}
+                          >
+                            {c.detail} <ArrowRight size={15} />
+                          </a>
+                        </div>
                       </div>
                     </JoyStaggerItem>
                   )
