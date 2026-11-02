@@ -89,9 +89,9 @@ function SubjectMarker({ color, label }: { color: string; label: string }) {
   )
 }
 
-// ---- Main page ----
+// ---- Main Component (Preserved in code for design reference) ----
 
-export default function DesignSystemPage() {
+export function DesignSystemReference() {
   const { theme, setTheme } = useTheme()
   const { toast } = useToast()
   const [counterValue, setCounterValue] = useState(1234)
@@ -499,3 +499,4 @@ export default function DesignSystemPage() {
     </div>
   )
 }
+export default DesignSystemReference

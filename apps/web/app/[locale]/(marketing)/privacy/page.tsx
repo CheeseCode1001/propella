@@ -46,7 +46,7 @@ export default function PrivacyPage() {
             <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               1. Introduction
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               Propella EdTech Ltd (&ldquo;Propella&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) provides an intelligent digital study companion
               for candidates preparing for Joint Admissions and Matriculation Board (JAMB) UTME, West African Senior School
               Certificate Examination (WAEC), National Examinations Council (NECO), and tertiary undergraduate courses.
@@ -57,13 +57,13 @@ export default function PrivacyPage() {
 
           {/* Personal Information */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               2. Personal Information We Collect
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80 mb-4">
+            <p className="text-[16.5px] leading-[27px] text-black/80 mb-4">
               To build an accurate syllabus roadmap and authenticate your account, we collect:
             </p>
-            <ul className="space-y-3 text-[16px] text-[var(--color-ink)]/80">
+            <ul className="space-y-3 text-[16px] text-black/80">
               <li className="flex items-start gap-3">
                 <CheckCircle2 size={18} className="text-[var(--color-accent)] shrink-0 mt-1" />
                 <span><strong>Account Credentials:</strong> Full name, email address, password hash, and optional phone number.</span>
@@ -81,23 +81,23 @@ export default function PrivacyPage() {
 
           {/* Non-Personal Information & AI */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               3. AI Tutoring &amp; Document AI Protection
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80 mb-4">
+            <p className="text-[16.5px] leading-[27px] text-black/80 mb-4">
               Your conversations with the Propella AI tutor and any uploaded university lecture slides are strictly private.
             </p>
-            <div className="rounded-2xl bg-[var(--color-paper-2)] p-5 text-[15.5px] leading-[25px] text-[var(--color-ink)]/85">
+            <div className="rounded-2xl bg-[var(--color-accent)] p-5 text-[15.5px] leading-[25px] text-white">
               <strong>Zero Advertising or Selling:</strong> We never sell, monetize, or rent student questions, lecture files, or personal information to third-party advertisers or data brokers.
             </div>
           </div>
 
           {/* Payment Information & Paystack */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               4. Payment Security &amp; Saved Cards
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               When activating a paid scholar plan (including the 3-day welcome discount from ₦999), all card payments
               are processed directly through Paystack (PCI-DSS Level 1 certified). Propella does not store full 16-digit card
               numbers or CVV codes on our servers. Encrypted authorization tokens are used to execute monthly renewals,
@@ -107,10 +107,10 @@ export default function PrivacyPage() {
 
           {/* Cookies & Tracking */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               5. Cookies and Local Storage
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               We use essential cookies and browser local storage strictly to keep you securely signed in, preserve your
               quiz answers if your network drops, and remember your visual display preferences. We do not use third-party
               cross-site tracking cookies.
@@ -119,10 +119,10 @@ export default function PrivacyPage() {
 
           {/* Contact */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               6. Contact Our Privacy Office
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               If you have any questions, wish to request data deletion, or want to export your study records, contact our
               Data Protection Team at{' '}
               <a href="mailto:privacy@propellastudy.com" className="font-semibold text-[var(--color-accent)] hover:underline">

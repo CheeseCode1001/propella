@@ -30,7 +30,6 @@ const columns = [
     title: 'Resources & Legal',
     links: [
       { label: 'Student Login', href: '/login' },
-      { label: 'Design System', href: '/design-system' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
     ],

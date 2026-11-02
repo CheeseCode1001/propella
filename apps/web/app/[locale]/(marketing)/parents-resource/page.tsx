@@ -74,7 +74,7 @@ export default function ParentsResourcePage() {
           <div className="rounded-[32px] border border-[var(--color-rule)] bg-white p-8 lg:p-14 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
               <JoyEyebrow tone="accent" className="mb-4">Live Supervision</JoyEyebrow>
-              <JoyHeading as="h2" size="h2" className="text-[28px] text-black/70 sm:text-[36px] mb-5">
+              <JoyHeading as="h2" size="h2" className="text-[28px] text-black/90 sm:text-[36px] mb-5">
                 Stay connected all day
               </JoyHeading>
               <p className="text-[17px] leading-[27px] mb-8 text-black/70">

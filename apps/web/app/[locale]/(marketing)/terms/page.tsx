@@ -43,10 +43,10 @@ export default function TermsPage() {
         <div className="max-w-[960px] mx-auto px-6 lg:px-8 space-y-10">
           {/* 1. Acceptance */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               1. Acceptance of Terms
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               By accessing or creating an account on Propella (via web or mobile app), you agree to comply with and be bound
               by these Terms of Service. If you are under the age of 18, you confirm that your parent, guardian, or school
               sponsor has reviewed and consented to these terms on your behalf.
@@ -55,14 +55,14 @@ export default function TermsPage() {
 
           {/* 2. Welcome Discount & Subscriptions */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               2. Subscriptions, 3-Day Welcome Discount &amp; Renewal
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80 mb-4">
+            <p className="text-[16.5px] leading-[27px] text-black/80 mb-4">
               To lower entry barriers, Propella offers a 50% discount on all paid plans during a 3-day (72-hour) promotional window
               from the time of user registration (Basic Plan from ₦999/month; Shared Plan from ₦1,499/month; Full Pass from ₦4,999).
             </p>
-            <ul className="space-y-3 text-[16px] text-[var(--color-ink)]/80">
+            <ul className="space-y-3 text-[16px] text-black/80">
               <li className="flex items-start gap-3">
                 <CheckCircle2 size={18} className="text-[var(--color-accent)] shrink-0 mt-1" />
                 <span><strong>Automatic Monthly Renewal:</strong> Subscriptions renew automatically at the standard price after the first discounted billing cycle to prevent promotional abuse.</span>
@@ -80,10 +80,10 @@ export default function TermsPage() {
 
           {/* 3. License */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               3. Limited License &amp; Permitted Use
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               Propella grants each registered scholar a non-exclusive, non-transferable, revocable license to access our question bank,
               syllabus roadmaps, and AI tutoring services for personal academic preparation. Scraping questions, sharing single-user logins,
               or commercially redistributing Propella explanations without prior written consent is strictly prohibited.
@@ -92,10 +92,10 @@ export default function TermsPage() {
 
           {/* 4. Content Liability */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               4. Content Liability &amp; Academic Integrity
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               Propella is an independent educational prep platform. Past examination questions are compiled from publicly available
               archive papers for study and review purposes. Propella is not affiliated with, endorsed by, or partnered with JAMB,
               WAEC, or NECO. Official syllabi belong to their respective exam boards.
@@ -104,10 +104,10 @@ export default function TermsPage() {
 
           {/* 5. Disclaimers */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               5. Disclaimers &amp; Examination Outcomes
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               While our syllabus-first roadmaps, predictive scores, and active CBT drills are designed to maximise scores, individual
               examination performance depends on the candidate’s personal effort, attendance, and exam conditions. Propella makes no
               guarantee of specific university admission or final grades.
@@ -116,10 +116,10 @@ export default function TermsPage() {
 
           {/* 6. Contact Support */}
           <div className="rounded-[28px] border border-[var(--color-rule)] bg-white p-8 sm:p-12 shadow-sm">
-            <h2 className="text-[26px] font-semibold text-[var(--color-ink)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-[26px] font-semibold text-black mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               6. Contact Us
             </h2>
-            <p className="text-[16.5px] leading-[27px] text-[var(--color-ink)]/80">
+            <p className="text-[16.5px] leading-[27px] text-black/80">
               For billing questions, subscription adjustments, or terms clarifications, please email our support team at{' '}
               <a href="mailto:support@propellastudy.com" className="font-semibold text-[var(--color-accent)] hover:underline">
                 support@propellastudy.com
