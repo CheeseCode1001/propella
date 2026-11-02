@@ -13,10 +13,10 @@ export function Logo({ className, href = '/', size = 32, showText = true }: Logo
     <Link
       href={href}
       className={cn(
-        'inline-flex items-center gap-2.5 font-display font-medium text-[var(--color-ink)] tracking-tight no-underline group',
+        'inline-flex items-center gap-2.5 text-[var(--color-ink)] tracking-tight no-underline group select-none',
         className,
       )}
-      style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}
+      style={{ fontFamily: "'Parkinsans', sans-serif", letterSpacing: '-0.01em' }}
     >
       <div
         className="relative shrink-0 overflow-hidden rounded-[10px] shadow-sm transition-transform duration-200 group-hover:scale-105"
@@ -24,7 +24,7 @@ export function Logo({ className, href = '/', size = 32, showText = true }: Logo
       >
         <img
           src="/logo.png"
-          alt="Propella logo"
+          alt="Propella"
           width={size}
           height={size}
           className="h-full w-full object-cover"

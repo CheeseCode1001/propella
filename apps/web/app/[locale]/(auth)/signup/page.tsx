@@ -10,13 +10,8 @@ import { Eye, EyeOff } from 'lucide-react'
 import { Gift } from 'iconsax-reactjs'
 import { useTranslations } from 'next-intl'
 import { SignupSchema } from '@propella/shared'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
 import { api } from '@/lib/api-client'
 import { useAuthStore } from '@/lib/stores/auth-store'
-import type { AuthUser } from '@propella/shared'
 
 const SignupFormSchema = SignupSchema.extend({
   terms: z.literal(true, {
@@ -41,7 +36,7 @@ function getPasswordStrength(password: string): number {
 function PasswordStrengthBar({ password }: { password: string }) {
   const strength = getPasswordStrength(password)
   return (
-    <div className="flex gap-1 mt-2">
+    <div className="flex gap-1.5 mt-2">
       {[1, 2, 3, 4].map((level) => (
         <div
           key={level}
@@ -50,7 +45,7 @@ function PasswordStrengthBar({ password }: { password: string }) {
             backgroundColor:
               level <= strength
                 ? 'var(--color-accent)'
-                : 'var(--color-paper-3)',
+                : 'var(--color-rule-2)',
           }}
         />
       ))}
@@ -61,8 +56,6 @@ function PasswordStrengthBar({ password }: { password: string }) {
 export default function SignupPage() {
   const t = useTranslations('auth')
   const router = useRouter()
-  const setUser = useAuthStore((s) => s.setUser)
-  const setToken = useAuthStore((s) => s.setAccessToken)
   const logout = useAuthStore((s) => s.logout)
   const [serverError, setServerError] = useState<string | null>(null)
   const [passwordValue, setPasswordValue] = useState('')
@@ -77,7 +70,6 @@ export default function SignupPage() {
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
     formState: { errors, isSubmitting },
   } = useForm<SignupFormValues>({
@@ -96,209 +88,225 @@ export default function SignupPage() {
     setServerError(null)
     const code = (data.referralCode || initialRef || '').trim()
     try {
-      // Clear any stale local auth state before signing up
       logout()
 
       await api.post<{ data: { pendingVerification: boolean; email: string } }>('/auth/signup', {
         name: data.name,
         email: data.email,
         password: data.password,
-        // An unknown code is ignored server-side rather than failing sign-up.
         ...(code ? { referralCode: code } : {}),
       })
-      // Account is not created until email verification code is confirmed
       router.push('/verify-email?email=' + encodeURIComponent(data.email))
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'Something went wrong')
+      setServerError(err instanceof Error ? err.message : 'Something went wrong during signup')
     }
   }
 
   return (
-    <Card variant="elevated">
-      <CardContent className="p-8">
-        <div className="mb-6">
-          <h1
-            className="text-[22px] font-semibold text-[var(--color-ink)] leading-[1.3] mb-1"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            {t('signup')}
-          </h1>
-          <p className="text-[13px] text-[var(--color-ink-2)]">
-            Five minutes to set up. Then we build your roadmap.
+    <div className="w-full">
+      {/* Title & Subtitle */}
+      <div className="mb-7">
+        <h1
+          className="text-[28px] sm:text-[34px] font-bold text-[var(--color-ink)] leading-[1.2] mb-2 tracking-tight"
+          style={{ fontFamily: "'Parkinsans', sans-serif" }}
+        >
+          Create Your Account
+        </h1>
+        <p className="text-[15px] text-[var(--color-ink-2)]">
+          Join thousands of Nigerian scholars acing their exams
+        </p>
+      </div>
+
+      {/* Confirms the invite was picked up */}
+      {activeReferralCode && (
+        <div
+          className="mb-5 flex items-start gap-2.5 rounded-xl px-3.5 py-3 border border-[var(--color-accent)]/20"
+          style={{ backgroundColor: 'var(--color-accent-tint)' }}
+        >
+          <Gift
+            size={17}
+            color="var(--color-accent)"
+            variant="Bold"
+            style={{ flexShrink: 0, marginTop: 1 }}
+          />
+          <p className="text-[12.5px] leading-[1.55] text-[var(--color-ink-2)]">
+            You were invited with code{' '}
+            <strong className="text-[var(--color-ink)]">{activeReferralCode.toUpperCase()}</strong>.
+            Confirm your email after signing up to unlock AI bonus study credits!
           </p>
         </div>
+      )}
 
-        {/* Confirms the invite was picked up, so it does not apply silently. */}
-        {activeReferralCode && (
-          <div
-            className="mb-5 flex items-start gap-2.5 rounded-[var(--radius-md)] px-3.5 py-3"
-            style={{ backgroundColor: 'var(--color-accent-tint)' }}
+      <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-4.5">
+        {/* Full Name */}
+        <div>
+          <label
+            htmlFor="name"
+            className="block text-[13.5px] font-semibold text-[var(--color-ink)] mb-1.5"
           >
-            <Gift
-              size={17}
-              color="var(--color-accent)"
-              variant="Bold"
-              style={{ flexShrink: 0, marginTop: 1 }}
+            Full Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            autoComplete="name"
+            placeholder="Chinedu Okafor"
+            className={`w-full rounded-xl border bg-transparent dark:bg-[#1A1813] px-4 py-3.5 text-[15px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-3)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 ${
+              errors.name
+                ? 'border-[var(--color-danger)] focus:border-[var(--color-danger)]'
+                : 'border-[var(--color-rule-2)] hover:border-[var(--color-ink)]/40 focus:border-[var(--color-accent)]'
+            }`}
+            {...register('name')}
+          />
+          {errors.name && (
+            <p className="mt-1.5 text-[12.5px] text-[var(--color-danger)]">{errors.name.message}</p>
+          )}
+        </div>
+
+        {/* Email Address */}
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-[13.5px] font-semibold text-[var(--color-ink)] mb-1.5"
+          >
+            Email Address
+          </label>
+          <input
+            id="email"
+            type="email"
+            autoComplete="email"
+            placeholder="chinedu@example.com"
+            className={`w-full rounded-xl border bg-transparent dark:bg-[#1A1813] px-4 py-3.5 text-[15px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-3)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 ${
+              errors.email
+                ? 'border-[var(--color-danger)] focus:border-[var(--color-danger)]'
+                : 'border-[var(--color-rule-2)] hover:border-[var(--color-ink)]/40 focus:border-[var(--color-accent)]'
+            }`}
+            {...register('email')}
+          />
+          {errors.email && (
+            <p className="mt-1.5 text-[12.5px] text-[var(--color-danger)]">{errors.email.message}</p>
+          )}
+        </div>
+
+        {/* Password with Strength Bar */}
+        <div>
+          <label
+            htmlFor="password"
+            className="block text-[13.5px] font-semibold text-[var(--color-ink)] mb-1.5"
+          >
+            Password
+          </label>
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="new-password"
+              placeholder="At least 8 characters"
+              className={`w-full rounded-xl border bg-transparent dark:bg-[#1A1813] px-4 py-3.5 pr-11 text-[15px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-3)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 ${
+                errors.password
+                  ? 'border-[var(--color-danger)] focus:border-[var(--color-danger)]'
+                  : 'border-[var(--color-rule-2)] hover:border-[var(--color-ink)]/40 focus:border-[var(--color-accent)]'
+              }`}
+              {...register('password', {
+                onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPasswordValue(e.target.value),
+              })}
             />
-            <p className="text-[12.5px] leading-[1.55] text-[var(--color-ink-2)]">
-              You were invited with code{' '}
-              <strong className="text-[var(--color-ink)]">{activeReferralCode.toUpperCase()}</strong>.
-              Confirm your email after signing up and you both get AI credits.
-            </p>
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-ink-3)] hover:text-[var(--color-ink)] p-1 transition-colors"
+            >
+              {showPassword ? <EyeOff size={18} strokeWidth={1.75} /> : <Eye size={18} strokeWidth={1.75} />}
+            </button>
+          </div>
+          <PasswordStrengthBar password={passwordValue} />
+          {errors.password && (
+            <p className="mt-1.5 text-[12.5px] text-[var(--color-danger)]">{errors.password.message}</p>
+          )}
+        </div>
+
+        {/* Referral Code (Optional) */}
+        <div>
+          <label htmlFor="referralCode" className="flex items-center gap-1.5 text-[13px] font-medium text-[var(--color-ink)] mb-1.5">
+            <Gift size={14} color="var(--color-accent)" variant="Linear" />
+            <span>Referral Code</span>
+            <span className="text-[12px] font-normal text-[var(--color-ink-3)]">(Optional)</span>
+          </label>
+          <input
+            id="referralCode"
+            type="text"
+            autoCapitalize="characters"
+            placeholder="e.g. PROP-AB12"
+            className="w-full rounded-xl border border-[var(--color-rule-2)] bg-transparent dark:bg-[#1A1813] px-4 py-3 text-[14px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-3)] transition-all focus:outline-none focus:border-[var(--color-accent)]"
+            {...register('referralCode')}
+          />
+          {errors.referralCode && (
+            <p className="mt-1.5 text-[12.5px] text-[var(--color-danger)]">{errors.referralCode.message}</p>
+          )}
+        </div>
+
+        {/* Terms of Service Checkbox */}
+        <div className="pt-1">
+          <div className="flex items-start gap-2.5">
+            <input
+              id="terms"
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 rounded border-[var(--color-rule-2)] text-[var(--color-accent)] accent-[var(--color-accent)] cursor-pointer"
+              {...register('terms')}
+            />
+            <label
+              htmlFor="terms"
+              className="text-[13px] text-[var(--color-ink-2)] leading-[1.5] cursor-pointer select-none"
+            >
+              I agree to the{' '}
+              <Link
+                href="/terms"
+                className="text-[var(--color-accent)] hover:underline underline-offset-[3px]"
+              >
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link
+                href="/privacy"
+                className="text-[var(--color-accent)] hover:underline underline-offset-[3px]"
+              >
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
+          {errors.terms && (
+            <p className="mt-1.5 text-[12.5px] text-[var(--color-danger)]">{errors.terms.message}</p>
+          )}
+        </div>
+
+        {serverError && (
+          <div className="text-[13px] text-[var(--color-danger)] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl px-4 py-3">
+            {serverError}
           </div>
         )}
 
-        <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
-          <div>
-            <Label htmlFor="name">{t('fullName')}</Label>
-            <Input
-              id="name"
-              type="text"
-              autoComplete="name"
-              placeholder="Ada Lovelace"
-              error={errors.name?.message}
-              {...register('name')}
-            />
-            {errors.name && (
-              <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.name.message}</p>
-            )}
-          </div>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full rounded-xl bg-[#1A1917] dark:bg-white text-white dark:text-[#1A1917] hover:bg-[var(--color-accent)] dark:hover:bg-[var(--color-accent)] dark:hover:text-white py-4 font-semibold text-[15.5px] tracking-wide transition-all duration-200 shadow-none hover:shadow-md disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+        >
+          {isSubmitting ? 'Creating account...' : 'Create Account'}
+        </button>
+      </form>
 
-          <div>
-            <Label htmlFor="email">{t('email')}</Label>
-            <Input
-              id="email"
-              type="email"
-              autoComplete="email"
-              placeholder="you@example.com"
-              error={errors.email?.message}
-              {...register('email')}
-            />
-            {errors.email && (
-              <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <div style={{ position: 'relative' }}>
-              <Input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                autoComplete="new-password"
-                placeholder="At least 8 characters"
-                className="pr-10"
-                error={errors.password?.message}
-                {...register('password', {
-                  onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-                    setPasswordValue(e.target.value),
-                })}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((v) => !v)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-                style={{
-                  position: 'absolute',
-                  right: 12,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  padding: 0,
-                  cursor: 'pointer',
-                  color: 'var(--color-ink-3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                {showPassword ? <EyeOff size={16} strokeWidth={1.5} /> : <Eye size={16} strokeWidth={1.5} />}
-              </button>
-            </div>
-            <PasswordStrengthBar password={passwordValue} />
-            {errors.password && (
-              <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.password.message}</p>
-            )}
-          </div>
-
-          <div>
-            <Label htmlFor="referralCode" className="flex items-center gap-1.5">
-              <Gift size={14} color="var(--color-accent)" variant="Linear" />
-              Referral code <span className="text-[12px] font-normal text-[var(--color-ink-3)]">(Optional)</span>
-            </Label>
-            <Input
-              id="referralCode"
-              type="text"
-              autoCapitalize="characters"
-              placeholder="e.g. PROP-AB12"
-              error={errors.referralCode?.message}
-              {...register('referralCode')}
-            />
-            {errors.referralCode && (
-              <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.referralCode.message}</p>
-            )}
-          </div>
-
-          <div>
-            <div className="flex items-start gap-3">
-              <input
-                id="terms"
-                type="checkbox"
-                className="mt-0.5 h-4 w-4 rounded border-[var(--color-rule-2)] accent-[var(--color-accent)] cursor-pointer"
-                {...register('terms')}
-              />
-              <label
-                htmlFor="terms"
-                className="text-[13px] text-[var(--color-ink-2)] leading-[1.5] cursor-pointer"
-              >
-                I agree to the{' '}
-                <Link
-                  href="/terms"
-                  className="text-[var(--color-accent)] hover:underline underline-offset-[3px] decoration-[1px]"
-                >
-                  Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link
-                  href="/privacy"
-                  className="text-[var(--color-accent)] hover:underline underline-offset-[3px] decoration-[1px]"
-                >
-                  Privacy Policy
-                </Link>
-              </label>
-            </div>
-            {errors.terms && (
-              <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.terms.message}</p>
-            )}
-          </div>
-
-          {serverError && (
-            <p className="text-[13px] text-[var(--color-danger)] bg-[var(--color-paper-2)] border border-[var(--color-rule)] rounded-[var(--radius-sm)] px-3 py-2">
-              {serverError}
-            </p>
-          )}
-
-          <Button
-            type="submit"
-            variant="accent"
-            size="lg"
-            className="w-full"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? `${t('creatingAccount')}...` : t('signup')}
-          </Button>
-        </form>
-
-        <p className="mt-6 text-center text-[13px] text-[var(--color-ink-2)]">
-          {t('haveAccount')}{' '}
-          <Link
-            href="/login"
-            className="text-[var(--color-accent)] hover:underline underline-offset-[3px] decoration-[1px]"
-          >
-            {t('login')}
-          </Link>
-        </p>
-      </CardContent>
-    </Card>
+      {/* Switch to Login Link */}
+      <p className="mt-7 text-center text-[13.5px] text-[var(--color-ink-2)]">
+        Already have an account?{' '}
+        <Link
+          href="/login"
+          className="font-semibold text-[var(--color-accent)] hover:underline underline-offset-4"
+        >
+          Sign In
+        </Link>
+      </p>
+    </div>
   )
 }

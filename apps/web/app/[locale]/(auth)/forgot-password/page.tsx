@@ -6,10 +6,7 @@ import { Link } from '@/lib/i18n/navigation'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { ForgotPasswordSchema, type ForgotPasswordInput } from '@propella/shared'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
+import { Mail, ArrowLeft, CheckCircle2 } from 'lucide-react'
 import { api } from '@/lib/api-client'
 
 export default function ForgotPasswordPage() {
@@ -37,80 +34,101 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <Card variant="elevated">
-      <CardContent className="p-8">
-        <div className="mb-6">
-          <h1
-            className="text-[22px] font-semibold text-[var(--color-ink)] leading-[1.3] mb-1"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            Reset your password
-          </h1>
-          <p className="text-[13px] text-[var(--color-ink-2)]">
-            Enter your email and we&apos;ll send you a link.
-          </p>
-        </div>
+    <div className="w-full">
+      {/* Title & Subtitle matching the new auth aesthetic */}
+      <div className="mb-8">
+        <h1
+          className="text-[28px] sm:text-[34px] font-bold text-[var(--color-ink)] leading-[1.2] mb-2 tracking-tight"
+          style={{ fontFamily: "'Parkinsans', sans-serif" }}
+        >
+          Reset Your Password
+        </h1>
+        <p className="text-[15px] text-[var(--color-ink-2)]">
+          Enter your registered email and we&apos;ll send you a recovery link
+        </p>
+      </div>
 
-        {submitted ? (
-          <div>
-            <div className="bg-[var(--color-paper-2)] border border-[var(--color-rule)] rounded-[var(--radius-md)] px-4 py-4">
-              <p className="text-[14px] text-[var(--color-ink)] leading-[1.5]">
-                {t('resetLinkSent')}
+      {submitted ? (
+        <div className="flex flex-col gap-6">
+          <div className="flex items-start gap-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40 p-4 sm:p-5">
+            <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-[15px] font-semibold text-emerald-900 dark:text-emerald-200 mb-1">
+                Recovery Link Sent
+              </h3>
+              <p className="text-[13.5px] text-emerald-800 dark:text-emerald-300 leading-relaxed">
+                If an account exists for that email, a password reset link has been dispatched. Please check your inbox and spam folder.
               </p>
             </div>
-            <p className="mt-6 text-center text-[13px] text-[var(--color-ink-2)]">
-              <Link
-                href="/login"
-                className="text-[var(--color-accent)] hover:underline underline-offset-[3px] decoration-[1px]"
-              >
-                Back to sign in
-              </Link>
-            </p>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
+
+          <Link
+            href="/login"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#1A1917] dark:bg-white text-white dark:text-[#1A1917] hover:bg-[var(--color-accent)] dark:hover:bg-[var(--color-accent)] dark:hover:text-white py-3.5 text-[15px] font-semibold transition-all duration-150 active:scale-[0.99]"
+          >
+            <ArrowLeft size={16} />
+            Return to Sign in
+          </Link>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
+          {/* Your Email */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-[13.5px] font-semibold text-[var(--color-ink)] mb-2"
+            >
+              Your Email
+            </label>
+            <div className="relative">
+              <input
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
-                error={errors.email?.message}
+                placeholder="info.scholar@gmail.com"
+                className={`w-full rounded-xl border bg-transparent dark:bg-[#1A1813] px-4 py-3.5 pr-11 text-[15px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-3)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 ${
+                  errors.email
+                    ? 'border-[var(--color-danger)] focus:border-[var(--color-danger)]'
+                    : 'border-[var(--color-rule-2)] hover:border-[var(--color-ink)]/40 focus:border-[var(--color-accent)]'
+                }`}
                 {...register('email')}
               />
-              {errors.email && (
-                <p className="mt-1.5 text-[13px] text-[var(--color-danger)]">{errors.email.message}</p>
-              )}
+              <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-ink-3)] pointer-events-none p-1">
+                <Mail size={18} strokeWidth={1.75} />
+              </div>
             </div>
-
-            {serverError && (
-              <p className="text-[13px] text-[var(--color-danger)] bg-[var(--color-paper-2)] border border-[var(--color-rule)] rounded-[var(--radius-sm)] px-3 py-2">
-                {serverError}
-              </p>
+            {errors.email && (
+              <p className="mt-1.5 text-[12.5px] text-[var(--color-danger)]">{errors.email.message}</p>
             )}
+          </div>
 
-            <Button
-              type="submit"
-              variant="accent"
-              size="lg"
-              className="w-full"
-              disabled={isSubmitting}
+          {serverError && (
+            <div className="text-[13px] text-[var(--color-danger)] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl px-4 py-3">
+              {serverError}
+            </div>
+          )}
+
+          {/* Submit button */}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full rounded-xl bg-[#1A1917] dark:bg-white text-white dark:text-[#1A1917] hover:bg-[var(--color-accent)] dark:hover:bg-[var(--color-accent)] dark:hover:text-white py-3.5 text-[15px] font-semibold transition-all duration-150 active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+          >
+            {isSubmitting ? 'Sending Link...' : 'Send Reset Link'}
+          </button>
+
+          {/* Bottom link */}
+          <p className="text-center text-[14px] text-[var(--color-ink-2)] pt-2">
+            Remembered your password?{' '}
+            <Link
+              href="/login"
+              className="font-semibold text-[var(--color-accent)] hover:underline underline-offset-2"
             >
-              {isSubmitting ? `${t('sendResetLink')}...` : t('sendResetLink')}
-            </Button>
-
-            <p className="text-center text-[13px] text-[var(--color-ink-2)]">
-              <Link
-                href="/login"
-                className="text-[var(--color-accent)] hover:underline underline-offset-[3px] decoration-[1px]"
-              >
-                Back to sign in
-              </Link>
-            </p>
-          </form>
-        )}
-      </CardContent>
-    </Card>
+              Sign in
+            </Link>
+          </p>
+        </form>
+      )}
+    </div>
   )
 }

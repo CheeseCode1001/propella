@@ -1,7 +1,5 @@
-import { Link } from '@/lib/i18n/navigation'
+import Link from 'next/link'
 import { Home, Compass } from 'lucide-react'
-import { StickyNav } from '@/components/marketing/sticky-nav'
-import { MarketingFooter } from '@/components/marketing/footer'
 import {
   DoodleRays,
   DoodleSmile,
@@ -11,10 +9,63 @@ import {
   JoyHeading,
 } from '@/components/marketing/joy'
 
+/**
+ * Locale-scoped Not Found page.
+ *
+ * NOTE: We do NOT import `StickyNav` or `MarketingFooter` here because they
+ * use `usePathname()` from next-intl, which throws during static prerendering
+ * of `/_not-found` (no active request context). We also use standard next/link
+ * instead of the next-intl Link to avoid locale-context dependency. All hrefs
+ * are prefixed with `/en` as a safe default for prerendering.
+ */
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-paper)] text-[var(--color-ink)]">
-      <StickyNav />
+    <div className="min-h-screen flex flex-col bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[#FFDFC6] selection:text-[#1A1917]">
+      {/* Self-contained Floating Pill Header (no usePathname) */}
+      <div className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 pt-3 sm:pt-4 pointer-events-none">
+        <header className="pointer-events-auto max-w-[1200px] mx-auto rounded-full bg-white/95 dark:bg-[#1A1813]/95 backdrop-blur-md border border-[var(--color-rule)] dark:border-[#2D2A23] px-6 sm:px-8 py-3 sm:py-3.5 flex items-center justify-between gap-4 shadow-[0_4px_22px_rgba(26,25,23,0.06)]">
+          <Link href="/en" className="flex items-center gap-2.5 group">
+            <div className="relative shrink-0 overflow-hidden rounded-[10px] w-8 h-8 shadow-sm transition-transform duration-200 group-hover:scale-105">
+              <img
+                src="/logo.png"
+                alt="Propella"
+                width={32}
+                height={32}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <span
+              className="font-semibold text-[20px] text-[var(--color-ink)]"
+              style={{ fontFamily: "'Parkinsans', sans-serif" }}
+            >
+              Propella
+            </span>
+          </Link>
+
+          <nav className="flex items-center gap-2 sm:gap-4">
+            <Link
+              href="/en"
+              className="rounded-full px-3.5 py-1.5 text-[15px] sm:text-[17px] font-medium text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              href="/en/programs"
+              className="rounded-full px-3.5 py-1.5 text-[15px] sm:text-[17px] font-medium text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors hidden sm:inline-block"
+            >
+              Programs
+            </Link>
+            <Link
+              href="/en/contact"
+              className="rounded-full bg-[var(--color-accent)] px-5 sm:px-6 py-2 sm:py-2.5 text-[14px] sm:text-[15px] font-semibold text-white shadow-sm hover:bg-[var(--color-accent-2)] transition"
+            >
+              Contact Us
+            </Link>
+          </nav>
+        </header>
+      </div>
+
+      {/* Main 404 Stage */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-28 sm:py-36 text-center relative overflow-hidden">
         {/* Decorative floating doodles */}
         <DoodleSmile className="absolute left-[15%] top-[12%] hidden w-16 sm:block animate-joy-float" />
@@ -25,7 +76,7 @@ export default function NotFound() {
         <div className="relative z-10 max-w-lg mx-auto">
           <JoyEyebrow className="mb-6">404 Error</JoyEyebrow>
 
-          {/* Big playful 404 number matching Joyloo 404 */}
+          {/* Big playful 404 number */}
           <div className="relative mb-6 select-none">
             <span
               className="text-[110px] sm:text-[150px] font-extrabold leading-none tracking-tight text-[#1A1917]/20 dark:text-white/20"
@@ -46,18 +97,18 @@ export default function NotFound() {
           </JoyHeading>
 
           <p className="text-[17px] leading-[26px] text-[var(--color-ink)]/75 dark:text-[var(--color-ink)]/75 mb-10 max-w-md mx-auto">
-            Let&apos;s guide you back to something helpful and meaningful for you and your study journey today with care and support.
+            Let&apos;s guide you back to something helpful and meaningful for your study journey.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/"
+              href="/en"
               className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-8 py-3.5 text-[15px] font-semibold text-white shadow-md transition hover:bg-[var(--color-accent-2)] joy-btn-hover"
             >
               <Home size={16} /> Back to Home
             </Link>
             <Link
-              href="/programs"
+              href="/en/programs"
               className="inline-flex items-center gap-2 rounded-full border border-[var(--color-rule-2)] dark:border-[#3A362D] bg-white dark:bg-[#1A1813] px-7 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] hover:border-[var(--color-ink)] joy-btn-hover"
             >
               <Compass size={16} /> Explore Programs
@@ -65,7 +116,24 @@ export default function NotFound() {
           </div>
         </div>
       </main>
-      <MarketingFooter />
+
+      {/* Self-contained clean footer */}
+      <footer className="border-t border-[var(--color-rule)] dark:border-[#2D2A23] bg-white dark:bg-[#16140F] py-8 px-6 text-center text-sm text-[var(--color-ink)]/60">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© {new Date().getFullYear()} Propella Study. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/en/privacy" className="hover:text-[var(--color-accent)] transition">
+              Privacy Policy
+            </Link>
+            <Link href="/en/terms" className="hover:text-[var(--color-accent)] transition">
+              Terms of Service
+            </Link>
+            <Link href="/en/contact" className="hover:text-[var(--color-accent)] transition">
+              Contact Support
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

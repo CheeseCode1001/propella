@@ -1,19 +1,18 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { useRouter } from '@/lib/i18n/navigation'
+import { useCallback, useEffect, useRef, useState, Suspense } from 'react'
+import { useRouter, Link } from '@/lib/i18n/navigation'
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { api } from '@/lib/api-client'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import type { AuthUser } from '@propella/shared'
+import { Mail, CheckCircle2 } from 'lucide-react'
 
 const CODE_LENGTH = 6
 const RESEND_COOLDOWN_SEC = 60
 
-export default function VerifyEmailPage() {
+function VerifyEmailForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const emailParam = searchParams.get('email')?.trim() ?? ''
@@ -173,7 +172,7 @@ export default function VerifyEmailPage() {
       } else {
         await api.post('/auth/resend-verification', {})
       }
-      setNotice('A new code is on its way.')
+      setNotice('A new 6-digit code has been dispatched to your email.')
       setCooldown(RESEND_COOLDOWN_SEC)
       setDigits(Array(CODE_LENGTH).fill(''))
       await loadDevCode()
@@ -185,94 +184,116 @@ export default function VerifyEmailPage() {
   }
 
   return (
-    <Card variant="elevated">
-      <CardContent className="p-8">
-        <div className="mb-6">
-          <h1
-            className="text-[22px] font-semibold text-[var(--color-ink)] leading-[1.3] mb-1"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            {t('verifyEmail')}
-          </h1>
-          <p className="text-[13px] text-[var(--color-ink-2)]">
-            {t('verifyEmailSent')}{' '}
-            <strong className="text-[var(--color-ink)]">{activeEmail || 'your inbox'}</strong>.
-          </p>
-        </div>
-
-        {devCode && (
-          <div className="mb-5 rounded-[var(--radius-sm)] border border-[var(--color-warning)]/40 bg-[var(--color-warning-tint)] px-3 py-2.5">
-            <p className="text-[12px] font-semibold text-[var(--color-warning)] mb-1">
-              Development mode — no email provider configured
-            </p>
-            <div className="flex items-center gap-2">
-              <code className="font-mono text-[18px] tracking-[0.22em] text-[var(--color-ink)]">
-                {devCode}
-              </code>
-              <button
-                type="button"
-                onClick={() => void submit(fill(devCode))}
-                className="text-[12px] font-semibold text-[var(--color-accent)] underline underline-offset-2 bg-transparent border-none cursor-pointer"
-              >
-                Use this code
-              </button>
-            </div>
-          </div>
-        )}
-
-        <div className="flex gap-2 justify-between mb-5">
-          {digits.map((digit, i) => (
-            <input
-              key={i}
-              ref={(el) => {
-                inputsRef.current[i] = el
-              }}
-              value={digit}
-              onChange={(e) => handleChange(i, e.target.value)}
-              onKeyDown={(e) => handleKeyDown(i, e)}
-              onPaste={(e) => {
-                e.preventDefault()
-                const pasted = fill(e.clipboardData.getData('text'))
-                if (pasted.length === CODE_LENGTH) void submit(pasted)
-              }}
-              inputMode="numeric"
-              autoComplete={i === 0 ? 'one-time-code' : 'off'}
-              maxLength={CODE_LENGTH}
-              aria-label={`Digit ${i + 1}`}
-              disabled={submitting}
-              className="w-full h-14 text-center rounded-[var(--radius-sm)] border-[1.5px] border-[var(--color-rule-2)] bg-[var(--color-paper-2)] text-[var(--color-ink)] text-[20px] font-mono focus:border-[var(--color-accent)] focus:outline-none disabled:opacity-60"
-            />
-          ))}
-        </div>
-
-        {error && (
-          <p className="text-[13px] text-[var(--color-danger)] mb-4" role="alert">
-            {error}
-          </p>
-        )}
-        {notice && <p className="text-[13px] text-[var(--color-success)] mb-4">{notice}</p>}
-
-        <Button
-          variant="accent"
-          size="lg"
-          className="w-full"
-          disabled={!isComplete || submitting}
-          onClick={() => void submit(code)}
+    <div className="w-full">
+      {/* Title & Subtitle */}
+      <div className="mb-7">
+        <h1
+          className="text-[28px] sm:text-[34px] font-bold text-[var(--color-ink)] leading-[1.2] mb-2 tracking-tight"
+          style={{ fontFamily: "'Parkinsans', sans-serif" }}
         >
-          {submitting ? `${t('verifying')}...` : t('verifyEmailCta')}
-        </Button>
+          Check Your Inbox
+        </h1>
+        <p className="text-[15px] text-[var(--color-ink-2)] leading-relaxed">
+          We&apos;ve sent a 6-digit verification code to{' '}
+          <strong className="text-[var(--color-ink)] font-semibold">{activeEmail || 'your email'}</strong>
+        </p>
+      </div>
 
-        <div className="mt-5 text-center">
-          <button
-            type="button"
-            onClick={() => void handleResend()}
-            disabled={cooldown > 0 || resending}
-            className="text-[13px] font-medium text-[var(--color-accent)] disabled:text-[var(--color-ink-3)] disabled:cursor-not-allowed bg-transparent border-none cursor-pointer"
-          >
-            {cooldown > 0 ? `${t('resendIn')} ${cooldown}s` : t('resendCode')}
-          </button>
+      {/* Dev helper code */}
+      {devCode && (
+        <div className="mb-6 rounded-xl border border-amber-300 dark:border-amber-700/50 bg-amber-50 dark:bg-amber-950/30 p-3.5">
+          <p className="text-[12px] font-semibold text-amber-800 dark:text-amber-300 mb-1">
+            Local Dev Mode — No SMTP configured
+          </p>
+          <div className="flex items-center justify-between">
+            <code className="font-mono text-[17px] font-bold tracking-[0.25em] text-[var(--color-ink)]">
+              {devCode}
+            </code>
+            <button
+              type="button"
+              onClick={() => void submit(fill(devCode))}
+              className="text-[12.5px] font-semibold text-[var(--color-accent)] hover:underline cursor-pointer"
+            >
+              Fill code
+            </button>
+          </div>
         </div>
-      </CardContent>
-    </Card>
+      )}
+
+      {/* 6-Digit input boxes */}
+      <div className="flex gap-2 sm:gap-2.5 justify-between mb-6">
+        {digits.map((digit, i) => (
+          <input
+            key={i}
+            ref={(el) => {
+              inputsRef.current[i] = el
+            }}
+            value={digit}
+            onChange={(e) => handleChange(i, e.target.value)}
+            onKeyDown={(e) => handleKeyDown(i, e)}
+            onPaste={(e) => {
+              e.preventDefault()
+              const pasted = fill(e.clipboardData.getData('text'))
+              if (pasted.length === CODE_LENGTH) void submit(pasted)
+            }}
+            inputMode="numeric"
+            autoComplete={i === 0 ? 'one-time-code' : 'off'}
+            maxLength={CODE_LENGTH}
+            aria-label={`Digit ${i + 1}`}
+            disabled={submitting}
+            className="w-12 h-14 sm:w-14 sm:h-16 text-center rounded-xl border border-[var(--color-rule-2)] bg-transparent dark:bg-[#1A1813] text-[var(--color-ink)] text-[22px] sm:text-[24px] font-bold font-mono focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:outline-none transition-all disabled:opacity-50"
+          />
+        ))}
+      </div>
+
+      {error && (
+        <div className="text-[13px] text-[var(--color-danger)] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl px-4 py-3 mb-5" role="alert">
+          {error}
+        </div>
+      )}
+      {notice && (
+        <div className="text-[13px] text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40 rounded-xl px-4 py-3 mb-5 flex items-center gap-2">
+          <CheckCircle2 size={16} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
+          <span>{notice}</span>
+        </div>
+      )}
+
+      {/* Verify Button */}
+      <button
+        type="button"
+        disabled={!isComplete || submitting}
+        onClick={() => void submit(code)}
+        className="w-full rounded-xl bg-[#1A1917] dark:bg-white text-white dark:text-[#1A1917] hover:bg-[var(--color-accent)] dark:hover:bg-[var(--color-accent)] dark:hover:text-white py-3.5 text-[15px] font-semibold transition-all duration-150 active:scale-[0.99] disabled:opacity-40 cursor-pointer"
+      >
+        {submitting ? 'Verifying Code...' : 'Verify Email'}
+      </button>
+
+      {/* Resend button */}
+      <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13.5px]">
+        <button
+          type="button"
+          onClick={() => void handleResend()}
+          disabled={cooldown > 0 || resending}
+          className="font-medium text-[var(--color-accent)] hover:underline disabled:text-[var(--color-ink-3)] disabled:no-underline disabled:cursor-not-allowed bg-transparent border-none cursor-pointer"
+        >
+          {cooldown > 0 ? `Resend code in ${cooldown}s` : resending ? 'Sending...' : 'Didn’t receive code? Resend'}
+        </button>
+
+        <Link
+          href="/login"
+          className="text-[var(--color-ink-3)] hover:text-[var(--color-ink)] transition-colors"
+        >
+          Back to Sign in
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={<div className="py-8 text-center text-[var(--color-ink-3)] text-sm">Loading verification...</div>}>
+      <VerifyEmailForm />
+    </Suspense>
   )
 }

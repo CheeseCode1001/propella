@@ -71,17 +71,23 @@ export function Shell({ children }: { children: React.ReactNode }) {
       >
         <div
           style={{
-            padding: '18px 20px',
+            padding: '16px 20px',
             borderBottom: '1px solid var(--rule)',
             display: 'flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 10,
           }}
         >
-          <ShieldCheck size={18} color="var(--accent)" />
+          <img
+            src="/logo.png"
+            alt="Propella"
+            width={30}
+            height={30}
+            style={{ borderRadius: 8, objectFit: 'cover' }}
+          />
           <div>
-            <div style={{ fontWeight: 700, letterSpacing: '-0.01em' }}>Propella</div>
-            <div style={{ fontSize: 11, color: 'var(--ink-3)', letterSpacing: '0.06em' }}>ADMIN</div>
+            <div style={{ fontWeight: 700, letterSpacing: '-0.01em', lineHeight: 1.2 }}>Propella</div>
+            <div style={{ fontSize: 10, color: 'var(--ink-3)', letterSpacing: '0.08em', fontWeight: 600 }}>ADMIN PORTAL</div>
           </div>
         </div>
 
