@@ -74,52 +74,52 @@ export default function ParentsResourcePage() {
           <div className="rounded-[32px] border border-[var(--color-rule)] bg-white p-8 lg:p-14 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
               <JoyEyebrow tone="accent" className="mb-4">Live Supervision</JoyEyebrow>
-              <JoyHeading as="h2" size="h2" className="text-[28px] sm:text-[36px] mb-5">
+              <JoyHeading as="h2" size="h2" className="text-[28px] text-black/70 sm:text-[36px] mb-5">
                 Stay connected all day
               </JoyHeading>
-              <p className="text-[17px] leading-[27px] mb-8">
+              <p className="text-[17px] leading-[27px] mb-8 text-black/70">
                 You never have to wonder whether your child is actually studying or just scrolling on their phone.
                 Propella provides transparent metrics, daily completed topic logs, and instant mock exam alerts.
               </p>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-[var(--color-accent-tint)] text-[var(--color-accent)] flex items-center justify-center font-bold">
+                  <div className="h-10 w-10 shrink-0 rounded-full bg-[var(--color-accent)] text-white flex items-center justify-center font-bold">
                     <Bell size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold " style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
+                    <h3 className="text-[18px] text-black/70 font-semibold " style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Daily Study Updates
                     </h3>
-                    <p className="text-[15px] leading-[23px] mt-1">
+                    <p className="text-[15px] text-black/70 leading-[23px] mt-1">
                       See which syllabus topics were completed, number of questions answered, and accuracy rates.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 flex items-center justify-center font-bold">
+                  <div className="h-10 w-10 shrink-0 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">
                     <Check size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold " style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
+                    <h3 className="text-[18px] text-black/70 font-semibold " style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Automated Mock Exam Scorecards
                     </h3>
-                    <p className="text-[15px] leading-[23px] mt-1">
+                    <p className="text-[15px] text-black/70 leading-[23px] mt-1">
                       Receive detailed breakdown cards showing strengths and topics that need immediate attention.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400 flex items-center justify-center font-bold">
+                  <div className="h-10 w-10 shrink-0 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
                     <Users size={20} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-semibold" style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
+                    <h3 className="text-[18px] text-black/70 font-semibold " style={{ fontFamily: "'Parkinsans', sans-serif", fontWeight: 600 }}>
                       Shared Sibling &amp; Partner Accounts
                     </h3>
-                    <p className="text-[15px] leading-[23px] mt-1">
+                    <p className="text-[15px] text-black/70 leading-[23px] mt-1">
                       Manage two children under one subscription while maintaining totally private profiles for each.
                     </p>
                   </div>

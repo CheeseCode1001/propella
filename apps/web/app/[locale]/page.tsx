@@ -463,7 +463,7 @@ export default function HomePage() {
                   <p className="text-[14px]">{p.focus}</p>
                   <Link
                     href={p.href}
-                    className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-semibold ver:text-[var(--color-accent)]"
+                    className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-semibold hover:text-[var(--color-accent)]"
                   >
                     Learn more <ArrowUpRight size={16} />
                   </Link>
@@ -504,12 +504,12 @@ export default function HomePage() {
                 loading="lazy"
               />
             </div>
-            <div className="absolute -bottom-8 -left-4 rounded-[18px] bg-white px-5 py-4 shadow-xl sm:-left-10">
+            <div className="absolute -bottom-8 -left-4 rounded-[18px] bg-white text-black/80 px-5 py-4 shadow-xl sm:-left-10">
               <p className="text-[32px] font-semibold leading-none" style={{ fontFamily: 'var(--font-display)' }}>
                 5.0
               </p>
               <RatingStars className="mt-1.5" />
-              <p className="mt-1 text-[13px] text-[var(--color-ink)]/60">Loved by our students</p>
+              <p className="mt-1 text-[13px]">Loved by our students</p>
             </div>
           </div>
         </div>
