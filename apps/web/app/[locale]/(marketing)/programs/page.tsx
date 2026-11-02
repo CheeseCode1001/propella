@@ -143,7 +143,7 @@ export default function ProgramsPage() {
             >
               <div className="lg:col-span-7">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className="rounded-full bg-gray-400 px-3.5 py-1 text-[13px] font-semibold">
+                  <span className="rounded-full bg-gray-200 text-black/80 px-3.5 py-1 text-[13px] font-semibold">
                     {p.age}
                   </span>
                   <JoyEyebrow tone="accent">{p.badge}</JoyEyebrow>
