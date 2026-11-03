@@ -58,7 +58,7 @@ export function JoyVideo({
         onClick={toggle}
         aria-label={playing ? 'Pause video' : 'Play video'}
         className={cn(
-          'absolute z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[var(--color-ink)] shadow-md backdrop-blur transition hover:bg-white',
+          'absolute z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-md backdrop-blur transition',
           controlsPosition === 'bottom-right' ? 'bottom-5 right-5' : 'top-5 right-5',
         )}
       >

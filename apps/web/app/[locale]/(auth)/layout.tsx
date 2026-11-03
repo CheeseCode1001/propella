@@ -62,12 +62,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <p className="text-white/80 text-[15px] sm:text-[16.5px] leading-relaxed mb-6 font-normal drop-shadow-sm">
             Personalized syllabus roadmaps, timed CBT mocks, and 24/7 AI tutor guidance built for Nigerian scholars.
           </p>
-
-          {/* Slider indicator dots matching reference image */}
+           {/* Slider indicator dots matching reference image */}
           <div className="flex items-center gap-2">
-            <span className="w-8 h-1.5 rounded-full bg-white transition-all duration-300" />
-            <span className="w-2 h-1.5 rounded-full bg-white/40" />
-            <span className="w-2 h-1.5 rounded-full bg-white/40" />
+            <span className="w-28 h-1.5 rounded-full bg-white transition-all duration-300" />
           </div>
         </div>
       </div>

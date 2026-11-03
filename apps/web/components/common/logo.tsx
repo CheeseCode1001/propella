@@ -8,7 +8,7 @@ interface LogoProps {
   showText?: boolean
 }
 
-export function Logo({ className, href = '/', size = 32, showText = true }: LogoProps) {
+export function Logo({ className, href = '/', size = 35, showText = true }: LogoProps) {
   return (
     <Link
       href={href}
@@ -19,7 +19,7 @@ export function Logo({ className, href = '/', size = 32, showText = true }: Logo
       style={{ fontFamily: "'Parkinsans', sans-serif", letterSpacing: '-0.01em' }}
     >
       <div
-        className="relative shrink-0 overflow-hidden rounded-[10px] shadow-sm transition-transform duration-200 group-hover:scale-105"
+        className="relative shrink-0 overflow-hidden transition-transform duration-200 group-hover:scale-105"
         style={{ width: size, height: size }}
       >
         <img
