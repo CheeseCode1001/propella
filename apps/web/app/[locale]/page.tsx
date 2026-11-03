@@ -576,10 +576,14 @@ export default function HomePage() {
               return (
                 <JoyStaggerItem key={r.title} className="h-full">
                   <div
-                    className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 min-h-[250px] h-full flex flex-col justify-between joy-card-hover shadow-sm"
+                    className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 min-h-[250px] h-full flex flex-col justify-between joy-card-hover shadow-sm group"
                     style={{ backgroundColor: r.color, color: dark ? '#fff' : JOY.ink }}
                   >
-                    <DoodleSwirl className={`absolute -bottom-10 -right-10 w-40 ${dark ? 'text-white/25' : 'text-black/10'}`} />
+                    <DoodleSwirl
+                      className={`absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 ${
+                        dark ? 'text-white/25' : 'text-black/10'
+                      }`}
+                    />
                     <div className="flex flex-col items-start justify-between w-full h-full">
                       <span
                         className={`relative inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[13px] font-semibold ${dark ? 'bg-white/20' : 'bg-black/10'}`}
@@ -648,9 +652,12 @@ export default function HomePage() {
             {plans.map((p) => (
               <div
                 key={p.name}
-                className={`relative flex flex-col rounded-[24px] border p-7 ${p.featured ? 'border-[var(--color-ink)] shadow-[6px_6px_0_0_#1A1917]' : 'border-[var(--color-rule)]'}`}
+                className={`relative flex flex-col rounded-[24px] border p-7 overflow-hidden group ${p.featured ? 'border-[var(--color-ink)] shadow-[6px_6px_0_0_#1A1917]' : 'border-[var(--color-rule)]'}`}
                 style={{ backgroundColor: p.color }}
               >
+                <DoodleSwirl
+                  className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10"
+                />
                 {p.featured && (
                   <span className="absolute -top-3.5 left-7 rounded-full bg-[var(--color-accent)] px-3 py-1 text-[12px] font-semibold text-white">
                     Most popular

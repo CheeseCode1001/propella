@@ -20,6 +20,7 @@ import { useAuthStore } from '@/lib/stores/auth-store'
 import { Folder2, People, TaskSquare } from 'iconsax-reactjs'
 import type { TodayTopic, WeakTopic, DailyScore, UpcomingRevision } from '@propella/shared'
 import { formatDistanceToNow } from 'date-fns'
+import { DoodleSwirl } from '@/components/marketing/joy'
 
 function getSubjectColor(slug: string): string {
   const map: Record<string, string> = {
@@ -55,7 +56,8 @@ function statusLabel(status: string) {
 // Skeleton versions of each card section
 function TodayFocusSkeleton() {
   return (
-    <Card className="lg:col-span-8">
+    <Card className="lg:col-span-8 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
       <CardHeader>
         <Skeleton className="h-3 w-16 mb-2" />
         <Skeleton className="h-5 w-48" />
@@ -115,7 +117,8 @@ function TodayFocusCard({
   dailyScheduleCompleted?: boolean | undefined
 }) {
   return (
-    <Card className="lg:col-span-8">
+    <Card className="lg:col-span-8 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
       <CardHeader>
         <p
           style={{
@@ -243,8 +246,9 @@ function StreakCard({
   })
 
   return (
-    <Card className="lg:col-span-4">
-      <CardContent className="flex flex-col items-center text-center py-4">
+    <Card className="lg:col-span-4 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
+      <CardContent className="flex flex-col items-center text-center py-4 relative z-[1]">
         <NumberCounter
           value={currentStreak}
           className="text-[56px] leading-none text-[var(--color-ink)]"
@@ -306,8 +310,9 @@ function XPRankCard({
       : 100
 
   return (
-    <Card className="lg:col-span-6">
-      <CardHeader className="mb-2">
+    <Card className="lg:col-span-6 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
+      <CardHeader className="mb-2 relative z-[1]">
         <p
           style={{
             fontFamily: 'var(--font-mono)',
@@ -365,8 +370,9 @@ function XPRankCard({
 function WeakestTopicsCard({ topics }: { topics: WeakTopic[] }) {
   const t = useTranslations('dashboard')
   return (
-    <Card className="lg:col-span-6">
-      <CardHeader>
+    <Card className="lg:col-span-6 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
+      <CardHeader className="relative z-[1]">
         <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>
           {t('weakestTopics')}
         </CardTitle>
@@ -468,8 +474,9 @@ function PerformanceTrendCard({ scores }: { scores: DailyScore[] }) {
   }))
 
   return (
-    <Card className="lg:col-span-7">
-      <CardHeader>
+    <Card className="lg:col-span-7 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
+      <CardHeader className="relative z-[1]">
         <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Last 7 days</CardTitle>
       </CardHeader>
       <CardContent>
@@ -545,8 +552,9 @@ function UpcomingRevisionsCard({ revisions }: { revisions: UpcomingRevision[] })
   const soon = revisions
 
   return (
-    <Card className="lg:col-span-5">
-      <CardHeader>
+    <Card className="lg:col-span-5 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
+      <CardHeader className="relative z-[1]">
         <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Due for revision</CardTitle>
       </CardHeader>
       <CardContent>
@@ -604,8 +612,9 @@ function UpcomingRevisionsCard({ revisions }: { revisions: UpcomingRevision[] })
 // Exam readiness card
 function ExamReadinessCard({ readiness }: { readiness: number }) {
   return (
-    <Card className="lg:col-span-12">
-      <CardHeader>
+    <Card className="lg:col-span-12 relative overflow-hidden group">
+      <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
+      <CardHeader className="relative z-[1]">
         <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Exam readiness</CardTitle>
       </CardHeader>
       <CardContent>
@@ -761,8 +770,9 @@ export default function DashboardPage() {
 
             {/* In undergraduate mode: Show Undergraduate Academic Hub card. In secondary mode: Show Exam Readiness card */}
             {isUndergrad ? (
-              <Card className="lg:col-span-12">
-                <CardHeader>
+              <Card className="lg:col-span-12 relative overflow-hidden group">
+                <DoodleSwirl className="absolute -bottom-10 -right-10 w-40 pointer-events-none transition-transform duration-500 group-hover:rotate-12 text-black/10 dark:text-white/20" />
+                <CardHeader className="relative z-[1]">
                   <CardTitle style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Undergraduate Study Hub</CardTitle>
                 </CardHeader>
                 <CardContent>
